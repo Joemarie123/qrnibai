@@ -1,28 +1,8 @@
 <template>
 <v-app>
-<h1> THIS IS QRCODES GENERATOR</h1>
-
-<v-row>
-    
- <!--    <v-col cols="12">
-      
-    <v-text-field v-model="search"></v-text-field>
- <div v-for="person in filteredCustomers" >  
-   <span>
-    ID: {{person.id}} 
-    FullName:{{person.FullName}}
-</span>
-</div>
+<h1> QR NI BAI</h1>
 
 
-</v-col> -->
-
-
-    <v-col cols="4">
-<v-card>
-</v-card>
-</v-col>
-</v-row>
 <div class="d-flex-column justify-center w-50">
 <v-text-field  v-model="QRValue" label="Type Number to Generater">
 
