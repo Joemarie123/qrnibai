@@ -1,9 +1,9 @@
 <template>
 <v-app>
 
-<h1>Change to Level="H"</h1>
+<h1>Change to Level="L"</h1>
 
-<qrcode-vue v-if="QRValue" :value="QRValue" :size="400" level="H" />
+<qrcode-vue v-if="QRValue" :value="QRValue"  level="L" />
 
 
 <v-btn color="green" @click="dialog = true" >
@@ -58,14 +58,12 @@ QR CODES READER -  JULY 1, 2023<strong>
  <v-textarea :value="decodedString"  v-model="search" @change="fetchData"  ></v-textarea>
 
 <div v-if="found">
-      <h2>Results:</h2>
-
+  <h2>Results:</h2>
   <p> Full Name: Joemarie O. Rendon</p>
   <p> Ofice: Human Resource Office</p>
   <p> Employement Status: Job Order</p>
    <p> Time: 7:49 AM</p>
 </div>
-
     <div v-else-if="searched">
       <p>No results found for {{ search }}</p>
     </div>
@@ -236,7 +234,7 @@ export default{
         (item) =>
           item.id.toLowerCase().includes(searchLower) ||
           item.FullName.toLowerCase().includes(searchLower) ||
-          item.Address.toLowerCase().includes(searchLower)
+          item.office.toLowerCase().includes(searchLower)
       );
       if (foundData) {
         this.result = foundData;
@@ -248,7 +246,6 @@ export default{
     },
 
   }
-
 
    /*   computed: {
         filteredCustomers() {
@@ -263,12 +260,6 @@ export default{
     },
 
 },  */
-
-
-
-
-
-
 
 
 }

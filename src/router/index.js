@@ -22,6 +22,13 @@ const routes = [
   },
 
 
+  
+  {
+    path: '/HtmlQrCodes',
+    name: 'HtmlQrCodes',
+    component: () => import('@/views/HtmlQrCodes.vue')
+  },
+
 
 
 ]
