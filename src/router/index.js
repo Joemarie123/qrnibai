@@ -3,9 +3,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
 
-
   {
     path: '/',
+    name: 'Login',
+    component: () => import('@/views/Login.vue')
+  },
+  
+  {
+    path: '/QrCodes',
     name: 'QrCodes',
     component: () => import('@/views/QrCodes.vue')
   },
@@ -15,6 +20,8 @@ const routes = [
     name: 'sample',
     component: () => import('@/views/sample.vue')
   },
+
+
 
 
 ]

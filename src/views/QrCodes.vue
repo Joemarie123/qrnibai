@@ -1,26 +1,32 @@
 <template>
 <v-app>
-<h1> QR NI BAI</h1>
 
+<h1>Change to Level="Q"</h1>
 
-<div class="d-flex-column justify-center w-50">
-<v-text-field  v-model="QRValue" label="Type Number to Generater">
+<qrcode-vue v-if="QRValue" :value="QRValue" :size="300" level="Q" />
 
-</v-text-field>
-</div>
-<qrcode-vue v-if="QRValue" :value="QRValue" :size="300" level="H" />
 
 <v-btn color="green" @click="dialog = true" >
 
 Read QR CODES
 </v-btn>
 
-<v-dialog v-model="dialog" max-width="700px">
+<v-data-table
+    v-model:items-per-page="itemsPerPage"
+    :headers="headers"
+    :items="desserts"
+    item-value="name"
+    class="elevation-1"
+  ></v-data-table>
+
+
+<v-dialog v-model="dialog" max-width="880px">
 <v-card>
     
     <div class="text-center ">
+
 <v-alert class="px-n7" dense dark color="blue darken-3">
-QR CODES READER<strong>
+QR CODES READER -  JULY 1, 2023<strong>
      </strong>
 
  </v-alert>
@@ -48,21 +54,16 @@ QR CODES READER<strong>
 <v-col cols="12"  md="6">
 
 <v-card>
- <!--  :value="decodedString" -->
- <v-text-field :value="decodedString"  v-model="search" @change="fetchData"  ></v-text-field>
-    <!-- <p > ID Number: {{ decodedString }}</p> -->
-  <!--   <div v-for="person in filteredCustomers" >
-  <p> Full Name: {{ person.FullName }}</p>
-  <p> Address: {{ person.Address }}</p>
-   <p> Civil Status: {{ person.Civil_Status }}</p>
-</div> -->
+
+ <v-textarea :value="decodedString"  v-model="search" @change="fetchData"  ></v-textarea>
 
 <div v-if="found">
       <h2>Results:</h2>
 
-  <p> Full Name: {{ result.FullName }}</p>
-  <p> Address: {{ result.Address }}</p>
-   <p> Civil Status: {{ result.Civil_Status }}</p>
+  <p> Full Name: Joemarie O. Rendon</p>
+  <p> Ofice: Human Resource Office</p>
+  <p> Employement Status: Job Order</p>
+   <p> Time: 7:49 AM</p>
 </div>
 
     <div v-else-if="searched">
@@ -91,6 +92,7 @@ export default{
     data(){ 
       
         return{
+          itemsPerPage: 5,
             dialog:false,
             QRValue:null, 
             error:'',
@@ -99,6 +101,25 @@ export default{
             search: "",
       found: false,
       searched: false,
+
+      headers: [
+          {
+            title: 'Dessert (100g serving)',
+            align: 'start',
+            sortable: false,
+            key: 'name',
+          },
+          { title: 'Calories', align: 'end', key: 'calories' },
+          { title: 'Fat (g)', align: 'end', key: 'fat' },
+          { title: 'Carbs (g)', align: 'end', key: 'carbs' },
+          { title: 'Protein (g)', align: 'end', key: 'protein' },
+          { title: 'Iron (%)', align: 'end', key: 'iron' },
+        ],
+
+
+
+
+
       result: {},
              
             persons: [
@@ -107,7 +128,7 @@ export default{
          
               id: '123', 
           FullName: 'None',
-           Address: 'None',
+           office: 'None',
           Civil_Status:'None', 
           
           },
@@ -117,7 +138,7 @@ export default{
           id: 'DDN48242F4DE', 
          
           FullName: 'Joemarie Rendon',
-           Address: 'Purok 2-A Magatos,Asuncion',
+          office: 'CMO - IT',
           Civil_Status:'Married', 
           
           },
@@ -127,7 +148,7 @@ export default{
           id: 'DDN26DF58AD3', 
          
           FullName: 'Milanie Rendon',
-           Address: 'Purok 2 Andap LAAK',
+          office: 'CMO - Youth',
           Civil_Status:'Married', 
           
           },
@@ -136,7 +157,7 @@ export default{
           id: 'DDN89B4787F3', 
          
           FullName: 'Rebecca Waga',
-           Address: 'Purok 4 Buhol',
+          office: 'Human Resource',
           Civil_Status:'Married', 
           
           }
