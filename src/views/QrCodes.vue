@@ -1,9 +1,9 @@
 <template>
 <v-app>
 
-<h1>Change to Level="Q"</h1>
+<h1>Change to Level="H"</h1>
 
-<qrcode-vue v-if="QRValue" :value="QRValue" :size="300" level="Q" />
+<qrcode-vue v-if="QRValue" :value="QRValue" :size="400" level="H" />
 
 
 <v-btn color="green" @click="dialog = true" >
