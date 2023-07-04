@@ -1,49 +1,44 @@
 <template>
     <div>
-      <div ref="qrCodeFullRegion"></div>
-      <h1>{{ decodedString }}</h1>
+     <!--  <p>{{ concatenatedString }}</p>  -->
+      <p>ID: {{ id }}</p>
+      <p>Name: {{ name }}</p>
+     <!--  <p>Address: {{ address }}</p> -->
+
     </div>
   </template>
   
   <script>
-  import { ref, onMounted, toRefs } from 'vue';
-  
   export default {
-    props: {
-      qrbox: {
-        type: Number,
-        default: 250
-      },
-      fps: {
-        type: Number,
-        default: 10
-      }
-    },
-    setup(props) {
-      const { qrbox, fps } = toRefs(props);
-      const decodedString = ref('');
-  
-      onMounted(async () => {
-        const qrCodeFullRegion = document.getElementById('qr-code-full-region');
-  
-        const { Html5QrcodeScanner } = await import('html5-qrcode');
-  
-        const config = {
-          fps: fps.value,
-          qrbox: qrbox.value,
-        };
-  
-        const html5QrcodeScanner = new Html5QrcodeScanner(qrCodeFullRegion, config, (decodedText) => {
-          decodedString.value = decodedText;
-        });
-  
-        html5QrcodeScanner.render();
-      });
-  
+    data() {
       return {
-        decodedString
+        concatenatedString: 'City Government of Tagum - ABARICO, APRIL REY FORMOSO - 011709 - CMO - DETAILED AT NATIONAL LINE AGENCIES - CHRMO contact no. (645-3300) LOCAL (217 or 218)',
       };
-    }
+    },
+    computed: {
+      name() {
+
+        const regex = / - ([^-]+) -/;
+        const match = this.concatenatedString.match(regex);
+        return match ? match[1].trim() : '';
+      },
+      id() {
+       
+        const regex = / - (\d+) /;
+        const match = this.concatenatedString.match(regex);
+        return match ? match[1].trim() : '';
+      },
+      
+
+   /*    address() {
+        const regex = / - (\d+)  /  ;
+        const match = this.concatenatedString.match(regex);
+        return match ? match[1].trim() : '';
+      },
+ */
+
+
+    },
   };
   </script>
   

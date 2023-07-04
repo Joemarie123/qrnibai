@@ -21,6 +21,7 @@ Read QR CODES
 
 
 <v-dialog v-model="dialog" max-width="880px">
+  
 <v-card>
     
     <div class="text-center ">

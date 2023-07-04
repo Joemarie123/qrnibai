@@ -37,6 +37,11 @@ const routes = [
   },
 
 
+  {
+    path: '/sample',
+    name: 'sample',
+    component: () => import('@/views/sample.vue')
+  },
   
 
 
