@@ -1,53 +1,43 @@
 <template>
-     <div>
-    <h2 v-if="scannedData">{{ scannedData }}</h2>
-    <div ref="reader"></div>
+  <div id="app">
+    <div id="qr-code-full-region"></div>
+    <div>
+      <button type="button" @click="message = []">clear</button>
+    </div>
+    <div
+      v-for="(msg, index) in message"
+      :key="index"
+      style="white-space: pre-line"
+    >
+      <pre>decodedResult => {{ msg.decodedResult }}</pre>
+    </div>
   </div>
-  </template>
-  
-  <script>
-  import { Html5Qrcode } from 'html5-qrcode';
-  
-  export default {
-    data() {
-      return {
-        scanner: null,
-        scannedData: '',
-      };
+</template>
+
+<script>
+import { Html5QrcodeScanner } from "html5-qrcode";
+export default {
+  data() {
+    return {
+      message: [],
+    };
+  },
+  methods: {
+    creatScan() {
+      const config = { fps: 10, qrbox: 250 };
+      const html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-code-full-region",
+        config
+      );
+      html5QrcodeScanner.render(this.onScanSuccess);
     },
-    mounted() {
-      this.initializeScanner();
+    onScanSuccess(decodedText, decodedResult) {
+      const obj = { decodedResult: decodedResult };
+      this.message.push(obj);
     },
-    methods: {
-      initializeScanner() {
-        this.scanner = new Html5Qrcode('reader');
-        this.scanner
-          .start()
-          .then(() => {
-            console.log('QR code scanner started');
-            this.scanner.scan((result) => this.onScanSuccess(result), (error) => this.onScanError(error));
-          })
-          .catch((err) => {
-            console.error('Error while starting QR code scanner:', err);
-          });
-      },
-      onScanSuccess(qrCodeData) {
-        this.scannedData = qrCodeData;
-        this.scanner.stop();
-      },
-      onScanError(error) {
-        console.error('QR code scanning error:', error);
-      },
-    },
-    beforeUnmount() {
-      if (this.scanner) {
-        this.scanner.stop();
-      }
-    },
-  };
-  </script>
-  
-  <style>
-  /* Add any necessary styles here */
-  </style>
-  
+  },
+  async mounted() {
+    this.creatScan();
+  },
+};
+</script>
