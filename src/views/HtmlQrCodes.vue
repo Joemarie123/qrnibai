@@ -35,10 +35,10 @@ export default {
       const obj = { decodedResult: decodedResult };
       this.message.push(obj);
     }, */
-     onScanSuccess(decodedText, decodedResult) {
+   /*   onScanSuccess(decodedText, decodedResult) {
       const obj = { decodedResult: decodedResult };
       this.message.push(obj);
-    },
+    }, */
   },
   async mounted() {
     this.creatScan();
