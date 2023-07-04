@@ -1,9 +1,14 @@
 <template>
-  <div id="qr-code-full-region"></div>
+  <div>
+    <h1>QR CODE SCANNER</h1>
+    <div id="qr-code-full-region"></div>
+    <h1>{{ decodedString }}</h1>
+  </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue';
+import Html5QrcodeScanner from 'html5-qrcode';
 
 export default {
   props: {
@@ -14,28 +19,28 @@ export default {
     fps: {
       type: Number,
       default: 10
-    },
+    }
   },
-  mounted () {
-    const qrCodeFullRegion = ref(null);
+  setup() {
+    const decodedString = ref('');
 
     onMounted(() => {
+      const qrCodeFullRegion = document.getElementById('qr-code-full-region');
+      
       const config = {
         fps: this.fps,
         qrbox: this.qrbox,
       };
-      
-      const html5QrcodeScanner = new Html5QrcodeScanner(qrCodeFullRegion.value, config);
-      html5QrcodeScanner.render(this.onScanSuccess);
+
+      const html5QrcodeScanner = new Html5QrcodeScanner(qrCodeFullRegion, config, (decodedText) => {
+        decodedString.value = decodedText;
+      });
+
+      html5QrcodeScanner.render();
     });
 
-    const onScanSuccess = (decodedText, decodedResult) => {
-      this.$emit('result', decodedText, decodedResult);
-    };
-
     return {
-      qrCodeFullRegion,
-      onScanSuccess
+      decodedString
     };
   }
 };

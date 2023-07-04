@@ -30,6 +30,14 @@ const routes = [
     component: () => import('@/views/HtmlQrCodes.vue')
   },
 
+  {
+    path: '/TryNewQRCodes',
+    name: 'TryNewQRCodes',
+    component: () => import('@/views/TryNewQRCodes.vue')
+  },
+
+
+  
 
 
 ]

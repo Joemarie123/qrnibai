@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <div id="qr-code-full-region"></div>
-    <div>
+    <!-- <div>
       <button type="button" @click="message = []">clear</button>
-    </div>
+    </div> -->
     <div
       v-for="(msg, index) in message"
       :key="index"
       style="white-space: pre-line"
     >
-      <pre>decodedResult => {{ msg.decodedResult }}</pre>
+      <p> {{ msg.decodedResult }}</p>
     </div>
   </div>
 </template>
@@ -31,7 +31,11 @@ export default {
       );
       html5QrcodeScanner.render(this.onScanSuccess);
     },
-    onScanSuccess(decodedText, decodedResult) {
+   /*  onScanSuccess(decodedText, decodedResult) {
+      const obj = { decodedResult: decodedResult };
+      this.message.push(obj);
+    }, */
+     onScanSuccess(decodedText, decodedResult) {
       const obj = { decodedResult: decodedResult };
       this.message.push(obj);
     },
