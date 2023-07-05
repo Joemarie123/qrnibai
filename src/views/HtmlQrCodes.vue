@@ -56,7 +56,7 @@
       <tbody>
         <tr >
           <p>{{ msg.id }}</p>
-          <p class="mt-2 ml-3"> {{ msg.name }}</p> 
+          <p class="mt-n2 ml-3"> {{ msg.name }}</p> 
         </tr>
       </tbody>
     </table> 
