@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>{{ currentDate }}</h1>
+    <h1>{{ currentTime }}</h1>
+    <button @click="pushTime">Push Time</button>
+    <h2 v-if="transferredTimes.length > 0">{{ transferredTimes[transferredTimes.length - 1] }}</h2>
   </div>
 </template>
 
@@ -8,22 +10,27 @@
 export default {
   data() {
     return {
-      currentDate: '',
+      currentTime: '',
+      transferredTimes: [],
     };
   },
-  mounted() {
-    this.updateDate(); // Call it once on mount
-    this.timer = setInterval(this.updateDate, 1000); // Update date every second
-  },
-  beforeUnmount() {
-    clearInterval(this.timer); // Clear the timer on component unmount to prevent memory leaks
-  },
   methods: {
-    updateDate() {
+    getCurrentTime() {
       const now = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      this.currentDate = now.toLocaleDateString(undefined, options);
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      this.currentTime = `${hours}:${minutes}:${seconds}`;
     },
+    pushTime() {
+      this.transferredTimes.push(this.currentTime);
+    },
+  },
+  mounted() {
+    this.getCurrentTime();
+    setInterval(() => {
+      this.getCurrentTime();
+    }, 1000);
   },
 };
 </script>
