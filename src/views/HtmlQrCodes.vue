@@ -4,6 +4,7 @@
 
     <v-card class="" >
 
+      <h1>Na Change na</h1>
     <div id="qr-code-full-region"></div>
     
 
@@ -126,6 +127,7 @@ export default {
 
       const obj = {decodedResult: decodedResult};
      /*  console.log("obj",obj.decodedResult) */
+     if(this.message.find(name => name == this.name(obj.decodedResult))== undefined)
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
       
     /*   this.transferredTimes.push(this.currentTime); */
