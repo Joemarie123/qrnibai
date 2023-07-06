@@ -119,6 +119,7 @@ export default {
       currentDate: '',
       showMessage: false,
       message: [],
+      messagealreadyscan:[],
       transferredTimes: [],
       showSuccessMessage: false
 
@@ -149,7 +150,7 @@ export default {
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
 
       this.showMessage = true;
-      this.message = 'Already Scanned';
+      this.messagealreadyscan = 'Already Scanned';
 
      }
      else
@@ -240,10 +241,15 @@ export default {
 <style scoped>
 
 .alreadyscan {
-  text-align: center;
-  color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #fffffffb;
-  margin-top: 20px;
+  color: rgb(255, 5, 5);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
 }
 
 
@@ -262,6 +268,7 @@ export default {
   border-radius: 5px;
   z-index: 9999;
 }
+
 
   .sentro {
     width:50%;
