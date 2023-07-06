@@ -10,7 +10,7 @@
         Successfully Scanned
       </div>
 
-      <div v-if="showMessage" class="alreadyscan">{{ message }}</div>
+      <div v-if="showMessage" class="alreadyscan">{{ messagealreadyscan }}</div>
 
     </div>
     
@@ -151,6 +151,9 @@ export default {
 
       this.showMessage = true;
       this.messagealreadyscan = 'Already Scanned';
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 1500);
 
      }
      else
