@@ -129,7 +129,9 @@ export default {
   },
 
 
+
   methods: {
+    
     creatScan() {
       
       const config = { fps: 10, qrbox: 250 };
@@ -138,25 +140,15 @@ export default {
         config
       );
       html5QrcodeScanner.render(this.onScanSuccess);
-      
+     
     },
     
    onScanSuccess( decodedResult) {
    
      
-
+  
       const obj = {decodedResult: decodedResult};
       
- // Start scanning
- function startScanning() {
-    if (isScanningAllowed) {
-      html5QrcodeScanner.start();
-      isScanningAllowed = false;
-      setTimeout(() => {
-        isScanningAllowed = true;
-      }, 2000); // 2 seconds delay before allowing scanning again
-    }
-  }
 
 
 
@@ -179,10 +171,8 @@ export default {
         this.showMessage = false;
 
       }, 1500);
-        
-      setTimeout(() => {
-      startScanning();
-    }, 2000);
+ 
+      html5QrcodeScanner.clear();
     
     }
     /*   this.transferredTimes.push(this.currentTime); */
