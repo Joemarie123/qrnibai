@@ -75,7 +75,7 @@
       },
 
      goToFormTwo() {
-        this.$router.push('/sample');
+        this.$router.push('/HtmlQrCodes');
       } 
       
     }
