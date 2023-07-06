@@ -5,7 +5,12 @@
     <v-card class="" >
 
       <!-- <h1>Last nani?</h1> -->
-    <div id="qr-code-full-region"></div>
+    <div id="qr-code-full-region">
+      <div v-if="showSuccessMessage" class="success-message">
+        Successfull Scanned
+      </div>
+
+    </div>
     
     <div class="text-center">
   <h4 class="mt-1">DATE: {{ currentDate }}</h4> 
@@ -112,7 +117,7 @@ export default {
       currentDate: '',
       message: [],
       transferredTimes: [],
-
+      showSuccessMessage: false
      
     };
   },
@@ -142,6 +147,10 @@ export default {
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
     }
     /*   this.transferredTimes.push(this.currentTime); */
+    this.showSuccessMessage = true;
+      setTimeout(() => {
+        this.showSuccessMessage = false;
+      }, 2000);
 
     },
 
@@ -219,7 +228,21 @@ export default {
 </script>
 
 <style scoped>
- 
+ .qrcode-container {
+  position: relative;
+}
+
+.success-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
+}
+
   .sentro {
     width:50%;
     height:60%;
