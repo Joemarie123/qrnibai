@@ -4,7 +4,7 @@
 
     <v-card class="" >
 
-      <h1>Last nani?</h1>
+      <!-- <h1>Last nani?</h1> -->
     <div id="qr-code-full-region"></div>
     
 
