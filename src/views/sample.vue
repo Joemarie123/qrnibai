@@ -31,8 +31,8 @@ export default {
 
 <style>
 .message {
-  background-color: green;
-  color: white;
+  background-color: rgba(0, 128, 0, 0);
+  color: rgb(9, 230, 27);
   padding: 10px;
   margin-top: 10px;
   display: inline-block;

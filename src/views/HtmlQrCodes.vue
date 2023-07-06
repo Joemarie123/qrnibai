@@ -7,7 +7,7 @@
       <!-- <h1>Last nani?</h1> -->
     <div id="qr-code-full-region">
       <div v-if="showSuccessMessage" class="success-message">
-        Successfull Scanned
+        Successfully Scanned
       </div>
 
     </div>
@@ -237,7 +237,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f0f0f0;
+  background-color: #f0f0f000;
+  color: rgb(9, 230, 27);
   padding: 10px;
   border-radius: 5px;
   z-index: 9999;
