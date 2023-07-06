@@ -32,7 +32,7 @@ export default {
 <style>
 .message {
   background-color: rgba(0, 128, 0, 0);
-  color: rgb(9, 230, 27);
+  color: rgb(7, 168, 21);
   padding: 10px;
   margin-top: 10px;
   display: inline-block;
