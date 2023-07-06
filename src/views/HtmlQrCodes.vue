@@ -10,7 +10,7 @@
         Successfully Scanned
       </div>
 
-      <div v-if="showMessage" class="message">{{ message }}</div>
+      <div v-if="showMessage" class="alreadyscan">{{ message }}</div>
 
     </div>
     
@@ -150,6 +150,7 @@ export default {
 
       this.showMessage = true;
       this.message = 'Already Scanned';
+
      }
      else
      {
@@ -237,6 +238,15 @@ export default {
 </script>
 
 <style scoped>
+
+.alreadyscan {
+  text-align: center;
+  color: red;
+  background-color: #fffffffb;
+  margin-top: 20px;
+}
+
+
  .qrcode-container {
   position: relative;
 }
