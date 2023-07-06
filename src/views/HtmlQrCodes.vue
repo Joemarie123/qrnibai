@@ -9,10 +9,8 @@
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
       </div> -->
-      <div v-if="showMessage" class="alreadyscan">{{ messagesuccessfully }}</div>
-
-
-      <div v-if="showMessage" class="alreadyscan">{{ messagealreadyscan }}</div>
+     
+      <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
 
     </div>
     
@@ -123,7 +121,7 @@ export default {
       message: [],
       messagealreadyscan:[],
       transferredTimes: [],
-      showSuccessMessage: false
+      mensahenibai: false
 
 
      
@@ -152,7 +150,7 @@ export default {
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
 
       this.showMessage = true;
-      this.messagealreadyscan = 'Already Scanned';
+      this.mensahenibai = 'Already Scanned';
       setTimeout(() => {
         this.showMessage = false;
       }, 1500);
@@ -162,7 +160,7 @@ export default {
      else{
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
       this.showMessage = true;
-      this.messagesuccessfully = 'Successfully Scanned';
+      this.mensahenibai = 'Successfully Scanned';
       setTimeout(() => {
         this.showMessage = false;
       }, 1500);
