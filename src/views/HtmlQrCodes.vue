@@ -141,7 +141,11 @@ export default {
 
       const obj = {decodedResult: decodedResult};
      /*  console.log("obj",obj.decodedResult) */
-     if(this.message.find(item => item.name === this.name(obj.decodedResult))){}
+     if(this.message.find(item => item.name === this.name(obj.decodedResult))){
+
+      this.showMessage = true;
+      this.message = 'Already Scanned';
+     }
      else
      {
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
