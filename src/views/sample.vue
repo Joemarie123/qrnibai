@@ -1,36 +1,87 @@
 <template>
   <div>
-    <h1>{{ currentTime }}</h1>
-    <button @click="pushTime">Push Time</button>
-    <h2 v-if="transferredTimes.length > 0">{{ transferredTimes[transferredTimes.length - 1] }}</h2>
+    <div class="video-container">
+      <video ref="video" class="video-preview"></video>
+    </div>
+    <div v-if="scannedData">
+      <p>Decoded String: {{ scannedData.text }}</p>
+      <p>Time of Scan: {{ scannedData.time }}</p>
+    </div>
   </div>
 </template>
 
 <script>
+import qrcodeReader from 'qrcode-reader';
+
 export default {
   data() {
     return {
-      currentTime: '',
-      transferredTimes: [],
+      scannedData: null,
     };
   },
-  methods: {
-    getCurrentTime() {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const seconds = now.getSeconds().toString().padStart(2, '0');
-      this.currentTime = `${hours}:${minutes}:${seconds}`;
-    },
-    pushTime() {
-      this.transferredTimes.push(this.currentTime);
-    },
-  },
   mounted() {
-    this.getCurrentTime();
-    setInterval(() => {
-      this.getCurrentTime();
-    }, 1000);
+    const video = this.$refs.video;
+    const qrScanner = new qrcodeReader();
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({ video: { facingMode: 'environment' } })
+        .then((stream) => {
+          video.srcObject = stream;
+          video.setAttribute('playsinline', true);
+          video.play();
+          this.scanQRCode(qrScanner, video);
+        })
+        .catch((error) => {
+          console.error('Error accessing camera:', error);
+        });
+    }
+  },
+  methods: {
+    scanQRCode(qrScanner, video) {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      const scanFrame = () => {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+          const code = qrScanner.process(imageData);
+
+          if (code) {
+            const scannedData = {
+              text: code.result,
+              time: new Date().toLocaleTimeString(),
+            };
+            this.scannedData = scannedData;
+          }
+
+          requestAnimationFrame(scanFrame);
+        } else {
+          requestAnimationFrame(scanFrame);
+        }
+      };
+
+      scanFrame();
+    },
   },
 };
 </script>
+
+<style scoped>
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+}
+
+.video-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>

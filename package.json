@@ -13,6 +13,7 @@
     "core-js": "^3.8.3",
     "element-plus": "^2.3.7",
     "html5-qrcode": "^2.3.8",
+    "qrcode-reader": "^1.0.4",
     "qrcode.vue": "^3.3.4",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
