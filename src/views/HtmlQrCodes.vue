@@ -10,6 +10,8 @@
         Successfully Scanned
       </div>
 
+      <div v-if="showMessage" class="message">{{ message }}</div>
+
     </div>
     
     <div class="text-center">
@@ -115,9 +117,12 @@ export default {
       
       currentTime: '',
       currentDate: '',
+      showMessage: false,
       message: [],
       transferredTimes: [],
       showSuccessMessage: false
+
+
      
     };
   },
