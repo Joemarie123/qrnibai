@@ -56,8 +56,8 @@
         <table>
       <tbody>
         <tr >
-          <p>{{ msg.id }}</p>
-          <p class="mt-n2 ml-3"> {{ msg.name }}</p> 
+          <p >{{ msg.id }}</p>
+          <p class="mt-n1 ml-1"> {{ msg.name }}</p> 
         </tr>
       </tbody>
     </table> 
@@ -70,15 +70,15 @@
   <v-col cols="5">
 
    <!--  <h4 class="mt-1">{{ currentDate }}</h4> -->
-    <table>
+  <!--   <table>
       <tbody>
         <tr v-for="(time, index) in transferredTimes" :key="index">
           <h3>{{ time }}</h3>
         </tr>
       </tbody>
-    </table>
+    </table> -->
  
-   <!--  <p class="ml-10 mt-5">{{ currentTime }}</p> -->
+    <p class="ml-10 mt-1">{{ currentTime }}</p>
   
   </v-col>
 
@@ -132,7 +132,7 @@ export default {
      {
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
     }
-      this.transferredTimes.push(this.currentTime);
+    /*   this.transferredTimes.push(this.currentTime); */
 
     },
 
