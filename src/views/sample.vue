@@ -1,40 +1,36 @@
 <template>
   <div>
-    <v-btn color="green" @click="displayMessage">Scan</v-btn>
-    <div v-if="showMessage" class="message">
-      Successful Scan
-    </div>
+    <h1>{{ currentTime }}</h1>
+    <button @click="pushTime">Push Time</button>
+    <h2 v-if="transferredTimes.length > 0">{{ transferredTimes[transferredTimes.length - 1] }}</h2>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-
 export default {
-  setup() {
-    const showMessage = ref(false);
-
-    const displayMessage = () => {
-      showMessage.value = true;
-      setTimeout(() => {
-        showMessage.value = false;
-      }, 2000);
-    };
-
+  data() {
     return {
-      showMessage,
-      displayMessage
+      currentTime: '',
+      transferredTimes: [],
     };
-  }
+  },
+  methods: {
+    getCurrentTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      this.currentTime = `${hours}:${minutes}:${seconds}`;
+    },
+    pushTime() {
+      this.transferredTimes.push(this.currentTime);
+    },
+  },
+  mounted() {
+    this.getCurrentTime();
+    setInterval(() => {
+      this.getCurrentTime();
+    }, 1000);
+  },
 };
 </script>
-
-<style>
-.message {
-  background-color: rgba(0, 128, 0, 0);
-  color: rgb(7, 168, 21);
-  padding: 10px;
-  margin-top: 10px;
-  display: inline-block;
-}
-</style>

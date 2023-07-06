@@ -146,6 +146,20 @@ export default {
      
 
       const obj = {decodedResult: decodedResult};
+      
+ // Start scanning
+ function startScanning() {
+    if (isScanningAllowed) {
+      html5QrcodeScanner.start();
+      isScanningAllowed = false;
+      setTimeout(() => {
+        isScanningAllowed = true;
+      }, 2000); // 2 seconds delay before allowing scanning again
+    }
+  }
+
+
+
      /*  console.log("obj",obj.decodedResult) */
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
 
@@ -163,8 +177,13 @@ export default {
       this.mensahenibai = 'Successfully Scanned';
       setTimeout(() => {
         this.showMessage = false;
+
       }, 1500);
-      
+        
+      setTimeout(() => {
+      startScanning();
+    }, 2000);
+    
     }
     /*   this.transferredTimes.push(this.currentTime); */
    /*  this.showSuccessMessage = true;
