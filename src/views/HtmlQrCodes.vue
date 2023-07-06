@@ -6,9 +6,11 @@
 
       <!-- <h1>Last nani?</h1> -->
     <div id="qr-code-full-region">
-      <div v-if="showSuccessMessage" class="success-message">
+      <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
-      </div>
+      </div> -->
+      <div v-if="showMessage" class="alreadyscan">{{ messagesuccessfully }}</div>
+
 
       <div v-if="showMessage" class="alreadyscan">{{ messagealreadyscan }}</div>
 
@@ -156,16 +158,22 @@ export default {
       }, 1500);
 
      }
-     else
-     {
+
+     else{
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
+      this.showMessage = true;
+      this.messagesuccessfully = 'Successfully Scanned';
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 1500);
+      
     }
     /*   this.transferredTimes.push(this.currentTime); */
-    this.showSuccessMessage = true;
+   /*  this.showSuccessMessage = true;
       setTimeout(() => {
         this.showSuccessMessage = false;
       }, 1500);
-
+ */
     },
 
     name(decodedresult) {
