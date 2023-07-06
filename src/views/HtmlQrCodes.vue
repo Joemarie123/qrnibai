@@ -150,7 +150,7 @@ export default {
     this.showSuccessMessage = true;
       setTimeout(() => {
         this.showSuccessMessage = false;
-      }, 2000);
+      }, 1500);
 
     },
 
