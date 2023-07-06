@@ -237,7 +237,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f0f0f000;
+  background-color: #fffffffb;
   color: rgb(9, 230, 27);
   padding: 10px;
   border-radius: 5px;
