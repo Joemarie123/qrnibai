@@ -7,17 +7,19 @@
       <!-- <h1>Last nani?</h1> -->
     <div id="qr-code-full-region"></div>
     
-
+    <div class="text-center">
+  <h4 class="mt-1">DATE: {{ currentDate }}</h4> 
+</div>
     <div class="table-wrapper">
-    <table class="ml-12">
+    <table class="ml-12 mt-n1">
         <thead>
         
           <v-row>
-            <v-col cols="10">
+            <v-col class="text-center" cols="10">
           <th >ID & NAME</th>
         </v-col>
 
-        <v-col  cols="2">
+        <v-col class="text-center" cols="2">
           <th >TIME</th>
         </v-col>
 
