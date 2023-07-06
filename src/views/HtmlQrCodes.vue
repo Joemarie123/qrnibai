@@ -11,7 +11,7 @@
   <h4 class="mt-1">DATE: {{ currentDate }}</h4> 
 </div>
     <div class="table-wrapper">
-    <table class="ml-12 mt-n1">
+    <table class="ml-12 mt-2">
         <thead>
         
           <v-row>
@@ -55,17 +55,24 @@
       <p>{{ name }}</p> -->
     
       <div class="table-wrapper mt-n5">
+
         <table>
       <tbody>
+        <thead>
+        
         <tr >
           <p >{{ msg.id }}</p>
           <p class="mt-n1 ml-1"> {{ msg.name }}</p> 
         </tr>
+
+    
+      </thead>
+        
       </tbody>
     </table> 
+
       </div>
    
-
 
   </v-col>
 
@@ -230,7 +237,11 @@ export default {
 
   }
   
- 
+  td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding:6px 20px;
+}
  
   .table-wrapper {
   overflow-x: auto;
