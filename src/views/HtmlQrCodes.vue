@@ -121,7 +121,7 @@ export default {
       message: [],
       messagealreadyscan:[],
       transferredTimes: [],
-      mensahenibai: false
+      mensahenibai: false,
 
 
      
@@ -255,7 +255,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fffffffb;
-  color: rgb(255, 5, 5);
+  color: rgb(11, 231, 11);
   padding: 10px;
   border-radius: 5px;
   z-index: 9999;
