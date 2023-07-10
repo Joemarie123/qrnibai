@@ -4,7 +4,7 @@
 
     <v-card class="" >
 
-      <h1>363 nani?</h1>
+    <!--   <h1>363 nani?</h1> -->
     <div id="qr-code-full-region">
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
