@@ -4,7 +4,7 @@
 
     <v-card class="" >
 
-      <h1>Last nani?</h1>
+      <h1>Kini?</h1>
     <div id="qr-code-full-region">
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
@@ -75,7 +75,7 @@
     </td>
 
          <td>
-       <div v-for="(msg, index) in message" :key="index">
+       <div v-for="(msg, index) in arr" :key="index">
        <p style="font-size:12px" class="mt-1 ml-1">{{ msg.time }}</p>
       </div></td>
   
@@ -187,8 +187,7 @@ export default {
    
       const obj = {decodedResult: decodedResult};
  /*      const currentTime = new Date().toLocaleTimeString(); */
-      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-     this.arr.push({ name: this.name(obj.decodedResult), time: currentTime });
+     
       
      /*  console.log("obj",obj.decodedResult) */
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
@@ -203,6 +202,10 @@ export default {
 
      else{
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
+      
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      this.arr.push({ name: this.name(obj.decodedResult), time: currentTime });
+      
       this.showMessage = true;
       this.mensahenibai = 'Successfully Scanned';
       setTimeout(() => {
