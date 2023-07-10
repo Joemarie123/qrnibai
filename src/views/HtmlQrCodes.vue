@@ -197,12 +197,12 @@ export default {
      /*  console.log("obj",obj.decodedResult) */
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
 
-    /*   this.showMessage = true;
+      this.showMessage = true;
       this.mensahenibai = 'Already Scanned';
       setTimeout(() => {
         this.showMessage = false;
       }, 1500);
- */
+
      }
 
      else{
