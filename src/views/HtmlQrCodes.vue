@@ -4,7 +4,7 @@
 
     <v-card class="" >
 
-      <!-- <h1>Last nani?</h1> -->
+      <h1>Last nani?</h1>
     <div id="qr-code-full-region">
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
@@ -66,11 +66,7 @@
     </td>
 
     <td >
-  <div
-      v-for="(msg, index) in message"
-      :key="index"
-     
-    > 
+  <div v-for="(msg, index) in message" :key="index"> 
     <!-- <p style="font-size:12px">{{ msg.id }}</p> -->
     <p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p> 
     </div>
@@ -79,7 +75,7 @@
     </td>
 
          <td>
-       <div v-for="(msg, index) in arr" :key="index">
+       <div v-for="(msg, index) in message" :key="index">
        <p style="font-size:12px" class="mt-1 ml-1">{{ msg.time }}</p>
       </div></td>
   
