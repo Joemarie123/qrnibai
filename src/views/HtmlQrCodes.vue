@@ -4,7 +4,7 @@
 
     <v-card class="" >
 
-      <h1>Kini?</h1>
+      <h1>Mao nani?</h1>
     <div id="qr-code-full-region">
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
@@ -204,7 +204,7 @@ export default {
       this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
       
       const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      this.arr.push({ name: this.name(obj.decodedResult), time: currentTime });
+      this.arr.unshift({ name: this.name(obj.decodedResult), time: currentTime });
       
       this.showMessage = true;
       this.mensahenibai = 'Successfully Scanned';
