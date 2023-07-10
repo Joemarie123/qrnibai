@@ -123,8 +123,6 @@ export default {
       transferredTimes: [],
       mensahenibai: false,
 
-
-     
     };
   },
 
@@ -134,7 +132,7 @@ export default {
     
     creatScan() {
       
-      const config = { fps: 10, qrbox: 250 };
+      const config = { fps: 10, qrbox: 500 };
       const html5QrcodeScanner = new Html5QrcodeScanner(
         "qr-code-full-region",
         config
@@ -145,13 +143,8 @@ export default {
     
    onScanSuccess( decodedResult) {
    
-     
-  
       const obj = {decodedResult: decodedResult};
       
-
-
-
      /*  console.log("obj",obj.decodedResult) */
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
 
