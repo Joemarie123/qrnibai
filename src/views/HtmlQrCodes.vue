@@ -132,7 +132,7 @@ export default {
     
     creatScan() {
       
-      const config = { fps: 10, qrbox: 500 };
+      const config = { fps: 10, qrbox: 250 };
       const html5QrcodeScanner = new Html5QrcodeScanner(
         "qr-code-full-region",
         config
