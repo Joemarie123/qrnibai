@@ -16,8 +16,10 @@
     
     <div class="text-center">
   <h4 class="mt-1">DATE: {{ currentDate }}</h4> 
+
 </div>
-    <div class="table-wrapper">
+  <!--   <div class="table-wrapper">
+
     <table class="ml-12 mt-2">
         <thead>
         
@@ -26,41 +28,81 @@
           <th >ID & NAME</th>
         </v-col>
 
-        <v-col class="text-center" cols="2">
+        <v-col class="text-center" cols="6">
           <th >TIME</th>
+          <div v-for="(msg, index) in arr" :key="index">
+       {{ msg.time }}
+      </div>
         </v-col>
 
+  
         </v-row>
 
       </thead>
-
-      
-
       </table>
-    </div>
-      
-    <!-- <div>
-      <button type="button" @click="message = []">clear</button>
     </div> -->
+    <div>
+
+    <table class="TableHead" >
+  <tr>
+    <th>ID</th>
+    <th>NAME</th>
+    <th >TIME</th>
+   
+  </tr>
+
+  <tr>
+    <td >
+  <div
+      v-for="(msg, index) in message"
+      :key="index"
+    
+    > 
+    <p style="font-size:12px" class="mt-1 ml-1">{{ msg.id }}</p>
+  <!--   <p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p>  -->
+    </div>
 
 
-     <div
+    </td>
+
+    <td >
+  <div
+      v-for="(msg, index) in message"
+      :key="index"
+     
+    > 
+    <!-- <p style="font-size:12px">{{ msg.id }}</p> -->
+    <p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p> 
+    </div>
+
+
+    </td>
+
+         <td>
+       <div v-for="(msg, index) in arr" :key="index">
+       <p style="font-size:12px" class="mt-1 ml-1">{{ msg.time }}</p>
+      </div></td>
+  
+  </tr>
+
+</table>
+</div>
+
+ 
+
+
+    <!--  <div
       v-for="(msg, index) in message"
       :key="index"
       style="white-space: pre-line"
-    >
+    > -->
     
-    <v-row>
+  <!--   <v-row> -->
 
-<v-col cols="7" >
+      
+<!-- <v-col cols="7" >
 
 
-    <!-- <p class="mt-1">ID: {{ msg.id }}</p>  
-    <p class="mt-2"> {{ msg.name }}</p>  
- -->
-     <!--   <p>ID: {{ id }}</p>
-      <p>{{ name }}</p> -->
-    
       <div class="table-wrapper mt-n5">
 
         <table>
@@ -82,8 +124,8 @@
    
 
   </v-col>
-
-  <v-col cols="5">
+ -->
+ <!--  <v-col cols="5"> -->
 
    <!--  <h4 class="mt-1">{{ currentDate }}</h4> -->
   <!--   <table>
@@ -94,13 +136,15 @@
       </tbody>
     </table> -->
  
-    <p class="ml-10 mt-1">{{ currentTime }}</p>
-  
+  <!--   <p class="ml-10 mt-1">{{ currentTime }}</p> -->
+
+     
+<!--  
   </v-col>
+ -->
+<!-- </v-row>
 
-</v-row>
-
-     </div>
+     </div> -->
 
     </v-card>
 
@@ -122,7 +166,9 @@ export default {
       messagealreadyscan:[],
       transferredTimes: [],
       mensahenibai: false,
+      lastScannedTime: '',
 
+      arr: [],
     };
   },
 
@@ -144,16 +190,19 @@ export default {
    onScanSuccess( decodedResult) {
    
       const obj = {decodedResult: decodedResult};
+ /*      const currentTime = new Date().toLocaleTimeString(); */
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+     this.arr.push({ name: this.name(obj.decodedResult), time: currentTime });
       
      /*  console.log("obj",obj.decodedResult) */
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
 
-      this.showMessage = true;
+    /*   this.showMessage = true;
       this.mensahenibai = 'Already Scanned';
       setTimeout(() => {
         this.showMessage = false;
       }, 1500);
-
+ */
      }
 
      else{
@@ -165,7 +214,8 @@ export default {
 
       }, 1500);
  
-      html5QrcodeScanner.clear();
+     
+     
     
     }
     /*   this.transferredTimes.push(this.currentTime); */
@@ -174,6 +224,8 @@ export default {
         this.showSuccessMessage = false;
       }, 1500);
  */
+
+
     },
 
     name(decodedresult) {
@@ -298,63 +350,22 @@ export default {
 
   }
   
-  td, th {
-  border: 1px solid #dddddd;
-  text-align: center;
-  padding:6px 20px;
-}
- 
-  .table-wrapper {
-  overflow-x: auto;
-}
-
-.table-wrapper::-webkit-scrollbar {
-  height: 8px;
-}
-
-.table-wrapper::-webkit-scrollbar-thumb {
-  background: var(--darkblue);
-  border-radius: 40px;
-}
-
-.table-wrapper::::-webkit-scrollbar-track {
-  background: var(--white);
-  border-radius: 40px;
-}
-
-.table-wrapper table {
-  margin: 10px 0 10px;
+  table, th, td {
+  border: 1px solid black;
   border-collapse: collapse;
-  text-align: center;
-  
+
 }
 
-.table-wrapper table th,
-.table-wrapper table td {
-  padding: 10px;
-  min-width: 100px;
-}
+.TableHead{
+    box-sizing: border-box;
+    width: 370.29px;
+    height: 50px;
+    background: #F9F9F9;
+    border: 1px solid #DDE0E2;
+    border-style: solid !important;
+    border-width: thin !important;
+  }
 
-.table-wrapper table th {
-  color: var(--white);
-  background: var(--darkblue);
-}
-
-.table-wrapper table tbody tr:nth-of-type(even) > * {
-  background: var(--lightblue);
-}
-
-.table-wrapper table td:first-child {
-  display: grid;
-  grid-template-columns: 5px 1fr;
-  grid-gap: 10px;
-  text-align: left;
-}
-
-.table-credits {
-  font-size: 12px;
-  margin-top: 10px;
-}
   </style>
   
 
