@@ -4,7 +4,7 @@
 
     <v-card class="" >
 
-      <!-- <h1>Mao nani?</h1> -->
+      <h1>BAI nani?</h1>
     <div id="qr-code-full-region">
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
@@ -269,7 +269,7 @@ export default {
 
 .TableHead{
     box-sizing: border-box;
-    width: 370.29px;
+    width: 365.29px;
     height: 50px;
     background: #F9F9F9;
     border: 1px solid #DDE0E2;
