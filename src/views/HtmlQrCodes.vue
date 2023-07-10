@@ -4,7 +4,7 @@
 
     <v-card class="" >
 
-      <h1>Mao nani?</h1>
+      <!-- <h1>Mao nani?</h1> -->
     <div id="qr-code-full-region">
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
@@ -15,32 +15,10 @@
     </div>
     
     <div class="text-center">
-  <h4 class="mt-1">DATE: {{ currentDate }}</h4> 
+  <h4 class="mt-1">Date: {{ currentDate }}</h4> 
 
 </div>
-  <!--   <div class="table-wrapper">
-
-    <table class="ml-12 mt-2">
-        <thead>
-        
-          <v-row>
-            <v-col class="text-center" cols="10">
-          <th >ID & NAME</th>
-        </v-col>
-
-        <v-col class="text-center" cols="6">
-          <th >TIME</th>
-          <div v-for="(msg, index) in arr" :key="index">
-       {{ msg.time }}
-      </div>
-        </v-col>
-
-  
-        </v-row>
-
-      </thead>
-      </table>
-    </div> -->
+ 
     <div>
 
     <table class="TableHead" >
@@ -59,7 +37,6 @@
     
     > 
     <p style="font-size:12px" class="mt-1 ml-1">{{ msg.id }}</p>
-  <!--   <p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p>  -->
     </div>
 
 
@@ -67,7 +44,6 @@
 
     <td >
   <div v-for="(msg, index) in message" :key="index"> 
-    <!-- <p style="font-size:12px">{{ msg.id }}</p> -->
     <p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p> 
     </div>
 
@@ -84,63 +60,6 @@
 </table>
 </div>
 
- 
-
-
-    <!--  <div
-      v-for="(msg, index) in message"
-      :key="index"
-      style="white-space: pre-line"
-    > -->
-    
-  <!--   <v-row> -->
-
-      
-<!-- <v-col cols="7" >
-
-
-      <div class="table-wrapper mt-n5">
-
-        <table>
-      <tbody>
-        <thead>
-        
-        <tr >
-          <p >{{ msg.id }}</p>
-          <p class="mt-n1 ml-1"> {{ msg.name }}</p> 
-        </tr>
-
-    
-      </thead>
-        
-      </tbody>
-    </table> 
-
-      </div>
-   
-
-  </v-col>
- -->
- <!--  <v-col cols="5"> -->
-
-   <!--  <h4 class="mt-1">{{ currentDate }}</h4> -->
-  <!--   <table>
-      <tbody>
-        <tr v-for="(time, index) in transferredTimes" :key="index">
-          <h3>{{ time }}</h3>
-        </tr>
-      </tbody>
-    </table> -->
- 
-  <!--   <p class="ml-10 mt-1">{{ currentTime }}</p> -->
-
-     
-<!--  
-  </v-col>
- -->
-<!-- </v-row>
-
-     </div> -->
 
     </v-card>
 
@@ -217,13 +136,6 @@ export default {
      
     
     }
-    /*   this.transferredTimes.push(this.currentTime); */
-   /*  this.showSuccessMessage = true;
-      setTimeout(() => {
-        this.showSuccessMessage = false;
-      }, 1500);
- */
-
 
     },
 
