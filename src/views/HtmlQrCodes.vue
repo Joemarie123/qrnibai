@@ -2,6 +2,98 @@
  <v-app>
 
 
+  <v-card>
+
+      <v-row>
+
+        <v-col cols="12">
+          <div class="text-center ">
+        <v-alert dense dark color="blue darken-3">
+       Entry Event<strong>
+      </strong>
+        </v-alert>
+    </div>
+
+          <v-text-field 
+              class="mx-4 mt-2"
+                prepend-inner-icon="mdi-calendar-check"
+                density="compact"
+                  v-model="password"
+                  label="Event Name"
+                  outlined
+                  variant="outlined"
+                  
+                  ></v-text-field>
+
+                  <v-text-field 
+                   class="mx-4 mt-n3 "
+                    prepend-inner-icon="mdi-calendar"
+                  density="compact"
+                  v-model="password"
+                  label="Date"
+                  outlined
+                  variant="outlined"
+              
+                  ></v-text-field>
+
+                  <v-text-field 
+                   class="mx-4 mt-n3 "
+                    prepend-inner-icon="mdi-account"
+                  density="compact"
+                  v-model="password"
+                  label="Number of Employess"
+                  outlined
+                  variant="outlined"
+              
+                  ></v-text-field>
+
+                  <v-text-field 
+                   class="mx-4 mt-n3 "
+                    prepend-inner-icon="mdi-account-circle"
+                  density="compact"
+                  v-model="password"
+                  label="OFFICE"
+                  outlined
+                  variant="outlined"
+              
+                  ></v-text-field>
+
+                  
+                  <v-text-field 
+                   class="mx-4 mt-n3 "
+                    prepend-inner-icon="mdi-camera-timer"
+                  density="compact"
+                  v-model="password"
+                  label="Time Started"
+                  outlined
+                  variant="outlined"
+              
+                  ></v-text-field>
+
+                  <v-text-field 
+                   class="mx-4 mt-n3 "
+                    prepend-inner-icon="mdi-camera-timer"
+                  density="compact"
+                  v-model="password"
+                  label="Time Ended"
+                  outlined
+                  variant="outlined"
+              
+                  ></v-text-field>
+
+
+
+
+        </v-col>
+
+
+
+      </v-row>
+
+
+  </v-card>
+
+
     <v-card class="" >
 
     <!--   <h1>363 nani?</h1> -->
