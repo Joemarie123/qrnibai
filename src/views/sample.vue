@@ -1,58 +1,129 @@
 <template>
-  <div class="datatable-container">
-    <table class="datatable">
+  <v-container>
+    <v-row>
+      <v-col cols="6">
+      <!--   <v-text-field
+          v-model="selectedTime"
+          label="Select Time"
+          type="time"
+          :class="{ 'red-text': isTimeHigh(selectedTime, timeThreshold) }"
+        ></v-text-field> -->
+      </v-col>
+      <v-col cols="6">
+        <v-text-field
+          v-model="timeThreshold"
+          label="Time Threshold"
+          type="time"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="2">
+        <v-btn color="primary" @click="addToDataTable">Add to Table</v-btn>
+      </v-col>
+    </v-row>
+    <table class="time-table">
       <thead>
         <tr>
-          <th>Column 1</th>
-          <th>Column 2</th>
-          <th>Column 3</th>
-          <!-- Add more columns as needed -->
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in data" :key="index">
-          <td>{{ item.column1 }}</td>
-          <td>{{ item.column2 }}</td>
-          <td>{{ item.column3 }}</td>
-          <!-- Render more columns as needed -->
+        <tr v-for="(entry, index) in dataTable" :key="index" :class="{ 'red-row': isTimeHigh(entry.currentTime, timeThreshold) }">
+          <td>{{ entry.currentTime }}</td>
         </tr>
       </tbody>
     </table>
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      data: [
-        // Sample data for demonstration
-        { column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-        // Add more data rows as needed
-      ],
+      selectedTime: getCurrentTime(),
+      timeThreshold: '',
+      dataTable: [],
     };
   },
+  methods: {
+    isTimeHigh(currentTime, threshold) {
+      if (!currentTime || !threshold) return false; // Handle empty time or threshold case
+
+      const timeParts = currentTime.split(':');
+      const thresholdParts = threshold.split(':');
+
+      const hour = parseInt(timeParts[0], 10);
+      const minute = parseInt(timeParts[1], 10);
+      const thresholdHour = parseInt(thresholdParts[0], 10);
+      const thresholdMinute = parseInt(thresholdParts[1], 10);
+
+      return hour > thresholdHour || (hour === thresholdHour && minute > thresholdMinute);
+    },
+    addToDataTable() {
+
+      const timeValue = this.selectedTime;
+      const [selectedHour, selectedMinute] = timeValue.split(':');
+      let hour = parseInt(selectedHour, 10);
+      const minute = parseInt(selectedMinute, 10);
+      let ampm = 'AM';
+
+      if (hour >= 12) {
+        ampm = 'PM';
+        if (hour > 12) {
+          hour -= 12;
+        }
+      } else if (hour === 0) {
+        hour = 12;
+      }
+
+      const formattedHour = hour.toString().padStart(2, '0');
+      const formattedMinute = minute.toString().padStart(2, '0');
+      const formattedTime = `${formattedHour}:${formattedMinute} ${ampm}`;
+
+      this.dataTable.push({ currentTime: formattedTime,});
+     /*  this.selectedTime = getCurrentTime(); */
+    },
+  },
+  mounted() {
+    // Update selectedTime every second
+    setInterval(() => {
+      this.selectedTime = getCurrentTime();
+    }, 1000);
+  },
 };
+
+function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  let formattedHours = hours % 12;
+  formattedHours = formattedHours === 0 ? 12 : formattedHours; // Convert 0 to 12
+  formattedHours = formattedHours.toString().padStart(2, '0');
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+}
 </script>
 
 <style>
-.datatable-container {
-  overflow-x: auto;
+.red-text input {
+  color: red !important;
 }
 
-@media (max-width: 600px) {
-  .datatable-container {
-    width: 100%;
-  }
+.red-row {
+  background-color: red !important;
+  color: white !important;
+}
 
-  .datatable {
-    width: 100%;
-  }
+.time-table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  .datatable th,
-  .datatable td {
-    white-space: nowrap;
-  }
+.time-table th,
+.time-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
 }
 </style>

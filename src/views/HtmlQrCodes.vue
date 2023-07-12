@@ -6,7 +6,7 @@
 
       <v-row>
 
-        <v-col cols="12">
+        <v-col cols="12" >
           <div class="text-center ">
         <v-alert dense dark color="blue darken-3">
        Entry Event<strong>
@@ -14,11 +14,14 @@
         </v-alert>
     </div>
 
+      
+
+
           <v-text-field 
               class="mx-4 mt-2"
                 prepend-inner-icon="mdi-calendar-check"
                 density="compact"
-                  v-model="password"
+                  v-model="eventname"
                   label="Event Name"
                   outlined
                   variant="outlined"
@@ -29,18 +32,18 @@
                    class="mx-4 mt-n3 "
                     prepend-inner-icon="mdi-calendar"
                   density="compact"
-                  v-model="password"
+                  v-model="currentDate"
                   label="Date"
                   outlined
                   variant="outlined"
-              
+               
                   ></v-text-field>
 
                   <v-text-field 
                    class="mx-4 mt-n3 "
                     prepend-inner-icon="mdi-account"
                   density="compact"
-                  v-model="password"
+                  v-model="numemployees"
                   label="Number of Employess"
                   outlined
                   variant="outlined"
@@ -51,7 +54,7 @@
                    class="mx-4 mt-n3 "
                     prepend-inner-icon="mdi-account-circle"
                   density="compact"
-                  v-model="password"
+                  v-model="office"
                   label="OFFICE"
                   outlined
                   variant="outlined"
@@ -63,22 +66,24 @@
                    class="mx-4 mt-n3 "
                     prepend-inner-icon="mdi-camera-timer"
                   density="compact"
-                  v-model="password"
+                  v-model="timestarted"
                   label="Time Started"
                   outlined
                   variant="outlined"
-              
+                type="time"
+
                   ></v-text-field>
 
                   <v-text-field 
                    class="mx-4 mt-n3 "
                     prepend-inner-icon="mdi-camera-timer"
                   density="compact"
-                  v-model="password"
+                  v-model="timeThreshold"
                   label="Time Ended"
                   outlined
                   variant="outlined"
-              
+                  type="time"
+
                   ></v-text-field>
 
 
@@ -94,10 +99,11 @@
   </v-card>
 
 
-    <v-card class="" >
+    <v-card >
 
     <!--   <h1>363 nani?</h1> -->
-    <div id="qr-code-full-region">
+    
+    <div id="qr-code-full-region" >
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
       </div> -->
@@ -121,31 +127,25 @@
    
   </tr>
 
-  <tr>
+  <tr   v-for="(msg, index) in message" :key="index" :class="{ 'red-row': isTimeHigh(msg.currentTime, timeThreshold) }">
     <td >
-  <div
-      v-for="(msg, index) in message"
-      :key="index"
-    
-    > 
+ 
     <p style="font-size:12px" class="mt-1 ml-1">{{ msg.id }}</p>
-    </div>
-
+   
 
     </td>
 
     <td >
-  <div v-for="(msg, index) in message" :key="index"> 
+ 
     <p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p> 
-    </div>
-
-
+    
     </td>
 
-         <td>
-       <div v-for="(msg, index) in arr" :key="index">
-       <p style="font-size:12px" class="mt-1 ml-1">{{ msg.time }}</p>
-      </div></td>
+         <td :style="{ color: msg.isHigh ? 'red' : 'inherit' }">
+         
+       <p style="font-size:12px" class="mt-1 ml-1">{{ msg.currentTime }}</p>
+      
+      </td>
   
   </tr>
 
@@ -165,6 +165,9 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 export default {
   data() {
     return {
+      selectedTime: getCurrentTime(),
+      timeThreshold: '',
+      dataTable: [],
       
       currentTime: '',
       currentDate: '',
@@ -175,13 +178,28 @@ export default {
       mensahenibai: false,
       lastScannedTime: '',
 
-      arr: [],
+      timeThreshold: '',
+     
     };
   },
 
 
 
   methods: {
+
+    isTimeHigh(currentTime, threshold) {
+      if (!currentTime || !threshold) return false; // Handle empty time or threshold case
+
+      const timeParts = currentTime.split(':');
+      const thresholdParts = threshold.split(':');
+
+      const hour = parseInt(timeParts[0], 10);
+      const minute = parseInt(timeParts[1], 10);
+      const thresholdHour = parseInt(thresholdParts[0], 10);
+      const thresholdMinute = parseInt(thresholdParts[1], 10);
+
+      return hour > thresholdHour || (hour === thresholdHour && minute > thresholdMinute);
+    },
     
     creatScan() {
       
@@ -198,7 +216,25 @@ export default {
    
       const obj = {decodedResult: decodedResult};
  /*      const currentTime = new Date().toLocaleTimeString(); */
-     
+       const timeValue = this.selectedTime;
+      const [selectedHour, selectedMinute] = timeValue.split(':');
+      let hour = parseInt(selectedHour, 10);
+      const minute = parseInt(selectedMinute, 10);
+      let ampm = 'AM';
+
+      if (hour >= 12) {
+        ampm = 'PM';
+        if (hour > 12) {
+          hour -= 12;
+        }
+      } else if (hour === 0) {
+        hour = 12;
+      }
+
+      const formattedHour = hour.toString().padStart(2, '0');
+      const formattedMinute = minute.toString().padStart(2, '0');
+      const formattedTime = `${formattedHour}:${formattedMinute} ${ampm}`;
+
       
      /*  console.log("obj",obj.decodedResult) */
      if(this.message.find(item => item.name === this.name(obj.decodedResult))){
@@ -212,11 +248,10 @@ export default {
      }
 
      else{
-      this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult)});
-      
       const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      this.arr.unshift({ name: this.name(obj.decodedResult), time: currentTime });
+      this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult) , currentTime: formattedTime});
       
+     
       this.showMessage = true;
       this.mensahenibai = 'Successfully Scanned';
       setTimeout(() => {
@@ -276,14 +311,16 @@ export default {
   },
 
   async mounted() {
+
+    setInterval(() => {
+      this.selectedTime = getCurrentTime();
+    }, 1000);
+
     this.creatScan();
     this.updateTime(); // Call it once on mount
     this.timer = setInterval(this.updateTime, 1000); // Update time every second
     this.updateDate(); // Call it once on mount
     this.timer = setInterval(this.updateDate, 1000); // Update date every second
-
-    
-
   },
 
   beforeUnmount() {
@@ -302,9 +339,33 @@ export default {
 
  
 };
+
+function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  let formattedHours = hours % 12;
+  formattedHours = formattedHours === 0 ? 12 : formattedHours; // Convert 0 to 12
+  formattedHours = formattedHours.toString().padStart(2, '0');
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+}
+
 </script>
 
 <style scoped>
+
+.red-text input {
+  color: red !important;
+}
+
+.red-row {
+  background-color: red !important;
+  color: white !important;
+}
 
 .alreadyscan {
   position: absolute;
