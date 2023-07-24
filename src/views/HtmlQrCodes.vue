@@ -4,6 +4,8 @@
 
   <v-card>
 
+   <!--    <h1>ssdsdsdsdsdsd</h1> -->
+
       <v-row>
 
         <v-col cols="12" >
@@ -113,11 +115,11 @@
     </div>
     
     <div class="text-center">
-  <h4 class="mt-1">Date: {{ currentDate }}</h4> 
-
+  <h4 class="mt-1">DATE: {{ currentDate }} - TIME: {{ currentTime }} </h4> 
+<v-btn color="green" @click="printTable">Print Me</v-btn>
 </div>
  
-    <div>
+    <div class="mt-2"> 
 
     <table class="TableHead" >
   <tr>
@@ -127,7 +129,7 @@
    
   </tr>
 
-  <tr   v-for="(msg, index) in message" :key="index" :class="{ 'red-row': isTimeHigh(msg.currentTime, timeThreshold) }">
+  <tr   v-for="(msg, index) in message" :key="index" :class="{ 'red-row': isTimeHigh(msg.time, timeThreshold) }"  >
     <td >
  
     <p style="font-size:12px" class="mt-1 ml-1">{{ msg.id }}</p>
@@ -141,9 +143,9 @@
     
     </td>
 
-         <td :style="{ color: msg.isHigh ? 'red' : 'inherit' }">
+         <td>
          
-       <p style="font-size:12px" class="mt-1 ml-1">{{ msg.currentTime }}</p>
+       <p style="font-size:12px" class="mt-1 ml-1">{{ msg.time }}</p>
       
       </td>
   
@@ -168,7 +170,6 @@ export default {
       selectedTime: getCurrentTime(),
       timeThreshold: '',
       dataTable: [],
-      
       currentTime: '',
       currentDate: '',
       showMessage: false,
@@ -177,7 +178,6 @@ export default {
       transferredTimes: [],
       mensahenibai: false,
       lastScannedTime: '',
-
       timeThreshold: '',
      
     };
@@ -187,12 +187,18 @@ export default {
 
   methods: {
 
+    timeExceedsThreshold(time) {
+      if (!this.timeThreshold) {
+        return false;
+      }
+      return time > this.timeThreshold;
+    },
+
     isTimeHigh(currentTime, threshold) {
       if (!currentTime || !threshold) return false; // Handle empty time or threshold case
 
       const timeParts = currentTime.split(':');
       const thresholdParts = threshold.split(':');
-
       const hour = parseInt(timeParts[0], 10);
       const minute = parseInt(timeParts[1], 10);
       const thresholdHour = parseInt(thresholdParts[0], 10);
@@ -200,7 +206,7 @@ export default {
 
       return hour > thresholdHour || (hour === thresholdHour && minute > thresholdMinute);
     },
-    
+
     creatScan() {
       
       const config = { fps: 10, qrbox: 250 };
@@ -212,8 +218,9 @@ export default {
      
     },
     
+
    onScanSuccess( decodedResult) {
-   
+
       const obj = {decodedResult: decodedResult};
  /*      const currentTime = new Date().toLocaleTimeString(); */
        const timeValue = this.selectedTime;
@@ -222,13 +229,13 @@ export default {
       const minute = parseInt(selectedMinute, 10);
       let ampm = 'AM';
 
-      if (hour >= 12) {
+      if (hour >= 13) {
         ampm = 'PM';
-        if (hour > 12) {
-          hour -= 12;
+        if (hour > 13) {
+          hour -= 13;
         }
       } else if (hour === 0) {
-        hour = 12;
+        hour = 13;
       }
 
       const formattedHour = hour.toString().padStart(2, '0');
@@ -249,7 +256,7 @@ export default {
 
      else{
       const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult) , currentTime: formattedTime});
+      this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult) , time: currentTime});
       
      
       this.showMessage = true;
@@ -265,6 +272,22 @@ export default {
     }
 
     },
+
+  /*   formatTime(decodedresult) {
+      const [hours, minutes] = decodedresult.split(':');
+      let formattedHours = parseInt(hours);
+      let period = 'AM';
+
+      if (formattedHours === 0) {
+        formattedHours = 12;
+      } else if (formattedHours > 12) {
+        formattedHours -= 12;
+        period = 'PM';
+      }
+
+      return `${formattedHours}:${minutes} ${period}`;
+    },
+ */
 
     name(decodedresult) {
     
@@ -366,6 +389,7 @@ function getCurrentTime() {
   background-color: red !important;
   color: white !important;
 }
+
 
 .alreadyscan {
   position: absolute;

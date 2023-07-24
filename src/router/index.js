@@ -25,6 +25,26 @@ const routes = [
    */
 
   {
+    path: '/Home',
+    name: 'Home',
+    component: () => import('@/views/Home.vue')
+  },
+
+  {
+    path: '/HomeEvents',
+    name: 'HomeEvents',
+    component: () => import('@/views/HomeEvents.vue')
+  },
+
+
+
+  {
+    path: '/TestingForm',
+    name: 'TestingForm',
+    component: () => import('@/views/TestingForm.vue')
+  },
+
+  {
     path: '/HtmlQrCodes',
     name: 'HtmlQrCodes',
     component: () => import('@/views/HtmlQrCodes.vue')
