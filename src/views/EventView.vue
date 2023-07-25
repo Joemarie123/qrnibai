@@ -77,7 +77,7 @@
         </v-container>
 
         <v-container>
-          <v-row align="center" no-gutters>
+          <v-row>
             <v-col>
               <table>
                 <thead>
