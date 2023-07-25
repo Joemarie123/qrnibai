@@ -1,85 +1,36 @@
-<template>
+<!-- <template>
   <div>
-    <input type="time" v-model="timeThreshold" placeholder="Enter time threshold">
-    <input type="time" v-model="currentTime" readonly>
-  
-    <v-btn color="green" @click="addToDataTable">Add to Data Table</v-btn>
-    <table>
-      <thead>
-        <tr>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- <tr v-for="time in dataTable" :key="time"> -->
-            <tr  v-for="(msg, index) in message" :key="index" >
-          <td :style="{ color: timeExceedsThreshold(time) ? 'red' : 'black' }">{{ formatTime(time) }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <h1 v-if="rowData">Data from Clicked Row:</h1>
+    <h1 v-else>No Data Clicked Yet</h1>
+    <div v-if="rowData">
+      <p>ID: {{ rowData.id }}</p>
+      <p>Name: {{ rowData.name }}</p>
+      <p>Age: {{ rowData.age }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import eventBus from './eventBus';
 
 export default {
-  data() {
+  setup() {
+    const rowData = ref(null);
+
+    onMounted(() => {
+      eventBus.config.globalProperties.$on('rowClicked', (data) => {
+        rowData.value = data;
+      });
+    });
+
     return {
-      dataTable: [],
-      currentTime: '',
-      timeThreshold: ''
+      rowData,
     };
   },
-  methods: {
-    addToDataTable() {
-      this.dataTable.push(this.currentTime);
-      this.currentTime = ''; // Clear the input field after adding to the table
-    },
-    
-    timeExceedsThreshold(time) {
-      if (!this.timeThreshold) {
-        return false;
-      }
-      return time > this.timeThreshold;
-    },
-
-    
-    
-    formatTime(fff) {
-      const [hours, minutes] = fff.split(':');
-      let formattedHours = parseInt(hours);
-      let period = 'AM';
-
-      if (formattedHours === 0) {
-        formattedHours = 12;
-      } else if (formattedHours > 12) {
-        formattedHours -= 12;
-        period = 'PM';
-      }
-      
-
-      return `${formattedHours}:${minutes} ${period}`;
-    },
-
-    updateTime() {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      this.currentTime = `${hours}:${minutes}`;
-    }
- 
-
-  },
-
- async mounted() {
-    this.updateTime();
-    setInterval(() => {
-      this.updateTime();
-    }, 100); // Update every second
-  },
-
-
-  
 };
 </script>
+ -->
+ <template>
+  <h1>sd</h1>
+ </template>

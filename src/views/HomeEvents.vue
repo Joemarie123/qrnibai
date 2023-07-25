@@ -32,11 +32,8 @@
       </v-layout>
     </v-card>
 
-    
-
-
-    <div class="page mt-16" >
-        <v-btn class="my-10" color="green" height="100">
+    <div class="page mt-16 " >
+        <v-btn class="my-10 " color="green"  height="100">
         <v-icon size="90">mdi-calendar-plus</v-icon>
         <span class="mt-11">Create Events</span></v-btn>
 
@@ -44,11 +41,11 @@
     <table>
       <thead>
         <tr>
-          <th>#</th>
-          <th>Event Name</th>
-          <th>Event Dates</th>
-          <th>Attendance</th>
-          <th>Actions</th>
+          <th class="headerni">#</th>
+          <th class="headerni">Event Name</th>
+          <th class="headerni">Event Dates</th>
+          <th class="headerni">Attendance</th>
+          <th class="headerni">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -58,18 +55,19 @@
           <td>{{ row.eventDates }}</td>
           <td class="center">{{ row.attendance }}</td>
           <td class="center">
-            <v-btn class="mx-2" color="blue">
+            <v-btn class="mx-2" color="blue" @click="$router.push('HomeEventsViewList')">
              
                  <v-icon size="25">mdi-eye</v-icon>
              </v-btn>
 
-            <v-btn class="mx-2" color="green" @click="editEvent(row.id)">
+            <v-btn class="mx-2" color="green" @click="$router.push('EventDetails')">
                 <v-icon size="25">mdi-printer</v-icon>
             </v-btn>
           </td>
         </tr>
       </tbody>
     </table>
+    
   </div>
   </template>
 
@@ -90,6 +88,7 @@ export default {
     };
   },
   methods: {
+
     editEvent(id) {
       // Handle edit event logic
       console.log('Edit Event:', id);
@@ -97,12 +96,25 @@ export default {
     deleteEvent(id) {
       // Handle delete event logic
       console.log('Delete Event:', id);
-    }
+    },
+
+    redirecttoformattendance (item) {
+
+    this.$router.push({ name: 'HomeEventsViewList', params: { id: item.id } })
+    },
+    
+  
+            
   }
 };
 </script>
 
 <style>
+
+.headerni{
+  background-color: #70B354;
+  color:white
+}
 
 .big-button {
   padding: 20px;

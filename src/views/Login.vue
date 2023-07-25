@@ -1,6 +1,7 @@
 <template>
+ 
     <v-app>
-    <v-container fluid>
+    <v-container >
      
        
       <v-row  justify="center" >
@@ -21,17 +22,20 @@
                
                 HR Attendance System</v-card-title>
             <v-card-text>
-              <v-form @submit="login">
-                <v-text-field 
+             
                 
+              <v-text-field
                 class="mx-2"
                 prepend-inner-icon="mdi-account"
                density="compact" 
                variant="outlined"
-              v-model="email"
+              v-model="usernamenako"
              label="Email"
-            
-             ></v-text-field>
+                
+                >
+
+                </v-text-field>
+                
                 <v-text-field
                 class="mx-2"
                 prepend-inner-icon="mdi-key"
@@ -42,17 +46,29 @@
                   variant="outlined"
                   type="password"
                 ></v-text-field>
+                
 
+            
+
+
+
+                 <!--  <v-text-field
+              
+                  ></v-text-field>
+        
+                  <v-text-field
+                 
+                  ></v-text-field> -->
 
                 <v-row>
                     <v-col cols="12">
-                <v-btn  color="primary" @click="goToFormTwo"  class="ml-2 ">
+                <v-btn  color="primary" @click="Login_Events()"  class="ml-2 ">
                   Login
                 </v-btn>
             </v-col>
             </v-row>
 
-              </v-form>
+             
             </v-card-text>
           </v-card>
         </v-col>
@@ -64,19 +80,34 @@
   <script>
   export default {
     data() {
-      return {
-        email: '',
-        password: ''
-      };
+    return{
+      usernamenako:'',
+      password:'',
+    }
     },
     methods: {
-      login() {
-        // Handle login logic here
-      },
+ 
 
-     goToFormTwo() {
+      Login_Events()
+  {
+
+    if(this.usernamenako=="hr",this.password=="hr")
+    {
+
+       this.$router.push('/HomeEvents'); 
+      }
+
+      else if (this.usernamenako=="office",this.password=="office"){
+
+        this.$router.push('/Youth_Member_Dashboard'); 
+
+      }
+
+  },
+
+  /*    goToFormTwo() {
         this.$router.push('/HtmlQrCodes');
-      } 
+      }  */
       
     }
   };
@@ -100,7 +131,7 @@
   }
 
   
-  
+
   .login-title {
     text-align: center;
   }

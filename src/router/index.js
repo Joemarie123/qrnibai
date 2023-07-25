@@ -30,10 +30,23 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
 
+  
+  {
+    path: '/EventView',
+    name: 'EventView',
+    component: () => import('@/views/EventView.vue')
+  },
+
   {
     path: '/HomeEvents',
     name: 'HomeEvents',
     component: () => import('@/views/HomeEvents.vue')
+  },
+
+  {
+    path: '/HomeEventsViewList',
+    name: 'HomeEventsViewList',
+    component: () => import('@/views/HomeEventsViewList.vue')
   },
 
 
@@ -63,6 +76,12 @@ const routes = [
     component: () => import('@/views/sample.vue')
   },
   
+  
+  {
+    path: '/EventDetails',
+    name: 'EventDetails',
+    component: () => import('@/views/EventDetails.vue')
+  },
 
 
 ]
