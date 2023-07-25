@@ -45,7 +45,11 @@ const routes = [
     name: 'EventView',
     component: () => import('@/views/EventView.vue')
   },
-
+  {
+    path: '/OfficeHomeEvents',
+    name: 'OfficeHomeEvents',
+    component: () => import('@/views/OfficeHomeEvents.vue')
+  },
 
   {
     path: '/TestingForm',

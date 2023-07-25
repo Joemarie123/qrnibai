@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
+  <v-card class="mx-auto" color="grey-lighten-3">
     <v-layout>
       <v-app-bar>
         <template v-slot:image> </template>
@@ -21,7 +21,9 @@
       </v-app-bar>
     </v-layout>
   </v-card>
-  <v-container>
+
+  <div>
+    <v-container>
     <v-sheet
       class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-16"
       elevation="4"
@@ -31,9 +33,6 @@
     >
       <v-row>
         <v-col cols="4">
-          <!-- <v-avatar class="d-flex child-flex">
-              <v-img src="/phil.png" alt="altText"></v-img>
-            </v-avatar> -->
           <div class="center1">
             <v-img :width="100" src="/phil.png" class=""></v-img>
           </div>
@@ -49,10 +48,10 @@
           </div>
         </v-col>
       </v-row>
+
       <v-divider color="blue" :thickness="5" class="mt-2"></v-divider>
-      <v-col cols="12">
-        <!-- <h2>ATTENDANCE REPORT</h2> -->
-      </v-col>
+      
+      
       <v-container>
         <v-row no-gutters style="text-align: justify">
           <v-col cols="12" md="6">
@@ -68,61 +67,44 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-col class="d-flex justify-end mb-6" >
-        <v-btn id="buttonScan">Start Scanning</v-btn>
-      </v-col>
-      <v-container>
-        <v-table density="compact">
-          <thead>
-            <tr>
-              <th id="head">No.</th>
-              <th id="head">Name</th>
-              <th id="head">Position</th>
-              <th id="head">Time Scanned</th>
-              <th id="head">Remarks</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in desserts" :key="item.name">
-              <td>{{ item.no }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.position }}</td>
-              <td>{{ item.timeScanned }}</td>
-              <td>{{ item.remarks }}</td>
-            </tr>
-          </tbody>
-        </v-table>
-      </v-container>
-      <!-- <p class="text-justify font-italic pa-4">
-        I hereby certify and attest, to the best of my knowledge, that the above
-        declartion are true and correct statements on the whereabouts of the
-        personnel of this office.
-      </p>
-      <p></p>
-      <v-row no-gutters style="text-align: justify">
-        <v-col cols="3" class="font-italic">
-          <p><span class="mdi mdi-circle"></span> Did not Participate</p>
-          <p><span class="mdi mdi-circle"></span> On Field Business</p>
-          <p><span class="mdi mdi-circle"></span> On Field</p>
-          <p><span class="mdi mdi-circle"></span> On Leave</p>
-          <p><span class="mdi mdi-circle"></span> Flexible Work Schedule</p>
-          <p><span class="mdi mdi-circle"></span> Late</p>
-        </v-col>
-        <v-col cols="5" class="">
-          <p>DNP</p>
-          <p>OB</p>
-          <p>OF</p>
-          <p>OL</p>
-          <p>FWL</p>
-          <p>L (For those who comes late for the Activity)</p>
-        </v-col>
-        <v-col>
-          <p>Monitoring In-Charge:</p>
-          <p>Contact No:</p>
-        </v-col>
-      </v-row> -->
+
+        <v-container>
+          <v-row>
+            <v-col class="d-flex justify-end mb-6">
+              <v-btn id="buttonScan">Start Scanning</v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+
+        <v-container>
+          <v-row align="center" no-gutters>
+            <v-col>
+              <table>
+                <thead>
+                  <tr>
+                    <th id="head">No.</th>
+                    <th id="head">Name</th>
+                    <th id="head">Position</th>
+                    <th id="head">Time Scanned</th>
+                    <th id="head">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in desserts" :key="item.name">
+                    <td>{{ item.no }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.timeScanned }}</td>
+                    <td>{{ item.remarks }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </v-col>
+          </v-row>
+        </v-container>
     </v-sheet>
-  </v-container>
+    </v-container>
+  </div>
 </template>
   <script>
 export default {
@@ -162,10 +144,10 @@ export default {
   top: 10%;
   left: 20%;
 }
-#buttonScan{
-    background-color: #70b354;
-    color: white;
-    margin-bottom: -30px;
+#buttonScan {
+  background-color: #70b354;
+  color: white;
+  margin-bottom: -30px;
 }
 .center {
   margin: 0;
@@ -182,7 +164,6 @@ export default {
 #head {
   background-color: #70b354;
   color: white;
-  text-align: center;
 }
 #pic {
   align-content: center;
