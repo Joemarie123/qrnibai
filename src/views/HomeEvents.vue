@@ -48,7 +48,7 @@
           <td class="center">{{ row.attendance }}</td>
           <td class="center">
             <v-btn class="mx-2" color="blue" >
-              <v-icon size="25">mdi-eye</v-icon>
+              <v-icon size="25" @click="$router.push('event-view')">mdi-eye</v-icon>
             </v-btn>
 
             <v-btn class="mx-2" color="green" @click="$router.push('event-details')">

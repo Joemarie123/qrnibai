@@ -32,8 +32,8 @@
       <v-row>
         <v-col cols="4">
           <!-- <v-avatar class="d-flex child-flex">
-            <v-img src="/phil.png" alt="altText"></v-img>
-          </v-avatar> -->
+              <v-img src="/phil.png" alt="altText"></v-img>
+            </v-avatar> -->
           <div class="center1">
             <v-img :width="100" src="/phil.png" class=""></v-img>
           </div>
@@ -45,18 +45,13 @@
         </v-col>
         <v-col cols="4">
           <div class="center">
-            <v-img
-              :width="100"
-              src="/Tagum.png"
-              
-              class=""
-            ></v-img>
+            <v-img :width="100" src="/Tagum.png" class=""></v-img>
           </div>
         </v-col>
       </v-row>
       <v-divider color="blue" :thickness="5" class="mt-2"></v-divider>
       <v-col cols="12">
-        <h2>ATTENDANCE REPORT</h2>
+        <!-- <h2>ATTENDANCE REPORT</h2> -->
       </v-col>
       <v-container>
         <v-row no-gutters style="text-align: justify">
@@ -73,7 +68,9 @@
           </v-col>
         </v-row>
       </v-container>
-
+      <v-col class="d-flex justify-end mb-6" >
+        <v-btn id="buttonScan">Start Scanning</v-btn>
+      </v-col>
       <v-container>
         <v-table density="compact">
           <thead>
@@ -96,7 +93,7 @@
           </tbody>
         </v-table>
       </v-container>
-      <p class="text-justify font-italic pa-4">
+      <!-- <p class="text-justify font-italic pa-4">
         I hereby certify and attest, to the best of my knowledge, that the above
         declartion are true and correct statements on the whereabouts of the
         personnel of this office.
@@ -123,11 +120,11 @@
           <p>Monitoring In-Charge:</p>
           <p>Contact No:</p>
         </v-col>
-      </v-row>
+      </v-row> -->
     </v-sheet>
   </v-container>
 </template>
-<script>
+  <script>
 export default {
   data() {
     return {
@@ -158,12 +155,17 @@ export default {
   },
 };
 </script>
-<style scoped>
+  <style scoped>
 .center1 {
   margin: 0;
   position: absolute;
   top: 10%;
   left: 20%;
+}
+#buttonScan{
+    background-color: #70b354;
+    color: white;
+    margin-bottom: -30px;
 }
 .center {
   margin: 0;
