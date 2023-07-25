@@ -22,13 +22,13 @@
     <v-container>
       <v-row no-gutters align="center">
         <v-col class="d-flex justify-start" :cols="6">
-          <h2 :style="{ color: 'green' }">EVENTS</h2>
+          <h2 :style="{ color: 'green' }">EVENT HISTORY</h2>
         </v-col>
-        <v-col class="d-flex justify-end" :cols="6">
-          <v-txt btn @click="$router.push('EventHistory')" class="view"
-            >View History</v-txt
-          >
-        </v-col>
+        <!-- <v-col class="d-flex justify-end" :cols="6">
+            <v-txt btn @click="$router.push('EventHistory')" class="view"
+              >View History</v-txt
+            >
+          </v-col> -->
       </v-row>
     </v-container>
 
@@ -55,7 +55,7 @@
                 </td>
                 <td class="center">
                   <v-btn class="mx-2" color="blue">
-                    <v-icon size="25" @click="$router.push('event-view')"
+                    <v-icon size="25" @click="$router.push('event-details')"
                       >mdi-eye</v-icon
                     >
                   </v-btn>
@@ -76,9 +76,9 @@
     </v-container>
   </div>
 </template>
-  
     
-  <script>
+      
+    <script>
 export default {
   data() {
     return {
@@ -141,8 +141,8 @@ export default {
   },
 };
 </script>
-  
-  <style>
+    
+    <style>
 .view {
   color: red;
 }
@@ -170,7 +170,7 @@ export default {
 
   border-radius: 20px;
   /*  box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
-   */
+     */
 }
 
 .page {
@@ -193,19 +193,19 @@ th {
   background-color: #f2f2f2;
 }
 /* 
-  .login-form {
-      max-width: 1500 px;
-      margin: 0 auto;
-  
-      position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 10000px;
-    transform: translate(-50%,-50%);
-  
-    border-radius: 20px;
-    box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
-    }
-   */
+    .login-form {
+        max-width: 1500 px;
+        margin: 0 auto;
+    
+        position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10000px;
+      transform: translate(-50%,-50%);
+    
+      border-radius: 20px;
+      box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
+      }
+     */
 </style>
-  
+    

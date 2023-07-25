@@ -50,7 +50,11 @@ const routes = [
     name: 'OfficeHomeEvents',
     component: () => import('@/views/OfficeHomeEvents.vue')
   },
-
+  {
+    path: '/EventHistory',
+    name: 'EventHistory',
+    component: () => import('@/views/EventHistory.vue')
+  },
   {
     path: '/TestingForm',
     name: 'TestingForm',

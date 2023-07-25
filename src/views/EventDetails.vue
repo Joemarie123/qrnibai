@@ -75,7 +75,7 @@
       </v-container>
 
       <v-container>
-        <v-table density="compact">
+        <v-table >
           <thead>
             <tr>
               <th id="head">No.</th>
