@@ -8,21 +8,21 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue')
   },
+
+  /*   {
+      path: '/QrCodes',
+      name: 'QrCodes',
+      component: () => import('@/views/QrCodes.vue')
+    },
   
-/*   {
-    path: '/QrCodes',
-    name: 'QrCodes',
-    component: () => import('@/views/QrCodes.vue')
-  },
-
-  {
-    path: '/sample',
-    name: 'sample',
-    component: () => import('@/views/sample.vue')
-  },
-
-
-   */
+    {
+      path: '/sample',
+      name: 'sample',
+      component: () => import('@/views/sample.vue')
+    },
+  
+  
+     */
 
   {
     path: '/Home',
@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/HomeEvents',
     name: 'HomeEvents',
-    component: () => import('@/views/HomeEvents.vue')
+    component: () => import('@/views/HomeEvents.vue'),
   },
   {
     path: '/event-details',
@@ -50,6 +50,15 @@ const routes = [
     name: 'OfficeHomeEvents',
     component: () => import('@/views/OfficeHomeEvents.vue')
   },
+
+  //Create / Edit Account
+  {
+    path: '/CreateAccount',
+    name: 'CreateAccount',
+    component: () => import('@/views/CreateAccount.vue')
+  },
+
+
   {
     path: '/EventHistory',
     name: 'EventHistory',
@@ -79,7 +88,7 @@ const routes = [
     name: 'sample',
     component: () => import('@/views/sample.vue')
   },
-  
+
 
 
 ]
