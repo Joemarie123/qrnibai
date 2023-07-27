@@ -20,13 +20,14 @@
         class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-6"
         elevation="4"
         rounded
-        max-width="90%"
+        max-width="70%"
         width="100%"
       >
         <v-container>
           <v-container>
-            <span class="text-h5">Create Office Admin Account</span>
+            <span class="text-h4">CREATE OFFICE ADMIN ACCOUNT</span>
           </v-container>
+          <v-divider :thickness="5" color="green" class="mb-4"></v-divider>
           <v-container>
             <v-row >
               <v-col cols="6" offset="4">
@@ -72,7 +73,7 @@
               <v-col cols="12" md="12">
                 <h2 >Login Credentials</h2>
               </v-col>
-
+              <v-divider :thickness="5" color="green" class="mb-4"></v-divider>
               <v-col cols="12" md="6">
                 <v-text-field
                   label="Username"
@@ -95,14 +96,23 @@
             </v-row>
         </v-container>
           <div class="pa-4 text-end">
+            <v-btn
+            class="text-none mr-2"
+            color="green"
+            min-width="92"
+            @click="dialog = false"
+          >
+            Save Account
+          </v-btn>
+          
           <v-btn
             class="text-none"
-            color="green"
+            color="orange"
             min-width="92"
             variant="outlined"
             @click="dialog = false"
           >
-            Save Account
+            Cancel
           </v-btn>
         </div>
         </v-container>

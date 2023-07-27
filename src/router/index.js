@@ -57,6 +57,11 @@ const routes = [
     name: 'CreateAccount',
     component: () => import('@/views/CreateAccount.vue')
   },
+  {
+    path: '/EditAccount',
+    name: 'EditAccount',
+    component: () => import('@/views/EditAccount.vue')
+  },
 
 
   {
