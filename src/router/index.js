@@ -63,6 +63,17 @@ const routes = [
     component: () => import('@/views/EditAccount.vue')
   },
 
+  //AppBar
+  {
+    path: '/OfficeBar',
+    name: 'OfficeBar',
+    component: () => import('@/components/toolbar/OfficeBar.vue')
+  },
+  {
+    path: '/HrBar',
+    name: 'HrBar',
+    component: () => import('@/components/toolbar/HrBar.vue')
+  },
 
   {
     path: '/EventHistory',

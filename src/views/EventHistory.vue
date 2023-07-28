@@ -1,22 +1,5 @@
 <template>
-  <v-card class="mx-auto" color="grey-lighten-3">
-    <v-layout>
-      <v-app-bar>
-        <template v-slot:prepend>
-          <v-avatar :size="50">
-            <v-img src="/Tagum.png" alt="altText"></v-img>
-          </v-avatar>
-        </template>
-        <v-app-bar-title
-          ><span :style="{ color: 'green' }">HOME EVENTS</span></v-app-bar-title
-        >
-        <v-spacer></v-spacer>
-        <v-avatar class="mx-2 my-2" :size="50">
-          <v-img src="img5.png"></v-img>
-        </v-avatar>
-      </v-app-bar>
-    </v-layout>
-  </v-card>
+  <office-bar />
 
   <div class="mt-16">
     <v-container>
@@ -79,7 +62,11 @@
     
       
     <script>
+import OfficeBar from "@/components/toolbar/OfficeBar.vue";
 export default {
+  components: {
+    OfficeBar,
+  },
   data() {
     return {
       tableData: [

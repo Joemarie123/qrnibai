@@ -1,5 +1,4 @@
 <template>
-  <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
     <v-layout>
       <v-app-bar>
         <template v-slot:image> </template>
@@ -20,7 +19,6 @@
         </v-avatar>
       </v-app-bar>
     </v-layout>
-  </v-card>
   <v-container>
     <v-sheet
       class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-16"
