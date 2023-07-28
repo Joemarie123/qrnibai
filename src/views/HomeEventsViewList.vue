@@ -1,18 +1,12 @@
 <template>
 
-
-
+  
 
 
     <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
     <v-layout>
-      <v-app-bar
-       
-     
+      <v-app-bar  
       >
-
-      
-      
         <template v-slot:image>
 
         </template>
@@ -32,22 +26,13 @@
   <v-img src="img5.png" ></v-img>
 </v-avatar>
 
-       
-
-      </v-app-bar>
-
       
+      </v-app-bar>      
     </v-layout>
-    
-
     
   </v-card>
 
-  
-
-
-
-<div class="event-details page mt-12 ">
+<div class="event-details page mt-12 event-details223 ">
   <h1 class="my-10" :style="{ color: '#70B354' }" >Event Details</h1>
   <div class="event-info">
     <v-btn class="my-10 mt-n5 btn" color="green" height="100" width="250">
@@ -56,10 +41,14 @@
       <p class="mt-3 ml-12">No. of Attendees </p>
        </div>
   </v-btn>
-    <p><strong>Event Name:</strong> {{ eventName }}</p>
-    <p><strong>Date:</strong> {{ eventDate }}</p>
-    <p><strong>Venue:</strong> {{ eventVenue }}</p>
+
+    <div v-for="items in selected_event" :key="items.id" height="200px">
+
+    <p><strong>Event Name:</strong> {{ items.eventName }}</p>
+    <p><strong>Date:</strong> {{ items.eventDates }}</p>
+    <p><strong>Venue:</strong> {{ items.venue }}</p>
   
+  </div>
   </div>
 
 
@@ -90,25 +79,7 @@
     </tbody>
   </table>
 
-  <v-card v-for="items in selected_event" :key="items.id" height="200px">
-   <div class="text-center ">
-  <v-alert dense dark color="blue darken-3">
-    Youth Member Details<strong> </strong>
-
-   </v-alert> 
-   </div>
-
-
-
-  <p  class="font-weight-bold ml-5">Event Name: {{ items.eventName }}   </p>                     
-
-   <p class="font-weight-bold ml-5 mt-n2">Event Date:  </p>
-   
-   <p class="ml-5">Event Details: </p>
-   
   
-  </v-card>
-
 </div>
 </template>
 
@@ -116,9 +87,10 @@
 export default {
 data() {
   return {
-    eventName: "Sample Event",
+   /*  eventName: "Sample Event",
     eventDate: "2023-07-30",
     eventVenue: "Sample Venue",
+     */
     tableData: [
       { id: 1, Name: 'Joemarie Rendon', Position: 'Web Developer', timescanned: '8:03 AM'  , remarks: 'Remarks'   , office: 'RMISD OFFICE'},
       { id: 2, Name: 'Niel Roble', Position: 'Back End Developer', timescanned: '8:05 AM' , remarks: 'Remarks' , office: 'RMISD OFFICE'},
@@ -132,12 +104,12 @@ data() {
     selected_event:[],
 
     tableData_HomeEvents: [
-        { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: 50 },
-        { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: 75 },
-        { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: 90 },
-        { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: 90 },
-        { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: 90 },
-        { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: 90 },
+        { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' },
+        { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1'  },
+        { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2'  },
+        { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3' },
+        { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' },
+        { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' },
         // Add more sample data here...
       ]
   };
@@ -145,10 +117,8 @@ data() {
 
 
 created() {
-      this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == this.$route.params.id));
-
-      // console.log("selected=>", this.selected);
-      // console.log("selected=>", this.$route.params.id);
+  console.log("params=",history.state.id)
+      this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id));
   },
 
 
@@ -161,9 +131,25 @@ methods: {
 };
 </script>
 <style>
-/* body {
-margin: 0 300px;
+
+
+
+@media screen and (max-width: 1400px) {
+
+/* .ifmobile{
+  font-size: 12px;
+}
+
+.ifsize{
+  font-size: 5px;
+
 } */
+.event-details223 {
+  margin: 10px;
+}
+
+
+}
 
 .event-details {
 margin: 20px;

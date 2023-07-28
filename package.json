@@ -9,6 +9,8 @@
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@mdi/font": "7.0.96",
     "core-js": "^3.8.3",
     "element-plus": "^2.3.7",
@@ -19,6 +21,7 @@
     "vue": "^3.2.13",
     "vue-bootstrap4-table": "^1.1.11",
     "vue-router": "^4.0.0",
+    "vue3-easy-data-table": "^1.5.47",
     "vue3-qrcode-reader": "^0.0.1",
     "vuetify": "^3.0.0",
     "vuex": "^4.1.0",

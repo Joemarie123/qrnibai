@@ -1,51 +1,56 @@
-<!-- <template>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in data" :key="item.id">
-          <td>{{ item.id }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.age }}</td>
-          <td>
-            <button @click="handleButtonClick(item)">Button</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<template>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in data" :key="item.id">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>
+          <button @click="handleButtonClick(item.id)">Click</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
-
-import eventBus from './eventBus';
-
 export default {
-  data() {
-    return {
-      data: [
-        { id: 1, name: 'John Doe', age: 30 },
-        { id: 2, name: 'Jane Smith', age: 25 },
-        { id: 3, name: 'Bob Johnson', age: 40 },
-      /*  */
-      ],
-    };
+  props: {
+    data: {
+      type: Array,
+      required: true,
+    },
   },
   methods: {
-    handleButtonClick(rowData) {
-      eventBus.config.globalProperties.$emit('rowClicked', rowData);
+    handleButtonClick(id) {
+      // Replace this with your desired action when the button is clicked
+      console.log(`Button clicked for item with id ${id}`);
     },
   },
 };
 </script>
- -->
- <template>
-  <h1>df</h1>
- </template>
+
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+button {
+  padding: 4px 8px;
+}
+</style>

@@ -62,7 +62,7 @@
 
                 <v-row>
                     <v-col cols="12">
-                <v-btn  color="primary" @click="Login_Events()"  class="ml-2 ">
+                <v-btn type="submit"  color="primary" @click="Login_Events()"  class="ml-2 ">
                   Login
                 </v-btn>
             </v-col>
@@ -97,9 +97,9 @@
        this.$router.push('/HomeEvents'); 
       }
 
-      else if (this.usernamenako=="office",this.password=="office"){
+      else if (this.usernamenako=="admin",this.password=="admin"){
 
-        this.$router.push('/Youth_Member_Dashboard'); 
+        this.$router.push('/OfficeHomeEvents'); 
 
       }
 
@@ -131,6 +131,7 @@
   }
 
   
+
 
   .login-title {
     text-align: center;

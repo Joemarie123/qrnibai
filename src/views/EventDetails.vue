@@ -10,7 +10,7 @@
           </template>
   
           <v-app-bar-title>
-            <span :style="{ color: 'green' }">HOME EVENTSs</span>
+            <span :style="{ color: 'green' }">HOME EVENTS</span>
           </v-app-bar-title>
   
           <v-spacer></v-spacer>
@@ -21,6 +21,8 @@
         </v-app-bar>
       </v-layout>
     </v-card>
+
+    
     <v-container>
       <v-sheet
         class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-16"
@@ -52,19 +54,25 @@
         </v-col>
         <v-container>
           <v-row no-gutters style="text-align: justify">
+           
             <v-col cols="6">
-              <p>Department:</p>
-              <p>Division:</p>
-              <p>Section/Unit:</p>
-              <p>Project:</p>
+              <div v-for="items in selected_event" :key="items.id">
+              <p><strong> Department: </strong> {{ items.Department }} </p>
+              <p><strong>Division:</strong> {{ items.Division }}</p>
+              <p><strong>Section/Unit:</strong> {{ items.Section_unit }} </p>
+              <p><strong>Project:</strong> {{ items.Project }}</p>
+            </div>
             </v-col>
             <v-col cols="6">
               <v-sheet class="pa-2 ma-2">
-                <p>Date:</p>
-                <p>Activity:</p>
-                <p>Venue:</p>
+                <div v-for="items in selected_event" :key="items.id">
+                <p><strong>Date:</strong>{{ items.eventDates }}</p>
+                <p><strong>Activity:</strong>{{ items.eventName }}</p>
+                <p><strong>Venue:</strong> {{ items.venue }}</p>
+              </div>
               </v-sheet>
             </v-col>
+         
           </v-row>
         </v-container>
   
@@ -148,8 +156,30 @@
             remarks: "zxdfd",
           },
         ],
+
+        selected_event:[],
+
+        tableData_HomeEvents: [
+        { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' },
+        { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1'  },
+        { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2'  },
+        { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3' },
+        { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' },
+        { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' },
+        // Add more sample data here...
+      ]
+
       };
+      
     },
+
+    created() {
+  console.log("params=",history.state.id)
+      this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id));
+  },
+
+  
+
   };
   </script>
   <style>

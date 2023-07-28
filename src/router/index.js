@@ -30,7 +30,36 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
 
+  {
+    path: '/OfficeHomeEvents',
+    name: 'OfficeHomeEvents',
+    component: () => import('@/views/OfficeHomeEvents.vue')
+  },
+
+
+  {
+    path: '/CreateAccount',
+    name: 'CreateAccount',
+    component: () => import('@/views/CreateAccount.vue')
+  },
+
   
+    //AppBar
+    {
+      path: '/OfficeBar',
+      name: 'OfficeBar',
+      component: () => import('@/components/toolbar/OfficeBar.vue')
+    },
+    {
+      path: '/HrBar',
+      name: 'HrBar',
+      component: () => import('@/components/toolbar/HrBar.vue')
+    },
+
+  
+
+
+
   {
     path: '/EventView',
     name: 'EventView',

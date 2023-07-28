@@ -10,7 +10,7 @@
           </template>
   
           <v-app-bar-title>
-            <span :style="{ color: 'green' }">HOME EVENTS</span>
+            <span  :style="{ color: 'green' }">HOME EVENTS</span>
           </v-app-bar-title>
   
           <v-spacer></v-spacer>
@@ -56,15 +56,19 @@
         <v-container>
           <v-row no-gutters style="text-align: justify">
             <v-col cols="12" md="6">
-              <p>Department:</p>
-              <p>Division:</p>
-              <p>Section/Unit:</p>
-              <p>Project:</p>
+              <div v-for="items in selected_event" :key="items.id">
+              <p><strong>Department:</strong> {{ items.Department }}</p>
+              <p><strong>Division:</strong> {{ items.Division }}</p>
+              <p><strong>Section/Unit:</strong> {{ items.Section_unit  }}</p>
+              <p><strong>Project:</strong> {{ items.Project }}</p>
+            </div>
             </v-col>
             <v-col cols="12" md="6">
-              <p>Date:</p>
-              <p>Activity:</p>
-              <p>Venue:</p>
+              <div v-for="items in selected_event" :key="items.id">
+              <p><strong>Date:</strong> {{ items.eventDates }}</p>
+              <p><strong>Activity:</strong> {{ items.eventName }}</p>
+              <p><strong>Venue:</strong> {{ items.venue }}</p>
+            </div>
             </v-col>
           </v-row>
         </v-container>
@@ -151,8 +155,28 @@
             remarks: "zxdfd",
           },
         ],
+
+        selected_event:[],
+
+        tableData_HomeEvents: [
+        { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' , employee:'5000' },
+        { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1', employee:'5000'  },
+        { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2' , employee:'5000' },
+        { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3'  , employee:'5000'},
+        { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' , employee:'5000'},
+        { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' , employee:'5000'},
+        // Add more sample data here...
+      ]
+
       };
     },
+
+    created() {
+  console.log("params=",history.state.id)
+      this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id));
+  },
+
+
   };
   </script>
     <style scoped>
