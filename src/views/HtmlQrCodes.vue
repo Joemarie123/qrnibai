@@ -192,6 +192,7 @@ export default {
 
   methods: {
 
+
     timeExceedsThreshold(time) {
       if (!this.timeThreshold) {
         return false;
@@ -223,6 +224,8 @@ export default {
      
     },
     
+    
+
 
    onScanSuccess( decodedResult) {
 
