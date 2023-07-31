@@ -101,8 +101,11 @@
   </v-card>
 
 
-    <v-card >
+  <v-btn @click="scannerqr = true"  id="buttonScan">Start Scanning</v-btn>
+  <v-dialog v-model="scannerqr"  max-width="600px">
+        
 
+    <v-card>
     <!--   <h1>363 nani?</h1> -->
     
     <div id="qr-code-full-region" >
@@ -116,7 +119,7 @@
     
     <div class="text-center">
   <h4 class="mt-1">DATE: {{ currentDate }} - TIME: {{ currentTime }} </h4> 
-<v-btn color="green" @click="printTable">Print Me</v-btn>
+
 </div>
  
     <div class="mt-2"> 
@@ -157,7 +160,7 @@
 
     </v-card>
 
-  
+  </v-dialog> 
 
 </v-app>
 </template>
@@ -179,7 +182,9 @@ export default {
       mensahenibai: false,
       lastScannedTime: '',
       timeThreshold: '',
-     
+      scannerqr:false,
+
+
     };
   },
 
@@ -266,9 +271,6 @@ export default {
 
       }, 1500);
  
-     
-     
-    
     }
 
     },
@@ -301,6 +303,8 @@ export default {
     const match = decodedresult.match(regex);
     return match ? match[1].trim() : '';
   },
+
+
 
   updateTime() {
       const now = new Date();

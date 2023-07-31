@@ -3,8 +3,8 @@
 <HrBar/>
 
 
-<div class="mt-16">
-  <v-container>
+<div class="mt-16 container123">
+  <v-container >
   
     <v-btn @click="createevents = true" class="my-10" color="green" height="100">
       <v-icon size="90">mdi-calendar-plus</v-icon>
@@ -140,9 +140,9 @@
          </v-btn>
 
 
-        <v-btn class="mx-2" color="green" @click="redirecttoEventDetails(row)">
+       <!--  <v-btn class="mx-2" color="green" @click="redirecttoEventDetails(row)">
             <v-icon size="25">mdi-printer</v-icon>
-        </v-btn>
+        </v-btn> -->
               </td>
             </tr>
           </tbody>
@@ -254,11 +254,14 @@ methods: {
 };
 </script>
 
-<style>
-.v-container{
-  padding: 16px 0;
-
+<style scoped>
+.container123 {
+  max-width: 1170px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: auto;
 }
+
 
 
   .classfortitle{
@@ -309,7 +312,7 @@ border-collapse: collapse;
 
 th,
 td {
-padding: 8px;
+padding: 5px;
 border-bottom: 1px solid #ddd;
 text-align: center;
 }

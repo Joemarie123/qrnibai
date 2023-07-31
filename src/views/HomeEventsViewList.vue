@@ -32,24 +32,34 @@
     
   </v-card>
 
-<div class="event-details page mt-12 event-details223 ">
+<div class="container123">
   <h1 class="my-10" :style="{ color: '#70B354' }" >Event Details</h1>
-  <div class="event-info">
-    <v-btn class="my-10 mt-n5 btn" color="green" height="100" width="250">
-          <div class="text--center"> 
-      <span class="mt-11 " style="font-size:40px">1542/5000</span>
-      <p class="mt-3 ml-12">No. of Attendees </p>
-       </div>
-  </v-btn>
-
+ 
+  
+  <v-row>
+ 
+ <v-col cols="7"  sm="6" md="6">
     <div v-for="items in selected_event" :key="items.id" height="200px">
 
     <p><strong>Event Name:</strong> {{ items.eventName }}</p>
     <p><strong>Date:</strong> {{ items.eventDates }}</p>
     <p><strong>Venue:</strong> {{ items.venue }}</p>
-  
   </div>
-  </div>
+
+</v-col>
+
+<v-col cols="7" sm="6" md="6" >
+  <v-btn class="my-10 mt-n5 btn" color="green" height="100" width="250">
+          <div class="text--center  "> 
+    <p class="mt-n3 ifmobile">1542/5000</p> 
+      <p class="mt-3 ml-4 ">No. of Attendees </p>
+       </div>
+  </v-btn>
+</v-col>
+
+</v-row>
+
+
 
 
 
@@ -130,23 +140,32 @@ methods: {
 },
 };
 </script>
-<style>
+<style scoped>
 
-
-
-@media screen and (max-width: 1400px) {
-
-/* .ifmobile{
-  font-size: 12px;
+.container123 {
+  max-width: 1170px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top:100px;
+  padding-bottom:20px;
+  margin: auto;
 }
 
-.ifsize{
-  font-size: 5px;
+
+/* @media screen and (max-width: 450px) {
+
+.ifmobile{
+  font-size:12px;
+}
 
 } */
-.event-details223 {
-  margin: 10px;
+
+@media screen and (min-width: 1px) {
+
+.ifmobile{
+  font-size:25px;
 }
+
 
 
 }
