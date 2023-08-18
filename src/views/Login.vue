@@ -20,7 +20,7 @@
 
             <v-card-title class="my-4 login-title">
                
-                HR Attendance System</v-card-title>
+                HR SYSTEM QRCODES</v-card-title>
             <v-card-text>
              
                 

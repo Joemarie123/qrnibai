@@ -1,8 +1,9 @@
 <template>
+  
+  <v-layout>
+<NavBar/>
 
-<HrBar/>
-
-
+<v-main>
 <div class="mt-16 container123">
   <v-container >
   
@@ -11,8 +12,7 @@
       <span class="mt-11">Create Events</span></v-btn
     >
       <v-dialog v-model="createevents"  max-width="600px">
-        
-        <v-card >
+        <v-card>
      
             <v-container>
           <v-row>
@@ -117,7 +117,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <table>
+        <!-- <table>
           <thead>
             <tr>
               <th class="head">#</th>
@@ -137,30 +137,56 @@
                 <v-btn class="mx-2" color="blue"  @click="redirecttoHomeEventsViewList(row)">
              
              <v-icon size="25">mdi-eye</v-icon>
-         </v-btn>
-
-
+         </v-btn> -->
        <!--  <v-btn class="mx-2" color="green" @click="redirecttoEventDetails(row)">
             <v-icon size="25">mdi-printer</v-icon>
         </v-btn> -->
-              </td>
+              <!-- </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
+        <v-data-table
+    :headers="headers"
+    :items="tableData"
+    :items-per-page="5"
+    class="elevation-1"
+  
+  >
+  <template v-slot:item.actions="{ item }">
+
+
+<v-btn outlined @click="Events_History(item)" class="white--text mr-2" small color="green">
+  <v-icon left class="white--text">mdi-eye</v-icon>
+</v-btn>
+
+<!--   <div class="clas_sa_viewProfile"> -->
+      <v-btn outlined class="" small color="blue"
+  @click="View_Profile_Bai(item)">
+  <v-icon large>mdi-printer</v-icon>
+  
+</v-btn>
+<!-- </div> -->
+
+</template>
+
+
+</v-data-table>
       </v-col>
     </v-row>
   </v-container>
 </div>
+</v-main>
+</v-layout>
 </template>
 
 
 <script>
-import HrBar from "@/components/toolbar/HrBar.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
 
   components: {
-    HrBar,
+    NavBar,
   },
   
 data() {
@@ -174,6 +200,25 @@ data() {
       { title: "Create Account", icon: "mdi-account", route: "/CreateAccount", },
       // { title: "Click Me 2" },
     ],
+
+    headers: [
+        {
+          align: "start",
+          key: "id",
+          sortable: false,
+          title: "ID",
+          value: "id", 
+         
+        },
+        { key: "eventName", title: "Event Name", sortable: false },
+        { key: "eventDates", title: "Event Dates", sortable: false },
+        { key: "attendance", title: "Attendance", sortable: false },
+        { key: "actions", title: "Actions" , align:"center" },
+      
+      
+      ],
+
+
     tableData: [
       {
         id: 1,
@@ -261,9 +306,9 @@ methods: {
   padding-right: 20px;
   margin: auto;
 }
-
-
-
+.my-header-style {
+  background: #666fff;
+}
   .classfortitle{
   /*  color: #70b354; */
     font-size: 20px;
@@ -286,24 +331,7 @@ padding: 20px;
 font-size: 20px;
 }
 
-.pagebai {
-max-width: 400px;
-margin: 0 auto;
 
-position: absolute;
-left: 22%;
-top: 22%;
-width: 400px;
-transform: translate(-50%, -50%);
-
-border-radius: 20px;
-/*  box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
-*/
-}
-
-.page {
-margin: 300px;
-}
 
 table {
 width: 100%;

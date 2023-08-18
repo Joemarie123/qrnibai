@@ -30,6 +30,19 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
 
+
+  {
+    path: '/NavBar',
+    name: 'NavBar',
+    component: () => import('@/components/NavBar.vue')
+  },
+
+  {
+    path: '/TestingNavbar',
+    name: 'TestingNavbar',
+    component: () => import('@/components/TestingNavbar.vue')
+  },
+
   {
     path: '/OfficeHomeEvents',
     name: 'OfficeHomeEvents',
@@ -103,6 +116,12 @@ const routes = [
     path: '/sample',
     name: 'sample',
     component: () => import('@/views/sample.vue')
+  },
+
+  {
+    path: '/OfficesTable',
+    name: 'OfficesTable',
+    component: () => import('@/views/OfficesTable.vue')
   },
   
   

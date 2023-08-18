@@ -1,21 +1,10 @@
 <template>
+   
     <v-layout>
-      <v-app-bar>
-        <template v-slot:prepend>
-          <v-avatar :size="50">
-            <v-img src="/Tagum.png" alt="altText"></v-img>
-          </v-avatar>
-        </template>
-        <v-app-bar-title
-          ><span :style="{ color: 'green' }">HOME EVENTS</span></v-app-bar-title
-        >
-        <v-spacer></v-spacer>
-        <v-avatar class="mx-2 my-2" :size="50">
-          <v-img src="img5.png"></v-img>
-        </v-avatar>
-      </v-app-bar>
-  
-      <v-main>
+      <NavBar/>
+      
+      <v-main  class="mt-16">
+        
         <v-sheet
         
           class="custom-card elevation-12 rounded-xl d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-6"
@@ -138,39 +127,8 @@
 
               </v-col>
             </v-container>
-  <!--               <v-col cols="6">
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Designation"
-                    variant="solo"
-                    persistent-hint
-                    required
-                    density="compact"
-                    class="mb-n6"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Middle Name"
-                    variant="solo"
-                    persistent-hint
-                    required
-                    density="compact"
-                    class="mb-n6"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="Office ID"
-                    variant="solo"
-                    persistent-hint
-                    required
-                    density="compact"
-                    class="mb-n6"
-                  ></v-text-field>
-                </v-col>
-              </v-col> -->
-              
+
+    
               </v-card>
             </v-col>
                 <v-col cols="12" md="12">
@@ -231,13 +189,13 @@
 
 <script>
 import { mapGetters,mapActions } from 'vuex';
-
+import NavBar from '../components/NavBar'
 
 export default {
   name: 'App',
 
   components: {
-
+    NavBar,
   },
   
 
