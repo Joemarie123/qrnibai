@@ -101,8 +101,8 @@
   </v-card>
 
 
-  <v-btn @click="scannerqr = true"  id="buttonScan">Start Scanning</v-btn>
-  <v-dialog v-model="scannerqr"  max-width="600px">
+  <v-btn @click="tawaganisaqrcode()"  id="buttonScan">Start Scanning</v-btn>
+<!--   <v-dialog v-model="scannerqr"  max-width="600px"> -->
         
 
     <v-card>
@@ -160,7 +160,7 @@
 
     </v-card>
 
-  </v-dialog> 
+<!--   </v-dialog>  -->
 
 </v-app>
 </template>
@@ -191,6 +191,13 @@ export default {
 
 
   methods: {
+
+    tawaganisaqrcode(){
+    
+        this.scannerqr = true;
+        this.creatScan();
+          this.updateTime(); // Call it once on mount
+    },
 
 
     timeExceedsThreshold(time) {
@@ -329,8 +336,6 @@ export default {
     
     padZero(num) {
       return num.toString().padStart(2, '0');
-
-      
     },
  
 
@@ -364,7 +369,6 @@ export default {
   },
   computed: {
      
-
     },
 
  

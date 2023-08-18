@@ -1,5 +1,6 @@
 <template>
     <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
+   
       <v-layout>
         <v-app-bar>
           <template v-slot:image> </template>
@@ -21,6 +22,10 @@
         </v-app-bar>
       </v-layout>
     </v-card>
+       <v-dialog v-model="scannerqr"  max-width="400px" height="100px">
+
+<QrCodesNi/>
+   </v-dialog>
     <v-container>
       <v-sheet
         class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-16"
@@ -29,11 +34,8 @@
         max-width="90%"
         width="100%"
       >
-        <v-row>
+       <!--  <v-row>
           <v-col cols="4">
-            <!-- <v-avatar class="d-flex child-flex">
-                <v-img src="/phil.png" alt="altText"></v-img>
-              </v-avatar> -->
             <div class="center1">
               <v-img :width="100" src="/phil.png" class=""></v-img>
             </div>
@@ -48,7 +50,7 @@
               <v-img :width="100" src="/Tagum.png" class=""></v-img>
             </div>
           </v-col>
-        </v-row>
+        </v-row> -->
         <v-divider color="blue" :thickness="5" class="mt-2"></v-divider>
         <v-col cols="12">
           <!-- <h2>ATTENDANCE REPORT</h2> -->
@@ -76,78 +78,7 @@
           <v-btn @click="scannerqr = true"  id="buttonScan">Start Scanning</v-btn>
         </v-col>
 
-        <v-dialog v-model="scannerqr"  max-width="600px">
-        
-        <v-card >
-     
-            <v-container>
-          <v-row>
-
-            <v-col cols="12" >
-              <v-card >
-
-<!--   <h1>363 nani?</h1> -->
-
-<div id="qr-code-full-region" >
-  <!-- <div v-if="showSuccessMessage" class="success-message">
-    Successfully Scanned
-  </div> -->
- 
-  <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
-
-</div>
-
-<div class="text-center">
-<h4 class="mt-1">DATE: {{ currentDate }} - TIME: {{ currentTime }} </h4> 
-
-</div>
-
-<div class="mt-2"> 
-
-<table class="TableHead" >
-<tr>
-<th>ID</th>
-<th>NAME</th>
-<th >TIME</th>
-
-</tr>
-
-<tr   v-for="(msg, index) in message" :key="index" :class="{ 'red-row': isTimeHigh(msg.time, timeThreshold) }"  >
-<td >
-
-<p style="font-size:12px" class="mt-1 ml-1">{{ msg.id }}</p>
-
-
-</td>
-
-<td >
-
-<p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p> 
-
-</td>
-
-     <td>
-     
-   <p style="font-size:12px" class="mt-1 ml-1">{{ msg.time }}</p>
-  
-  </td>
-
-</tr>
-
-</table>
-</div>
-
-
-</v-card>
-
-            </v-col>
-
-      </v-row>
-
-
-      </v-container>                                                  
-      </v-card>    
-          </v-dialog>
+      
 
 
 
@@ -208,8 +139,12 @@
   </template>
     <script>
     import { Html5QrcodeScanner } from "html5-qrcode";
+    import QrCodesNi from "../components/QrCodesNi"
+
   export default {
     data() {
+    
+
       return {
         selectedTime: getCurrentTime(),
       timeThreshold: '',
@@ -264,6 +199,9 @@
       };
     },
 
+    components:{
+        QrCodesNi
+      },
     created() {
   console.log("params=",history.state.id)
       this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id));

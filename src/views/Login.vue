@@ -46,12 +46,7 @@
                   variant="outlined"
                   type="password"
                 ></v-text-field>
-                
-
-            
-
-
-
+              
                  <!--  <v-text-field
               
                   ></v-text-field>
@@ -129,9 +124,6 @@
 
 
   }
-
-  
-
 
   .login-title {
     text-align: center;

@@ -6,12 +6,16 @@ import ElementUI from "element-plus";
 
 // Composables
 import { createApp } from 'vue'
+import router from './router';
+import store from './store';
 
 // Plugins
 import { registerPlugins } from '@/plugins'
 
 
 const app = createApp(App)
+.use(router)
+.use(store);
 
 
 app.use(ElementUI)
