@@ -1,5 +1,5 @@
 <template>
-  
+    <v-card  height="1000" flat color="#F9FAFC" >
   <v-layout>
 <NavBar/>
 
@@ -7,17 +7,17 @@
 <div class="mt-16 container123">
   <v-container >
   
-    <v-btn @click="createevents = true" class="my-10" color="green" height="100">
+  <!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
       <v-icon size="90">mdi-calendar-plus</v-icon>
       <span class="mt-11">Create Events</span></v-btn
-    >
-      <v-dialog v-model="createevents"  max-width="600px">
-        <v-card>
+    > -->
+      <v-dialog persistent v-model="createevents"  max-width="600px">
+        <v-card color="#F9FAFC" class='rounded-xl'>
      
             <v-container>
           <v-row>
 
-           <button @click="createevents = false" class="close-button"><strong>X</strong></button>                 
+           <button @click="createevents = false" class="close-button "><strong>X</strong></button>                 
           <v-col cols="12"  sm="12" md="12" class="my-5 ml-7 mt-2" >
           <p class="classeventdetails" :style="{ color: '#70b354' }"><strong>Event Details</strong></p>
 
@@ -32,7 +32,7 @@
   </v-col>
 
   <v-col cols="12" sm="9" md="9" class="mt-n3 mt-md-n0 mt-sm-n0" > 
-   <v-text-field height="10" variant="outlined" density="compact" type="date" label="Event Name"></v-text-field>
+   <v-text-field height="10" variant="outlined"  density="compact" type="date" v-model="eventdate" ></v-text-field>
   </v-col>
 </v-row>
 
@@ -47,7 +47,7 @@
   </v-col>
 
   <v-col cols="12" md="9" sm="9" class="mt-n4 mt-md-1 mt-sm-1">
-   <v-text-field height="10" variant="outlined" density="compact"  label="Event Name"></v-text-field>
+   <v-text-field height="10" variant="outlined" density="compact" v-model="eventname"  label="Event Name"></v-text-field>
   </v-col>
 </v-row>
 
@@ -64,7 +64,7 @@
 </v-col>
 
 <v-col cols="12" md="9" sm="9" class="mt-n4 mt-md-1 mt-sm-1">
-<v-text-field height="10" variant="outlined" density="compact" label="Venue"></v-text-field>
+<v-text-field height="10" variant="outlined" density="compact" v-model="eventvue" label="Venue"></v-text-field>
 </v-col>
 </v-row>
    </v-col>
@@ -77,14 +77,12 @@
 
    <v-col cols="11"  sm="4" md="4"  class="mt-n3 mt-md-1 ml-md-n4 mt-sm-1 ml-sm-n4"
    >
-   <v-text-field height="10"    variant="outlined"  density="compact" type="time"  label="Time Started"></v-text-field>
+   <v-text-field height="10"    variant="outlined" v-model="eventfrom"  density="compact" type="time"  label="Time Started"></v-text-field>
    </v-col>
-
 
    <v-col cols="11" sm="4" md="4"  class="mt-n6 mt-md-1 ml-md-n2 mt-sm-1 ml-md-n2" >
-    <v-text-field height="10"     variant="outlined" density="compact" type="time"  label="Time Ended"></v-text-field>
+    <v-text-field height="10"  v-model="eventto"    variant="outlined" density="compact" type="time"  label="Time Ended"></v-text-field>
    </v-col>
-
   </v-row>
 
 
@@ -96,7 +94,7 @@
 
     <v-btn color="green" class="pa-2 ml-5 mt-n1"
         outlined dark
-        @click="dialog_Create_Events = false">
+        @click="register()">
       Submit
     </v-btn>
 
@@ -104,84 +102,72 @@
 </v-col>
 
 </v-row>
-
-
 </v-container>                                                  
 </v-card>    
       </v-dialog>
 
-
-    <h2 class="mx-2" :style="{ color: 'green' }">EVENTS</h2>
   </v-container>
 
   <v-container>
+
     <v-row>
-      <v-col>
-        <!-- <table>
-          <thead>
-            <tr>
-              <th class="head">#</th>
-              <th class="head">Event Name</th>
-              <th class="head">Event Dates</th>
-              <th class="head">Attendance</th>
-              <th class="head">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="row in tableData_HomeEvents" :key="row.id">
-              <td class="center">{{ row.id }}</td>
-              <td>{{ row.eventName }}</td>
-              <td>{{ row.eventDates }}</td>
-              <td class="center">{{ row.attendance }}</td>
-              <td class="center">
-                <v-btn class="mx-2" color="blue"  @click="redirecttoHomeEventsViewList(row)">
-             
-             <v-icon size="25">mdi-eye</v-icon>
-         </v-btn> -->
-       <!--  <v-btn class="mx-2" color="green" @click="redirecttoEventDetails(row)">
-            <v-icon size="25">mdi-printer</v-icon>
-        </v-btn> -->
-              <!-- </td>
-            </tr>
-          </tbody>
-        </table> -->
+      <v-col class="d-flex justify-end ml-n3 " cols="12">
+      <v-btn color="success"  rounded variant="outlined" @click="createevents = true"> + Create Events</v-btn>
+    </v-col>
+
+      <v-col cols="2">
+    <h3 class="ml-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
+  </v-col>
+
+  <v-col class="mt-n4" cols="6">
+    <input v-model="textInput" class="textbox" placeholder="Search Event">
+ <!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
+  </v-col>
+  
+      <v-col cols="12">
+
+        <v-card class='rounded-l mt-n4'>
         <v-data-table
-    :headers="headers"
-    :items="tableData"
-    :items-per-page="5"
-    class="elevation-1"
+  
+         item-key="ID"
+       :headers="headers"
+       :items="events"
+      :items-per-page="5"
+       class="elevation-1"
   
   >
   <template v-slot:item.actions="{ item }">
 
+  <button>
+  <v-icon left color="success" class="white--text mx-2">mdi-eye</v-icon>
+</button>
 
-<v-btn outlined @click="Events_History(item)" class="white--text mr-2" small color="green">
-  <v-icon left class="white--text">mdi-eye</v-icon>
-</v-btn>
+<button >
+<v-icon color="primary" large>mdi-printer</v-icon>
+</button>
 
-<!--   <div class="clas_sa_viewProfile"> -->
-      <v-btn outlined class="" small color="blue"
-  @click="View_Profile_Bai(item)">
-  <v-icon large>mdi-printer</v-icon>
-  
-</v-btn>
-<!-- </div> -->
 
 </template>
 
 
 </v-data-table>
+</v-card>
+
       </v-col>
     </v-row>
   </v-container>
 </div>
 </v-main>
 </v-layout>
+</v-card>
 </template>
 
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+
+import { mapActions, mapGetters } from 'vuex';
+
 
 export default {
 
@@ -191,7 +177,14 @@ export default {
   
 data() {
   return {
+  
 
+    eventname:'',
+      eventdate:'',
+       eventfrom:'',
+      eventto:'',
+      eventvue:'',
+  
     createevents:false,
 
     items: [
@@ -204,73 +197,125 @@ data() {
     headers: [
         {
           align: "start",
-          key: "id",
+          key: "ID",
           sortable: false,
           title: "ID",
-          value: "id", 
+         
          
         },
-        { key: "eventName", title: "Event Name", sortable: false },
-        { key: "eventDates", title: "Event Dates", sortable: false },
+        { key: "Event_name", title: "Event Name", sortable: false },
+        { key: "Event_date", title: "Event Dates", sortable: false },
+        { key: "Event_from", title: "Event From", sortable: false },
+        { key: "Event_to", title: "Event To", sortable: false },
+        { key: "Event_venue", title: "Event Venue", sortable: false },
         { key: "attendance", title: "Attendance", sortable: false },
         { key: "actions", title: "Actions" , align:"center" },
-      
-      
+    
       ],
 
 
-    tableData: [
-      {
-        id: 1,
-        eventName: "Araw Nang Tagum",
-        eventDates: "2023-07-20",
-        attendance: 50,
-      },
-      {
-        id: 2,
-        eventName: "Kantahan of the Night",
-        eventDates: "2023-07-21",
-        attendance: 75,
-      },
-      {
-        id: 3,
-        eventName: "Civil Service Event",
-        eventDates: "2023-07-22",
-        attendance: 90,
-      },
-      {
-        id: 4,
-        eventName: "Tagum October Fest",
-        eventDates: "2023-07-22",
-        attendance: 90,
-      },
-      {
-        id: 5,
-        eventName: "Beer of the Month",
-        eventDates: "2023-07-22",
-        attendance: 90,
-      },
-      {
-        id: 6,
-        eventName: "Nutrition Month",
-        eventDates: "2023-07-22",
-        attendance: 90,
-      },
-      // Add more sample data here...
-    ],
+    // tableData: [
+    //   {
+    //     id: 1,
+    //     eventName: "Araw Nang Tagum",
+    //     eventDates: "2023-07-20",
+    //     attendance: 50,
+    //   },
+    //   {
+    //     id: 2,
+    //     eventName: "Kantahan of the Night",
+    //     eventDates: "2023-07-21",
+    //     attendance: 75,
+    //   },
+    //   {
+    //     id: 3,
+    //     eventName: "Civil Service Event",
+    //     eventDates: "2023-07-22",
+    //     attendance: 90,
+    //   },
+    //   {
+    //     id: 4,
+    //     eventName: "Tagum October Fest",
+    //     eventDates: "2023-07-22",
+    //     attendance: 90,
+    //   },
+    //   {
+    //     id: 5,
+    //     eventName: "Beer of the Month",
+    //     eventDates: "2023-07-22",
+    //     attendance: 90,
+    //   },
+    //   {
+    //     id: 6,
+    //     eventName: "Nutrition Month",
+    //     eventDates: "2023-07-22",
+    //     attendance: 90,
+    //   },
+    //   // Add more sample data here...
+    // ],
 
-    tableData_HomeEvents: [
-        { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' },
-        { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1'  },
-        { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2'  },
-        { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3' },
-        { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' },
-        { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' },
-        // Add more sample data here...
-      ]
+    // tableData_HomeEvents: [
+    //     { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' },
+    //     { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1'  },
+    //     { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2'  },
+    //     { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3' },
+    //     { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' },
+    //     { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' },
+    //     // Add more sample data here...
+    //   ]
   };
 },
+
+/* computed: {
+    ...mapGetters('events', {events: 'getEvents'
+    }),
+  },
+ */
+  computed: {
+    ...mapGetters("events", { events: "getEvents" }),
+
+
+  },
+
+
+  created() {
+    this.fetchEvents();
+  },
+
 methods: {
+
+  ...mapActions('events', ['registerEvents']),
+  ...mapActions('events', ['fetchEvents']),
+
+  register() {
+      console.log("registerEvents");
+
+      let data = new FormData();
+      data.append('event_name', this.eventname);
+      data.append('event_date', this.eventdate);
+      data.append('event_from', this.eventfrom);
+      data.append('event_to', this.eventto);
+      data.append('event_venue', this.eventvue);
+      
+      this.registerEvents(data).then(() => {
+        /*   this.navigateTo('/walup'); */
+        }).catch(e => console.log(e.message));
+
+        this.eventname = '';
+        this.eventdate = '';
+        this.eventfrom = '';
+        this.eventto = '';
+        this.eventvue = '';
+
+
+        this.fetchEvents()  
+        this.createevents = false
+    },
+
+
+
+
+
   editEvent(id) {
     // Handle edit event logic
     console.log("Edit Event:", id);
@@ -300,6 +345,13 @@ methods: {
 </script>
 
 <style scoped>
+.my-input.v-input .v-input__slot {
+  border-radius: 100px;
+}
+
+.v-data-table > .v-data-table__wrapper > table {
+    border-spacing: 0 0.10rem;
+}
 .container123 {
   max-width: 1170px;
   padding-left: 20px;
@@ -311,16 +363,13 @@ methods: {
 }
   .classfortitle{
   /*  color: #70b354; */
-    font-size: 20px;
+    font-size: 15px;
   }
 
   .classeventdetails{
 
-    font-size: 28px;
+    font-size: 20px;
   }
-
-
-
 
 .head {
 background-color: #70b354;
@@ -340,7 +389,7 @@ border-collapse: collapse;
 
 th,
 td {
-padding: 5px;
+padding: 3px;
 border-bottom: 1px solid #ddd;
 text-align: center;
 }
@@ -353,12 +402,18 @@ background-color: #f2f2f2;
 .close-button {
   position: absolute;
   top: 5px;
-  right: 10px;
+  right: 14px;
   font-size: 16px;
   background-color: transparent;
   border: none;
   cursor: pointer;
 }
-
-
+.textbox {
+  padding: 10px;
+  border: 1px solid #168904;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 500px;
+  height: 40px;
+}
 </style>

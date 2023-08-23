@@ -1,5 +1,5 @@
 <template>
-  
+   <v-card  height="1000" flat color="#F9FAFC" >
     <v-layout>
   <NavBar/>
   
@@ -185,6 +185,7 @@
   </div>
   </v-main>
   </v-layout>
+</v-card>
   </template>
   
   
@@ -301,7 +302,7 @@
   
   <style scoped>
   .container123 {
-    max-width: 1170px;
+    max-width: 1000px;
     padding-left: 20px;
     padding-right: 20px;
     margin: auto;

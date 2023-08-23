@@ -15,7 +15,15 @@ import { VDataTable } from 'vuetify/labs/VDataTable'
 export default createVuetify({
   components: {
     VDataTable,
+    
   },
+
+  VBtn: {
+    color: 'primary',
+    variant: 'outlined',
+    rounded: true,
+  },
+
   theme: {
     themes: {
       light: {
@@ -26,4 +34,7 @@ export default createVuetify({
       },
     },
   },
+
+
+
 })

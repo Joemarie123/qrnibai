@@ -1,12 +1,14 @@
 <template>
-   
-    <v-layout>
+ 
+  <v-card  height="1000" flat color="#F9FAFC" >
+    <v-layout  >
+     
       <NavBar/>
       
       <v-main  class="mt-16">
         
         <v-sheet
-        
+       
           class="custom-card elevation-12 rounded-xl d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-6"
           elevation="4"
           rounded
@@ -181,8 +183,10 @@
         </v-sheet>
         
       </v-main>
-      
+   
     </v-layout>
+  </v-card>
+   
   </template>
 
 
