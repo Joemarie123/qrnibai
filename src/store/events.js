@@ -51,11 +51,10 @@ const actions = {
     commit('setEvents', res.data.events);
   },
 
-
   async fetchPangalan({ commit }, payload) {
     try {
         let res = await axios.post(`http://10.0.1.23/HRQR/eventdetails.php`, payload);
-        console.log("data from db=", res.data.event_details)
+        console.log("data from db=", res.data.event_details[0])
         commit('setName', res.data.event_details[0]);
     }
     catch (error) {
@@ -65,9 +64,6 @@ const actions = {
 
 
 }
-
-
-
 
 export default {
   namespaced: true,

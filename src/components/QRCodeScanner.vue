@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div>
     <h1>QR CODE SCANNER</h1>
     <div id="qr-code-full-region"></div>

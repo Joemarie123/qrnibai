@@ -47,14 +47,7 @@
                   type="password"
                 ></v-text-field>
               
-                 <!--  <v-text-field
-              
-                  ></v-text-field>
-        
-                  <v-text-field
-                 
-                  ></v-text-field> -->
-
+          
                 <v-row>
                     <v-col cols="12">
                 <v-btn type="submit"  color="primary" @click="Login_Events()"  class="ml-2 ">

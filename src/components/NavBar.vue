@@ -141,8 +141,7 @@
       ],
 
         accounts: [
-        {  icon: 'mdi-plus-outline'  , text: 'Create Account', route: '/CreateAccount' },
-        {  icon: 'mdi-file-outline'  , text: 'Account List', route: '/dsfd' },
+        {  icon: 'mdi-file-outline'  , text: 'Account List', route: '/UserList' },
 
         ],
 

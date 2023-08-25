@@ -4,9 +4,9 @@
     <v-layout  >
      
       <NavBar/>
-      
+
       <v-main  class="mt-16">
-        
+
         <v-sheet
        
           class="custom-card elevation-12 rounded-xl d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-6"
@@ -15,9 +15,33 @@
           max-width="70%"
           width="100%"
         >
+       
           <v-container>
             <v-container>
+              <v-row>
+                <v-col cols="3" >
+        <div class="ml-n16">
+          <v-btn
+          color="orange"
+            class="text-none primary"
+            min-width="92"
+            rounded
+            variant="outlined"
+            @click="$router.push('/UserList').catch((err) => {})"
+          >
+            <v-icon> mdi-arrow-left </v-icon>
+            Back
+          </v-btn>
+        </div>
+      </v-col>
+
+
+                <v-col cols="7">
               <span class="text-h4 ">CREATE OFFICE ADMIN ACCOUNT</span>
+            </v-col>  
+
+           
+    </v-row>
             </v-container>
           <!--   <v-divider :thickness="5" color="green" class=" mb-4"></v-divider> -->
             <v-container>
@@ -69,6 +93,7 @@
 
                 <v-col cols="12" sm="6" md="6" lg="6">
                   <v-text-field
+                    readonly
                     label="Last Name"
                     v-model="selectedLastName"
                     variant="solo"
@@ -79,6 +104,7 @@
 
                 <v-col cols="12" sm="6" md="6" lg="6">
                   <v-text-field
+                  readonly
                     label="Status"
                     v-model="selectedStatus"
                     variant="solo"
@@ -88,6 +114,7 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="6" lg="6">
                   <v-text-field
+                  readonly
                   v-model="selectedFirstName"
                     label="First Name "
                     variant="solo"
@@ -98,6 +125,7 @@
 
                 <v-col cols="12" sm="6" md="6" lg="6">
                   <v-text-field
+                  readonly
                     label="Designation"
                     v-model="selectedDesignation"
                     variant="solo"
@@ -108,6 +136,7 @@
 
                 <v-col cols="12" sm="6" md="6" lg="6">
                   <v-text-field
+                  readonly
                   v-model="selectedMiddleName"
                     label="Middle Name"
                     variant="solo"
@@ -118,6 +147,7 @@
 
                 <v-col cols="12" sm="6" md="6" lg="6">
                   <v-text-field
+                  readonly
                     label="Office ID"
                     v-model="selectedOfficeID"
                     variant="solo"
@@ -148,7 +178,8 @@
                     variant="solo"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6">
+
+                <v-col cols="12" md="3">
                   <v-text-field
                     label="Password*"
                     type="password"
@@ -158,6 +189,19 @@
                     variant="solo"
                   ></v-text-field>
                 </v-col>
+
+                <v-col cols="12" md="3">
+                  <v-text-field
+                    label="Confirm Passwords*"
+                    type="password"
+                    required
+                    density="compact"
+                    class="mb-n6"
+                    variant="solo"
+                  ></v-text-field>
+                </v-col>
+
+
               </v-row>
           </v-container>
             <div class="pa-4 text-end">
@@ -170,15 +214,7 @@
               Save Account
             </v-btn>
             
-            <v-btn
-              class="text-none"
-              color="orange"
-              min-width="92"
-              variant="outlined"
-              @click="dialog = false"
-            >
-              Cancel
-            </v-btn>
+           
           </div>
           </v-container>
           
@@ -190,8 +226,6 @@
   </v-card>
    
   </template>
-
-
 
 <script>
 import { mapGetters,mapActions } from 'vuex';

@@ -1,14 +1,14 @@
 import axios from 'axios';
 /* axios.defaults.baseURL = process.env.VUE_APP_API_URL; */
 const state = () => ({
-  users: [],
+  account: [],
   auth: {},
 })
 
 const getters = {
   getUsers(state) {
     console.log("Get Users",state);
-    return state.users;
+    return state.account;
   },
 
   getAuth(state){
@@ -21,7 +21,7 @@ const mutations = {
 
   setUsers(state, payload){
     console.log("Set Users",payload);
-    state.users = payload;
+    state.account = payload;
   },
 
 
@@ -35,8 +35,8 @@ const mutations = {
 
 const actions = {
 
-  async fetchUsers({commit}){
-    let res = await axios.get(`http://10.0.1.23/HRQR/employees.php`);
+  async fetchAccountUsers({commit}){
+    let res = await axios.get(`http://10.0.1.23/HRQR/users.php`);
     commit('setUsers', res.data.users);
   },
 

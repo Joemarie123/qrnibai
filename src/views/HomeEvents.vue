@@ -127,6 +127,7 @@
       <v-col cols="12">
 
         <v-card class='rounded-lg mt-n4'>
+          
         <v-data-table
         :search="search"
          item-key="ID"
@@ -134,17 +135,16 @@
        :items="events"
       :items-per-page="5"
        class="elevation-1"
-       @click:row="handleRowClick"
-  
+    
   >
   <template v-slot:item.actions="{ item }">
 
   <button>
-  <v-icon left color="success" class="white--text mx-2">mdi-eye</v-icon>
+  <v-icon left color="success"   @click="handleRowClick(item)" class="white--text mx-2">mdi-eye</v-icon>
 </button>
 
 <button >
-<v-icon color="primary" large>mdi-printer</v-icon>
+<v-icon color="primary"  large >mdi-printer</v-icon>
 </button>
 
 
@@ -166,7 +166,6 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-
 import { mapActions, mapGetters } from 'vuex';
 
 
@@ -241,13 +240,12 @@ methods: {
 
 
 
-  handleRowClick(item, row) {
-      console.log("users=", item);
-      console.log("users=", row.item.raw.ID);
-      console.log("users=", row.item.raw.event_name);
-      localStorage.setItem('ID',row.item.raw.ID);
-      
-      this.$router.push({ name: "EventView2",  params: { id: row.item.raw.ID } })
+  handleRowClick( row) {
+      // console.log("users=", item);
+      console.log("users=", row.columns.ID);
+    //   console.log("EventName", row.item.raw.Event_name);
+    //   localStorage.setItem('ID',row.item.raw.ID);
+      this.$router.push({ name: "EventView2",  params: { id: row.columns.ID } })
     },
   
 
@@ -306,7 +304,15 @@ methods: {
     this.$router.push({ name: 'EventDetails', state: { id: item.id } })
     },
   
+
 },
+
+/* check() {
+    console.log("this.users=", this.events);
+
+  },
+ */
+
 };
 </script>
 

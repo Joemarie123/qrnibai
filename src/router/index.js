@@ -76,11 +76,6 @@ const routes = [
 
 
 
-  {
-    path: '/EventView',
-    name: 'EventView',
-    component: () => import('@/views/EventView.vue')
-  },
 
   {
     path: '/EventView2/:id',
@@ -101,6 +96,11 @@ const routes = [
     component: () => import('@/views/HomeEventsViewList.vue')
   },
 
+  {
+    path: '/UserList',
+    name: 'UserList',
+    component: () => import('@/views/UserList.vue')
+  },
 
 
   {

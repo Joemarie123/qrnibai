@@ -31,13 +31,13 @@
     <v-container>
     <v-row>
     <v-col cols="12">
-        <p style="font-size:15px">Event Name: {{ Pangalan.event_name }} </p>
+        <p style="font-size:15px">Event Name: {{ Pangalan.Event_name }} </p>
     </v-col>
     <v-col cols="12" class="mt-n6">
-        <p style="font-size:15px">Date of Event: </p>
+        <p style="font-size:15px">Date of Event: {{ Pangalan.Event_date }} </p>
     </v-col>
     <v-col cols="12" class="mt-n6">
-        <p style="font-size:15px">Event Venue: </p>
+        <p style="font-size:15px">Event Venue: {{ Pangalan.Event_venue }} </p>
     </v-col>
     </v-row>
 </v-container>
@@ -171,9 +171,12 @@ created() {
     
     let data = new FormData;
     console.log("ID=",this.$route.params.id)
-    data.append('ID', localStorage.getItem('ID'))
+    console.log("EventName=",this.$route.params.Event_name)
+    data.append('event_id', localStorage.getItem('ID'))
+    data.append('Event_name', localStorage.getItem('Event_name'))
+   /*  data.append('Event_name', localStorage.getItem('Event_name')) */
     this.fetchPangalan(data);
-    
+   
   },
 
 
