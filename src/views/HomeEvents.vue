@@ -12,7 +12,7 @@
       <span class="mt-11">Create Events</span></v-btn
     > -->
       <v-dialog persistent v-model="createevents"  max-width="600px">
-        <v-card color="#F9FAFC" class='rounded-xl'>
+        <v-card color="#F9FAFC" class='rounded-lg'>
      
             <v-container>
           <v-row>
@@ -112,7 +112,7 @@
 
     <v-row>
       <v-col class="d-flex justify-end ml-n3 " cols="12">
-      <v-btn color="success"  rounded variant="outlined" @click="createevents = true"> + Create Events</v-btn>
+      <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
     </v-col>
 
       <v-col cols="2">
@@ -120,20 +120,21 @@
   </v-col>
 
   <v-col class="mt-n4" cols="6">
-    <input v-model="textInput" class="textbox" placeholder="Search Event">
+    <input v-model="search" class="textbox"  placeholder="Search Event">
  <!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
   </v-col>
   
       <v-col cols="12">
 
-        <v-card class='rounded-l mt-n4'>
+        <v-card class='rounded-lg mt-n4'>
         <v-data-table
-  
+        :search="search"
          item-key="ID"
        :headers="headers"
        :items="events"
       :items-per-page="5"
        class="elevation-1"
+       @click:row="handleRowClick"
   
   >
   <template v-slot:item.actions="{ item }">
@@ -177,8 +178,9 @@ export default {
   
 data() {
   return {
-  
-
+    rows: [],
+    ID: "",
+    search: "",
     eventname:'',
       eventdate:'',
        eventfrom:'',
@@ -208,61 +210,11 @@ data() {
         { key: "Event_from", title: "Event From", sortable: false },
         { key: "Event_to", title: "Event To", sortable: false },
         { key: "Event_venue", title: "Event Venue", sortable: false },
-        { key: "attendance", title: "Attendance", sortable: false },
+        { key: "AttendanceCount", title: "Attendance", sortable: false },
         { key: "actions", title: "Actions" , align:"center" },
     
       ],
 
-
-    // tableData: [
-    //   {
-    //     id: 1,
-    //     eventName: "Araw Nang Tagum",
-    //     eventDates: "2023-07-20",
-    //     attendance: 50,
-    //   },
-    //   {
-    //     id: 2,
-    //     eventName: "Kantahan of the Night",
-    //     eventDates: "2023-07-21",
-    //     attendance: 75,
-    //   },
-    //   {
-    //     id: 3,
-    //     eventName: "Civil Service Event",
-    //     eventDates: "2023-07-22",
-    //     attendance: 90,
-    //   },
-    //   {
-    //     id: 4,
-    //     eventName: "Tagum October Fest",
-    //     eventDates: "2023-07-22",
-    //     attendance: 90,
-    //   },
-    //   {
-    //     id: 5,
-    //     eventName: "Beer of the Month",
-    //     eventDates: "2023-07-22",
-    //     attendance: 90,
-    //   },
-    //   {
-    //     id: 6,
-    //     eventName: "Nutrition Month",
-    //     eventDates: "2023-07-22",
-    //     attendance: 90,
-    //   },
-    //   // Add more sample data here...
-    // ],
-
-    // tableData_HomeEvents: [
-    //     { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' },
-    //     { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1'  },
-    //     { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2'  },
-    //     { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3' },
-    //     { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' },
-    //     { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' },
-    //     // Add more sample data here...
-    //   ]
   };
 },
 
@@ -286,6 +238,20 @@ methods: {
 
   ...mapActions('events', ['registerEvents']),
   ...mapActions('events', ['fetchEvents']),
+
+
+
+  handleRowClick(item, row) {
+      console.log("users=", item);
+      console.log("users=", row.item.raw.ID);
+      console.log("users=", row.item.raw.event_name);
+      localStorage.setItem('ID',row.item.raw.ID);
+      
+      this.$router.push({ name: "EventView2",  params: { id: row.item.raw.ID } })
+    },
+  
+
+
 
   register() {
       console.log("registerEvents");
@@ -379,8 +345,6 @@ color: white;
 padding: 20px;
 font-size: 20px;
 }
-
-
 
 table {
 width: 100%;

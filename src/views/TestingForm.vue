@@ -1,348 +1,76 @@
 <template>
-
-    <v-app>
-     
-      <v-card>
-    
-    <v-row>
-    
-      <v-col cols="12" >
-        <div class="text-center ">
-      <v-alert dense dark color="blue darken-3">
-     Entry Event<strong>
-    </strong>
-      </v-alert>
+  <div>
+    <input v-model="searchQuery" @input="searchEmployees" placeholder="Search by full name" />
+    <div class="virtual-scroll" ref="scrollContainer">
+      <div v-for="employee in visibleEmployees" :key="employee.id" class="employee-item">
+        {{ employee.fullName }}
+      </div>
     </div>
-    
-    
-    
-    
-        <v-text-field 
-            class="mx-4 mt-2"
-              prepend-inner-icon="mdi-calendar-check"
-              density="compact"
-                v-model="eventname"
-                label="Event Name"
-                outlined
-                variant="outlined"
-                
-                ></v-text-field>
-    
-                <v-text-field 
-                 class="mx-4 mt-n3 "
-                  prepend-inner-icon="mdi-calendar"
-                density="compact"
-                v-model="currentDate"
-                label="Date"
-                outlined
-                variant="outlined"
-             
-                ></v-text-field>
-    
-                <v-text-field 
-                 class="mx-4 mt-n3 "
-                  prepend-inner-icon="mdi-account"
-                density="compact"
-                v-model="numemployees"
-                label="Number of Employess"
-                outlined
-                variant="outlined"
-            
-                ></v-text-field>
-    
-                <v-text-field 
-                 class="mx-4 mt-n3 "
-                  prepend-inner-icon="mdi-account-circle"
-                density="compact"
-                v-model="office"
-                label="OFFICE"
-                outlined
-                variant="outlined"
-                
-            
-                ></v-text-field>
-    
-                
-                <v-text-field 
-                 class="mx-4 mt-n3 "
-                  prepend-inner-icon="mdi-camera-timer"
-                density="compact"
-                v-model="timestart"
-                label="Time Started"
-                outlined
-                variant="outlined"
-                type="time"
-    
-                ></v-text-field>
+  </div>
+</template>
 
-    
-                <v-text-field 
-                 class="mx-4 mt-n3 "
-                  prepend-inner-icon="mdi-camera-timer"
-                density="compact"
-                v-model="timeThreshold"
-                label="Time Ended"
-                outlined
-                variant="outlined"
-                type="time"
-    
-                ></v-text-field>
-    
-                
-    
-    
-    
-      </v-col>
-    
-    
-    
-    </v-row>
-    
-    
-    </v-card>
-    
-    
-    
-        <v-card class="" >
-    
-        <!--   <h1>363 nani?</h1> -->
-        <div id="qr-code-full-region">
-          <!-- <div v-if="showSuccessMessage" class="success-message">
-            Successfully Scanned
-          </div> -->
-         
-          <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
-        </div>
-        
-        <div class="text-center">
-      <h4 class="mt-1">Date: {{ currentDate }}</h4> 
-    </div>
-     
-        <div>
-        <table class="TableHead" >
-      <tr>
-        <th>ID</th>
-        <th>NAME</th>
-        <th >TIME</th>
-       
-      </tr>
-    
-    
-    
-     <tr   v-for="(msg, index) in message" :key="index"  >
-        <td >
-     
-        <p style="font-size:12px" class="mt-1 ml-1">{{ msg.id }}</p>
-       
-    
-        </td>
-    
-        <td >
-     
-        <p style="font-size:12px" class="mt-1 ml-1"> {{ msg.name }}</p> 
-        
-        </td>
-    
-             <td>
-             
-           <p style="font-size:12px" class="mt-1 ml-1">{{ msg.time }}</p>
-          
-          </td>
-      
-      </tr>
-    
-    
-    
-    
-      
-    </table>
-    </div>
-        </v-card>
-      
-    </v-app>
-    </template>
-    <script>
-    import { Html5QrcodeScanner } from "html5-qrcode";
-    export default {
-      data() {
-        return {
-          
-          currentTime: '',
-          currentDate: '',
-          showMessage: false,
-          message: [],
-          messagealreadyscan:[],
-          transferredTimes: [],
-          mensahenibai: false,
-          lastScannedTime: '',
-       
-        };
-      },
-      methods: {
-
-      
-        
-        creatScan() {
-          
-          const config = { fps: 10, qrbox: 250 };
-          const html5QrcodeScanner = new Html5QrcodeScanner(
-            "qr-code-full-region",
-            config
-          );
-          html5QrcodeScanner.render(this.onScanSuccess);
-         
-        },
-        
-       onScanSuccess( decodedResult) {
-       
-          const obj = {decodedResult: decodedResult};
-     /*      const currentTime = new Date().toLocaleTimeString(); */
-         
-          
-         /*  console.log("obj",obj.decodedResult) */
-         if(this.message.find(item => item.name === this.name(obj.decodedResult))){
-          this.showMessage = true;
-          this.mensahenibai = 'Already Scanned';
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1500);
-         }
-         else{
-          const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          this.message.unshift({name: this.name(obj.decodedResult), id: this.id(obj.decodedResult) , time: currentTime});
-          
-          
-    /*       this.arr.unshift({ name: this.name(obj.decodedResult) }); */
-          
-          this.showMessage = true;
-          this.mensahenibai = 'Successfully Scanned';
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1500);
-     
-         
-         
-        
-        }
-        },
-        name(decodedresult) {
-        
-        const regex = / - ([^-]+) -/;
-        const match = decodedresult.match(regex);
-        return match ? match[1].trim() : '';
-        
-      },
-      id(decodedresult) {
-        const regex = / - (\d+) /;
-        const match = decodedresult.match(regex);
-        return match ? match[1].trim() : '';
-      },
-      updateTime() {
-          const now = new Date();
-          const hours = now.getHours();
-          const minutes = now.getMinutes();
-          const ampm = hours >= 12 ? 'PM' : 'AM';
-          const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-          this.currentTime = `${formattedHours}:${this.padZero(minutes)} ${ampm}`;
-        },
-        updateDate() {
-          const now = new Date();
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
-          this.currentDate = now.toLocaleDateString(undefined, options);
-          
-        },
-        
-        padZero(num) {
-          return num.toString().padStart(2, '0');
-          
-        },
-     
-       /*   onScanSuccess(decodedText, decodedResult) {
-          const obj = { decodedResult: decodedResult };
-          this.message.push(obj);
-        }, */
-      },
-      async mounted() {
-        this.creatScan();
-        this.updateTime(); // Call it once on mount
-        this.timer = setInterval(this.updateTime, 1000); // Update time every second
-        this.updateDate(); // Call it once on mount
-        this.timer = setInterval(this.updateDate, 1000); // Update date every second
-        
-      },
-      beforeUnmount() {
-        clearInterval(this.timer); // Clear the timer on component unmount to prevent memory leaks
-       
-        if (this.html5QrcodeScanner) {
-          this.html5QrcodeScanner.stop();
-        }
-      },
-      computed: {
-         
-        },
-     
+<script>
+export default {
+  data() {
+    return {
+      employees: [],         // To store the fetched employee data
+      searchQuery: '',       // Search query input
+      visibleEmployees: [],  // Employees visible in the virtual scroll container
+      chunkSize: 50,         // Number of employees to render at a time
     };
-    </script>
-    <style scoped>
+  },
+  mounted() {
+    this.fetchEmployees();
+  },
+  methods: {
+    fetchEmployees() {
+      // Fetch data from the API and populate this.employees
+      // Example using fetch:
+      fetch('http://10.0.1.23/HRQR/employees.php')
+        .then(response => response.json())
+        .then(data => {
+          this.employees = data;
+          this.updateVisibleEmployees();
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    },
+    searchEmployees() {
+      this.updateVisibleEmployees();
+    },
+    updateVisibleEmployees() {
+      // Apply filtering based on search query and update visibleEmployees
+      const filteredEmployees = this.employees.filter(employee =>
+        employee.fullName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+      this.visibleEmployees = filteredEmployees.slice(0, this.chunkSize);
+    },
+    handleScroll() {
+      // Implement virtual scroll logic here
+      // You can use this.$refs.scrollContainer to get the scroll container element
+      // and detect scroll events to load more data as the user scrolls.
+    },
+  },
+  watch: {
+    searchQuery: 'updateVisibleEmployees',
+  },
+};
+</script>
 
-.red-text input {
-  color: red !important;
+<style>
+.virtual-scroll {
+  height: 400px; /* Set an appropriate height for your virtual scroll container */
+  overflow-y: auto;
 }
 
-.red-row {
-  background-color: red !important;
-  color: white !important;
+.employee-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  transition: background-color 0.2s;
 }
 
-    .alreadyscan {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fffffffb;
-      color: rgb(11, 231, 11);
-      padding: 10px;
-      border-radius: 5px;
-      z-index: 9999;
-    }
-     .qrcode-container {
-      position: relative;
-    }
-    .success-message {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fffffffb;
-      color: rgb(9, 230, 27);
-      padding: 10px;
-      border-radius: 5px;
-      z-index: 9999;
-    }
-      .sentro {
-        width:50%;
-        height:60%;
-        margin: 0 auto;
-        position: absolute;
-      left: 50%;
-      top: 50%;
-     
-      transform: translate(-50%,-50%);
-     
-      box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
-      }
-      
-      table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-    .TableHead{
-        box-sizing: border-box;
-        width: 363.29px;
-        height: 50px;
-        background: #F9F9F9;
-        border: 1px solid #DDE0E2;
-        border-style: solid !important;
-        border-width: thin !important;
-      }
-      </style>
+.employee-item:hover {
+  background-color: #f0f0f0;
+}
+</style>

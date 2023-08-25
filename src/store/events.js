@@ -2,17 +2,23 @@ import axios from 'axios';
 /* axios.defaults.baseURL = process.env.VUE_APP_API_URL; */
 const state = () => ({
   events: [],
+  pangalans: [],
   event: {},
 })
 
 const getters = {
   getEvents(state) {
-    console.log("Get Events",state);
+    console.log("Get Events",state.events);
     return state.events;
   },
   getEvent(state){
     return state.event;
-  }
+  },
+
+  getName(state) {
+    console.log("get Employees =", state.pangalans)
+    return state.pangalans;
+},
 }
 
 const mutations = {
@@ -23,13 +29,19 @@ const mutations = {
 
   setEvent(state, payload){
     state.event = payload;
-  }
+  },
+
+  setName(state, payload) {
+    state.pangalans = payload;
+},
 }
 
 const actions = {
 
   async fetchEvents({commit}){
+
     let res = await axios.get(`http://10.0.1.23/HRQR/eventlist.php`);
+   /*  console.log("data from db=", res.data.event_details[0]); */
     commit('setEvents', res.data.events);
   },
 
@@ -38,6 +50,18 @@ const actions = {
     localStorage.setItem('event', JSON.stringify(res.data.events[0]));
     commit('setEvents', res.data.events);
   },
+
+
+  async fetchPangalan({ commit }, payload) {
+    try {
+        let res = await axios.post(`http://10.0.1.23/HRQR/eventdetails.php`, payload);
+        console.log("data from db=", res.data.event_details)
+        commit('setName', res.data.event_details[0]);
+    }
+    catch (error) {
+        console.error('Error fetching students:', error);
+    }
+},
 
 
 }

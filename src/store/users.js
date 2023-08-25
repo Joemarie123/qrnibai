@@ -2,6 +2,7 @@ import axios from 'axios';
 /* axios.defaults.baseURL = process.env.VUE_APP_API_URL; */
 const state = () => ({
   users: [],
+  
   auth: {},
 })
 
@@ -12,7 +13,10 @@ const getters = {
   },
   getAuth(state){
     return state.auth;
-  }
+  },
+
+
+
 }
 
 const mutations = {
@@ -23,7 +27,10 @@ const mutations = {
 
   setAuth(state, payload){
     state.auth = payload;
-  }
+  },
+
+  
+
 }
 
 const actions = {
@@ -33,7 +40,11 @@ const actions = {
     commit('setUsers', res.data.users);
   },
 
+
+
 }
+
+
 
 
 

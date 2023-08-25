@@ -42,6 +42,7 @@
              
              <div class="loading-text">Please Wait...</div>
            </div>
+         
                   <v-combobox
         prepend-inner-icon="mdi-account"
         class="mx-2"
@@ -50,6 +51,7 @@
           v-model="selectedFullName"
           :items="fullNames"
           label="Select a Full Name"
+         
          
         ></v-combobox>
 
@@ -205,6 +207,7 @@ export default {
 
   data () {
     return {
+      
       isLoading: false,
       loadingProgress: 0,
       fullNames: [],

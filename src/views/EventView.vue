@@ -58,12 +58,12 @@
         <v-container>
           <v-row no-gutters style="text-align: justify">
             <v-col cols="12" md="6">
-              <div v-for="items in selected_event" :key="items.id">
-              <p><strong>Department:</strong> {{ items.Department }}</p>
+              <!-- <div v-for="items in selected_event" :key="items.id"> -->
+              <p><strong>Department:</strong> </p>
               <p><strong>Division:</strong> {{ items.Division }}</p>
               <p><strong>Section/Unit:</strong> {{ items.Section_unit  }}</p>
               <p><strong>Project:</strong> {{ items.Project }}</p>
-            </div>
+          <!--   </div> -->
             </v-col>
             <v-col cols="12" md="6">
               <div v-for="items in selected_event" :key="items.id">
@@ -202,10 +202,10 @@
     components:{
         QrCodesNi
       },
-    created() {
+   /*  created() {
   console.log("params=",history.state.id)
       this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id));
-  },
+  }, */
 
   methods: {
 
