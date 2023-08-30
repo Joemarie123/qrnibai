@@ -58,7 +58,7 @@ const routes = [
 
 
   {
-    path: '/QRCodesUser/:id',
+    path: '/QRCodesUser',
     name: 'QRCodesUser',
     component: () => import('@/views/QRCodesUser.vue')
   },

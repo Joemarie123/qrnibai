@@ -200,9 +200,6 @@ created() {
    /*  data.append('Event_name', localStorage.getItem('Event_name')) */
     this.fetchPangalan(data);
    
-
-
-
     
   },
 

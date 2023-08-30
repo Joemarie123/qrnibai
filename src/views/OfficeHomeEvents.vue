@@ -114,12 +114,12 @@
 
 
 
-  handleRowClick(row) {
+  handleRowClick(item) {
       // console.log("users=", item);
-      console.log("users=", row.columns.ID);
+      console.log("users=", item.columns.ID);
     //   console.log("EventName", row.item.raw.Event_name);
-    //   localStorage.setItem('ID',row.item.raw.ID);
-      this.$router.push({ name: "QRCodesUser",  params: { id: row.columns.ID }})
+    localStorage.setItem('User ID', item.columns.ID);
+    this.$router.push({ name: "QRCodesUser", params: { id: item.columns.ID }});
     },
 
 
