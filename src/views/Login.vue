@@ -7,30 +7,34 @@
       <v-row  justify="center" >
         
         <v-col cols="12" >
-            
+             
+       
           <v-card 
           
           :class="`elevation-${isHovering ? 24 : 6}`"
           class=" login-form " >
+
+          <v-alert  v-if="alertMessage"  :value="true" type="error" transition="fade-transition">
+               {{ alertMessage }}
+    </v-alert>
           <div class="text-center mt-3">
             <img class="logo" src="/public/Tagum.png" width="120">
           </div>
-        
-
+       
 
             <v-card-title class="my-4 login-title">
                
                 HR SYSTEM QRCODES</v-card-title>
             <v-card-text>
              
-                
+              <form @submit.prevent="login">
               <v-text-field
                 class="mx-2"
                 prepend-inner-icon="mdi-account"
                density="compact" 
                variant="outlined"
               v-model="usernamenako"
-             label="Email"
+             label="User Name"
                 
                 >
 
@@ -45,6 +49,7 @@
                   outlined
                   variant="outlined"
                   type="password"
+                  @keyup.enter="login"
                 ></v-text-field>
               
           
@@ -53,9 +58,11 @@
                 <v-btn type="submit"  color="primary" @click="Login_Events()"  class="ml-2 ">
                   Login
                 </v-btn>
-            </v-col>
-            </v-row>
 
+            </v-col>
+            
+            </v-row>
+          </form>
              
             </v-card-text>
           </v-card>
@@ -66,30 +73,51 @@
   </template>
   
   <script>
+  import { mapGetters,mapActions } from 'vuex';
   export default {
     data() {
     return{
       usernamenako:'',
       password:'',
+      alertMessage:'',
     }
     },
     methods: {
- 
+      ...mapActions("users", { Loginbai: "login"}),
+
+
+      hideAlertAfterDelay() {
+      setTimeout(() => {
+        this.alertMessage = false;
+      }, 2000); // 3000 milliseconds = 3 seconds
+    },
 
       Login_Events()
   {
-
-    if(this.usernamenako=="hr",this.password=="hr")
-    {
-
-       this.$router.push('/HomeEvents'); 
-      }
-
-      else if (this.usernamenako=="admin",this.password=="admin"){
-
-        this.$router.push('/OfficeHomeEvents'); 
-
-      }
+console.log("username=",this.usernamenako)
+console.log("password=",this.password)
+    let data= new FormData;
+            data.append('username',this.usernamenako);
+            data.append('password',this.password);
+            this.Loginbai(data).then(e=>{
+                if (e == 0) {
+                  this.alertMessage='Email or Password is incorrect.'
+                  this.hideAlertAfterDelay();
+                    this.showResponse({
+                        header: "Error",
+                        subHeader: "Email or Password is incorrect.",
+                        message: "Please double check your credentials."
+                        
+                    });
+                } else {
+                  if(e == 1)
+                    // this.navigateTo('/TestingForm');
+                    this.$router.push('/HomeEvents')
+                  else
+                  this.$router.push('/OfficeHomeEvents')
+                  // this.navigateTo('/sample');
+                }
+            }).catch(e => console.log("Error =>", e));
 
   },
 

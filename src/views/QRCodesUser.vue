@@ -1,10 +1,10 @@
 <template>
     <v-card  height="1000" flat color="#F9FAFC" >
   <v-layout>
-<NavBar/>
+<NavBarUser/>
 
 <v-main>
-<div class="mt-16 container123">
+<div class="container123">
   <v-container >
   
   <!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
@@ -30,6 +30,8 @@
    <v-card class="image rounded-lg">
     <v-container>
     <v-row>
+
+        <v-col cols="6">
     <v-col cols="12">
         <p style="font-size:15px"> <b>Event Name:</b> {{ Pangalan.Event_name }} </p>
     </v-col>
@@ -39,6 +41,21 @@
     <v-col cols="12" class="mt-n6">
         <p style="font-size:15px"><b>Event Venue:</b> {{ Pangalan.Event_venue }} </p>
     </v-col>
+</v-col>
+
+<v-col cols="6">
+    <v-col cols="12">
+        <p style="font-size:15px"> <b>Office:</b> </p>
+    </v-col>
+    <v-col cols="12" class="mt-n6">
+        <p style="font-size:15px"> <b>Time From:</b> {{ Pangalan.Event_name }} </p>
+    </v-col>
+    <v-col cols="12" class="mt-n6">
+        <p style="font-size:15px"><b>Time To:</b> {{ Pangalan.Event_date }} </p>
+    </v-col>
+   
+</v-col>
+
     </v-row>
 </v-container>
    </v-card>
@@ -52,16 +69,18 @@
     <v-row>
       <v-col class="d-flex justify-start" cols="12">
          <!--  <div class="text--center  ">  -->
-    <p style="font-size:30px"><b>1542/5000</b></p> 
+   <v-btn color="success" height="90" width="300">
+   <p style="font-size:20px"> SCAN QR</p>
+        
+</v-btn>
     
-      <!--  </div> -->
-      </v-col>
 
-      <v-col class="d-flex justify-end mt-n6" cols="12">
-  <p >No. of Attendees </p>
-      </v-col>
+      <!--  </div> -->
+    </v-col>
 
     </v-row>
+
+    <HtmlQrCodes/>
 </v-container>
    </v-card>
   </v-col>
@@ -111,7 +130,10 @@
 
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import NavBarUser from "@/components/NavBarUser.vue";
+import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
+
+
 import { mapActions, mapGetters } from 'vuex';
 
 
@@ -119,7 +141,8 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
 
   components: {
-    NavBar,
+    NavBarUser,
+    HtmlQrCodes,
   },
   
 data() {
@@ -128,10 +151,10 @@ data() {
     Event_name:'',
     search: "",
     eventname:'',
-    eventdate:'',
-    eventfrom:'',
-    eventto:'',
-    eventvue:'',
+      eventdate:'',
+       eventfrom:'',
+      eventto:'',
+      eventvue:'',
   
     createevents:false,
 
@@ -177,6 +200,10 @@ created() {
    /*  data.append('Event_name', localStorage.getItem('Event_name')) */
     this.fetchPangalan(data);
    
+
+
+
+    
   },
 
 

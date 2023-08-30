@@ -5,11 +5,11 @@
   <div class="text-center mt-5">
          <!--   <h1 class="teal--text text-lg-h5 font-weight-bold ">HR QR SYSTEM</h1> -->
            <v-divider color="white" class="mt-4"></v-divider>
-            <v-avatar class="my-5 image" size="75" >
-            <v-img src="/Decepticon.png" ></v-img>
+            <v-avatar color="white" class="my-5 image" size="78" >
+            <v-img src="/admin.png" ></v-img>
             </v-avatar>
-            <h1 class="black--text">Joemarie Rendon</h1>
-            <h6 class="grey--text ">joemarie@gmail.com</h6>
+            <h1 class="black--text">{{ userData.firstname }} {{ userData.lastname }}</h1>
+            <h6 class="grey--text ">{{ userData.designation }}</h6>
             <v-btn class="mt-3"  rounded color="success" variant="outlined">ADMIN</v-btn>
               
         </div>
@@ -19,7 +19,7 @@
 
   <v-list class="mt-6">
       <v-list-subheader>REPORTS</v-list-subheader>
-
+    
       
       <v-list-item
       
@@ -114,7 +114,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-btn text @click="$router.push({ name: 'LogInForm' })">
+        <v-btn text  variant="outlined" color="success"   @click="$router.push('/').catch((err) => {})">
           <span>LOG OUT</span>
          
         </v-btn>
@@ -131,6 +131,16 @@
   
     data() {
       return {
+
+
+      userData: {
+    
+        designation: '',
+        firstname: '',
+        lastname: '',
+       
+      },
+
         borderColor: 'green',
         drawer: true,
         mini: false,
@@ -203,7 +213,19 @@
       };
     },
   
+    mounted() {
+    this.fetchData();
+  },
+
     methods: {
+      fetchData() {
+      const userDataJSON = localStorage.getItem('user');
+      if (userDataJSON) {
+        this.userData = JSON.parse(userDataJSON);
+      }
+    },
+
+
       onScroll(e) {
         if (typeof window === 'undefined') return;
         const top = window.pageYOffset || e.target.scrollTop || 0;
@@ -219,7 +241,7 @@
   <style scoped>
 
 .image {
-    border: 2px solid #4CAF50;
+    border: 2px solid #4caf4f;
 }
   .border {
     border-left: 4px solid #0ba518;

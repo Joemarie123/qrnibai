@@ -40,6 +40,24 @@ const actions = {
     commit('setUsers', res.data.users);
   },
 
+  async login({commit}, payload){
+    let res = await axios.post('http://10.0.1.23/HRQR/login.php', payload);
+    console.log("Res Data=",res.data)
+    localStorage.setItem('user', JSON.stringify(res.data.user));
+    commit("setAuth", res.data.user);
+
+    if(res.data.auth == "passed"){
+    if(res.data.user.admin){
+      return 1
+    }else{
+      return 2
+    }
+  }else{
+    return 0
+  }
+
+   
+  }
 
 }
 

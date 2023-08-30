@@ -18,6 +18,57 @@
        
           <v-container>
             <v-container>
+
+              <v-dialog v-model="dialogVisible" persistent max-width="280">
+    <v-card >
+     
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Successfully Saved</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+            <v-img src="/save.png" ></v-img>
+            </v-avatar>
+        </v-col>
+      </v-row>
+     
+
+
+      <v-card-actions class="d-flex justify-center mt-n7">  
+        <v-btn color="green" text @click="dialogVisible = false">OK</v-btn>
+      </v-card-actions>
+  
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="dialogerror" persistent max-width="280">
+    <v-card >
+     
+      <v-row >
+        <v-col cols="11" class="mt-4">
+          <v-card-title class="headline">Unable to Save Account</v-card-title>
+        </v-col>
+        <v-col cols="1" class="ml-n10">
+          <v-avatar class="my-5 image" size="40" >
+            <v-img src="/error.png" ></v-img>
+            </v-avatar>
+        </v-col>
+      </v-row>
+     
+
+
+      <v-card-actions class="d-flex justify-center mt-n7">  
+       
+        <v-btn color="red" text @click="dialogerror = false">OK</v-btn>
+  
+      </v-card-actions>
+    
+    </v-card>
+  </v-dialog>
+
+
+
               <v-row>
                 <v-col cols="3" >
         <div class="ml-n16">
@@ -168,16 +219,30 @@
                 <v-col cols="12" md="12">
                   <h2 >Login Credentials</h2>
                 </v-col>
+               
                 <v-divider :thickness="5" color="green" class="mb-4"></v-divider>
-                <v-col cols="12" md="6">
+                <v-col cols="12" md="4">
                   <v-text-field
                     label="Username"
+                    v-model="selectedUsername"
                     required
                     density="compact"
                     class="mb-n6"
                     variant="solo"
                   ></v-text-field>
                 </v-col>
+
+                <v-col cols="12" md="2">
+                  <v-switch
+    v-model="toggleValue"
+    hide-details
+    :true-value="1"
+    :false-value="0"
+    color="success"
+    :label="`Admin: ${displayValue}`"
+  ></v-switch>
+                </v-col>
+
 
                 <v-col cols="12" md="3">
                   <v-text-field
@@ -187,11 +252,14 @@
                     density="compact"
                     class="mb-n6"
                     variant="solo"
+                    v-model="selectedpassword"
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="3">
                   <v-text-field
+                  @input="validateForm" 
+                  v-model="selectedConfirmpassword"
                     label="Confirm Passwords*"
                     type="password"
                     required
@@ -199,6 +267,7 @@
                     class="mb-n6"
                     variant="solo"
                   ></v-text-field>
+                  <p class="mt-2" v-if="errorMessage" style="color:red">{{ errorMessage }}</p>
                 </v-col>
 
 
@@ -209,7 +278,7 @@
               class="text-none mr-2"
               color="green"
               min-width="92"
-              @click="dialog = false"
+              @click="saveaccount()"
             >
               Save Account
             </v-btn>
@@ -241,8 +310,10 @@ export default {
 
   data () {
     return {
-      
+      toggleValue: 0,
       isLoading: false,
+      dialogVisible:false,
+      dialogerror:false,
       loadingProgress: 0,
       fullNames: [],
       namesData: [], // Array to store names data
@@ -253,12 +324,19 @@ export default {
       selectedFirstName:'',
       selectedDesignation:'',
       selectedOfficeID:'',
-      
+      selectedUsername:'',
+      selectedpassword:'',
+      selectedConfirmpassword:'',
+      errorMessage: ''
+
     }
 
   },
   computed:{
       ...mapGetters('users', {userlist: 'getUsers'}),
+      displayValue() {
+         return this.toggleValue === 1 ? 'Yes' : 'No';
+       }
 },
   
 created(){
@@ -276,7 +354,7 @@ created(){
 },
   methods: {
     ...mapActions('users', ['fetchUsers']),
-
+    ...mapActions('account', ['registerAccountUsers']),
     // simulateLoading() {
     //   const interval = 20; // Change this to control the speed of loading
     //   const totalSteps = 50; // Adjust this based on the total number of steps you want
@@ -301,6 +379,60 @@ created(){
     //     }
     //   }, interval);
     // },
+
+    validateForm() {
+                    if (this.selectedpassword !== this.selectedConfirmpassword) {
+                        this.errorMessage = 'Passwords do not match';
+                        return false;
+                    }
+                    this.errorMessage = '';
+                    return true;
+                },
+
+
+    saveaccount()
+    {
+      
+
+      if (this.errorMessage == 'Passwords do not match' || this.selectedLastName.length == 0  || this.selectedUsername.length == 0 || this.selectedpassword.length == 0 || this.selectedConfirmpassword.length == 0  )  
+      {
+        this.dialogerror = true;
+      }
+
+      else {
+        this.dialogVisible = true;
+      let data = new FormData();
+      data.append('lastname', this.selectedLastName);
+      data.append('firstname', this.selectedFirstName);
+      data.append('middlename', this.selectedMiddleName);
+      data.append('status', this.selectedStatus);
+      data.append('designation', this.selectedDesignation);
+      data.append('office_id', this.selectedOfficeID);
+      data.append('admin', this.toggleValue);
+      data.append('username', this.selectedUsername);
+      data.append('password', this.selectedpassword);
+
+      this.registerAccountUsers(data).then(() => {
+        /*   this.navigateTo('/walup'); */
+        }).catch(e => console.log(e.message));
+
+       
+        this.selectedLastName = '';
+        this.selectedFirstName = '';
+        this.selectedMiddleName = '';
+        this.selectedStatus = '';
+        this.selectedDesignation = '';
+        this.selectedOfficeID = '';
+        this.selectedadmin = '';
+        this.toggleValue = '';
+        this.selectedUsername = '';
+        this.selectedUsername = '';
+        this.selectedpassword = '';
+        this. selectedConfirmpassword = '';
+
+      }
+
+    },
 
    hideAlertAfterDelay() {
       setTimeout(() => {
@@ -338,10 +470,6 @@ try {
   console.error('Error fetching data:', error);
 }
 },
-
-
-
-
 
 updateSelectedInfo() {
       const selectedNameData = this.namesData.find(nameData => nameData.fullname === this.selectedFullName);
@@ -381,6 +509,9 @@ mounted() {
 
 </script>
 <style scoped>
+.image {
+    border: 2px solid #4caf4f00;
+}
 .custom-card {
   border-radius: 20px; /* Adjust the radius as needed */
   border: 2px solid #5ec030; /* Border color */

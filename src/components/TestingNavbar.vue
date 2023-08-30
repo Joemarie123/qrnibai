@@ -145,8 +145,6 @@
       items: [
         { icon: 'mdi-home', text: 'Dashboard' , route:'/DashboardVersion4'},
 
-
-
         {
           icon: 'mdi-chevron-up',
           'icon-alt': 'mdi-chevron-down',

@@ -1,95 +1,131 @@
 <template>
-    <v-card class="mx-auto" color="grey-lighten-3">
-      <v-layout>
-        <v-app-bar>
-          <template v-slot:prepend>
-            <v-avatar :size="50">
-              <v-img src="/Tagum.png" alt="altText"></v-img>
-            </v-avatar>
-          </template>
-          <v-app-bar-title
-            ><span :style="{ color: 'green' }">HOME EVENTS</span></v-app-bar-title
-          >
-          <v-spacer></v-spacer>
-          <v-avatar class="mx-2 my-2" :size="50">
-            <v-img src="img5.png"></v-img>
-          </v-avatar>
-        </v-app-bar>
-      </v-layout>
-    </v-card>
-  
-    <div class="mt-16">
-        
-      <v-container>
-        <v-row no-gutters align="center">
-          <v-col class="d-flex justify-start" :cols="6">
-            <h2 :style="{ color: 'green' }">EVENTS</h2>
-          </v-col>
-          <v-col class="d-flex justify-end" :cols="6">
-            <v-txt btn @click="$router.push('EventHistory')" class="view"
-              >View History</v-txt
-            >
-          </v-col>
-        </v-row>
-      </v-container>
-  
-      <v-container>
-        <v-row>
-          <v-col>
-            <table class="ifmobile" >
-              <thead>
-                <tr>
-                  <th class="head">#</th>
-                  <th class="head">Event Name</th>
-                  <th class="head">Dates</th>
-                  <th class="head">Attendance</th>
-                  <th class="head">Actions</th>
-                </tr>
-              </thead>
-              <tbody >
-                <tr v-for="row in tableData_HomeEvents" :key="row.id">
-                  <td class="center">{{ row.id }}</td>
-                  <td >{{ row.eventName }}</td>
-                  <td>{{ row.eventDates }}</td>
-                  <td class="center">
-                    {{ row.attendance }} / {{ row.employee }}
-                  </td>
-                  <td class="center">
-                    <button class="responsive-button_blue" @click="redirecttoEventView(row)">
-                  <v-icon  >mdi-eye</v-icon>
-                   </button>
-  
-                    <button class="responsive-button mx-2 my-1" @click="redirecttoEventDetails(row)">
-                  <v-icon  >mdi-printer</v-icon>
-                   </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
+  <v-card  height="1000" flat color="#F9FAFC" >
+<v-layout>
+<NavBarUser/>
 
-  </template>
-    
+<v-main>
+<div class="mt-16 container123">
+<v-container >
+
+<!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
+    <v-icon size="90">mdi-calendar-plus</v-icon>
+    <span class="mt-11">Create Events</span></v-btn
+  > -->
+
+
+</v-container>
+
+<v-container>
+
+  <v-row>
+ 
+
+    <v-col cols="2">
+  <h3 class="ml-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
+</v-col>
+
+<v-col class="mt-n4" cols="6">
+  <input v-model="search" class="textbox"  placeholder="Search Event">
+<!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
+</v-col>
+
+    <v-col cols="12">
+
+      <v-card class='rounded-lg mt-n4'>
+        
+      <v-data-table
+      :search="search"
+       item-key="ID"
+     :headers="headers"
+     :items="events"
+    :items-per-page="5"
+     class="elevation-1"
+  
+>
+<template v-slot:item.actions="{ item }">
+
+<button>
+<v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2">mdi-qrcode-scan</v-icon>
+</button>
+
+<button >
+<v-icon color="primary"  large >mdi-printer</v-icon>
+</button>
+
+
+</template>
+
+
+</v-data-table>
+</v-card>
+
+    </v-col>
+  </v-row>
+</v-container>
+</div>
+</v-main>
+</v-layout>
+</v-card>
+</template>
+
       
     <script>
+    import NavBarUser from "@/components/NavBarUser.vue";
+    import { mapActions, mapGetters } from 'vuex';
+
   export default {
+
+    components: {
+      NavBarUser,
+  },
     data() {
       return {
-           tableData_HomeEvents: [
-        { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' , employee:'5000' },
-        { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1', employee:'5000'  },
-        { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2' , employee:'5000' },
-        { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3'  , employee:'5000'},
-        { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' , employee:'5000'},
-        { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' , employee:'5000'},
-        // Add more sample data here...
-      ]
+        search: "",
+        
+    headers: [
+        {
+          align: "start",
+          key: "ID",
+          sortable: false,
+          title: "ID",
+         
+         
+        },
+        { key: "Event_name", title: "Event Name", sortable: false },
+        { key: "Event_date", title: "Event Dates", sortable: false },
+        { key: "Event_venue", title: "Event Venue", sortable: false },
+        { key: "AttendanceCount", title: "Attendance", sortable: false },
+        { key: "actions", title: "Actions" , align:"center" },
+    
+      ],
       };
     },
+
+    computed: {
+    ...mapGetters("events", { events: "getEvents" }),
+
+
+  },
+
+
+  created() {
+    this.fetchEvents();
+  },
+
+
+
+  handleRowClick(row) {
+      // console.log("users=", item);
+      console.log("users=", row.columns.ID);
+    //   console.log("EventName", row.item.raw.Event_name);
+    //   localStorage.setItem('ID',row.item.raw.ID);
+      this.$router.push({ name: "QRCodesUser",  params: { id: row.columns.ID }})
+    },
+
+
     methods: {
+      ...mapActions('events', ['fetchEvents']),
+
       editEvent(id) {
         // Handle edit event logic
         console.log("Edit Event:", id);
@@ -119,113 +155,73 @@
   </script>
     
     <style scoped>
-
-.responsive-button_blue {
-  font-size: 13px; /* Default font size for non-mobile devices */
-  background-color: #18a3f3;
-  color: white; /* Set the text color to white */
-  padding: 8px 16px; /* Add padding for better appearance */
-  border: none; /* Remove the default button border */
-  border-radius: 10px; /* Add some border-radius for a rounded look */
-}
-
-.responsive-button {
-  font-size: 13px; /* Default font size for non-mobile devices */
-  background-color: #70b354;
-  color: white; /* Set the text color to white */
-  padding: 8px 16px; /* Add padding for better appearance */
-  border: none; /* Remove the default button border */
-  border-radius: 10px; /* Add some border-radius for a rounded look */
-}
-
-@media screen and (max-width: 768px) {
-  /* Adjust the max-width value based on your desired breakpoint for mobile devices */
-  .responsive-button {
-    font-size: 10px; /* Font size for mobile devices */
-  }
-
-  .responsive-button_blue {
-    font-size: 10px; /* Font size for mobile devices */
-  }
-
-}
-
-@media screen and (max-width: 590px) {
-
-.ifmobile{
-  font-size: 12px;
-}
-
-.ifsize{
-  font-size: 5px;
-
-}
-
-}
-
-
-  .view {
-    color: red;
-  }
-  #Events {
-    margin-top: 10%;
-  }
-  .head {
+    .my-input.v-input .v-input__slot {
+      border-radius: 100px;
+    }
+    
+    .v-data-table > .v-data-table__wrapper > table {
+        border-spacing: 0 0.10rem;
+    }
+    .container123 {
+      max-width: 1170px;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: auto;
+    }
+    .my-header-style {
+      background: #666fff;
+    }
+      .classfortitle{
+      /*  color: #70b354; */
+        font-size: 15px;
+      }
+    
+      .classeventdetails{
+    
+        font-size: 20px;
+      }
+    
+    .head {
     background-color: #70b354;
     color: white;
-  }
-  .big-button {
+    }
+    .big-button {
     padding: 20px;
     font-size: 20px;
-  }
-  
-  .pagebai {
-    max-width: 400px;
-    margin: 0 auto;
-  
-    position: absolute;
-    left: 22%;
-    top: 22%;
-    width: 400px;
-    transform: translate(-50%, -50%);
-  
-    border-radius: 20px;
-    /*  box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
-     */
-  }
-  
-  .page {
-    margin: 300px;
-  }
-  
-  table {
+    }
+    
+    table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  th,
-  td {
-    padding: 5px;
+    }
+    
+    th,
+    td {
+    padding: 3px;
     border-bottom: 1px solid #ddd;
     text-align: center;
-  }
-  
-  th {
+    }
+    
+    th {
     background-color: #f2f2f2;
-  }
-  /* 
-    .login-form {
-        max-width: 1500 px;
-        margin: 0 auto;
+    }
     
-        position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 10000px;
-      transform: translate(-50%,-50%);
     
-      border-radius: 20px;
-      box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
-      }
-     */
-  </style>
+    .close-button {
+      position: absolute;
+      top: 5px;
+      right: 14px;
+      font-size: 16px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .textbox {
+      padding: 10px;
+      border: 1px solid #168904;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      width: 500px;
+      height: 40px;
+    }
+    </style>

@@ -41,6 +41,13 @@ const actions = {
   },
 
 
+  async registerAccountUsers({commit}, payload){
+    let res = await axios.post(`http://10.0.1.23/HRQR/new_user.php`,payload);
+    commit('setUsers', res.data.user);
+  },
+
+
+
 }
 
 export default {

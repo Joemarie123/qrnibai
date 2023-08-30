@@ -177,6 +177,9 @@ export default {
   
 data() {
   return {
+
+  
+
     rows: [],
     ID: "",
     search: "",
@@ -185,6 +188,10 @@ data() {
        eventfrom:'',
       eventto:'',
       eventvue:'',
+    /*   user: {
+        firstName: '',
+      
+      }, */
   
     createevents:false,
 
@@ -217,6 +224,7 @@ data() {
   };
 },
 
+
 /* computed: {
     ...mapGetters('events', {events: 'getEvents'
     }),
@@ -233,19 +241,21 @@ data() {
     this.fetchEvents();
   },
 
+
 methods: {
 
   ...mapActions('events', ['registerEvents']),
   ...mapActions('events', ['fetchEvents']),
 
 
-
-  handleRowClick( row) {
+  handleRowClick(item) {
       // console.log("users=", item);
-      console.log("users=", row.columns.ID);
+      console.log("users=", item.columns.ID);
     //   console.log("EventName", row.item.raw.Event_name);
     //   localStorage.setItem('ID',row.item.raw.ID);
-      this.$router.push({ name: "EventView2",  params: { id: row.columns.ID } })
+     /*  this.$router.push({ name: "EventView2",  params: { id: item.columns.ID }}) */
+
+      this.$router.push({ name: "EventView2", params: { id: item.columns.ID }});
     },
   
 
@@ -306,6 +316,19 @@ methods: {
   
 
 },
+
+/* mounted() {
+  try {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        this.user = JSON.parse(userData);
+      } else {
+        console.log("No user data found in local storage.");
+      }
+    } catch (error) {
+      console.error("Error parsing user data from local storage:", error);
+    }
+  }, */
 
 /* check() {
     console.log("this.users=", this.events);

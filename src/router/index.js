@@ -38,6 +38,13 @@ const routes = [
   },
 
   {
+    path: '/NavBarUser',
+    name: 'NavBarUser',
+    component: () => import('@/components/NavBarUser.vue')
+  },
+
+
+  {
     path: '/TestingNavbar',
     name: 'TestingNavbar',
     component: () => import('@/components/TestingNavbar.vue')
@@ -48,6 +55,14 @@ const routes = [
     name: 'OfficeHomeEvents',
     component: () => import('@/views/OfficeHomeEvents.vue')
   },
+
+
+  {
+    path: '/QRCodesUser/:id',
+    name: 'QRCodesUser',
+    component: () => import('@/views/QRCodesUser.vue')
+  },
+
 
 
   {
