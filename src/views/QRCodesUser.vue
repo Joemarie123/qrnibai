@@ -186,10 +186,10 @@ data() {
         key: "Controlno",
         sortable: false,
         title: "ID",
-    
+        align: ' d-none d-sm-table-cell',
       },
         { key: "fullname", title: "Full Name", sortable: false },
-        { key: "designation", title: "Position", sortable: false },
+        { key: "designation", title: "Position", align: ' d-none d-sm-table-cell', sortable: false },
         { key: "timescanned", title: "Time Scanned", sortable: false },
         { key: "remarks", title: "Remaks", sortable: false },
       

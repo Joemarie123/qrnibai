@@ -1,40 +1,44 @@
 <template>
-  <div class="lv-demo_layout">
-    <div>
-      <lv-skeleton :width="275" :height="10" primaryColor="#38b2ac" /> <br />
-     
-    </div>
-
-  
-  </div>
+  <v-data-table :headers="headers" :items="items" class="elevation-1">
+    <template v-slot:item.officeName="{ item }">
+      <div v-if="!isMobile">{{ item.officeName }}</div>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
-import LvSkeleton from 'lightvue/skeleton';
 export default {
-  components: {
-    LvSkeleton,
-  },
   data() {
-    return {};
+    return {
+      headers: [
+        { key: 'Name', value: 'name' },
+        { key: 'Address', value: 'address' },
+        { key: 'Office Name', value: 'officeName' }
+      ],
+      items: [
+        { name: 'John Doe', address: '123 Main St', officeName: 'Company A' },
+        { name: 'Jane Smith', address: '456 Elm St', officeName: 'Company B' },
+        { name: 'Michael Johnson', address: '789 Oak St', officeName: 'Company C' }
+        // Add more sample items as needed
+      ],
+      isMobile: false
+    };
   },
+  created() {
+    this.checkMobile();
+    window.addEventListener('resize', this.checkMobile);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.checkMobile);
+  },
+  methods: {
+    checkMobile() {
+      this.isMobile = window.innerWidth <= 600; // You can adjust the breakpoint as needed
+    }
+  }
 };
 </script>
 
-
-<style scoped>
-.lv-demo_layout {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-@media (max-width: 500px) {
-  .shimmer-demo-wrapper {
-    margin-left: 0;
-    margin-right: 0;
-    width: 280px;
-  }
-}
+<style>
+/* Add any additional styling you need here */
 </style>
