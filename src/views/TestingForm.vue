@@ -1,44 +1,40 @@
 <template>
-  <div>
-    <h2>Login</h2>
-    <form @submit.prevent="login">
-      <v-text-field v-model="username" label="Username"></v-text-field>
+  <div class="lv-demo_layout">
+    <div>
+      <lv-skeleton :width="275" :height="10" primaryColor="#38b2ac" /> <br />
+     
+    </div>
 
-      <v-text-field
-        v-model="password"
-        label="Password"
-        type="password"
-        @keyup.enter="login"
-      ></v-text-field>
-
-      <v-btn type="submit" color="primary">Login</v-btn>
-    </form>
+  
   </div>
 </template>
 
 <script>
+import LvSkeleton from 'lightvue/skeleton';
 export default {
-  data() {
-    return {
-      username: '',
-      password: ''
-    };
+  components: {
+    LvSkeleton,
   },
-  methods: {
-    login() {
-      // Perform login logic here
-      console.log('Logging in...');
-      console.log('Username:', this.username);
-      console.log('Password:', this.password);
-
-      // Reset form fields after login attempt
-      this.username = '';
-      this.password = '';
-    }
-  }
+  data() {
+    return {};
+  },
 };
 </script>
 
-<style>
-/* Add any custom styles here */
+
+<style scoped>
+.lv-demo_layout {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (max-width: 500px) {
+  .shimmer-demo-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+    width: 280px;
+  }
+}
 </style>

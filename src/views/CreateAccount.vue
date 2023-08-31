@@ -230,6 +230,10 @@
                     class="mb-n6"
                     variant="solo"
                   ></v-text-field>
+
+                 <!--  <v-text-field v-model="selectedControlno">
+
+                  </v-text-field> -->
                 </v-col>
 
                 <v-col cols="12" md="2">
@@ -327,7 +331,9 @@ export default {
       selectedUsername:'',
       selectedpassword:'',
       selectedConfirmpassword:'',
-      errorMessage: ''
+      errorMessage: '',
+      selectedControlno:'',
+
 
     }
 
@@ -411,12 +417,13 @@ created(){
       data.append('admin', this.toggleValue);
       data.append('username', this.selectedUsername);
       data.append('password', this.selectedpassword);
+      data.append('Controlno', this.selectedControlno);
 
       this.registerAccountUsers(data).then(() => {
         /*   this.navigateTo('/walup'); */
         }).catch(e => console.log(e.message));
 
-       
+        this.selectedFullName = '';
         this.selectedLastName = '';
         this.selectedFirstName = '';
         this.selectedMiddleName = '';
@@ -428,7 +435,9 @@ created(){
         this.selectedUsername = '';
         this.selectedUsername = '';
         this.selectedpassword = '';
-        this. selectedConfirmpassword = '';
+        this.selectedConfirmpassword = '';
+        this.selectedControlno = '';
+
 
       }
 
@@ -458,6 +467,7 @@ try {
         middlename: user.middlename,
         status: user.status,
         designation: user.designation,
+        Controlno: user.Controlno,
       
       };
     });
@@ -481,7 +491,7 @@ updateSelectedInfo() {
         this.selectedMiddleName = selectedNameData.middlename;
         this.selectedStatus = selectedNameData.status;
         this.selectedDesignation = selectedNameData.designation;
-
+        this.selectedControlno = selectedNameData.Controlno;
    
       } else {
         this.selectedOfficeID = '';
@@ -490,6 +500,8 @@ updateSelectedInfo() {
         this.selectedMiddleName = '';
         this.selectedStatus = '';
         this.selectedDesignation = '';
+        this.selectedControlno = '';
+
       
       }
     },

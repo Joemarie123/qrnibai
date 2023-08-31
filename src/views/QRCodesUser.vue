@@ -16,7 +16,7 @@
 
   <v-container>
 
-    <v-row>
+    <v-row class="mt-n15 mt-md-1">
     <!--   <v-col class="d-flex justify-end ml-n3 " cols="12">
       <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
     </v-col>
@@ -26,12 +26,12 @@
   </v-col>
 
   
-  <v-col cols="9" class="mt-n4" >
+  <v-col cols="12"  md="9" sm="7" class="mt-n4" >
    <v-card class="image rounded-lg">
     <v-container>
     <v-row>
 
-        <v-col cols="6">
+        <v-col cols="12" md="6" sm="12">
     <v-col cols="12">
         <p style="font-size:15px"> <b>Event Name:</b> {{ Pangalan.Event_name }} </p>
     </v-col>
@@ -43,7 +43,7 @@
     </v-col>
 </v-col>
 
-<v-col cols="6">
+<v-col cols="12" md="6" sm="12" class="mt-n9 mt-md-1">
     <v-col cols="12">
         <p style="font-size:15px"> <b>Office:</b> </p>
     </v-col>
@@ -63,15 +63,20 @@
 
  
 
-  <v-col cols="3" class="ml-n4 mt-n4" >
+  <v-col cols="12" md="3" sm="5" class="mt-n4 ml-md-n4 mt-md-n4" >
    <v-card class="image rounded-lg">
     <v-container>
     <v-row>
-      <v-col class="d-flex justify-start" cols="12">
+      <v-col class="d-flex justify-start" cols="12" >
          <!--  <div class="text--center  ">  -->
    <v-btn color="success" height="90" width="300">
-   <p style="font-size:20px"> SCAN QR</p>
-        
+   <p class="mx-5" style="font-size:20px">SCAN QR</p>
+   <v-img
+  :width="50"
+  :height="70"
+  cover
+  src="/qr.png"
+></v-img>
 </v-btn>
     
 
@@ -80,7 +85,7 @@
 
     </v-row>
 
-    <HtmlQrCodes/>
+   <!--  <HtmlQrCodes/> -->
 </v-container>
    </v-card>
   </v-col>
@@ -96,6 +101,7 @@
         <v-data-table
         :search="search"
          item-key="ID"
+         :items="filteredUsers"
        :headers="headers"
       
       :items-per-page="5"
@@ -115,7 +121,6 @@
 
 </template>
 
-
 </v-data-table>
 </v-card>
 
@@ -123,6 +128,7 @@
     </v-row>
   </v-container>
 </div>
+<!-- <h1 class="grey--text ">{{ userData.office_id }}</h1> -->
 </v-main>
 </v-layout>
 </v-card>
@@ -155,7 +161,16 @@ data() {
        eventfrom:'',
       eventto:'',
       eventvue:'',
+      targetOfficeId: 1,
   
+      userData: {
+   
+        targetOfficeId: '',
+  
+      },
+
+
+
     createevents:false,
 
     items: [
@@ -166,21 +181,18 @@ data() {
     ],
 
     headers: [
-        {
-          align: "start",
-          key: "ID",
-          sortable: false,
-          title: "ID",
-         
-         
-        },
+    {
+        align: "start",
+        key: "Controlno",
+        sortable: false,
+        title: "ID",
+    
+      },
         { key: "fullname", title: "Full Name", sortable: false },
-        { key: "position", title: "Position", sortable: false },
+        { key: "designation", title: "Position", sortable: false },
         { key: "timescanned", title: "Time Scanned", sortable: false },
         { key: "remarks", title: "Remaks", sortable: false },
-        { key: "office", title: "Office", sortable: false },
       
-    
       ],
 
   };
@@ -188,6 +200,11 @@ data() {
 
  computed: {
     ...mapGetters('events', {Pangalan: ['getName']} ),
+    ...mapGetters('users', {fetechEmployees: ['getUsers']} ),
+    filteredUsers() {
+      // Filter the users based on office_id
+      return this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
+    }
   }, 
 
 created() {
@@ -199,16 +216,29 @@ created() {
     data.append('Event_name', localStorage.getItem('Event_name'))
    /*  data.append('Event_name', localStorage.getItem('Event_name')) */
     this.fetchPangalan(data);
-   
+
+    this.fetchUsers();
     
+  /*   return this.employees.filter(employee => employee.office_id === 1); */
+
   },
 
+  mounted() {
+   this.fetchData();
+ },
 
 methods: {
 
+  fetchData() {
+     const userDataJSON = localStorage.getItem('user');
+     if (userDataJSON) {
+       this.userData = JSON.parse(userDataJSON);
+     }
+   },
 
 ...mapActions('events', ['fetchPangalan']), 
 
+...mapActions('users', ['fetchUsers']), 
 
   editEvent(id) {
     // Handle edit event logic

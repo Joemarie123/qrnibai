@@ -15,10 +15,6 @@
       </strong>
         </v-alert>
     </div>
-
-      
-
-
           <v-text-field 
               class="mx-4 mt-2"
                 prepend-inner-icon="mdi-calendar-check"
@@ -100,15 +96,17 @@
 
   </v-card>
 
+<div id="sampleid">
 
+</div>
   <v-btn @click="tawaganisaqrcode()"  id="buttonScan">Start Scanning</v-btn>
-<!--   <v-dialog v-model="scannerqr"  max-width="600px"> -->
-        
+  <v-dialog v-model="scannerqr"  max-width="600px"> 
 
     <v-card>
+      
     <!--   <h1>363 nani?</h1> -->
     
-    <div id="qr-code-full-region" >
+    <div ref="qrcodefullregion" id="qr-code-full-region" >
       <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
       </div> -->
@@ -160,7 +158,7 @@
 
     </v-card>
 
-<!--   </v-dialog>  -->
+  </v-dialog> 
 
 </v-app>
 </template>
@@ -193,10 +191,10 @@ export default {
   methods: {
 
     tawaganisaqrcode(){
-    
-        this.scannerqr = true;
+     
+        this.scannerqr = false;
         this.creatScan();
-          this.updateTime(); // Call it once on mount
+        this.updateTime(); // Call it once on mount
     },
 
 
@@ -221,19 +219,17 @@ export default {
     },
 
     creatScan() {
-      
+      console.log("id=",this.$refs.qrcodefullregion)
       const config = { fps: 10, qrbox: 250 };
       const html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-code-full-region",
+        "sampleid",
         config
       );
       html5QrcodeScanner.render(this.onScanSuccess);
      
     },
     
-    
-
-
+  
    onScanSuccess( decodedResult) {
 
       const obj = {decodedResult: decodedResult};
@@ -330,10 +326,10 @@ export default {
     updateDate() {
       const now = new Date();
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      this.currentDate = now.toLocaleDateString(undefined, options);
-      
+      this.currentDate = now.toLocaleDateString(undefined, options); 
     },
-    
+
+  
     padZero(num) {
       return num.toString().padStart(2, '0');
     },

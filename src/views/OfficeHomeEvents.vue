@@ -114,17 +114,22 @@
 
 
 
-  handleRowClick(item) {
-      // console.log("users=", item);
-      console.log("users=", item.columns.ID);
-    //   console.log("EventName", row.item.raw.Event_name);
-    localStorage.setItem('User ID', item.columns.ID);
-    this.$router.push({ name: "QRCodesUser", params: { id: item.columns.ID }});
-    },
 
 
     methods: {
       ...mapActions('events', ['fetchEvents']),
+
+
+      handleRowClick(item) {
+      // console.log("users=", item);
+      console.log("users=", item.columns.ID);
+    //   console.log("EventName", row.item.raw.Event_name);
+    localStorage.setItem('ID', item.columns.ID);
+    this.$router.push({ name: "QRCodesUser", params: { id: item.columns.ID }});
+    },
+
+
+
 
       editEvent(id) {
         // Handle edit event logic

@@ -252,7 +252,7 @@ handleRowClick(item) {
     // console.log("users=", item);
     console.log("users=", item.columns.ID);
   //   console.log("EventName", row.item.raw.Event_name);
-  localStorage.setItem('Admin ID', item.columns.ID);
+  localStorage.setItem('ID', item.columns.ID);
    /*  this.$router.push({ name: "EventView2",  params: { id: item.columns.ID }}) */
 
     this.$router.push({ name: "EventView2", params: { id: item.columns.ID }});
@@ -340,6 +340,10 @@ try {
 </script>
 
 <style scoped>
+
+
+
+
 .my-input.v-input .v-input__slot {
 border-radius: 100px;
 }

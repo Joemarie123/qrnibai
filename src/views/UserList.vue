@@ -36,8 +36,6 @@
        :items="accountlist"
       :items-per-page="5"
        class="elevation-1"
-      
-  
   >
 
 
@@ -90,9 +88,6 @@ data() {
       eventto:'',
       eventvue:'',
       
-
-  
-
     items: [
       { title: "My Account", icon: "mdi-account",  },
       { title: "Settings", icon: "mdi-clock" },
