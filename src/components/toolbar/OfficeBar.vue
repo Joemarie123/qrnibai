@@ -13,7 +13,7 @@
           >
   
           <v-avatar class="mx-2 my-2" :size="40">
-            <v-img src="img5.png">
+            <v-img src="/img5.png">
               <v-menu activator="parent">
                 <v-list>
                   <v-list-item

@@ -1,5 +1,6 @@
 import axios from 'axios';
-/* axios.defaults.baseURL = process.env.VUE_APP_API_URL; */
+
+// axios.defaults.baseURL = process.env.VUE_APP_API_URL; 
 const state = () => ({
   users: [],
   auth: {},
@@ -36,16 +37,20 @@ const mutations = {
 const actions = {
 
   async fetchUsers({commit}){
-    let res = await axios.get(`http://10.0.1.23/HRQR/employees.php`);
+    let res = await axios.get(`/employees.php`);
     commit('setUsers', res.data.users);
   },
 
   async login({commit}, payload){
-    let res = await axios.post('http://10.0.1.23/HRQR/login.php', payload);
+    console.log("env=",)
+   // let res = await axios.post('http://10.0.1.23:82/HRQR1/login.php', payload);
+ 
+    let res = await axios.post(`/login.php`,payload);
+
     console.log("Res Data=",res.data)
     localStorage.setItem('user', JSON.stringify(res.data.user));
     commit("setAuth", res.data.user);
- 
+   
     if(res.data.auth == "passed"){
 
     if(res.data.user.admin){

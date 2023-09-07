@@ -16,7 +16,7 @@
           <v-spacer></v-spacer>
   
           <v-avatar class="mx-2 my-2" :size="50">
-            <v-img src="img5.png"></v-img>
+            <v-img src="/img5.png"></v-img>
           </v-avatar>
         </v-app-bar>
       </v-layout>

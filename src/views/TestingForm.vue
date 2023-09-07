@@ -1,44 +1,83 @@
 <template>
-  <v-data-table :headers="headers" :items="items" class="elevation-1">
-    <template v-slot:item.officeName="{ item }">
-      <div v-if="!isMobile">{{ item.officeName }}</div>
-    </template>
-  </v-data-table>
+  <div>
+    <v-container>
+      <v-row>
+        <v-col cols="4">
+          <v-text-field v-model="id" label="ID"></v-text-field>
+          <v-text-field v-model="time" label="Time"></v-text-field>
+          <v-btn @click="updateTime" color="primary">Update Time</v-btn>
+        </v-col>
+        <v-col cols="8">
+          <v-data-table
+            :items="dataTable"
+            :headers="headers"
+            :search="search"
+            :loading="loading"
+          >
+            <template #v-slot:item.time="{ item }">
+              {{ item.time }}
+            </template>
+
+            <template v-slot:item.selectedRemarks="{ item }">
+              <v-select
+                v-if="!item.time" 
+                variant="outlined"
+                density="compact"
+                :items="remarksOptions"
+                v-model="item.selectedRemarks"
+              >
+              </v-select>
+            </template>
+          </v-data-table>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      id: "",
+      time: "",
+      selectedRemarks: "",
+      remarksOptions: ["good", "bad", "absent"],
+      dataTable: [
+        { id: 1, name: "John", address: "123 Main St.", time: "", selectedRemarks: "" },
+        { id: 2, name: "Jane", address: "456 Elm St.", time: "", selectedRemarks: "" },
+        { id: 3, name: "Bob", address: "789 Oak St.", time: "", selectedRemarks: "" },
+      ],
       headers: [
-        { key: 'Name', value: 'name' },
-        { key: 'Address', value: 'address' },
-        { key: 'Office Name', value: 'officeName' }
+        { title: "ID", key: "id" },
+        { title: "Name", key: "name" },
+        { title: "Address", key: "address" },
+        { title: "Time", key: "time" },
+        { title: "remarks", key: "selectedRemarks" },
       ],
-      items: [
-        { name: 'John Doe', address: '123 Main St', officeName: 'Company A' },
-        { name: 'Jane Smith', address: '456 Elm St', officeName: 'Company B' },
-        { name: 'Michael Johnson', address: '789 Oak St', officeName: 'Company C' }
-        // Add more sample items as needed
-      ],
-      isMobile: false
+      search: "",
+      loading: false,
     };
   },
-  created() {
-    this.checkMobile();
-    window.addEventListener('resize', this.checkMobile);
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.checkMobile);
-  },
   methods: {
-    checkMobile() {
-      this.isMobile = window.innerWidth <= 600; // You can adjust the breakpoint as needed
-    }
-  }
+    updateTime() {
+      const index = this.dataTable.findIndex((item) => item.id === parseInt(this.id));
+      if (index !== -1) {
+        const updatedItem = this.dataTable.splice(index, 1)[0];
+        updatedItem.time = this.time;
+        updatedItem.selectedRemarks = this.selectedRemarks;
+        this.dataTable.unshift(updatedItem);
+      } else {
+        // Handle error or show a message for invalid ID
+      }
+      this.id = "";
+      this.time = "";
+      this.selectedRemarks = "";
+    },
+  },
 };
 </script>
 
-<style>
-/* Add any additional styling you need here */
+<style scoped>
+/* Add your custom styles here */
 </style>

@@ -100,6 +100,7 @@ console.log("password=",this.password)
             data.append('username',this.usernamenako);
             data.append('password',this.password);
             this.Loginbai(data).then(e=>{
+  
                 if (e == 0) {
                   this.alertMessage='Email or Password is incorrect.'
                   this.hideAlertAfterDelay();

@@ -36,13 +36,13 @@ const mutations = {
 const actions = {
 
   async fetchAccountUsers({commit}){
-    let res = await axios.get(`http://10.0.1.23/HRQR/users.php`);
+    let res = await axios.get(`/users.php`);
     commit('setUsers', res.data.users);
   },
 
 
   async registerAccountUsers({commit}, payload){
-    let res = await axios.post(`http://10.0.1.23/HRQR/new_user.php`,payload);
+    let res = await axios.post(`/new_user.php`,payload);
     commit('setUsers', res.data.user);
   },
 

@@ -406,7 +406,8 @@ created(){
       }
 
       else {
-        this.dialogVisible = true;
+
+       this.dialogVisible = true;
       let data = new FormData();
       data.append('lastname', this.selectedLastName);
       data.append('firstname', this.selectedFirstName);
