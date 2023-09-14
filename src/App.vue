@@ -19,6 +19,26 @@
     padding:2px;
 }
 
+.my_classo_officehomeevents td{
+  font-size: 13px!important;
+            height: 0!important;
+            padding-left: 6px!important; 
+            padding-right: 7px!important; 
+            padding-top: 13px!important;    
+          
+}
+
+.my_classo_officehomeevents th{
+            font-size: 12px!important;
+            height: 0!important;
+            padding: 5px!important;
+            background-color: rgba(4, 51, 40, 0.895)!important;
+            color: aliceblue!important;
+            padding-left: 7px!important;
+            padding-right: 7px!important;
+  
+}
+
 .my_class td{
              font-size: 11px!important;
             height: 0!important;
@@ -28,6 +48,7 @@
           
 
    }
+
    .my_class th{
              font-size: 12px!important;
             height: 0!important;
@@ -35,14 +56,17 @@
             background-color: rgba(4, 51, 40, 0.895)!important;
             color: aliceblue!important;
             padding-left: 7px!important;
-            padding-right: 7px!important;
-            
-
-
-            
+            padding-right: 7px!important;  
    }
 
   }
 
+  .custom-btn {
+  background-color: rgba(4, 51, 40, 0.895) !important;
+}
 
+  .colorfortext{
+    color:azure!important;
+
+  }
 </style>

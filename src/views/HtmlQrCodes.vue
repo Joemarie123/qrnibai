@@ -5,12 +5,10 @@
     <v-card>
       <!--   <h1>363 nani?</h1> -->
    <!--    <v-btn color="green" > Scan Me</v-btn> -->
-      <div id="qr-code-full-region" >
+      <div id="reader" width="600px">
         <!-- <div v-if="showSuccessMessage" class="success-message">
         Successfully Scanned
       </div> -->
-
-        <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
       </div>
 
       <div class="text-center">
@@ -54,7 +52,8 @@
 </template>
 
 <script>
-import { Html5QrcodeScanner } from "html5-qrcode";
+/* import { Html5QrcodeScanner } from "html5-qrcode"; */
+import {Html5Qrcode} from "html5-qrcode";
 export default {
   data() {
     return {
@@ -103,17 +102,21 @@ export default {
     },
 
     creatScan() {
-      const config = { fps: 10, qrbox: 250 };
-      const html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-code-full-region",
-        config
-      );
-      html5QrcodeScanner.render(this.onScanSuccess);
+      const html5QrCode = new Html5Qrcode("reader");
+const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+    /* handle success */
+};
+const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+// If you want to prefer front camera
+html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
+
+html5QrcodeScanner.render(this.onScanSuccess);
     },
 
     onScanSuccess(decodedResult) {
       const obj = { decodedResult: decodedResult };
-      /*      const currentTime = new Date().toLocaleTimeString(); */
+      /*const currentTime = new Date().toLocaleTimeString(); */
       const timeValue = this.selectedTime;
       const [selectedHour, selectedMinute] = timeValue.split(":");
       let hour = parseInt(selectedHour, 10);
@@ -159,6 +162,8 @@ export default {
           this.showMessage = false;
         }, 1500);
       }
+
+      
     },
 
     /*   formatTime(decodedresult) {

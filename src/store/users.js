@@ -53,7 +53,7 @@ const actions = {
    
     if(res.data.auth == "passed"){
 
-    if(res.data.user.admin){
+    if(res.data.user.admin == 1){
       return 1
     }else{
       return 2

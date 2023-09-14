@@ -3,7 +3,7 @@ import axios from 'axios';
 const state = () => ({
   events: [],
   pangalans: [],
-  event: {},
+  event: [],
 })
 
 const getters = {
@@ -58,8 +58,9 @@ const actions = {
       ///  let res = await axios.post(`http://10.0.1.23:82/HRQR/eventdetails.php`, payload);
         let res = await axios.post(`/eventdetails.php`,payload);
 
-        console.log("data from db=", res.data.event_details[0])
-        commit('setName', res.data.event_details[0]);
+        console.log("data from db=", res.data)
+        commit('setEvent', res.data.event_details[0]);
+        commit('setName',res.data.event_attendance);
     }
     catch (error) {
         console.error('Error fetching students:', error);

@@ -20,11 +20,11 @@
   <v-row>
  
 
-    <v-col cols="2">
-  <h3 class="ml-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
+    <v-col cols="12" sm="3" md="2">
+  <h3 class="  ml-md-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
 </v-col>
 
-<v-col class="mt-n4" cols="6">
+<v-col class="mt-n4" cols="12" sm="6"  md="6">
   <input v-model="search" class="textbox"  placeholder="Search Event">
 <!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
 </v-col>
@@ -38,24 +38,24 @@
        item-key="ID"
      :headers="headers"
      :items="events"
-    :items-per-page="5"
-     class="elevation-1"
+    :items-per-page="10"
+     class="elevation-1 my_classo_officehomeevents"
   
 >
 <template v-slot:item.actions="{ item }">
 
 <button>
-<v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2">mdi-qrcode-scan</v-icon>
+<v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2 mt-n2">mdi-qrcode-scan</v-icon>
 </button>
 
 <button >
-<v-icon color="primary"  large >mdi-printer</v-icon>
+<v-icon class=" mt-n2" color="primary"  large >mdi-printer</v-icon>
 </button>
 
 
 </template>
 
-
+<template #bottom></template>
 </v-data-table>
 </v-card>
 
@@ -88,13 +88,13 @@
           key: "ID",
           sortable: false,
           title: "ID",
-         
+         align: ' d-none d-sm-table-cell',
          
         },
         { key: "Event_name", title: "Event Name", sortable: false },
-        { key: "Event_date", title: "Event Dates", sortable: false },
-        { key: "Event_venue", title: "Event Venue", sortable: false },
-        { key: "AttendanceCount", title: "Attendance", sortable: false },
+        { key: "Event_date", title: "Event Dates" , sortable: false },
+        { key: "Event_venue", title: "Event Venue",  align: ' d-none d-sm-table-cell' , sortable: false },
+        { key: "AttendanceCount", title: "Attendance", align: ' d-none d-sm-table-cell' ,  sortable: false },
         { key: "actions", title: "Actions" , align:"center" },
     
       ],
@@ -173,6 +173,23 @@
       padding-right: 20px;
       margin: auto;
     }
+
+    @media screen and (max-width: 600px) {
+  .container123 {
+ 
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: auto;
+
+} 
+
+.card {
+    display: none; /* Hide the card on screens with a max-width of 768px (adjust as needed) */
+  }
+
+  
+
+}
     .my-header-style {
       background: #666fff;
     }
@@ -223,10 +240,9 @@
     }
     .textbox {
       padding: 10px;
-      border: 1px solid #168904;
+      border: 1px solid #226218;
       border-radius: 10px;
       margin-bottom: 10px;
-      width: 500px;
-      height: 40px;
+      height: 35px;
     }
     </style>

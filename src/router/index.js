@@ -65,14 +65,6 @@ const routes = [
 
 
 
-  {
-    path: '/CreateAccount',
-    name: 'CreateAccount',
-    component: () => import('@/views/CreateAccount.vue'),
- 
-
-
-  },
 
   
     //AppBar
@@ -90,32 +82,12 @@ const routes = [
   
 
 
-
-
-  {
-    path: '/EventView2/:id',
-    name: 'EventView2',
-    component: () => import('@/views/EventView2.vue')
-  },
-
-
-  {
-    path: '/HomeEvents',
-    name: 'HomeEvents',
-    component: () => import('@/views/HomeEvents.vue')
-  },
-
   {
     path: '/HomeEventsViewList',
     name: 'HomeEventsViewList',
     component: () => import('@/views/HomeEventsViewList.vue')
   },
 
-  {
-    path: '/UserList',
-    name: 'UserList',
-    component: () => import('@/views/UserList.vue')
-  },
 
 
   {
@@ -143,18 +115,6 @@ const routes = [
     component: () => import('@/views/sample.vue')
   },
 
-  {
-    path: '/OfficesTable',
-    name: 'OfficesTable',
-    component: () => import('@/views/OfficesTable.vue')
-  },
-  
-  
-  {
-    path: '/EventDetails',
-    name: 'EventDetails',
-    component: () => import('@/views/EventDetails.vue')
-  },
 
 
 ]

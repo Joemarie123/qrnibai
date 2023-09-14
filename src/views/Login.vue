@@ -11,7 +11,7 @@
        
           <v-card 
           
-          :class="`elevation-${isHovering ? 24 : 6}`"
+          :class="`elevation-6`"
           class=" login-form " >
 
           <v-alert  v-if="alertMessage"  :value="true" type="error" transition="fade-transition">
@@ -49,13 +49,13 @@
                   outlined
                   variant="outlined"
                   type="password"
-                  @keyup.enter="login"
+                 
                 ></v-text-field>
               
           
                 <v-row>
                     <v-col cols="12">
-                <v-btn type="submit"  color="primary" @click="Login_Events()"  class="ml-2 ">
+                <v-btn   type="submit"   color="primary" @click="Login_Events()"  class="ml-2 ">
                   Login
                 </v-btn>
 
@@ -73,14 +73,18 @@
   </template>
   
   <script>
-  import { mapGetters,mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
   export default {
     data() {
     return{
+     isHovering:'',
       usernamenako:'',
       password:'',
       alertMessage:'',
     }
+    },
+    created(){
+      localStorage.clear()
     },
     methods: {
       ...mapActions("users", { Loginbai: "login"}),
@@ -93,14 +97,18 @@
     },
 
       Login_Events()
+
   {
+
+  
+
 console.log("username=",this.usernamenako)
 console.log("password=",this.password)
     let data= new FormData;
             data.append('username',this.usernamenako);
             data.append('password',this.password);
             this.Loginbai(data).then(e=>{
-  
+  console.log("value of e=",e)
                 if (e == 0) {
                   this.alertMessage='Email or Password is incorrect.'
                   this.hideAlertAfterDelay();
@@ -111,22 +119,30 @@ console.log("password=",this.password)
                         
                     });
                 } else {
-                  if(e == 1)
-                    // this.navigateTo('/TestingForm');
+                  if(e == 1){
+                     
                     this.$router.push('/HomeEvents')
+                  }
+                    // this.navigateTo('/TestingForm');
+                  
                   else
-                  this.$router.push('/OfficeHomeEvents')
+                  {
+                     console.log("awe")
+                    this.$router.push('/OfficeHomeEvents')
+                  }
+                  
                   // this.navigateTo('/sample');
                 }
             }).catch(e => console.log("Error =>", e));
-
+            
+           
   },
-
-  /*    goToFormTwo() {
-        this.$router.push('/HtmlQrCodes');
-      }  */
       
-    }
+      
+    },
+
+  
+
   };
   </script>
   
