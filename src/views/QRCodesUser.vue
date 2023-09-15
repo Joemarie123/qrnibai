@@ -476,7 +476,7 @@ timeExceedsThreshold(time) {
     },
 
     stopqrcodenibai(){
-     /*  const html5QrCode = new Html5Qrcode("qr-code-full-region"); */
+      const html5QrCode = new Html5Qrcode("qr-code-full-region");
 html5QrCode.stop().then((ignore) => {
 // QR Code scanning is stopped.
   this.showDialog = false
@@ -494,11 +494,11 @@ const qrCodeSuccessCallback = () => {
 };
 const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
-/* // If you want to prefer back camera
-html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); */
+// If you want to prefer back camera
+html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); 
 
 // If you want to prefer front camera
-html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
+// html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
 
 html5QrCode.render(this.onScanSuccess);
     },
