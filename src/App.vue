@@ -1,17 +1,9 @@
 <template>
   <router-view />
-
- 
-
 </template>
-
-<script>
-      
+<script> 
 </script>
-
 <style>
-
-
 
 @media screen and (max-width: 600px) {
 .v-data-table > .v-data-table__wrapper > table {

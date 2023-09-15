@@ -53,16 +53,19 @@
 
       <div>
    
-        <v-btn  color="green" block @click="showScannerDialog()">Scan QR Code
-          <v-icon class="mx-4">mdi-qrcode-scan</v-icon>
+        <v-btn  class="custom-btn colorfortext mt-2 mt-md-0 rounded-lg"  block @click="showScannerDialog()">Scan QR Code
+          <v-icon class="colorfortext mx-4">mdi-qrcode-scan</v-icon>
         </v-btn>
  
       <v-dialog max-width="600px"  v-model="showDialog" v-if="showDialog">
-        
-      <div id="qr-code-full-region">
+       <v-card class="custom-btn colorfortext" >
+        <p class="d-flex justify-center mt-2">Tagum City Employees QR Code</p>
+      <div id="qr-code-full-region" class="my-3 mx-3 ">
         <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
       </div>
-      <v-btn color="green" @click="showDialog = false">Close</v-btn>
+      <v-btn class="custom-btn colorfortext" @click="showDialog = false">Close</v-btn>
+    </v-card>
+     
     </v-dialog>
 
     
@@ -100,9 +103,6 @@
           </tr>
 
           <tr
-            
-            
-           
           >
             <td>
               <p style="font-size: 12px" class="mt-1 ml-1">{{ msg.id }}</p>
@@ -240,9 +240,9 @@
 
       </v-col>
       <v-col cols="12" class="mt-n4 d-flex justify-end">
-          <v-btn class="custom-btn"   @click="clicktosaveall()" >
+          <v-btn class="custom-btn rounded-lg"   @click="clicktosaveall()" >
             
-            <p class="colorfortext">Submit All</p>
+            <p class="colorfortext ">Submit All</p>
             <v-icon  class="colorfortext mx-1">mdi-content-save-all</v-icon>
           </v-btn>
       </v-col>
@@ -259,6 +259,7 @@
 
 <script>
 import { Html5QrcodeScanner } from "html5-qrcode";
+import { Html5Qrcode } from "html5-qrcode";
 import NavBarUser from "@/components/NavBarUser.vue";
 import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
 
@@ -416,8 +417,8 @@ methods: {
       this.showDialog = true;
       
       setTimeout(() => {
-      
-      this.creatScan(1);
+     this.creatScan_htmlfive();
+      // this.creatScan(1);
     }, 500);
     },
 
@@ -474,6 +475,33 @@ timeExceedsThreshold(time) {
       );
     },
 
+    stopqrcodenibai(){
+     /*  const html5QrCode = new Html5Qrcode("qr-code-full-region"); */
+html5QrCode.stop().then((ignore) => {
+// QR Code scanning is stopped.
+  this.showDialog = false
+}).catch((err) => {
+// Stop failed, handle it.
+});
+},
+
+
+
+    creatScan_htmlfive() {
+      const html5QrCode = new Html5Qrcode("qr-code-full-region");
+const qrCodeSuccessCallback = () => {
+    /* handle success */
+};
+const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+/* // If you want to prefer back camera
+html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); */
+
+// If you want to prefer front camera
+html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
+
+html5QrCode.render(this.onScanSuccess);
+    },
 
 
 
@@ -815,7 +843,6 @@ function getCurrentTime() {
 }
 
 @media screen and (max-width: 600px) {
-
 #select-element {
   border: 1px solid #1f7b09; 
   border-radius: 5px;
@@ -826,10 +853,7 @@ function getCurrentTime() {
   margin-left: 5px;
 }
 
-
-
 }
-
 
 .elementobai{
   border: 1px solid #1f7b09; /* You can change the color code to your preferred color */
@@ -842,9 +866,6 @@ function getCurrentTime() {
   margin-left: -40px;
 }
 /* } */
-
-
-
 
 .items-per-page-text {
   /* Add your custom styles for the "Items per page" text here */

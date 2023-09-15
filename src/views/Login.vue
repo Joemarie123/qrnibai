@@ -9,63 +9,67 @@
         <v-col cols="12" >
              
        
-          <v-card 
+         <!--  <v-card 
           
           :class="`elevation-6`"
-          class=" login-form " >
+          class=" login-form " > -->
+<div class=" login-form">
 
-          <v-alert  v-if="alertMessage"  :value="true" type="error" transition="fade-transition">
+          <v-alert class="my-8"  v-if="alertMessage"  :value="true" type="error" transition="fade-transition">
                {{ alertMessage }}
     </v-alert>
           <div class="text-center mt-3">
-            <img class="logo" src="/public/Tagum.png" width="120">
+            <img class="logo" src="/public/Tagum.png" width="115">
           </div>
        
 
-            <v-card-title class="my-4 login-title">
+            <v-card-title class="my-4 mt-n1 login-title">
                
-                HR SYSTEM QRCODES</v-card-title>
+                <b>HR SYSTEM QRCODES</b></v-card-title>
             <v-card-text>
              
               <form @submit.prevent="login">
+
+              <!--   <p><b>User Name</b></p> -->
               <v-text-field
-                class="mx-2"
+                class="mx-5 mt-n1"
                 prepend-inner-icon="mdi-account"
                density="compact" 
-               variant="outlined"
+               variant="underlined"
               v-model="usernamenako"
-             label="User Name"
-                
+             label="User Name"   
                 >
 
                 </v-text-field>
                 
+               
                 <v-text-field
-                class="mx-2"
+                class="mx-5 mt-n2"
                 prepend-inner-icon="mdi-key"
                 density="compact"
                   v-model="password"
                   label="Password"
                   outlined
-                  variant="outlined"
+                  variant="underlined"
                   type="password"
                  
                 ></v-text-field>
-              
+                <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p>
           
                 <v-row>
-                    <v-col cols="12">
-                <v-btn   type="submit"   color="primary" @click="Login_Events()"  class="ml-2 ">
+                    <v-col class="mx-4 d-flex justify-center" cols="11">
+                <v-btn  class="" rounded  type="submit" block rounded-lg  color="success" @click="Login_Events()"  >
                   Login
                 </v-btn>
-
+               
             </v-col>
             
             </v-row>
           </form>
              
             </v-card-text>
-          </v-card>
+          </div>
+       <!--    </v-card> -->
         </v-col>
       </v-row>
     </v-container>
@@ -121,7 +125,7 @@ console.log("password=",this.password)
                 } else {
                   if(e == 1){
                      
-                    this.$router.push('/HomeEvents')
+                  /*   this.$router.push('/HomeEvents') */
                   }
                     // this.navigateTo('/TestingForm');
                   
@@ -147,20 +151,24 @@ console.log("password=",this.password)
   </script>
   
   <style scoped>
+  .underline-on-hover {
+  text-decoration: underline;
+}
+
+.underline-on-hover:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
+
   .login-form {
     max-width: 400px;
     margin: 0 auto;
-
     position: absolute;
   left: 50%;
   top: 50%;
   width: 400px;
   transform: translate(-50%,-50%);
-
   border-radius: 20px;
-  box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
-
-
+  
   }
 
   .login-title {

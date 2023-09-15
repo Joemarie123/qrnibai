@@ -47,7 +47,7 @@
      <v-app-bar   color="#F9FAFC"  class="cardVr" dark app>
        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
        <v-toolbar-title class="text-uppercase">
-         <span class="font-weight-light">HR QR ATTENDANCE</span>
+         <span class=" fontsizebai">HR QR ATTENDANCE</span>
        </v-toolbar-title>
        <v-spacer></v-spacer>
        <v-menu offset-y>
@@ -88,7 +88,7 @@
      },
 
        borderColor: 'green',
-       drawer: true,
+       drawer: window.innerWidth > 600, // Adjust the breakpoint as needed
        mini: false,
        fab: false,
 
@@ -163,9 +163,21 @@
  
    mounted() {
    this.fetchData();
+   window.addEventListener('resize', this.handleResize);
  },
 
+ beforeDestroy() {
+    // Remove the event listener when the component is destroyed
+    window.removeEventListener('resize', this.handleResize);
+  },
+
    methods: {
+
+    handleResize() {
+      // Update the 'drawer' property based on the window width
+      this.drawer = window.innerWidth > 768; // Adjust the breakpoint as needed
+    },
+
      fetchData() {
      const userDataJSON = localStorage.getItem('user');
      if (userDataJSON) {
@@ -187,6 +199,17 @@
  </script>
  
  <style scoped>
+
+@media screen and (max-width: 600px) {
+    .fontsizebai{
+        font-size: 9px;
+        font-weight: bold;
+
+    }
+
+}
+
+
 
 .image {
    border: 2px solid #4caf4f00;
