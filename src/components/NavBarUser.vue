@@ -11,18 +11,13 @@
            <h1 class="black--text">{{ userData.firstname }} {{ userData.lastname }}</h1>
            <h6 class="grey--text ">{{ userData.designation }}</h6>
            <v-btn class="mt-3"  rounded color="success" variant="outlined">USER</v-btn>
-             
+        
        </div>
-       
        <v-divider class="mx-10 mt-3" ></v-divider>
-
-
  <v-list class="mt-6">
      <v-list-subheader>REPORTS</v-list-subheader>
    
-     
      <v-list-item
-     
        v-for="(item, i) in items"
        :key="i"
        :value="item"
@@ -36,13 +31,7 @@
 
        <v-list-item-title v-text="item.text"></v-list-item-title>
      </v-list-item>
-
-   
-
-
-
    </v-list>
-
      </v-navigation-drawer>
      <v-app-bar   color="#F9FAFC"  class="cardVr" dark app>
        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -77,14 +66,10 @@
  
    data() {
      return {
-
-
      userData: {
-   
        designation: '',
        firstname: '',
        lastname: '',
-      
      },
 
        borderColor: 'green',
@@ -103,6 +88,7 @@
  */
        items : [
                { icon: 'mdi-home', colorClass: 'icon-color' , text: 'HOME', route: '/OfficeHomeEvents' },
+               { icon: 'mdi-account-group', colorClass: 'icon-color' , text: 'Emp Management', route: '/EmployeeManagement' },
                { icon: 'mdi-cog-outline', colorClass: 'icon-color' , text: 'User Settings', route: '/sdsds' },
                { icon: 'mdi-account-check', colorClass: 'icon-color' , text: 'Event History', route: '/sdsd' },
               /*  { icon: 'mdi-account-star', text: 'Settings', route: '/Settings' },
@@ -204,12 +190,8 @@
     .fontsizebai{
         font-size: 9px;
         font-weight: bold;
-
     }
-
 }
-
-
 
 .image {
    border: 2px solid #4caf4f00;

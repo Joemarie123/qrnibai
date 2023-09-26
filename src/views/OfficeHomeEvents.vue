@@ -20,13 +20,12 @@
   <v-row>
  
 
-    <v-col cols="12" sm="3" md="2">
-  <h3 class="  ml-md-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
+ <v-col cols="12" sm="3" md="2">
+  <h3 class="ml-md-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
 </v-col>
 
 <v-col class="mt-n4" cols="12" sm="6"  md="6">
   <input v-model="search" class="textbox"  placeholder="Search Event">
-<!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
 </v-col>
 
     <v-col cols="12">

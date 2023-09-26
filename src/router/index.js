@@ -30,6 +30,12 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
 
+  
+  {
+    path: '/EmployeeManagement',
+    name: 'EmployeeManagement',
+    component: () => import('@/views/EmployeeManagement.vue')
+  },
 
   {
     path: '/NavBar',
@@ -54,6 +60,12 @@ const routes = [
     path: '/OfficeHomeEvents',
     name: 'OfficeHomeEvents',
     component: () => import('@/views/OfficeHomeEvents.vue')
+  },
+
+  {
+    path: '/EventDetails',
+    name: 'EventDetails',
+    component: () => import('@/views/EventDetails.vue')
   },
 
 

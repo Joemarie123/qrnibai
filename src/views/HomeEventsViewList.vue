@@ -127,8 +127,8 @@ data() {
 
 
 created() {
-  console.log("params=",history.state.id)
-      this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id));
+  /* console.log("params=",history.state.id)
+      this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id)); */
   },
 
 

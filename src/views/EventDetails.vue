@@ -1,194 +1,177 @@
 <template>
-    <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
-      <v-layout>
-        <v-app-bar>
-          <template v-slot:image> </template>
-          <template v-slot:prepend>
-            <v-avatar :size="50">
-              <v-img src="/Tagum.png" alt="altText"></v-img>
-            </v-avatar>
-          </template>
-  
-          <v-app-bar-title>
-            <span :style="{ color: 'green' }">HOME EVENTS</span>
-          </v-app-bar-title>
-  
-          <v-spacer></v-spacer>
-  
-          <v-avatar class="mx-2 my-2" :size="50">
-            <v-img src="/img5.png"></v-img>
-          </v-avatar>
-        </v-app-bar>
-      </v-layout>
-    </v-card>
 
-    
+<v-container>
+  <v-sheet
+    class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 "
+    elevation="4"
+    rounded
+    max-width="90%"
+    width="100%"
+  >
+    <v-row>
+      <v-col cols="4">
+        <!-- <v-avatar class="d-flex child-flex">
+          <v-img src="/phil.png" alt="altText"></v-img>
+        </v-avatar> -->
+        <div class="center1">
+          <v-img :width="100" src="/phil.png" class=""></v-img>
+        </div>
+      </v-col>
+      <v-col cols="4">
+        <h3 class="mt-12">Republic of the Philippines</h3>
+        <h3 class="">Province of Davao del Norte</h3>
+        <h3 class="">CITY OF TAGUM</h3>
+      </v-col>
+      <v-col cols="4">
+        <div class="center">
+          <v-img
+            :width="100"
+            src="/Tagum.png"
+            
+            class=""
+          ></v-img>
+        </div>
+      </v-col>
+    </v-row>
+    <v-divider color="blue" :thickness="5" class="mt-2"></v-divider>
+    <v-col cols="12">
+      <h2>ATTENDANCE REPORT</h2>
+    </v-col>
     <v-container>
-      <v-sheet
-        class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4 mt-16"
-        elevation="4"
-        rounded
-        max-width="90%"
-        width="100%"
-      >
-        <v-row >
-          <v-col cols="4">
-            <v-avatar :size="150" class="mt-6" >
-              <v-img src="/phil.png" alt="altText"></v-img>
-            </v-avatar>
-          </v-col>
-          <v-col cols="4">
-            <h3 class="mt-12">Republic of the Philippines</h3>
-            <h3 class="">Province of Davao del Norte</h3>
-            <h3 class="">CITY OF TAGUM</h3>
-          </v-col>
-          <v-col cols="4">
-            <v-avatar :size="150" class="mt-6">
-              <v-img src="/Tagum.png" alt="altText"></v-img>
-            </v-avatar>
-          </v-col>
-        </v-row>
-        <v-divider color="blue" :thickness="5" class="mt-2"></v-divider>
-        <v-col cols="12">
-          <h2>ATTENDANCE REPORT</h2>
+      <v-row no-gutters style="text-align: justify">
+        <v-col cols="12" md="6">
+          <p>Department:</p>
+          <p>Division:</p>
+          <p>Section/Unit:</p>
+          <p>Project:</p>
         </v-col>
-        <v-container>
-          <v-row no-gutters style="text-align: justify">
-           
-            <v-col cols="6">
-              <div v-for="items in selected_event" :key="items.id">
-              <p><strong> Department: </strong> {{ items.Department }} </p>
-              <p><strong>Division:</strong> {{ items.Division }}</p>
-              <p><strong>Section/Unit:</strong> {{ items.Section_unit }} </p>
-              <p><strong>Project:</strong> {{ items.Project }}</p>
-            </div>
-            </v-col>
-            <v-col cols="6">
-              <v-sheet class="pa-2 ma-2">
-                <div v-for="items in selected_event" :key="items.id">
-                <p><strong>Date:</strong>{{ items.eventDates }}</p>
-                <p><strong>Activity:</strong>{{ items.eventName }}</p>
-                <p><strong>Venue:</strong> {{ items.venue }}</p>
-              </div>
-              </v-sheet>
-            </v-col>
-         
-          </v-row>
-        </v-container>
-  
-        <v-container>
-          <v-table   density="compact">
-            <thead >
-              <tr>
-                <th id="head">No.</th>
-                <th id="head">Name</th>
-                <th id="head">Position</th>
-                <th id="head">Time Scanned</th>
-                <th id="head">Remarks</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in desserts" :key="item.name">
-                <td>{{ item.no }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.position }}</td>
-                <td>{{ item.timeScanned }}</td>
-                <td>{{ item.remarks }}</td>
-              </tr>
-            </tbody>
-          </v-table>
-        </v-container>
-        <p class="text-justify font-italic pa-4">
-          I hereby certify and attest, to the best of my knowledge, that the above
-          declartion are true and correct statements on the whereabouts of the
-          personnel of this office.
-        </p>
-        <p></p>
-        <v-row no-gutters style="text-align: justify">
-          <v-col cols="3" class="font-italic">
-            <p><span class="mdi mdi-circle"></span> Did not Participate</p>
-            <p><span class="mdi mdi-circle"></span> On Field Business</p>
-            <p><span class="mdi mdi-circle"></span> On Field</p>
-            <p><span class="mdi mdi-circle"></span> On Leave</p>
-            <p><span class="mdi mdi-circle"></span> Flexible Work Schedule</p>
-            <p><span class="mdi mdi-circle"></span> Late</p>
-          </v-col>
-          <v-col cols="5" class="">
-            <p>DNP</p>
-            <p>OB</p>
-            <p>OF</p>
-            <p>OL</p>
-            <p>FWL</p>
-            <p>L (For those who comes late for the Activity)</p>
-          </v-col>
-          <v-col>
-            <p>Monitoring In-Charge:</p>
-            <p>Contact No:</p>
-          </v-col>
-        </v-row>
-      </v-sheet>
+        <v-col cols="12" md="6">
+          <p>Date:</p>
+          <p>Activity:</p>
+          <p>Venue:</p>
+        </v-col>
+      </v-row>
     </v-container>
-  </template>
-  <script>
-  export default {
-    data() {
-      return {
-        desserts: [
-          {
-            no: "1",
-            name: "Honey Curay",
-            position: "Hatdog",
-            timeScanned: "2121",
-            remarks: "zxdfd",
-          },
-          {
-            no: "1",
-            name: "Honey Curay",
-            position: "Hatdog",
-            timeScanned: "2121",
-            remarks: "zxdfd",
-          },
-          {
-            no: "1",
-            name: "Honey Curay",
-            position: "Hatdog",
-            timeScanned: "2121",
-            remarks: "zxdfd",
-          },
-        ],
 
-        selected_event:[],
-
-        tableData_HomeEvents: [
-        { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' },
-        { id: 2, eventName: 'Kantahan of the Night', eventDates: '2023-07-21', attendance: '75' ,venue:'Davao City Hall' ,Department:'City Mayor 1' ,Division:'City Vice-Mayor' ,Section_unit:'Section Nangka' ,Project:'Project Night Fall 1'  },
-        { id: 3, eventName: 'Civil Service Event', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 2' ,Division:'Human Resource' ,Section_unit:'Section Santol' ,Project:'Project Night Fall 2'  },
-        { id: 4, eventName: 'Tagum October Fest', eventDates: '2023-07-22', attendance: '90'  ,venue:'Tagum City Hall' ,Department:'City Mayor 3' ,Division:'Engineering' ,Section_unit:'Section Saging' ,Project:'Project Night Fall 3' },
-        { id: 5, eventName: 'Beer of the Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 4' ,Division:'Treasure' ,Section_unit:'Section Lansones' ,Project:'Project Night Fall 4' },
-        { id: 6, eventName: 'Nutrition Month', eventDates: '2023-07-22', attendance: '90' ,venue:'Tagum City Hall' ,Department:'City Mayor 5' ,Division:'HR NI BAI' ,Section_unit:'Section Rambotan' ,Project:'Project Night Fall 5' },
-        // Add more sample data here...
-      ]
-
-      };
-      
-    },
-
-    
-
-
-/*     created() {
-  console.log("params=",history.state.id)
-      this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id));
-  },
- */
-  
-
+    <v-container>
+      <v-table >
+        <thead>
+          <tr>
+            <th id="head">No.</th>
+            <th id="head">Name</th>
+            <th id="head">Position</th>
+            <th id="head">Time Scanned</th>
+            <th id="head">Remarks</th>
+          </tr>
+        </thead>
+        <tbody dense>
+          <tr v-for="item in desserts" :key="item.name">
+            <td>{{ item.no }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.position }}</td>
+            <td>{{ item.timeScanned }}</td>
+            <td>{{ item.remarks }}</td>
+          </tr>
+        </tbody>
+      </v-table>
+    </v-container>
+   <div class="page-break"></div>
+    <p class="text-justify font-italic pa-4">
+      I hereby certify and attest, to the best of my knowledge, that the above
+      declartion are true and correct statements on the whereabouts of the
+      personnel of this office.
+    </p>
+    <p></p>
+    <v-row no-gutters style="text-align: justify">
+      <v-col cols="3" class="font-italic">
+        <p><span class="mdi mdi-circle"></span> Did not Participate</p>
+        <p><span class="mdi mdi-circle"></span> On Field Business</p>
+        <p><span class="mdi mdi-circle"></span> On Field</p>
+        <p><span class="mdi mdi-circle"></span> On Leave</p>
+        <p><span class="mdi mdi-circle"></span> Flexible Work Schedule</p>
+        <p><span class="mdi mdi-circle"></span> Late</p>
+      </v-col>
+      <v-col cols="5" class="">
+        <p>DNP</p>
+        <p>OB</p>
+        <p>OF</p>
+        <p>OL</p>
+        <p>FWL</p>
+        <p>L (For those who comes late for the Activity)</p>
+      </v-col>
+      <v-col>
+        <p>Monitoring In-Charge:</p>
+        <p>Contact No:</p>
+      </v-col>
+    </v-row>
+  </v-sheet>
+</v-container>
+</template>
+<script>
+export default {
+data() {
+  return {
+    desserts: [
+      {
+        no: "1",
+        name: "Honey Curay",
+        position: "Hatdog",
+        timeScanned: "2121",
+        remarks: "zxdfd",
+      },
+      {
+        no: "1",
+        name: "Honey Curay",
+        position: "Hatdog",
+        timeScanned: "2121",
+        remarks: "zxdfd",
+      },
+      {
+        no: "1",
+        name: "Honey Curay",
+        position: "Hatdog",
+        timeScanned: "2121",
+        remarks: "zxdfd",
+      },
+    ],
   };
-  </script>
-  <style>
-  #head {
-    background-color: #70b354;
-    color: white;
-    text-align: center;
-  }
-  </style>
+},
+};
+</script>
+<style scoped>
+.page-break {
+  page-break-after: always;
+}
+.center1 {
+margin: 0;
+position: absolute;
+top: 10%;
+left: 20%;
+}
+.center {
+margin: 0;
+position: absolute;
+top: 10%;
+right: 20%;
+}
+.image {
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 100;
+}
+#head {
+background-color: #70b354;
+color: white;
+text-align: center;
+}
+#pic {
+align-content: center;
+align-items: center;
+}
+@media screen and (max-width: 600px) {
+#pic {
+  size: 50 !important;
+}
+}
+</style>

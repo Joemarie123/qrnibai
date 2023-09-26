@@ -1,0 +1,718 @@
+<template>
+    <v-card  height="1000" flat color="#F9FAFC" >
+  <v-layout>
+  <NavBarUser/>
+  
+  <v-main>
+  <div class="container123">
+  <v-container >
+
+  </v-container>
+  
+  <v-container>
+  
+    <v-row class="mt-n15 mt-md-1 ">
+ 
+      <v-col cols="12" sm="3" md="2">
+  <v-btn class="ml-md-1 mt-n2"  rounded-lg color="green" @click="add_employees_dialog = true" variant="text">ADD EMPLOYEES</v-btn>
+  </v-col>
+  
+  <v-col class="mt-n4 mr-md-6" cols="12" sm="6"  md="6">
+  <input v-model="search" class="textbox"  placeholder="Search Employee">
+</v-col>
+
+<v-dialog  v-model="add_employees_dialog" persistent  origin='center' max-width="1000" >
+
+<v-card>
+<v-container>
+<v-row >   
+  <v-col class="mt-1" cols="12" sm="6"  md="6">
+  <input v-model="searchaddemployee" class="textbox"  placeholder="Search Employee">
+</v-col>
+  <v-data-table
+         :headers="headers_add_employees" 
+         :items="AddEmployees" 
+         
+         :search="searchaddemployee"
+         :items-per-page="5" 
+           class="my_class td"
+         :single-select="false">
+         <template v-slot:item="{ item }">
+            <tr >
+              <td><v-checkbox v-model="item.selected" @input="selectRow(item)"></v-checkbox></td>
+              <!-- <td>{{ item.fullname }}</td>
+              <td>{{ item.designation }}</td> -->
+              <td :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
+              <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.fullname}}</td>
+              <td :style="{ textAlign: 'left' }">{{ item.columns.designation }}</td>
+            </tr>
+          </template>
+          <template #bottom></template>
+        </v-data-table>
+        <v-col class="d-flex justify-end">
+        <v-card-actions class="d-flex justify-end">
+          <v-btn @click="addRow" color="green">ADD</v-btn>
+          <v-btn @click="cancelDialog" color="error">CANCEL</v-btn>
+        </v-card-actions>
+      </v-col>
+      
+       <tbody>
+        <tr v-for="(item, index) in selectedItems" :key="index">
+          <td>{{ item.value.office_id }}</td>
+       
+          <td>{{ item.value.office }}</td>
+          <td>{{ item.value.fullname }}</td>
+          <td>{{ item.value.Controlno }}</td>
+          <td>{{ item.value.designation }}</td>
+          <td>{{ item.value.status }}</td>
+          <td>{{ item.value.time }}</td>
+          <td >{{ item.value.Remarks }}</td>
+        </tr>
+      </tbody> 
+</v-row >   
+</v-container>
+</v-card>
+
+
+  </v-dialog>
+  
+      <v-col cols="12">
+  
+        <v-card class="rounded-lg mt-n4">
+    <v-data-table
+      :search="search"
+      item-key="ID"
+      :items="employees"
+      :headers="headers"
+      :items-per-page="5"
+      class="my_class td btn-hover color-1 elevation-1"
+      tile
+    >
+      <template v-slot:item.actions="{ item }">
+        <v-dialog v-model="dialogVisible" max-width="400">
+          <v-card>
+            <v-card-title class="headline">Confirm Action</v-card-title>
+            <v-card-text>Are you sure you want to delete the item and fetch users?</v-card-text>
+            <v-card-actions>
+              <v-btn color="red" text @click="cancelAction">No</v-btn>
+              <v-btn color="green" text @click="executeAction()">Yes</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-btn color="red" variant="outlined" @click="openConfirmationDialog(item)">
+          <v-row>
+            <p>Remove</p>
+            <v-icon right class="white--text mx-1">mdi-delete</v-icon>
+          </v-row>
+        </v-btn>
+      </template>
+    </v-data-table>
+  </v-card>
+      </v-col>
+      
+    </v-row>
+  </v-container>
+  </div>
+ 
+  </v-main>
+  </v-layout>
+  </v-card>
+  </template>
+  
+  
+  <script>
+
+  import NavBarUser from "@/components/NavBarUser.vue";
+  import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
+  import axios from 'axios';
+  
+  import { mapActions, mapGetters } from 'vuex';
+  
+  
+  
+  export default {
+  
+  components: {
+    NavBarUser,
+    HtmlQrCodes,
+  },
+  
+  data() {
+  return {
+    add_employees_dialog:false,
+
+    deletecontrono:'',
+   // selectedRemark: "",
+   dialogVisible: false,
+   selectedItem: null,
+   showModal:false,
+   showDialog: false,
+    selectedOffice: "",
+    selectedTime: getCurrentTime(),
+    currentTime: "",
+      currentDate: "",
+    ID: "",
+    Event_name:'',
+    search: "",
+    searchaddemployee:"",
+    eventname:'',
+      eventdate:'',
+       eventfrom:'',
+      eventto:'',
+      eventvue:'',
+      targetOfficeId: 1,
+      timeThreshold: "",
+      tempmessage:[],
+      dataTable: [],
+      message: [],
+      messagealreadyscan: [],
+      transferredTimes: [],
+      mensahenibai: false,
+      lastScannedTime: "",
+      showMessage: false,
+      employees:[],
+      AddEmployees:[],
+      remarks:"",
+      designation:"",
+      controlno:"",
+      fullname:"",
+      time: "", // Add this variable
+      formattedTime:"",
+      status:"",
+      userData: {
+   
+        office_id: '',
+  
+      },
+      selectedRemarks: "",
+      remarks: ['Absent','Late'],
+    
+     
+    createevents:false,
+  
+    items: [ /* Your data goes here */ ],
+    selectedItems: [],
+    // items: [
+    //   { title: "My Account", icon: "mdi-account",  },
+    //   { title: "Settings", icon: "mdi-clock" },
+    //   { title: "Create Account", icon: "mdi-account", route: "/CreateAccount", },
+    // ],
+  
+    headers: [
+    {
+        align: "start",
+        key: "Controlno",
+        sortable: false,
+        title: "ID",
+        align: ' d-none d-sm-table-cell',
+      },
+        { key: "fullname", title: "Full Name", class: 'header-id', sortable: false },
+        { key: "designation", title: "Position", align: ' d-none d-sm-table-cell', sortable: false, },
+        { key: "actions", title: "Actions", sortable: false, },
+      
+      
+      ],
+
+
+      headers_add_employees: [
+      { key: "Checkbox", title: "Check Box", sortable: false, },
+    {
+        align: "start",
+        key: "Controlno",
+        sortable: false,
+        title: "Control No",
+        align: ' d-none d-sm-table-cell',
+      },
+        { key: "fullname", title: "Full Name", sortable: false },
+        { key: "designation", title: "Position",  sortable: false, },
+
+      ],
+      items: [
+        { Controlno: '09223' , fullname: 'John Doe', designation: 'Manager', selected: false },
+        { Controlno: '09223' , fullname: 'Jane Smith', designation: 'Developer', selected: false },
+        { Controlno: '09223' , fullname: 'Jane Smith', designation: 'Developer', selected: false },
+        { Controlno: '09223' , fullname: 'Jane Smith', designation: 'Developer', selected: false },
+        // Add more sample data here
+      ],
+  
+  };
+  },
+  
+  computed: {
+    ...mapGetters('employees', {Pangalan: ['getEmployees']} ),
+    ...mapGetters('employees', {AddEmployeesbai: ['getAdd_Employees']} ),
+  
+ /*    ...mapGetters('users', {fetechEmployees: ['getUsers']} ), */
+   /*  ...mapGetters("office", { Offices: "getOffices" }), */
+  
+    
+   /*  filteredUsers() {
+    
+      return this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
+    },
+  
+    filteredItems() {
+      if (!this.userData.office_id) {
+        return this.Offices;
+      }
+      const id = parseInt(this.userData.office_id);
+      return this.Offices.filter((item) => item.id === id);
+    },
+    */
+  
+  }, 
+  
+  created() {
+    
+/*     this.fetchOffices().then(req=>{
+  
+  this.fetchData();
+  this.searchByOffice();
+ 
+})
+ */
+    let data = new FormData;
+    const adminrecords=JSON.parse(localStorage.getItem('user'))
+    console.log("ID=",adminrecords.office_id)
+    this.userData.office_id = adminrecords.office_id
+
+    data.append('office_id',adminrecords.office_id)
+
+    
+    this.fetchemployees(data).then(res=>{
+      this.employees=this.Pangalan
+      this.fetchAdd_employees();
+      console.log("employees=",this.employees)
+    })
+
+    this.fetchAdd_employees(data).then(res=>{
+      this.AddEmployees=this.AddEmployeesbai
+      this.fetchAdd_employees();
+       /*  this.searchByOffice(); */
+    })
+
+  
+
+
+  },
+  
+  
+  methods: {
+/*   ...mapActions('events', ['fetchPangalan']),
+  ...mapActions('users', ['fetchUsers']), 
+  ...mapActions('office', ['fetchOffices']), */
+  ...mapActions('employees', ['fetchemployees']),
+  ...mapActions('employees', ['fetchAdd_employees']),
+  ...mapActions('office', ['fetchOffices']),
+
+  cancelDialog() {
+      this.add_employees_dialog = false;
+    },
+
+    kinidaw()
+    {
+      let data = new FormData;
+    const adminrecords=JSON.parse(localStorage.getItem('user'))
+    console.log("ID=",adminrecords.office_id)
+    
+    data.append('office_id',adminrecords.office_id)
+    this.fetchemployees(data).then(res=>{
+      this.employees=this.Pangalan
+
+      console.log("employees=",this.employees)
+    })
+    },
+
+    selectRow(item){
+
+/* 
+      let data = new FormData;
+    const adminrecords=JSON.parse(localStorage.getItem('user'))
+    console.log("ID=",adminrecords.office_id)
+    
+    data.append('office_id',adminrecords.office_id) */
+   /*  this.fetchemployees(data).then(res=>{
+      this.employees=this.Pangalan
+
+      console.log("employees=",this.employees)
+    }) */
+
+/*       console.log("Selected Row", item); */
+
+      const existingItemIndex = this.selectedItems.findIndex(
+  (selectedItem) =>
+    selectedItem.value.Controlno === item.value.Controlno
+);
+
+/* if (existingItemIndex !== -1) {
+        // If an item with the same Controlno exists, update it
+        this.selectedItems[existingItemIndex].value = { ...item.value };
+        this.selectedItems[existingItemIndex].value.Checkbox = item.raw.Checkbox;
+      } else { */
+        // If not, add a new item with Event.ID
+        this.selectedItems.push({
+      value: { ...item.value, office_id: this.userData.office_id },
+        });
+    /*   } */
+// Include userData.office_id
+console.log("Selected Row", this.selectedItems);
+const officeId = this.userData.office_id;
+console.log("office_id=", officeId);
+
+/* console.log("new employees=", this.AddEmployees); */
+
+    }, 
+
+
+ /*    searchByOffice() {
+  console.log("offices=",this.Offices)
+    const id = parseInt(this.userData.office_id);
+    const selectedItem = this.Offices.find(item => 
+      
+      item.id == id
+    );
+
+    
+    console.log("id=" + id + " selecteditem=" + selectedItem);
+    this.selectedOffice = selectedItem ? selectedItem.office : "";
+  },
+ */
+
+    filteredUsers() {
+    // Filter the users based on office_id
+    return this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
+  },
+
+  filteredItems() {
+    if (!this.userData.office_id) {
+      return this.Offices;
+    }
+    const id = parseInt(this.userData.office_id);
+    return this.Offices.filter((item) => item.id === id);
+  },
+ 
+
+
+    fetchData() {
+   const userDataJSON = localStorage.getItem('user');
+   if (userDataJSON) {
+     this.userData = JSON.parse(userDataJSON);
+   }
+ },
+  openConfirmationDialog(item) {
+    this.deletecontrono=item.raw.Controlno;
+      this.selectedItem = item;
+      this.dialogVisible = true;
+    },
+    cancelAction() {
+      this.dialogVisible = false;
+    },
+    async executeAction() {
+      const controlno = this.deletecontrono;
+      console.log('Controlno:', controlno);
+      const formData = new FormData();
+      formData.append('controlno', controlno);
+
+      try {
+        const response = await fetch('http://10.0.1.23:82/HRQR/removeemployee.php', {
+          method: 'POST',
+          body: formData,
+        });
+        console.log('Response:', response);
+   
+        if (response.ok) {
+          this.kinidaw()
+          // Employee removed successfully, update the local data
+          const index = this.Pangalan.findIndex((e) => e.controlno === controlno);
+          if (index !== -1) {
+            this.Pangalan.splice(index, 1);
+           
+          }
+         
+        } else {
+          // Handle error here if needed
+          console.error('Error:', response.statusText);
+        }
+
+        this.dialogVisible = false;
+      } catch (error) {
+        // Handle fetch error here if needed
+        console.error('Error:', error);
+        this.dialogVisible = false;
+      }
+      
+    },
+
+    //// CODE FOR DELETE
+/*     cancelAction() {
+    this.dialogVisible = false;
+  },
+
+  async createProduct(id) {
+           this.idToDelete = id;
+          this.dialogVisible = true;
+  },
+  async executeAction() {
+    this.dialogVisible = false;
+    await this.removeemployees(this.idToDelete);
+    await this.fetchUsers();
+  }, */
+     //// END CODE FOR DELETE
+ 
+  },
+  
+  
+  async mounted() {
+
+  },
+  
+  beforeUnmount() {
+    clearInterval(this.timer); // Clear the timer on component unmount to prevent memory leaks
+  
+    if (this.html5QrcodeScanner) {
+      this.html5QrcodeScanner.stop();
+    }
+  },
+  };
+  
+  function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  
+  let formattedHours = hours % 12;
+  formattedHours = formattedHours === 0 ? 12 : formattedHours; // Convert 0 to 12
+  formattedHours = formattedHours.toString().padStart(2, "0");
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  }
+  </script>
+  
+  <style scoped >
+     .textbox {
+      padding: 10px;
+      border: 1px solid #226218;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      height: 35px;
+    }
+  .dialogcssbai {
+  
+  width: 300px;
+  height: 200px;
+  background: pink; 
+  padding: 24px;
+  }
+  /* .scanner-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(168, 34, 34, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  } */
+  
+  #qr-code-full-region {
+  
+  background-color: #f3f0f0;
+  }
+  
+  @media screen and (max-width: 600px) {
+  #select-element {
+  border: 1px solid #1f7b09; 
+  border-radius: 5px;
+  padding: 1px;
+  font-size: 10px;
+  width: 48px; 
+  height: 20px;
+  margin-left: 5px;
+  }
+  
+  }
+  
+  .elementobai{
+  border: 1px solid #1f7b09; /* You can change the color code to your preferred color */
+  border-radius: 5px;
+  padding: 1px;
+  padding-left: 10px;
+  font-size: 14px;
+  width: 100px; /* You can adjust the width as needed */
+  height: 25px;
+  margin-left: -40px;
+  }
+  /* } */
+  
+  .items-per-page-text {
+  /* Add your custom styles for the "Items per page" text here */
+  font-weight: bold;
+  color: #007bff;
+  }
+  .header-id {
+  background-color: #701c1c;
+  color: #9e3636;
+  font-weight: bold;
+  }
+  
+   
+  /* @media screen and (max-width: 600px) {
+  .v-data-table th,
+  .v-data-table td {
+    font-size: 10px;
+  }
+  } */
+  
+  .image {
+    border: 1px solid #0a7a0e;
+  }
+  .my-input.v-input .v-input__slot {
+  border-radius: 100px;
+  }
+  
+  .v-data-table > .v-data-table__wrapper > table {
+    border-spacing: 0 0.10rem;
+  }
+  
+  
+  .container123 {
+  max-width: 1170px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: auto;
+  } 
+  
+  
+  
+  @media screen and (max-width: 600px) {
+  .container123 {
+  
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: auto;
+  
+  } 
+  
+  .card {
+    display: none; /* Hide the card on screens with a max-width of 768px (adjust as needed) */
+  }
+  
+  
+  
+  }
+  
+  .mobile-button {
+  display: none; /* Initially hide the button */
+  
+  /* Use a media query to show the button on mobile devices */
+  @media (max-width: 600px) {
+    display: block;
+  }
+  }
+  
+  .my-header-style {
+  background: #666fff;
+  }
+  .classfortitle{
+  /*  color: #70b354; */
+    font-size: 15px;
+  }
+  
+  .classeventdetails{
+  
+    font-size: 20px;
+  }
+  
+  .head {
+  background-color: #70b354;
+  color: white;
+  }
+  .big-button {
+  padding: 20px;
+  font-size: 20px;
+  }
+  
+  
+  
+  table {
+  width: 100%;
+  border-collapse: collapse;
+  }
+  
+  th,
+  td {
+  padding: 3px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  }
+  
+  th {
+  background-color: #f2f2f2;
+  }
+  
+  
+  .close-button {
+  position: absolute;
+  top: 5px;
+  right: 14px;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  }
+  .textbox {
+  padding: 10px;
+  border: 1px solid #168904;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 500px;
+  height: 40px;
+  }
+  
+  
+  
+  .card.purple {
+  background: linear-gradient(150deg, #f731db, #edebef 100%);
+  }
+  
+  .card.green {
+  background: linear-gradient(150deg, #eff2eedc, #f2f0f7 100%);
+  }
+  
+  
+  
+  .alreadyscan {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fffffffb;
+  color: rgb(11, 231, 11);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
+  }
+  
+  
+  .success-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fffffffb;
+  color: rgb(9, 230, 27);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
+  }
+  
+  .v-btn {
+  text-transform:none !important;
+}
+  </style>

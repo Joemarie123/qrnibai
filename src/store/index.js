@@ -4,6 +4,8 @@ import eventsModule from './events';
 import accountModule from './account';
 import scaninsertModule from './scaninsert';
 import officeModule from './office';
+import employeesModule from './employees';
+
 
 const store = createStore({
   modules: {
@@ -13,7 +15,7 @@ const store = createStore({
     account: accountModule, 
     scaninsert: scaninsertModule,
     office: officeModule,
-
+    employees: employeesModule,
     
   }
 });

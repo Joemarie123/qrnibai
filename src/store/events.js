@@ -57,7 +57,6 @@ const actions = {
     try {
       ///  let res = await axios.post(`http://10.0.1.23:82/HRQR/eventdetails.php`, payload);
         let res = await axios.post(`/eventdetails.php`,payload);
-
         console.log("data from db=", res.data)
         commit('setEvent', res.data.event_details[0]);
         commit('setName',res.data.event_attendance);

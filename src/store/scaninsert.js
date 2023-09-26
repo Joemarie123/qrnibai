@@ -2,7 +2,9 @@ import axios from 'axios';
 /* axios.defaults.baseURL = process.env.VUE_APP_API_URL; */
 const state = () => ({
   scans: [],
+
   scan: {},
+  remarks:[]
 })
 
 const getters = {
@@ -41,7 +43,14 @@ const actions = {
       commit('setScans', res.data.user);
     },
   
-  
+    async saveallremarks( ){
+      // console.log("payload=",)
+      let res = await axios.post(`/saveremarks.php`, this.remarks );
+      console.log("radsf",res.data)
+    
+    },
+
+
   }
 
 

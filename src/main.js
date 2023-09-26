@@ -10,8 +10,8 @@ import { createApp } from 'vue'
 import router from './router';
 import store from './store';
 
-axios.defaults.baseURL='https://tgmhrmo2022.000webhostapp.com';
-//axios.defaults.baseURL='http://10.0.1.23:82/HRQR';
+/* axios.defaults.baseURL='https://tgmhrmo2022.000webhostapp.com'; */
+axios.defaults.baseURL='http://10.0.1.23:82/HRQR'; 
 
 // Plugins
 import { registerPlugins } from '@/plugins'
