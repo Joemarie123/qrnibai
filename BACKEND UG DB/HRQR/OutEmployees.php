@@ -21,7 +21,7 @@ try {
     
 
 
-    $result['users']=$conn->query("SELECT tblemployees.* FROM tblemployees left join tblofficelink on tblemployees.controlno=tblofficelink.controlno where tblofficelink.controlno is null order by lastname")
+    $result['users']=$conn->query("SELECT CONCAT(firstname, ' ', middlename, ' ', lastname) as fullname,tblemployees.* FROM tblemployees left join tblofficelink on tblemployees.controlno=tblofficelink.controlno where tblofficelink.controlno is null order by lastname")
             ->fetchAll(PDO::FETCH_OBJ);
     echo json_encode($result);
 } catch (PDOException $e){

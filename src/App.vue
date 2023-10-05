@@ -1,7 +1,33 @@
 <template>
   <router-view />
 </template>
-<script> 
+<script>
+
+export default {
+  data() {
+    return {
+      
+    };
+
+    
+
+  },
+
+  components: {
+
+  
+  },
+
+  methods: {
+
+  },
+
+
+
+
+};
+
+
 </script>
 <style>
 

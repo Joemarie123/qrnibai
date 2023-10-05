@@ -124,14 +124,15 @@ console.log("password=",this.password)
                     });
                 } else {
                   if(e == 1){
-                     
+                    this.alertMessage='Email or Password is incorrect.'
+                    this.hideAlertAfterDelay();
                   /*   this.$router.push('/HomeEvents') */
                   }
                     // this.navigateTo('/TestingForm');
                   
                   else
                   {
-                     console.log("awe")
+                   /*   console.log("LOGIN DETAILS") */
                     this.$router.push('/OfficeHomeEvents')
                   }
                   

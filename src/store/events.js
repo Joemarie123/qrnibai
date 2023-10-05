@@ -3,6 +3,7 @@ import axios from 'axios';
 const state = () => ({
   events: [],
   pangalans: [],
+  eventhistory:[],
   event: [],
 })
 
@@ -11,6 +12,12 @@ const getters = {
     console.log("Get Events",state.events);
     return state.events;
   },
+
+  getEventsHistory(state) {
+    console.log("Get Events History",state.eventhistory);
+    return state.eventhistory;
+  },
+
   getEvent(state){
     return state.event;
   },
@@ -22,10 +29,18 @@ const getters = {
 }
 
 const mutations = {
+
+
   setEvents(state, payload){
     console.log("Set events",payload);
     state.events = payload;
   },
+
+  setEventsHistory(state, payload){
+    console.log("Set events history",payload);
+    state.eventhistory = payload;
+  },
+
 
   setEvent(state, payload){
     state.event = payload;
@@ -41,10 +56,18 @@ const actions = {
   async fetchEvents({commit}){
 
   //  let res = await axios.get(`http://10.0.1.23:82/HRQR/eventlist.php`);
-    let res = await axios.get(`/eventlist.php`);
+    let res = await axios.get(`/Dashboard.php`);
    /*  console.log("data from db=", res.data.event_details[0]); */
     commit('setEvents', res.data.events);
   },
+
+  async fetchEventsHistory({commit}){
+
+    //  let res = await axios.get(`http://10.0.1.23:82/HRQR/eventlist.php`);
+      let res = await axios.get(`/eventlist.php`);
+      commit('setEventsHistory', res.data.events);
+    },
+  
 
   async registerEvents({commit}, payload){
    // let res = await axios.post(`http://10.0.1.23:82/HRQR/event.php`, payload);

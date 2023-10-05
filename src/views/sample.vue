@@ -1,93 +1,56 @@
 <template>
-  <div>
-    <v-dialog v-model="dialog" max-width="500px">
-      <template v-slot:activator="{ on }">
-        <v-btn @click="dialog = !dialog" color="primary">Open Dialog</v-btn>
-      </template>
-      <v-card>
-      
-        <v-data-table
-         :headers="headers" 
-         :items="items" 
-         :items-per-page="5" 
-         :single-select="false">
-         <template v-slot:item="{ item }">
-            <tr>
-              <td><v-checkbox v-model="item.selected" @input="selectRow(item)"></v-checkbox></td>
-              <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.Controlno}}</td>
-              <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.fullname}}</td>
-              <td :style="{ textAlign: 'left' }">{{ item.columns.designation }}</td>
-            </tr>
-          </template>
-        </v-data-table>
-        <v-card-actions>
-          <v-btn @click="addRow" color="primary">Add</v-btn>
-          <v-btn @click="cancelDialog" color="error">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+  <v-app>
+    <v-container>
+      <v-row>
+        <v-col cols="4">
+          <v-combobox
+            label="Hour"
+            :items="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']"
+            v-model="selectedHour"
+          ></v-combobox>
+        </v-col>
+        <v-col cols="4">
+          <v-combobox
+            label="Minute"
+            :items="['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']"
+            v-model="selectedMinute"
+          ></v-combobox>
+        </v-col>
+        <v-col cols="4">
+          <v-combobox
+            label="AM/PM"
+            :items="['AM', 'PM']"
+            v-model="selectedPeriod"
+          ></v-combobox>
+        </v-col>
+      </v-row>
+      <p>{{ formattedTime }}</p>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      dialog: false,
-      selectAll: false,
-      selectedItems: [], // Array to store selected items
-      items: [
-        { Controlno:'02144', fullname: 'John Doe', designation: 'Manager', selected: false },
-        { Controlno:'02144', fullname: 'Jane Smith', designation: 'Developer', selected: false },
-        // Add more sample data here
-      ],
-      headers: [
-        { title: 'Chechbox', key: 'selected', sortable: false },
-        { title: 'Controlno', key: 'Controlno' },
-        { title: 'Fullname', key: 'fullname' },
-        { title: 'Designation', key: 'designation' },
-
-      ],
+      selectedHour: '',
+      selectedMinute: '',
+      selectedPeriod: ''
     };
   },
-  methods: {
-
-    selectRow(item) {
-  if (item.selected) {
-    // If the item is selected, push it to selectedItems
-    this.selectedItems.push(item);
-    console.log(`Item selected: ${item.columns.Controlno}`);
-  } else {
-    // If the item is deselected, remove it from selectedItems
-    const index = this.selectedItems.indexOf(item);
-    if (index !== -1) {
-      this.selectedItems.splice(index, 1);
-      console.log(`Item deselected: ${item.columns.Controlno}`);
+  computed: {
+    formattedTime() {
+      let hour = parseInt(this.selectedHour);
+      if (this.selectedPeriod === 'PM' && hour !== 12) {
+        hour += 12;
+      } else if (this.selectedPeriod === 'AM' && hour === 12) {
+        hour = 12;
+      }
+      const formattedHour = hour.toString().padStart(2, '0');
+      const formattedMinute = this.selectedMinute;
+      const formattedSecond = '00';
+      return `${formattedHour}:${formattedMinute}:${formattedSecond}`;
     }
   }
-},
-
-
-    selectAllRows() {
-      this.items.forEach(item => (item.selected = this.selectAll));
-    },
-    selectRow(item) {
-      item.selected = !item.selected;
-    },
-    addRow() {
-      // Logic to add a new row goes here
-      // You can push a new item into this.items array
-      // Example: this.items.push({ fullname: 'New Name', designation: 'New Designation', selected: false });
-    },
-    cancelDialog() {
-      this.dialog = false;
-    },
-  },
 };
 </script>
-
-<style>
-.selected {
-  background-color: #f0f0f0;
-}
-</style>

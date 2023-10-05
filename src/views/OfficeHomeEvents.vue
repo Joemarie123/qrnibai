@@ -20,8 +20,8 @@
   <v-row>
  
 
- <v-col cols="12" sm="3" md="2">
-  <h3 class="ml-md-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
+ <v-col cols="12" sm="3" md="4">
+  <h3 class="ml-md-8 mt-n2" :style="{ color: 'green' }">CURRENT/UPCOMING EVENTS</h3>
 </v-col>
 
 <v-col class="mt-n4" cols="12" sm="6"  md="6">
@@ -47,9 +47,9 @@
 <v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2 mt-n2">mdi-qrcode-scan</v-icon>
 </button>
 
-<button >
+<!-- <button >
 <v-icon class=" mt-n2" color="primary"  large >mdi-printer</v-icon>
-</button>
+</button> -->
 
 
 </template>
@@ -81,13 +81,15 @@
       return {
         search: "",
         
+    
+
     headers: [
         {
           align: "start",
           key: "ID",
           sortable: false,
           title: "ID",
-         align: ' d-none d-sm-table-cell',
+           align: ' d-none',
          
         },
         { key: "Event_name", title: "Event Name", sortable: false },
@@ -117,6 +119,7 @@
 
     methods: {
       ...mapActions('events', ['fetchEvents']),
+
 
 
       handleRowClick(item) {
@@ -150,9 +153,6 @@
     this.$router.push({ name: 'EventView', state: { id: item.id } })
     },
 
-
-
-    
 
     },
   };

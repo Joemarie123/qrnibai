@@ -10,7 +10,7 @@
            </v-avatar>
            <h1 class="black--text">{{ userData.firstname }} {{ userData.lastname }}</h1>
            <h6 class="grey--text ">{{ userData.designation }}</h6>
-           <v-btn class="mt-3"  rounded color="success" variant="outlined">USER</v-btn>
+         <!--   <v-btn class="mt-3"  rounded color="success" variant="outlined">USER</v-btn> -->
         
        </div>
        <v-divider class="mx-10 mt-3" ></v-divider>
@@ -88,9 +88,9 @@
  */
        items : [
                { icon: 'mdi-home', colorClass: 'icon-color' , text: 'HOME', route: '/OfficeHomeEvents' },
-               { icon: 'mdi-account-group', colorClass: 'icon-color' , text: 'Emp Management', route: '/EmployeeManagement' },
-               { icon: 'mdi-cog-outline', colorClass: 'icon-color' , text: 'User Settings', route: '/sdsds' },
-               { icon: 'mdi-account-check', colorClass: 'icon-color' , text: 'Event History', route: '/sdsd' },
+               { icon: 'mdi-account-group', colorClass: 'icon-color' , text: 'Employees Mngmt', route: '/EmployeeManagement' },
+               { icon: 'mdi-cog-outline', colorClass: 'icon-color' , text: 'User Settings', route: '/UserSettings' },
+               { icon: 'mdi-account-check', colorClass: 'icon-color' , text: 'Event History', route: '/EventHistory' },
               /*  { icon: 'mdi-account-star', text: 'Settings', route: '/Settings' },
                { icon: 'mdi-account-check', text: 'Create Account', route: '/CreateAccount' },
                { icon: 'mdi-monitor', text: 'Offices', route: '/OfficesTable' }, */

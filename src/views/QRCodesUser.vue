@@ -59,7 +59,7 @@
 
     <div>
  
-      <v-btn  class="custom-btn colorfortext mt-2 mt-md-0 rounded-lg cardbaibai"  block @click="showScannerDialog()">Scan QR Code
+      <v-btn  class="custom-btn colorfortext mt-2 mt-md-0 rounded-lg cardbaibai"  block @click="checkDateTime()">Scan QR Code
         <v-icon class="colorfortext mx-4">mdi-qrcode-scan</v-icon>
       </v-btn>
 
@@ -74,7 +74,17 @@
    
   </v-dialog>
 
-  
+  <v-dialog v-model="notExceedDialog" max-width="400">
+      <v-card>
+        <v-card-title>MESSAGE</v-card-title>
+        <v-card-text>
+       Event Will Start On Date:<span>{{formattedDate_bai (Event.Event_date) }}  </span> Time: <span>{{formattedTime_From(Event.Event_from) }}</span> 
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" @click="notExceedDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
 <!--     <v-dialog v-if="showDialog">
     <div id="qr-code-full-region"></div>
@@ -129,12 +139,13 @@
   <v-row >
 
       <v-col cols="12" md="6" sm="12" >
+      <!--   {{ RealDate }} {{ RealTime }} -->
   <v-col cols="12">
    <!--  <p style="font-size:15px"> <b>Event Name:</b> {{ Pangalan.ID }} </p> -->
       <p style="font-size:15px"> <b>Event Name:</b> {{ Event.Event_name }} </p>
   </v-col>
   <v-col cols="12" class="mt-n6">
-      <p style="font-size:15px"><b>Date of Event:</b> {{ Event.Event_date }} </p>
+    <p style="font-size:15px"><b>Date of Event:</b> {{ formattedDate_bai(Event.Event_date) }} </p>
   </v-col>
   <v-col cols="12" class="mt-n6">
       <p style="font-size:15px"><b>Event Venue:</b> {{ Event.Event_venue }} </p>
@@ -146,10 +157,11 @@
       <p  v-if="selectedOffice" style="font-size:15px"> <b>Office:</b> {{ selectedOffice }} </p>
   </v-col>
   <v-col cols="12" class="mt-n6">
-      <p style="font-size:15px"> <b>Time From:</b> {{ Event.Event_name }} </p>
+   <!--    <p style="font-size:15px"> <b>Time From:</b> {{ Event.Event_from }} </p> -->
+      <p style="font-size:15px"> <b>Time From:</b> {{ formattedTime_From(Event.Event_from) }} </p>
   </v-col>
   <v-col cols="12" class="mt-n6">
-      <p style="font-size:15px"><b>Time To:</b> {{ Event.Event_date }} </p>
+      <p style="font-size:15px"><b>Time To:</b> {{ formattedTime_To(Event.Event_to) }} </p>
   </v-col>
 
   <!-- <p>Designation: {{ designation }}</p>
@@ -204,7 +216,7 @@ src="/qr.png"
        item-key="ID"
        :items="employees"
      :headers="headers"
-    :items-per-page="5"
+    :items-per-page="10"
      class=" my_class td btn-hover color-1 elevation-1"
      tile 
  
@@ -316,8 +328,6 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
 import NavBarUser from "@/components/NavBarUser.vue";
 import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
-
-
 import { mapActions, mapGetters , mapState} from 'vuex';
 
 
@@ -331,6 +341,10 @@ components: {
 
 data() {
 return {
+ //RealDate: new Date().toISOString().substr(0, 10), // Real date value
+ //RealTime: new Date().toTimeString().substr(0, 5), // Real time value
+  
+  notExceedDialog:false,
  // selectedRemark: "",
  passremark:false,
  dialogVisible:false,
@@ -412,6 +426,8 @@ computed: {
       
     }),
 
+  
+
   filteredUsers() {
     // Filter the users based on office_id
     return this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
@@ -432,13 +448,18 @@ computed: {
 }, 
 
 created() {
+
+  setInterval(() => {
+    this.RealDate =  new Date().toISOString().substr(0, 10), // Real date value
+      this.RealTime = new Date().toTimeString().substr(0, 5);
+    }, 1000);
+ 
+// this.fetchOffices().then(req=>{
   
-this.fetchOffices().then(req=>{
-  
-  this.fetchData();
-  this.searchByOffice();
-  // console.log("offices=",this.Offices);
-})
+//   this.fetchData();
+//   this.searchByOffice();
+//   // console.log("offices=",this.Offices);
+// })
   let data = new FormData;
   const adminrecords=JSON.parse(localStorage.getItem('user'))
   console.log("ID=",adminrecords.office_id)
@@ -477,6 +498,58 @@ methods: {
 ...mapActions('scaninsert', ['registerScan']), 
 ...mapActions('office', ['fetchOffices']),
 ...mapActions('scaninsert', ['saveallremarks']), 
+
+formattedTime_From(time) {
+  const eventTime = new Date(`2000-01-01T${time}`);
+  let hours = eventTime.getHours();
+  const minutes = eventTime.getMinutes();
+  const period = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12 || 12; // Convert 0 to 12 for 12-hour clock
+
+  // Format minutes to have leading zero if less than 10
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+  return `${hours}:${formattedMinutes} ${period}`;
+    },
+
+    formattedDate_bai(date) {
+      const eventDate = new Date(date);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return eventDate.toLocaleDateString(undefined, options);
+    },
+    
+formattedTime_To(time) {
+  const eventTime = new Date(`2000-01-01T${time}`);
+  let hours = eventTime.getHours();
+  const minutes = eventTime.getMinutes();
+  const period = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12 || 12; // Convert 0 to 12 for 12-hour clock
+
+  // Format minutes to have leading zero if less than 10
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+  return `${hours}:${formattedMinutes} ${period}`;
+    },
+
+
+checkDateTime() {
+    const dynamicDateTime = new Date(this.Event.Event_date + "T" + this.Event.Event_from);
+    const RealDateTime = new Date(this.RealDate + "T" + this.RealTime);
+
+    if (dynamicDateTime >= RealDateTime) {
+      this.notExceedDialog = true; // Show not exceed dialog if date and time do not exceed static values
+    } else {
+      this.showDialog = true;
+    
+    setTimeout(() => {
+   this.creatScan_htmlfive();
+    // this.creatScan(1);
+  }, 500);
+    }
+  },
+
 
 showScannerDialog() {
     this.showDialog = true;
@@ -550,23 +623,39 @@ this.showDialog = false
 });
 },
 
+// FOR QR CODE CREATE SCAN START
+
+creatScan_htmlfive() {
+      
+      const config = { fps: 10, qrbox: 250 };
+      const html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-code-full-region",
+        config
+      );
+      html5QrcodeScanner.render(this.onScanSuccess);
+     
+    },
+
+//   creatScan_htmlfive() {
+//     const html5QrCode = new Html5Qrcode("qr-code-full-region");
+// const qrCodeSuccessCallback = () => {
+//   /* handle success */
+// };
+// const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+// // If you want to prefer back camera
+// html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); 
+
+// // If you want to prefer front camera
+// // html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
+
+// html5QrCode.render(this.onScanSuccess);
+
+//   },
+
+// FOR QR CODE CREATE SCAN END
 
 
-  creatScan_htmlfive() {
-    const html5QrCode = new Html5Qrcode("qr-code-full-region");
-const qrCodeSuccessCallback = () => {
-  /* handle success */
-};
-const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-
-// If you want to prefer back camera
-html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); 
-
-// If you want to prefer front camera
-// html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
-
-html5QrCode.render(this.onScanSuccess);
-  },
 
 
 creatScan(status) {
@@ -781,8 +870,7 @@ this.searchByOffice();
     this.searchByOffice();
     console.log("employees=",this.employees)
   })
-    }
-    ,
+    },
 
   clickmetosave(){
      let data = new FormData();
@@ -830,9 +918,10 @@ fetchData() {
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
     const ampm = hours >= 12 ? "PM" : "AM";
     const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-    this.currentTime = `${formattedHours}:${this.padZero(minutes)} ${ampm}`;
+    this.currentTime = `${formattedHours}:${this.padZero(minutes)}:${seconds} ${ampm}`;
   },
   saveremarks(item) {
       console.log("remarks=", item);
@@ -855,7 +944,7 @@ fetchData() {
 
       // Include userData.office_id
     /*   const officeId = this.userData.office_id; */
-      console.log("office_id=", officeId);
+      // console.log("office_id=", officeId);
 
       console.log("new employees=", this.employees);
       
@@ -888,6 +977,7 @@ navigateTo(path) {
 
 
 async mounted() {
+ 
 this.selected = 'BMW'
   setInterval(() => {
     this.selectedTime = getCurrentTime();
@@ -906,6 +996,7 @@ this.selected = 'BMW'
 },
 
 beforeUnmount() {
+  
   clearInterval(this.timer); // Clear the timer on component unmount to prevent memory leaks
 
   if (this.html5QrcodeScanner) {

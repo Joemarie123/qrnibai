@@ -21,7 +21,7 @@ try {
     
 
 
-    $result['users']=$conn->query("SELECT * FROM login")
+    $result['events']=$conn->query("SELECT tblevents.*, SUM(case when tbleventhistory.time is not null then 1 else 0 END) as AttendanceCount FROM tblevents left join tbleventhistory on tblevents.id=tbleventhistory.event_id where Event_date>=CURRENT_DATE() GROUP by tblevents.ID,tblevents.Event_name,tblevents.Event_date,tblevents.Event_from,tblevents.Event_to,tblevents.Event_venue order by Event_date, Event_from")
             ->fetchAll(PDO::FETCH_OBJ);
     echo json_encode($result);
 } catch (PDOException $e){

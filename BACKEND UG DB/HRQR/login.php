@@ -20,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
   try {
  
-    $stmt=$conn->query("SELECT * FROM login where login.username = '{$_POST['username']}'")
-    ->fetch(PDO::FETCH_ASSOC);
+    $stmt=$conn->query("SELECT * FROM login where login.username = '{$_POST['username']}'")->fetch(PDO::FETCH_ASSOC);
     
   
     if($stmt){

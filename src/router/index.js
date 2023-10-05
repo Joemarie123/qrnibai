@@ -70,6 +70,14 @@ const routes = [
 
 
   {
+    path: '/EventHistory',
+    name: 'EventHistory',
+    component: () => import('@/views/EventHistory.vue')
+  },
+
+
+
+  {
     path: '/QRCodesUser',
     name: 'QRCodesUser',
     component: () => import('@/views/QRCodesUser.vue')
@@ -98,6 +106,13 @@ const routes = [
     path: '/HomeEventsViewList',
     name: 'HomeEventsViewList',
     component: () => import('@/views/HomeEventsViewList.vue')
+  },
+
+
+  {
+    path: '/UserSettings',
+    name: 'UserSettings',
+    component: () => import('@/views/UserSettings.vue')
   },
 
 

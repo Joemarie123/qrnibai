@@ -15,15 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($event_ID) {
         $stmt = $conn->query("select * from tbleventhistory where Event_ID=:event_ID")->fetchAll(PDO::FETCH_ASSOC);
         if ($stmt) {
-            $result['response'] = 'Cannot update the Event because it already have a participant!';
+            $result['response'] = 'Cannot update the Event because it has already a participant!';
 
         } else {
-            $queryString = "UPDATE tblevent SET event_name=:Event_name, event_date=:Event_date, event_from=:Event_from, event_to=:Event_to, event_venue=:Event_venue WHERE tblevent.id=:event_ID";
+            $queryString = "UPDATE tblevents SET event_name=:Event_name, event_date=:Event_date, event_from=:Event_from, event_to=:Event_to, event_venue=:Event_venue WHERE tblevents.id=:event_ID";
            
         }
 
     } else
-        $queryString = "INSERT INTO login(firstname,lastname,middlename,status,designation,office_id,admin,username,password) VALUES (:firstname, :lastname,:middlename,:status,:designation,:office_id, :admin, :username, :password)";
+        $queryString = "INSERT INTO tblevents (event_name,event_date,event_from,event_to,event_venue) VALUES (:Event_name, :Event_date,:Event_from,:Event_to,:Event_venue)";
 
 
     try {
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $results['event_ID'] = $event_ID ? $event_ID : $conn->lastInsertId();
 
-        $results['user'] = $conn->query("SELECT * FROM login WHERE login.id={$results['event_ID']}")->fetchAll(PDO::FETCH_OBJ);
+        
 
         echo json_encode($results);
     } catch (PDOException $e) {

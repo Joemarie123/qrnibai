@@ -4,6 +4,7 @@ $results = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $login_id = isset($_POST['login_id']) ? $_POST['login_id'] : false;
     $dataArguments = [
+        ':Controlno' => $_POST['Controlno'],
         ':firstname' => $_POST['firstname'],
         ':lastname' => $_POST['lastname'],
         ':middlename' => $_POST['middlename'],
@@ -20,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $queryString = "UPDATE login SET firstname=:firstname, lastname=:lastname, middlename=:middlename, status=:status, designation=:designation,office_id=:office_id, username=:username, password=:password, admin=:admin WHERE login.id=:login_id";
         $dataArguments[':login_id'] = $login_id;
     } else 
-        $queryString = "INSERT INTO login(firstname,lastname,middlename,status,designation,office_id,admin,username,password) VALUES (:firstname, :lastname,:middlename,:status,:designation,:office_id, :admin, :username, :password)";
+        $queryString = "INSERT INTO login(Controlno,firstname,lastname,middlename,status,designation,office_id,admin,username,password) VALUES (:Controlno,:firstname, :lastname,:middlename,:status,:designation,:office_id, :admin, :username, :password)";
     
 
     try {

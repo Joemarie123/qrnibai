@@ -14,7 +14,7 @@
     <v-row class="mt-n15 mt-md-1 ">
  
       <v-col cols="12" sm="3" md="2">
-  <v-btn class="ml-md-1 mt-n2"  rounded-lg color="green" @click="add_employees_dialog = true" variant="text">ADD EMPLOYEES</v-btn>
+  <v-btn class="ml-md-1 mt-n2"  rounded-lg color="green" @click="openaddemployeedialog()" variant="text">ADD EMPLOYEES</v-btn>
   </v-col>
   
   <v-col class="mt-n4 mr-md-6" cols="12" sm="6"  md="6">
@@ -51,12 +51,12 @@
         </v-data-table>
         <v-col class="d-flex justify-end">
         <v-card-actions class="d-flex justify-end">
-          <v-btn @click="addRow" color="green">ADD</v-btn>
+          <v-btn @click="saveAllData()" color="green">ADD</v-btn>
           <v-btn @click="cancelDialog" color="error">CANCEL</v-btn>
         </v-card-actions>
       </v-col>
       
-       <tbody>
+      <!--  <tbody>
         <tr v-for="(item, index) in selectedItems" :key="index">
           <td>{{ item.value.office_id }}</td>
        
@@ -68,31 +68,53 @@
           <td>{{ item.value.time }}</td>
           <td >{{ item.value.Remarks }}</td>
         </tr>
-      </tbody> 
+      </tbody>  -->
 </v-row >   
 </v-container>
 </v-card>
 
+<v-dialog v-model="dialogforadded" persistent max-width="280">
+    <v-card >
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Successfully Added</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+            <v-img src="/save.png" ></v-img>
+            </v-avatar>
+        </v-col>
+      </v-row>
+      <v-card-actions class="d-flex justify-center mt-n7">  
+        <v-btn color="green" text @click="closeandupdate()">OK</v-btn>
+      </v-card-actions>
+  
+    </v-card>
+  </v-dialog>
 
   </v-dialog>
   
       <v-col cols="12">
   
         <v-card class="rounded-lg mt-n4">
+       
     <v-data-table
       :search="search"
       item-key="ID"
       :items="employees"
       :headers="headers"
-      :items-per-page="5"
+      :items-per-page="30"
       class="my_class td btn-hover color-1 elevation-1"
       tile
+      height="470"
     >
+    
+<template #bottom></template>
       <template v-slot:item.actions="{ item }">
         <v-dialog v-model="dialogVisible" max-width="400">
           <v-card>
             <v-card-title class="headline">Confirm Action</v-card-title>
-            <v-card-text>Are you sure you want to delete the item and fetch users?</v-card-text>
+            <v-card-text>Are you sure you want to delete the item?</v-card-text>
             <v-card-actions>
               <v-btn color="red" text @click="cancelAction">No</v-btn>
               <v-btn color="green" text @click="executeAction()">Yes</v-btn>
@@ -108,6 +130,7 @@
         </v-btn>
       </template>
     </v-data-table>
+
   </v-card>
       </v-col>
       
@@ -141,7 +164,7 @@
   data() {
   return {
     add_employees_dialog:false,
-
+    dialogforadded:false,
     deletecontrono:'',
    // selectedRemark: "",
    dialogVisible: false,
@@ -173,6 +196,7 @@
       showMessage: false,
       employees:[],
       AddEmployees:[],
+      saveEmployees:[],
       remarks:"",
       designation:"",
       controlno:"",
@@ -207,7 +231,7 @@
         title: "ID",
         align: ' d-none d-sm-table-cell',
       },
-        { key: "fullname", title: "Full Name", class: 'header-id', sortable: false },
+        { key: "fullname", title: "Full Name", class: 'header-id', sortable: true },
         { key: "designation", title: "Position", align: ' d-none d-sm-table-cell', sortable: false, },
         { key: "actions", title: "Actions", sortable: false, },
       
@@ -306,8 +330,18 @@
   ...mapActions('employees', ['fetchAdd_employees']),
   ...mapActions('office', ['fetchOffices']),
 
+
+
+
   cancelDialog() {
       this.add_employees_dialog = false;
+    },
+
+    openaddemployeedialog()
+    {
+      this.add_employees_dialog = true
+      this.search = ""
+      this.selectedItems = []
     },
 
     kinidaw()
@@ -315,54 +349,99 @@
       let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
     console.log("ID=",adminrecords.office_id)
-    
+    this.userData.office_id = adminrecords.office_id
+
     data.append('office_id',adminrecords.office_id)
+
+    
+
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
-
+      this.fetchAdd_employees();
       console.log("employees=",this.employees)
     })
+
+    this.fetchAdd_employees(data).then(res=>{
+      this.AddEmployees=this.AddEmployeesbai
+      this.fetchAdd_employees();
+       /*  this.searchByOffice(); */
+    })
+
     },
 
-    selectRow(item){
+     closeandupdate()
+    {
+      this.add_employees_dialog = false,
+      this.dialogforadded = false
+      this.kinidaw()
+      this.searchaddemployee = ''
+    },
 
-/* 
+
+    async saveAllData() {
+    // this.dialogVisible = true;
+    this.dialogforadded = true;
+
+    for (let i = 0; i < this.selectedItems.length; i++) {
+      // console.log("selecteditems=",this.selectedItems[i].value.Controlno)
+      this.saveEmployees.push({value:{controlno:this.selectedItems[i].value.Controlno,office_id:this.userData.office_id}});
+    }
+    console.log("selecteditems=",this.saveEmployees)
+    // const data= this.selectedItems;
+    // data.append('data',this.selectedItems);
+    // console.log("Data NI=",data);
+    // const data = new FormData();
+    // data.append('data',JSON.stringify(this.selectedItems));
+    // this.employeeremarks=this.selectedItems;
+    // console.log("employeeremarks=",this.employeeremarks);
+
+    // this.saveallremarks();
+
+    let res = await axios.post(`/addtooffice.php`, this.saveEmployees);
+      console.log("radsf",res.data)
+      this.selectedItems = []; 
+      this.passremark=true;
+
       let data = new FormData;
-    const adminrecords=JSON.parse(localStorage.getItem('user'))
-    console.log("ID=",adminrecords.office_id)
+  const adminrecords=JSON.parse(localStorage.getItem('user'))
+  console.log("ID=",adminrecords.office_id)
+  
+  console.log("EventName=",this.$route.params.Event_name)
+  data.append('event_id', localStorage.getItem('ID'))
+  
+  this.eventayde = localStorage.getItem("ID");
+
+  data.append('office_id',adminrecords.office_id)
+ 
+ /*  this.fetchPangalan(data).then(res=>{
+    this.employees=this.Pangalan
+    this.searchByOffice();
+    console.log("employees=",this.employees)
+  }) */
+
     
-    data.append('office_id',adminrecords.office_id) */
-   /*  this.fetchemployees(data).then(res=>{
-      this.employees=this.Pangalan
 
-      console.log("employees=",this.employees)
-    }) */
+    },
 
-/*       console.log("Selected Row", item); */
+    
 
-      const existingItemIndex = this.selectedItems.findIndex(
-  (selectedItem) =>
-    selectedItem.value.Controlno === item.value.Controlno
-);
 
-/* if (existingItemIndex !== -1) {
-        // If an item with the same Controlno exists, update it
-        this.selectedItems[existingItemIndex].value = { ...item.value };
-        this.selectedItems[existingItemIndex].value.Checkbox = item.raw.Checkbox;
-      } else { */
-        // If not, add a new item with Event.ID
+    selectRow(item) {
+      if (item.selected) {
+        // If the checkbox is checked, add the item to selectedItems
         this.selectedItems.push({
-      value: { ...item.value, office_id: this.userData.office_id },
+          value: { ...item.columns, office_id: this.userData.office_id },
         });
-    /*   } */
-// Include userData.office_id
-console.log("Selected Row", this.selectedItems);
-const officeId = this.userData.office_id;
-console.log("office_id=", officeId);
-
-/* console.log("new employees=", this.AddEmployees); */
-
-    }, 
+      } else {
+        // If the checkbox is unchecked, remove the item from selectedItems
+        const indexToRemove = this.selectedItems.findIndex(
+          (selectedItem) => selectedItem.value.Controlno === item.columns.Controlno
+        );
+        if (indexToRemove !== -1) {
+          this.selectedItems.splice(indexToRemove, 1);
+        }
+      }
+    },
 
 
  /*    searchByOffice() {
@@ -404,6 +483,7 @@ console.log("office_id=", officeId);
     this.deletecontrono=item.raw.Controlno;
       this.selectedItem = item;
       this.dialogVisible = true;
+      
     },
     cancelAction() {
       this.dialogVisible = false;
@@ -442,6 +522,7 @@ console.log("office_id=", officeId);
         this.dialogVisible = false;
       }
       
+      this.search = ""
     },
 
     //// CODE FOR DELETE
