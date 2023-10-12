@@ -30,12 +30,28 @@ export default {
 
 </script>
 <style>
+.v-data-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #f5f5f5;
+  z-index: 1;
+}
+
 
 @media screen and (max-width: 600px) {
 .v-data-table > .v-data-table__wrapper > table {
     border-spacing: 0 0.5rem;
     padding:2px;
+    
 }
+
+.v-data-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #f5f5f5;
+  z-index: 1;
+}
+
 
 .my_classo_officehomeevents td{
   font-size: 13px!important;

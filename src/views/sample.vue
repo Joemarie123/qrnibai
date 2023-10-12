@@ -1,56 +1,123 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col cols="4">
-          <v-combobox
-            label="Hour"
-            :items="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']"
-            v-model="selectedHour"
-          ></v-combobox>
-        </v-col>
-        <v-col cols="4">
-          <v-combobox
-            label="Minute"
-            :items="['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']"
-            v-model="selectedMinute"
-          ></v-combobox>
-        </v-col>
-        <v-col cols="4">
-          <v-combobox
-            label="AM/PM"
-            :items="['AM', 'PM']"
-            v-model="selectedPeriod"
-          ></v-combobox>
-        </v-col>
-      </v-row>
-      <p>{{ formattedTime }}</p>
-    </v-container>
-  </v-app>
+  <div>
+    <p>Current Time: {{ formattedCurrentTime }}</p>
+
+    <v-row>
+      <v-col cols="4">
+        <v-text-field v-model="fullname" label="Fullname"></v-text-field>
+      </v-col>
+      <v-col cols="4">
+        <v-text-field v-model="time" label="Time (HH:mm)"></v-text-field>
+      </v-col>
+      <v-col cols="4">
+        <v-btn @click="addData" color="primary">Add Data</v-btn>
+      </v-col>
+    </v-row>
+
+    <v-data-table :headers="headers" :items="tableData" class="elevation-1">
+      <template #item.fullname="{ item }">
+        {{ item.fullname }}
+      </template>
+      <template #item.time="{ item }">
+        {{ item.time | formatTime }}
+      </template>
+   <!--    <template v-slot:item.remarks="{ item }">
+        <p>{{ item.remarks }}</p>
+      </template> -->
+    </v-data-table>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      selectedHour: '',
-      selectedMinute: '',
-      selectedPeriod: ''
+      fullname: '',
+      time: '',
+      headers: [
+        { title: 'Fullname', value: 'fullname' },
+        { title: 'Time', value: 'time_header' },
+ /*  { title: 'Remarks', value: 'remarks_header' }  */
+      ],
+      tableData: [],
+      currentTime: new Date()
     };
   },
   computed: {
-    formattedTime() {
-      let hour = parseInt(this.selectedHour);
-      if (this.selectedPeriod === 'PM' && hour !== 12) {
-        hour += 12;
-      } else if (this.selectedPeriod === 'AM' && hour === 12) {
-        hour = 12;
-      }
-      const formattedHour = hour.toString().padStart(2, '0');
-      const formattedMinute = this.selectedMinute;
-      const formattedSecond = '00';
-      return `${formattedHour}:${formattedMinute}:${formattedSecond}`;
+    formattedCurrentTime() {
+      const hours = this.currentTime.getHours().toString().padStart(2, '0');
+      const minutes = this.currentTime.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
     }
+  },
+  filters: {
+    formatTime(value) {
+      const [hours, minutes] = value.split(':');
+      return `${hours.padStart(2, '0')}:${minutes}`;
+    }
+  },
+  methods: {
+
+    /* addData() {
+      if (this.fullname && this.time) {
+        const inputTime = new Date(`2000-01-01T${this.time}`);
+        const currentTime = new Date();
+        const isLate = inputTime < currentTime; // Check if input time is earlier (i.e., late)
+
+        // Format the input time in "1:20 PM" format
+        const formattedTime = this.formatTime(inputTime);
+
+        // Add data to the table with remarks
+        this.data.push({
+          fullname: this.fullname,
+          time: formattedTime,
+          remarks: isLate ? 'Late' : 'On Time'
+        });
+
+        // Clear input fields after adding data
+        this.newFullname = "";
+        this.newTime = "";
+      } else {
+        alert("Please enter Fullname and Time.");
+      }
+} */
+
+  addData() {
+    if (this.fullname && this.time) {
+      const [enteredHours, enteredMinutes] = this.time.split(':');
+      const currentHours = this.currentTime.getHours().toString().padStart(2, '0');
+      const currentMinutes = this.currentTime.getMinutes().toString().padStart(2, '0');
+      
+      if (enteredHours === currentHours && enteredMinutes === currentMinutes) {
+        this.tableData.push({ fullname: this.fullname,  time_header: this.formattedCurrentTime });
+      } else {
+        const enteredTime = new Date();
+        enteredTime.setHours(parseInt(enteredHours, 10));
+        enteredTime.setMinutes(parseInt(enteredMinutes, 10));
+        
+        const isLate = enteredTime > this.currentTime;
+        const remarksBAI = isLate ? '(LATE)' + this.time : this.time;
+        this.tableData.push({ fullname: this.fullname , time_header: this.time, time_header: remarksBAI });
+      }
+      
+      this.fullname = '';
+      this.time = '';
+    } else {
+      alert('Please enter both Fullname and Time.');
+    }
+  }
+},
+
+
+  created() {
+    // Update current time every second
+    setInterval(() => {
+      this.currentTime = new Date();
+    }, 1000);
   }
 };
 </script>
+
+<style scoped>
+/* Add your custom styles here */
+</style>

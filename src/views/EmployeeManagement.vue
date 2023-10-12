@@ -323,7 +323,7 @@
   
   
   methods: {
-/*   ...mapActions('events', ['fetchPangalan']),
+/*  ...mapActions('events', ['fetchPangalan']),
   ...mapActions('users', ['fetchUsers']), 
   ...mapActions('office', ['fetchOffices']), */
   ...mapActions('employees', ['fetchemployees']),

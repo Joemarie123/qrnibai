@@ -59,12 +59,6 @@
 
 </v-row>
 
-
-
-
-
-
-
   <table>
     <thead >
       <tr >

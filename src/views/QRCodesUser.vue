@@ -216,12 +216,12 @@ src="/qr.png"
        item-key="ID"
        :items="employees"
      :headers="headers"
-    :items-per-page="10"
-     class=" my_class td btn-hover color-1 elevation-1"
+    :items-per-page="30"
+     class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1"
      tile 
- 
+     height="470"
 >
-
+<template #bottom></template>
 <!-- <template v-slot:item.remarks="{ item }">
   <div id="app" class="mt-n1">
     <select v-if="!item.columns.time" v-model="item.columns.selectedRemarks" id="select-element">
@@ -481,10 +481,7 @@ created() {
   // this.fetchUsers().then(rew=>{
   //   this.employees=this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
   // });
-  
 /*   return this.employees.filter(employee => employee.office_id === 1); */
-
-
 // setTimeout(() => {
 //     this.searchByOffice();
    
@@ -1263,6 +1260,21 @@ color: rgb(9, 230, 27);
 padding: 10px;
 border-radius: 5px;
 z-index: 9999;
+}
+
+.custom-height-table {
+  height: 420px; /* Set the desired height here */
+  /* You can also use other CSS properties like max-height, min-height, overflow, etc. */
+}
+
+
+@media screen and (max-width: 600px) {
+
+  .custom-height-table-mobile {
+  height: 294px; /* Set the desired height here */
+  /* You can also use other CSS properties like max-height, min-height, overflow, etc. */
+}
+
 }
 
 
