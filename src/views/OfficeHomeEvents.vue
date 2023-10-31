@@ -114,9 +114,6 @@
   },
 
 
-
-
-
     methods: {
       ...mapActions('events', ['fetchEvents']),
 

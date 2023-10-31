@@ -9,12 +9,13 @@ const routes = [
     component: () => import('@/views/Login.vue')
   },
   
-/*   {
+  {
     path: '/QrCodes',
     name: 'QrCodes',
     component: () => import('@/views/QrCodes.vue')
   },
 
+/*  
   {
     path: '/sample',
     name: 'sample',

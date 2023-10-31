@@ -43,7 +43,7 @@ const actions = {
       commit('setScans', res.data.user);
     },
   
-    async saveallremarks( ){
+    async saveallremarks(){
       // console.log("payload=",)
       let res = await axios.post(`/saveremarks.php`, this.remarks );
       console.log("radsf",res.data)

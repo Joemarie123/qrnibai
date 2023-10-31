@@ -200,15 +200,16 @@ created() {
   })
     let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
-    console.log("ID=",adminrecords.office_id)
+   /*  console.log("ID=",adminrecords.office_id)
     
-    console.log("EventName=",this.$route.params.Event_name)
+    console.log("EventName=",this.$route.params.Event_name) */
     data.append('event_id', localStorage.getItem('ID'))
     
     this.eventayde = localStorage.getItem("ID");
   
     data.append('office_id',adminrecords.office_id)
-   /*  data.append('Event_name', localStorage.getItem('Event_name')) */
+
+   
     this.fetchPangalan(data).then(res=>{
       this.employees=this.Pangalan
       this.searchByOffice();

@@ -77,7 +77,16 @@ QR CODES READER -  JULY 1, 2023<strong>
 </v-container>
 </v-card>
 
+
+
 </v-dialog>
+<div class="d-flex-column justify-center w-50">
+<v-text-field  v-model="QRValue" label="Type Number to Generater">
+
+</v-text-field>
+</div>
+<qrcode-vue v-if="QRValue" :value="QRValue" :size="300" level="H" />
+
 </v-app>
 </template>
 

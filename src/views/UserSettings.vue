@@ -207,10 +207,26 @@
               v-model="newPassword_edit">
                 </v-text-field>
                   </v-col>
-                 
-              <!--     <p v-if="errorMessage">{{ errorMessage }}</p>
-    <p v-if="successMessage">{{ successMessage }}</p> -->
+
+
                   </v-row>
+
+                  <v-row class="mt-n6">
+                    <v-col>
+                    <v-text-field
+                    class=""
+                prepend-inner-icon="mdi-key"
+               density="compact" 
+               variant="underlined"
+               label="Confirm New Password"
+              v-model="newConfirmPassword_edit">
+                </v-text-field>
+                  </v-col>
+
+
+                  </v-row>
+
+
 
                   <v-row class="mt-n10">
                     <v-col cols="6"   >
@@ -230,6 +246,63 @@
                   </v-card>
               </v-dialog>
 
+
+              <v-dialog v-model="dialogpasswordnotmatch" persistent max-width="280">
+    <v-card >
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Password Not Match</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+           <!--  <v-img src="/save.png" ></v-img> -->
+            </v-avatar>
+        </v-col>
+      </v-row>
+      <v-card-actions class="d-flex justify-center mt-n7">  
+        <v-btn color="green" text @click="dialogpasswordnotmatch = false">OK</v-btn>
+      </v-card-actions>
+  
+    </v-card>
+  </v-dialog>
+  
+  <v-dialog v-model="dialogoldpassworddidnotmatch" persistent max-width="370">
+    <v-card >
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Current Password Not Match</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+           <!--  <v-img src="/save.png" ></v-img> -->
+            </v-avatar>
+        </v-col>
+      </v-row>
+      <v-card-actions class="d-flex justify-center mt-n7">  
+        <v-btn color="green" text @click="dialogoldpassworddidnotmatch = false">OK</v-btn>
+      </v-card-actions>
+  
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="dialogsuccessfullyupdated" persistent max-width="290">
+    <v-card >
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Successfully Updated</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+            <v-img src="/save.png" ></v-img>
+            </v-avatar>
+        </v-col>
+      </v-row>
+      <v-card-actions class="d-flex justify-center mt-n7">  
+        <v-btn color="green" text @click="dialogforupdateclose()">OK</v-btn>
+      </v-card-actions>
+  
+    </v-card>
+  </v-dialog>
              <!--    <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p> -->
           
             <!--     <v-row>
@@ -268,6 +341,10 @@ export default {
       newPassword: '',
       oldPassword_edit: '',
       newPassword_edit: '',
+      newConfirmPassword_edit:'',
+      dialogpasswordnotmatch:false,
+      dialogsuccessfullyupdated:false,
+      dialogoldpassworddidnotmatch:false,
 
         userData: {
           username: '',
@@ -296,33 +373,54 @@ export default {
 
   methods: {
 
+    dialogforupdateclose()
+    {
+      this.dialog_password = false
+      this.dialogsuccessfullyupdated = false;
+      this.oldPassword_edit = '';
+      this.newPassword_edit = '';
+      this.newConfirmPassword_edit = '';
+
+
+
+    },
+
     async updatePassword() {
-      const data = new FormData
-      data.append("userid",this.userData.ID)
-      data.append("username",this.userData.username)
-      data.append("oldpassword",this.oldPassword_edit)
-      data.append("newpassword",this.newPassword_edit)
+
+      if (this.newPassword_edit !== this.newConfirmPassword_edit) {
+  this.dialogpasswordnotmatch = true
+  }
+
+/*   else if (this.oldPassword_edit !== 'expectedOldPassword') {
+    this.dialogoldpassworddidnotmatch = true
+}
+ */
+  else{
+  // Passwords match, proceed with API call
+  this.dialogsuccessfullyupdated = true
+  const data = new FormData();
+  data.append("userid", this.userData.ID);
+  data.append("username", this.userData.username);
+  data.append("oldpassword", this.oldPassword_edit);
+  data.append("newpassword", this.newPassword_edit);
+
   try {
     const response = await axios.post('http://10.0.1.23:82/HRQR/usersettings.php', data);
-      console.log("Response=",response.data)
-    if (response.data.error) {
-    /*  this.dialogupdated = true */
-    
-     this.errorMessage = response.data.user; 
-      this.successMessage = ''; 
+    console.log("Response=", response.data);
 
-/*    this.dialogerror = true; */
+    if (response.data.error) {
+      this.errorMessage = response.data.user;
+      this.successMessage = '';
     } else {
-     /*  this.dialogupdated = true;  */
-       this.errorMessage = response.data.user; 
-       this.errorMessage = ''; 
-    /*   this.dialogerror = true; */
+      this.errorMessage = '';
+      this.successMessage = response.data.user;
     }
   } catch (error) {
     console.error('Error updating username:', error);
     this.errorMessage = 'An error occurred while updating the username.';
     this.successMessage = '';
   }
+}
 },
 
 
