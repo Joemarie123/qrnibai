@@ -425,7 +425,6 @@
 
     
 
-
     selectRow(item) {
       if (item.selected) {
         // If the checkbox is checked, add the item to selectedItems

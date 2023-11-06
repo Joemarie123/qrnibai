@@ -1,49 +1,59 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-data-table
-        :headers="headers"
-        :items="data"
-        item-key="name"
-        class="elevation-1"
-      >
-        <template v-slot:item.name="{ item }">
-          {{ item.name }}
-        </template>
-        <template v-slot:item.time="{ item }">
-          <span :style="{ color: isLate(item.time) ? 'red' : 'black' }">
-            {{ item.time }}
-          </span>
-        </template>
-      </v-data-table>
-    </v-container>
-  </v-app>
+  <div>
+    <v-data-table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Time</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in sampleData" :key="index" >
+          <td>{{ item.name }}</td>
+          <td>{{ item.address }}</td>
+          <td :class="{ 'late-row': item.remarks.toLowerCase().includes('LATE') }">{{ item.time }}</td>
+          <td>{{ item.remarks }}</td>
+        </tr>
+      </tbody>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      headers: [
-        { text: "Name", value: "name" },
-        { text: "Time", value: "time" }
-      ],
-      data: [
-        { name: "Joemarie", time: "(Late)" },
-        // Add more data objects as needed
+      sampleData: [
+        { name: 'John Doe', address: '123 Main St', time: '10:00 AM', remarks: 'Good customer' },
+        { name: 'Jane Smith', address: '456 Elm St', time: '02:30 PM', remarks: 'Regular customer' },
+        { name: 'Alice Johnson', address: '789 Oak St', time: '06:00 PM', remarks: 'Late customer' },
+        // Add more sample data as needed
       ]
     };
-  },
-  methods: {
-    isLate(time) {
-      return time.includes("(Late)");
-    }
   }
 };
 </script>
+
 <style scoped>
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+}
+
 .late-row {
-  background-color: red; /* Set the background color to red for late rows */
-  color: white; /* Set text color to white for better visibility */
+  background-color: #f3f0f0; /* Change the background color to red for rows with 'Late' in remarks */
+  color:#e01432
 }
 </style>

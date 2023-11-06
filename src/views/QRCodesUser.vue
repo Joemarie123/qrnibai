@@ -233,7 +233,7 @@ src="/qr.png"
                         <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
                         <td :style="{ textAlign: 'left' }">{{ item.columns.fullname }}</td>
                         <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.designation }}</td>
-                        <td :style="{ textAlign: 'left' }">{{ item.columns.timescanned }} </td>
+                        <td :style="{color: item.columns.remarks == 'LATE'?'red':'black'}">{{ item.columns.timescanned }} </td>
                         <!-- <td v-if="item.columns.remarks !== ''" class="card" :style="{ textAlign: 'left' }">{{ item.columns.remarks }}</td> -->
 
                         <td >
@@ -252,11 +252,11 @@ src="/qr.png"
 </div>  -->
 
 
-                          <v-select :disabled="item.columns.timescanned || Pangalan.filter((item)=>item.Controlno == item.Controlno).remarks"  :items="optionsbai" variant="underlined"
-                            density="compact" @update:menu="saveremarks(item)" v-model="item.columns.remarks"
-                            class=" mt-n2 card" id="select-element">
+   <v-select :disabled="item.columns.timescanned || Pangalan.filter((item)=>item.Controlno == item.Controlno).remarks"  :items="optionsbai" variant="underlined"
+    density="compact" @update:menu="saveremarks(item)" v-model="item.columns.remarks"
+    class=" mt-n2 card" id="select-element">
 
-                          </v-select>
+   </v-select>
 
 
                         </td>
@@ -358,6 +358,7 @@ export default {
       showModal: false,
       showDialog: false,
       selectedOffice: "",
+      office:'',
       selectedTime: getCurrentTime(),
       currentTime: "",
       currentDate: "",
@@ -745,7 +746,7 @@ export default {
         console.log("event time=", this.Event.Event_to)
         console.log("condition=", isLate)
 
-        const remarksBAI = isLate ? '(LATE)' + this.currentTime : '';
+        const remarksBAI = isLate ? 'LATE' : '';
         this.message.unshift({
           name: this.name(obj.decodedResult),
           id: this.id(obj.decodedResult),
@@ -780,6 +781,7 @@ export default {
           // Find the employee object with the matching Controlno
           const employeeWithMatchingControlno = this.employees.find((item) => item.Controlno == controlno);
 
+          console.log("appple=",employeeWithMatchingControlno.office)
           /// FOR TIME
           const index = this.employees.findIndex((item) => item.Controlno == this.id(obj.decodedResult))
           const editedemployee = this.employees.splice(index, 1)[0];
@@ -795,16 +797,17 @@ export default {
           this.controlno = controlno;
           this.fullname = employeeWithMatchingControlno.fullname;
           this.status = employeeWithMatchingControlno.status;
-
+          this.office=employeeWithMatchingControlno.office;
 
           const scanTime = new Date();
           this.time = scanTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
+          this.searchByOffice()
           editedemployee.timescanned = formattedTime;
           editedemployee.remarks=remarksBAI;
           this.selectedRemarks=remarksBAI;
           this.employees.unshift(editedemployee)
           console.log("Control No =", controlno);
+          console.log("office=", this.office);
           console.log("Office ID =", office_id);
           console.log("Full Name =", fullname);
           console.log("Designation =", designation);
@@ -903,7 +906,7 @@ export default {
       let data = new FormData();
       data.append('Controlno', this.controlno);
       data.append('event_id', this.eventayde);
-      data.append('office', this.selectedOffice);
+      data.append('office', this.office);
       data.append('fullname', this.fullname);
       data.append('status', this.status);
       data.append('designation', this.designation);
@@ -1283,7 +1286,6 @@ th {
   border-radius: 5px;
   z-index: 9999;
 }
-
 
 .success-message {
   position: absolute;
