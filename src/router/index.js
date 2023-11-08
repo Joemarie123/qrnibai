@@ -8,14 +8,14 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue')
   },
-  
+
   {
     path: '/QrCodes',
     name: 'QrCodes',
     component: () => import('@/views/QrCodes.vue')
   },
 
-/*  
+/*
   {
     path: '/sample',
     name: 'sample',
@@ -31,7 +31,7 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
 
-  
+
   {
     path: '/EmployeeManagement',
     name: 'EmployeeManagement',
@@ -87,7 +87,7 @@ const routes = [
 
 
 
-  
+
     //AppBar
     {
       path: '/OfficeBar',
@@ -100,7 +100,7 @@ const routes = [
       component: () => import('@/components/toolbar/HrBar.vue')
     },
 
-  
+
 
 
   {
@@ -143,8 +143,22 @@ const routes = [
     component: () => import('@/views/sample.vue')
   },
 
-
-
+  //Printing
+  {
+    path: '/PayrollPrint',
+    name: 'PayrollPrint',
+    component: () => import('@/views/PayrollPrint.vue')
+  },
+  {
+    path: '/AttendancePrint',
+    name: 'AttendancePrint',
+    component: () => import('@/views/AttendancePrint.vue')
+  },
+  {
+    path: '/AuthorityToClaim',
+    name: 'AuthorityToClaim',
+    component: () => import('@/views/AuthorityToClaim.vue')
+  },
 ]
 
 const router = createRouter({

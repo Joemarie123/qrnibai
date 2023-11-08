@@ -26,56 +26,28 @@
           <v-img :width="70" src="/Tagum.png" class="center"></v-img>
         </v-col>
       </v-row>
-      <!--  <v-divider color="blue" :thickness="5" class="mt-2"></v-divider> -->
-      <!-- <v-divider></v-divider> -->
-      <v-container>
-        <v-row no-gutters style="text-align: justify">
-          <v-col cols="12" md="7" class="top">
-            <p>Department:</p>
-            <p>Division:</p>
-            <p>Section/Unit:</p>
-            <p>Project:</p>
-          </v-col>
-          <v-col cols="12" md="5" class="top ml-">
-            <p>Activity: {{ Event.Event_name }}</p>
-            <p>Date: {{ Event.Event_date }}</p>
-            <p>Venue: {{ Event.Event_venue }}</p>
-          </v-col>
-        </v-row>
-      </v-container>
+      <v-col cols="12">
+        <h3> {{ Event.Event_name }}</h3>
+        <h5>{{ Event.Event_date }} at the {{ Event.Event_venue }}</h5>
+      </v-col>
       <v-col cols="12">
         <h4>ATTENDANCE SHEET</h4>
+        <h5 class="text-left">Office: Diria ang Office Name</h5>
       </v-col>
       <v-container>
         <v-table>
-          <!--  <thead>
-          <tr>
-            <th id="head">No.</th>
-            <th id="head">Name</th>
-            <th id="head">Position</th>
-            <th id="head">Time Scanned</th>
-            <th id="head">Remarks</th>
-          </tr>
-        </thead>
-        <tbody dense>
-          <tr v-for="item in desserts" :key="item.name">
-            <td>{{ item.no }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.position }}</td>
-            <td>{{ item.timeScanned }}</td>
-            <td>{{ item.remarks }}</td>
-          </tr>
-        </tbody> -->
           <v-data-table
             :headers="headers"
-            :items-per-page="itemsPerPage"
+            :items-per-page="40"
             :items="employees"
             class="table"
             density="compact"
           >
             <template v-slot:item="{ item }">
               <tr>
-                <!-- <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td> -->
+                <td :style="{ textAlign: 'center' }" class="cell-border">
+                  <!-- {{ incrementID(item) }} -->
+                </td>
                 <td :style="{ textAlign: 'left' }" class="cell-border">
                   {{ item.columns.fullname }}
                 </td>
@@ -83,10 +55,10 @@
                   {{ item.columns.designation }}
                 </td>
                 <td :style="{ textAlign: 'left' }" class="cell-border">
-                  {{ item.columns.timescanned }}
+                  <!-- {{ item.columns.timescanned }} -->
                 </td>
                 <td class="cell-border" :style="{ textAlign: 'left' }">
-                  {{ item.raw.remarks }}
+                  <!-- {{ item.raw.remarks }} -->
                 </td>
               </tr>
             </template>
@@ -95,37 +67,63 @@
           </v-data-table>
         </v-table>
       </v-container>
+
       <!-- <div class="page-break"></div> -->
       <div id="bottom-content">
-        <p class="text-justify font-italic pa-4">
-          I hereby certify and attest, to the best of my knowledge, that the
-          above declartion are true and correct statements on the whereabouts of
-          the personnel of this office.
+        <v-table>
+          <tr>
+            <td colspan="10" style="font-weight: bold;">SUMMARY OF EMPLOYEES COUNT PER EMPLOYMENT STATUS</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-left" style="font-weight: bold;" >Permanent</td>
+            <td colspan="5" style="font-weight: bold;">35</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-right">Organic</td>
+            <td colspan="5" class="text-left">35</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-right">Reassigned from other office</td>
+            <td colspan="5" class="text-left" style="font-weight: bold;">35</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-left" style="font-weight: bold;">Coterminous</td>
+            <td colspan="5" style="font-weight: bold;">35</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-left" style="font-weight: bold;">Casual</td>
+            <td colspan="5" style="font-weight: bold;">35</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-left" style="font-weight: bold;">Job Order</td>
+            <td colspan="5" style="font-weight: bold;">35</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-left" style="font-weight: bold;">Honorarium</td>
+            <td colspan="5" style="font-weight: bold;">35</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-right" style="font-weight: bold;">GRAND TOTAL</td>
+            <td colspan="5" class="" style="font-weight: bold;">35</td>
+          </tr>
+
+        </v-table>
+        <div class="mt-6">
+        <p>Approved by:</p>
+        <p
+          style="
+            font-weight: bold;
+            text-decoration: underline;
+            height: auto;
+            margin-top: 20px;
+          "
+        >
+        RAMIL Y. TIU, CPA
         </p>
-        <p></p>
-        <v-row no-gutters style="text-align: justify">
-          <v-col cols="3" class="font-italic">
-            <p><span class="mdi mdi-circle"></span> Did not Participate</p>
-            <p><span class="mdi mdi-circle"></span> On Field Business</p>
-            <p><span class="mdi mdi-circle"></span> On Field</p>
-            <p><span class="mdi mdi-circle"></span> On Leave</p>
-            <p><span class="mdi mdi-circle"></span> Flexible Work Schedule</p>
-            <p><span class="mdi mdi-circle"></span> Late</p>
-          </v-col>
-          <v-col cols="5" class="">
-            <p>DNP</p>
-            <p>OB</p>
-            <p>OF</p>
-            <p>OL</p>
-            <p>FWL</p>
-            <p>L (For those who comes late for the Activity)</p>
-          </v-col>
-          <v-col>
-            <p>Monitoring In-Charge:</p>
-            <p>Contact No:</p>
-          </v-col>
-        </v-row>
+        <p>City Accountant</p>
       </div>
+      </div>
+
     </v-container>
   </div>
 </template>
@@ -135,14 +133,14 @@ export default {
   data() {
     return {
       employees: [],
-
+      initialID: 1,
       headers: [
-        // {
-        //   align: "start",
-        //   key: "Controlno",
-        //   sortable: false,
-        //   title: "ID",
-        // },
+        {
+          align: "start",
+          key: "id",
+          sortable: false,
+          title: "NO.",
+        },
         {
           key: "fullname",
           title: "NAME",
@@ -150,8 +148,8 @@ export default {
           sortable: false,
         },
         { key: "designation", title: "POSITION", sortable: false },
-        { key: "timescanned", title: "TIME SCANNED", sortable: false },
-        { key: "selectedRemarks", title: "REMARKS" },
+        { key: "timescanned", title: "CONTACT NO.", sortable: false },
+        { key: "selectedRemarks", title: "SIGNATURE" },
       ],
     };
   },
@@ -163,9 +161,6 @@ export default {
     ...mapState({
       employeeremarks: (state) => state.remarks,
     }),
-    itemsPerPage() {
-      return window.matchMedia("print").matches ? 30 : this.employees.length; // Limit to 30 items per page in print, show all items otherwise
-    },
 
     filteredUsers() {
       // Filter the users based on office_id
@@ -229,6 +224,11 @@ export default {
     ...mapActions("scaninsert", ["registerScan"]),
     ...mapActions("office", ["fetchOffices"]),
     ...mapActions("scaninsert", ["saveallremarks"]),
+    // incrementID(item){
+    //   item.id = this.initialID;
+    //   this.initialID++;
+    //   return item.id
+    // },
     print() {
       if (window) window.print();
     },
@@ -247,29 +247,33 @@ export default {
 };
 </script>
 <style scoped>
+table,
+th,
+td {
+  border: 1px solid black;
+}
+th, td {
+  padding: 3px;
+}
 #bottom-content {
   /* position: fixed; */
   bottom: 0;
-  left: 5;
+
   right: 0;
-  margin: auto;
   text-align: center;
-  width: 90%; /* Adjust the width as needed */
+  width: 30%;
 }
-.cell-border {
-  border: 1px solid #ccc; /* Add your desired border style */
-}
+/* .cell-border {
+  border: 1px solid #ccc;
+} */
 .top {
   font-size: 14px;
-  table-layout: dense;
+
 }
 .table {
   font-size: 14px;
   table-layout: dense;
-  border: 1px solid #ccc;
-}
-.page-break {
-  page-break-after: always;
+  border: 1px solid black;
 }
 .center1 {
   margin: 0;
@@ -298,15 +302,13 @@ export default {
   align-content: center;
   align-items: center;
 }
+
 @media screen and (max-width: 600px) {
   #pic {
     size: 50 !important;
   }
 }
 @media print {
-  /* .page-break + #bottom-content {
-    display: none;
-  } */
   .center1 {
     margin: 0;
     position: absolute;
@@ -319,7 +321,8 @@ export default {
     top: 5%;
     right: 20%;
   }
-  .table {
+  #btn-group {
+    display: none;
   }
 }
 </style>

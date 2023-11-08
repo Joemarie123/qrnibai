@@ -1,0 +1,415 @@
+<template>
+  <div id="btn-group" class="mx-auto w-75 mt-2">
+    <v-btn class="bg-green" @click="print"> Print </v-btn>
+  </div>
+  <div>
+    <v-container
+      class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
+      rounded
+      max-width="90%"
+      width="100%"
+    >
+      <v-row>
+        <v-col cols="4">
+          <v-img :width="70" src="/phil.png" class="center1"></v-img>
+        </v-col>
+
+        <v-col cols="4">
+          <h5 class="mt-12">Republic of the Philippines</h5>
+          <h5 class="">Province of Davao del Norte</h5>
+          <h5 class="">CITY OF TAGUM</h5>
+        </v-col>
+        <v-col cols="4" class="mx-10">
+          <v-img :width="70" src="/Tagum.png" class="center"></v-img>
+        </v-col>
+      </v-row>
+
+      <v-col cols="12">
+        <h4>PAYROLL FOR MEAL ALLOWANCE</h4>
+      </v-col>
+      <v-container>
+        <v-row no-gutters style="text-align: justify">
+          <v-col cols="12" md="7" class="top">
+            <h4>Purpose: {{ Event.Event_name }}</h4>
+            <h4>Office:</h4>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-container>
+        <v-table>
+          <v-data-table
+            :headers="headers"
+            :items-per-page="40"
+            :items="employees"
+            class="table"
+            density="compact"
+          >
+            <template v-slot:item="{ item }">
+              <tr>
+                <!-- <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td> -->
+                <td :style="{ textAlign: 'center' }" class="cell-border">
+                  <!-- {{ incrementID(item) }} -->
+                </td>
+                <td :style="{ textAlign: 'left' }" class="cell-border">
+                  {{ item.columns.fullname }}
+                </td>
+                <td class="cell-border" :style="{ textAlign: 'left' }">
+                  {{ item.columns.designation }}
+                </td>
+                <td :style="{ textAlign: 'left' }" class="cell-border">
+                  <!-- {{ item.columns.timescanned }} -->
+                </td>
+                <td class="cell-border" :style="{ textAlign: 'left' }">
+                  <!-- {{ item.raw.remarks }} -->
+                </td>
+              </tr>
+            </template>
+
+            <template #bottom></template>
+          </v-data-table>
+        </v-table>
+      </v-container>
+
+      <!-- <div class="page-break"></div> -->
+      <div id="bottom-content">
+        <v-table>
+          <tr>
+            <td colspan="1" class="" rowspan="" style="font-weight: bold">
+              A.
+            </td>
+            <td colspan="4" style="text-align: left">
+              CERTIFIED: Services duly rendered as stated.
+              <v-row class="text-center mt-4">
+                <v-col>
+                  <u style="font-weight: bold">JANYLENE A. PALLERMO, MM</u>
+                </v-col>
+                <v-col> ___________________________ </v-col>
+              </v-row>
+              <v-row class="text-center mt-n6">
+                <v-col> Acting City Human Resource Mgt. Officer </v-col>
+                <v-col> Date </v-col>
+              </v-row>
+            </td>
+            <td colspan="1" class="" rowspan="" style="font-weight: bold">
+              B.
+            </td>
+            <td colspan="4" style="text-align: left">
+              CERTIFIED: Supporting documents complete and proper.
+              <v-row class="text-center mt-4">
+                <v-col>
+                  <u style="font-weight: bold">RAMIL Y. TIU, CPA</u>
+                </v-col>
+                <v-col> ___________________________ </v-col>
+              </v-row>
+              <v-row class="text-center mt-n6">
+                <v-col> City Accountant </v-col>
+                <v-col> Date </v-col>
+              </v-row>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="1" class="" rowspan="" style="font-weight: bold">
+              C.
+            </td>
+            <td colspan="4" style="text-align: left">
+              CERTIFIED: Cash Available for the purpose.
+              <v-row class="text-center mt-4">
+                <v-col>
+                  <u style="font-weight: bold">ANNIE G. BELTRAN, CPA, MBA</u>
+                </v-col>
+                <v-col> ___________________________ </v-col>
+              </v-row>
+              <v-row class="text-center mt-n6">
+                <v-col> City Treasurer </v-col>
+                <v-col> Date </v-col>
+              </v-row>
+            </td>
+            <td colspan="1" class="" rowspan="" style="font-weight: bold">
+              D.
+            </td>
+            <td colspan="4" class="" style="text-align: left">
+              APPROVED for PAYMENT
+              <v-row class="text-center mt-4">
+                <v-col>
+                  <u style="font-weight: bold">REY T. UY</u>
+                </v-col>
+                <v-col> ___________________________ </v-col>
+              </v-row>
+              <v-row class="text-center mt-n6">
+                <v-col> City Mayor </v-col>
+                <v-col> Date </v-col>
+              </v-row>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="1" class="" rowspan="" style="font-weight: bold">
+              E.
+            </td>
+            <td colspan="4" class="" style="text-align: left">
+              CERTIFIED: Each employee whose name appears on the payroll has
+              been paid the amount as
+              <v-row class="text-center mt-2">
+                <v-col> ___________________________ </v-col>
+                <v-col> ___________________________ </v-col>
+              </v-row>
+              <v-row class="text-center mt-n6">
+                <v-col> Signature over Printed Name </v-col>
+                <v-col> Date </v-col>
+              </v-row>
+              <v-row class="text-center mt-n6">
+                <v-col> Disbursing Officer </v-col>
+                <v-col> </v-col>
+              </v-row>
+            </td>
+            <td colspan="1" class="" rowspan="" style="font-weight: bold">
+              F.
+            </td>
+            <td colspan="4" class="">
+              <v-row class="mt-4">
+                <v-col> CAFOA NO.: ___________________________ </v-col>
+              </v-row>
+              <v-row class="mt-n6">
+                <v-col> Date: ___________________________ </v-col>
+              </v-row>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="1" rowspan="5" class="">G</td>
+            <td style="text-align: left" colspan="10">ACCOUNTING ENTRIES</td>
+          </tr>
+          <tr>
+            <td class="">Particulars</td>
+            <td class="">Account Code</td>
+            <td class="">Debit</td>
+            <td class="">Credit</td>
+            <td class=""></td>
+            <td class="">Particulars</td>
+            <td class="">Account Code</td>
+            <td class="">Debit</td>
+            <td class="">Credit</td>
+          </tr>
+          <tr>
+            <td class="">Test</td>
+            <td class=""></td>
+            <td class=""></td>
+            <td class=""></td>
+            <td></td>
+            <td class=""></td>
+            <td class=""></td>
+            <td class=""></td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td class="">Test</td>
+            <td class=""></td>
+            <td class=""></td>
+            <td class=""></td>
+            <td></td>
+            <td class=""></td>
+            <td class=""></td>
+            <td class=""></td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: left">
+              Prepared by:
+              <v-row class="">
+                <v-col>
+                  <p class="text-center">________________________</p>
+                </v-col>
+              </v-row>
+            </td>
+            <td colspan="5" style="text-align: left">
+              Certified Correct:
+              <v-row class="">
+                <v-col class="text-center">
+                  <p>________________________</p>
+                  <p>Head, Accounting Department / Unit</p>
+                </v-col>
+              </v-row>
+            </td>
+          </tr>
+
+        </v-table>
+      </div>
+    </v-container>
+  </div>
+</template>
+<script>
+import { mapActions, mapGetters, mapState } from "vuex";
+export default {
+  data() {
+    return {
+      employees: [],
+      initialID: 1,
+      headers: [
+        {
+          align: "start",
+          key: "id",
+          sortable: false,
+          title: "NO.",
+        },
+        {
+          key: "fullname",
+          title: "NAME",
+          class: "header-id",
+          sortable: false,
+        },
+        { key: "designation", title: "POSITION", sortable: false },
+        { key: "timescanned", title: "AMOUNT", sortable: false },
+        { key: "selectedRemarks", title: "SIGNATURE" },
+      ],
+    };
+  },
+
+  computed: {
+    ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
+    ...mapGetters("users", { fetechEmployees: ["getUsers"] }),
+    ...mapGetters("office", { Offices: "getOffices" }),
+    ...mapState({
+      employeeremarks: (state) => state.remarks,
+    }),
+
+    filteredUsers() {
+      return this.fetechEmployees.filter(
+        (user) => user.office_id === this.userData.office_id
+      );
+    },
+
+    filteredItems() {
+      if (!this.userData.office_id) {
+        return this.Offices;
+      }
+      const id = parseInt(this.userData.office_id);
+      return this.Offices.filter((item) => item.id === id);
+    },
+
+    passremark() {
+      return this.employees.some((employee) => !!employee.remarks);
+    },
+  },
+
+  created() {
+    this.fetchOffices().then((req) => {
+      this.fetchData();
+      this.searchByOffice();
+    });
+    let data = new FormData();
+    const adminrecords = JSON.parse(localStorage.getItem("user"));
+    console.log("ID=", adminrecords.office_id);
+
+    console.log("EventName=", this.$route.params.Event_name);
+    data.append("event_id", localStorage.getItem("ID"));
+
+    this.eventayde = localStorage.getItem("ID");
+
+    data.append("office_id", adminrecords.office_id);
+    this.fetchPangalan(data).then((res) => {
+      this.employees = this.Pangalan;
+      this.searchByOffice();
+      console.log("employees=", this.employees);
+    });
+  },
+
+  methods: {
+    ...mapActions("events", ["fetchPangalan"]),
+    ...mapActions("users", ["fetchUsers"]),
+    ...mapActions("scaninsert", ["registerScan"]),
+    ...mapActions("office", ["fetchOffices"]),
+    ...mapActions("scaninsert", ["saveallremarks"]),
+
+    print() {
+      if (window) window.print();
+    },
+  },
+};
+</script>
+<style scoped>
+/* .Date {
+  text-decoration: overline;
+  width: 100%;
+} */
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+#bottom-content {
+  /* position: fixed; */
+  bottom: 0;
+  left: 5;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  width: 70%; /* Adjust the width as needed */
+}
+/* .cell-border {
+  border: 1px solid #ccc;
+} */
+.top {
+  font-size: 14px;
+
+}
+.table {
+  font-size: 14px;
+  table-layout: dense;
+  border: 1px solid #ccc;
+}
+.page-break {
+  page-break-after: always;
+}
+.center1 {
+  margin: 0;
+  position: absolute;
+  top: 10%;
+  left: 20%;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 10%;
+  right: 20%;
+}
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100;
+}
+#head {
+  background-color: #70b354;
+  color: white;
+  text-align: center;
+}
+#pic {
+  align-content: center;
+  align-items: center;
+}
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 600px) {
+  #pic {
+    size: 50 !important;
+  }
+}
+@media print {
+  .center1 {
+    margin: 0;
+    position: absolute;
+    top: 5%;
+    left: 20%;
+  }
+  .center {
+    margin: 0;
+    position: absolute;
+    top: 5%;
+    right: 20%;
+  }
+  #btn-group {
+    display: none;
+  }
+}
+</style>
