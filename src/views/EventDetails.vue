@@ -2,80 +2,61 @@
   <div id="btn-group" class="mx-auto w-75 mt-2">
     <v-btn class="bg-green" @click="print"> Print </v-btn>
   </div>
-  <div>
+  <div class="wholePage">
     <v-container
       class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
       rounded
       max-width="90%"
       width="100%"
     >
-      <v-row>
-        <v-col cols="4">
-          <!-- <v-avatar class="d-flex child-flex">
-          <v-img src="/phil.png" alt="altText"></v-img>
-        </v-avatar> -->
-          <v-img :width="70" src="/phil.png" class="center1"></v-img>
-        </v-col>
-
-        <v-col cols="4">
-          <h5 class="mt-12">Republic of the Philippines</h5>
-          <h5 class="">Province of Davao del Norte</h5>
-          <h5 class="">CITY OF TAGUM</h5>
-        </v-col>
-        <v-col cols="4" class="mx-10">
-          <v-img :width="70" src="/Tagum.png" class="center"></v-img>
-        </v-col>
-      </v-row>
-      <!--  <v-divider color="blue" :thickness="5" class="mt-2"></v-divider> -->
-      <!-- <v-divider></v-divider> -->
-      <v-container>
-        <v-row no-gutters style="text-align: justify">
-          <v-col cols="12" md="7" class="top">
-            <p>Department:</p>
-            <p>Division:</p>
-            <p>Section/Unit:</p>
-            <p>Project:</p>
+      <v-container id="top-content">
+        <v-row>
+          <v-col cols="4">
+            <v-img :width="70" src="/phil.png" class="center1"></v-img>
           </v-col>
-          <v-col cols="12" md="5" class="top ml-">
-            <p>Activity: {{ Event.Event_name }}</p>
-            <p>Date: {{ Event.Event_date }}</p>
-            <p>Venue: {{ Event.Event_venue }}</p>
+
+          <v-col cols="4">
+            <h5 class="mt-12">Republic of the Philippines</h5>
+            <h5 class="">Province of Davao del Norte</h5>
+            <h5 class="">CITY OF TAGUM</h5>
+          </v-col>
+          <v-col cols="4" class="mx-10">
+            <v-img :width="70" src="/Tagum.png" class="center"></v-img>
           </v-col>
         </v-row>
+        <v-container>
+          <v-row no-gutters style="text-align: justify">
+            <v-col class="top mt-6">
+              <p>Department:</p>
+              <p>Division:</p>
+              <p>Section/Unit:</p>
+              <p>Project:</p>
+            </v-col>
+            <v-col class="top mt-6">
+              <p>Activity: {{ Event.Event_name }}</p>
+              <p>Date: {{ Event.Event_date }}</p>
+              <p>Venue: {{ Event.Event_venue }}</p>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-col cols="12">
+          <h4>ATTENDANCE SHEET</h4>
+        </v-col>
       </v-container>
-      <v-col cols="12">
-        <h4>ATTENDANCE SHEET</h4>
-      </v-col>
-      <v-container>
+      <v-container id="table-content">
         <v-table>
-          <!--  <thead>
-          <tr>
-            <th id="head">No.</th>
-            <th id="head">Name</th>
-            <th id="head">Position</th>
-            <th id="head">Time Scanned</th>
-            <th id="head">Remarks</th>
-          </tr>
-        </thead>
-        <tbody dense>
-          <tr v-for="item in desserts" :key="item.name">
-            <td>{{ item.no }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.position }}</td>
-            <td>{{ item.timeScanned }}</td>
-            <td>{{ item.remarks }}</td>
-          </tr>
-        </tbody> -->
           <v-data-table
             :headers="headers"
-            :items-per-page="itemsPerPage"
+            :items-per-page="this.employees.length"
             :items="employees"
             class="table"
             density="compact"
           >
-            <template v-slot:item="{ item }">
-              <tr>
-                <!-- <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td> -->
+            <template v-slot:item="{ item, index }">
+              <tr :class="addPageBreak(index)">
+                <td :style="{ textAlign: 'left' }" class="cell-border">
+                  {{ index + 1}}
+                </td>
                 <td :style="{ textAlign: 'left' }" class="cell-border">
                   {{ item.columns.fullname }}
                 </td>
@@ -90,12 +71,12 @@
                 </td>
               </tr>
             </template>
-
             <template #bottom></template>
           </v-data-table>
         </v-table>
       </v-container>
       <!-- <div class="page-break"></div> -->
+
       <div id="bottom-content">
         <p class="text-justify font-italic pa-4">
           I hereby certify and attest, to the best of my knowledge, that the
@@ -135,14 +116,14 @@ export default {
   data() {
     return {
       employees: [],
+      itemsPerPage: 24,
 
       headers: [
-        // {
-        //   align: "start",
-        //   key: "Controlno",
-        //   sortable: false,
-        //   title: "ID",
-        // },
+        {
+          key: "id",
+          title: "NO.",
+          sortable: false,
+        },
         {
           key: "fullname",
           title: "NAME",
@@ -163,12 +144,8 @@ export default {
     ...mapState({
       employeeremarks: (state) => state.remarks,
     }),
-    itemsPerPage() {
-      return window.matchMedia("print").matches ? 30 : this.employees.length; // Limit to 30 items per page in print, show all items otherwise
-    },
 
     filteredUsers() {
-      // Filter the users based on office_id
       return this.fetechEmployees.filter(
         (user) => user.office_id === this.userData.office_id
       );
@@ -183,7 +160,6 @@ export default {
     },
 
     passremark() {
-      // Check if there is data in the "remarks" field of any employee
       return this.employees.some((employee) => !!employee.remarks);
     },
   },
@@ -192,7 +168,6 @@ export default {
     this.fetchOffices().then((req) => {
       this.fetchData();
       this.searchByOffice();
-      // console.log("offices=",this.Offices);
     });
     let data = new FormData();
     const adminrecords = JSON.parse(localStorage.getItem("user"));
@@ -204,23 +179,11 @@ export default {
     this.eventayde = localStorage.getItem("ID");
 
     data.append("office_id", adminrecords.office_id);
-    /*  data.append('Event_name', localStorage.getItem('Event_name')) */
     this.fetchPangalan(data).then((res) => {
       this.employees = this.Pangalan;
       this.searchByOffice();
       console.log("employees=", this.employees);
     });
-
-    // this.fetchUsers().then(rew=>{
-    //   this.employees=this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
-    // });
-
-    /*   return this.employees.filter(employee => employee.office_id === 1); */
-
-    // setTimeout(() => {
-    //     this.searchByOffice();
-
-    //   }, 1000); // Adjust the delay time (in milliseconds) as needed
   },
 
   methods: {
@@ -232,42 +195,39 @@ export default {
     print() {
       if (window) window.print();
     },
-    // printData() {
-    //   const printableContent = this.$refs.printableTable.$el.outerHTML;
-    //   const printWindow = window.open("", "", "width=600,height=600");
-    //   printWindow.document.open();
-    //   printWindow.document.write("<html><head><title>Print</title>");
-    //   printWindow.document.write("</head><body>");
-    //   printWindow.document.write(printableContent);
-    //   printWindow.document.write("</body></html>");
-    //   printWindow.document.close();
-    //   printWindow.print();
-    // },
+    addPageBreak(index) {
+      // Add a class to the row to trigger a page break
+      return index !== 0 && index % this.itemsPerPage === 0 ? "page-break" : "";
+    },
   },
 };
 </script>
 <style scoped>
+td {
+  border: 1px solid #000;
+  padding: 2px;
+  overflow: hidden;
+}
+.table {
+  table-layout: dense;
+  border: 1px solid black;
+}
 #bottom-content {
   /* position: fixed; */
   bottom: 0;
   left: 5;
   right: 0;
   margin: auto;
+  font-size: 16px;
   text-align: center;
   width: 90%; /* Adjust the width as needed */
 }
-.cell-border {
-  border: 1px solid #ccc; /* Add your desired border style */
-}
-.top {
+
+/* .top {
   font-size: 14px;
   table-layout: dense;
-}
-.table {
-  font-size: 14px;
-  table-layout: dense;
-  border: 1px solid #ccc;
-}
+} */
+
 .page-break {
   page-break-after: always;
 }
@@ -283,12 +243,7 @@ export default {
   top: 10%;
   right: 20%;
 }
-.image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100;
-}
+
 #head {
   background-color: #70b354;
   color: white;
@@ -304,22 +259,66 @@ export default {
   }
 }
 @media print {
-  /* .page-break + #bottom-content {
-    display: none;
-  } */
-  .center1 {
+  .center1,
+  center {
     margin: 0;
     position: absolute;
     top: 5%;
     left: 20%;
   }
-  .center {
-    margin: 0;
-    position: absolute;
-    top: 5%;
-    right: 20%;
+  #btn-group {
+    display: none;
+  }
+  .wholePage {
+    font-size: 20px !important;
   }
   .table {
+    border: none; /* Example: Remove borders for print */
   }
+  #bottom-content {
+    position: fixed;
+    bottom: 0;
+    left: 5%;
+    width: 100%;
+    background-color: white; /* Adjust background color if necessary */
+    page-break-after: always;
+    z-index: 100;
+  }
+
+  #table-content {
+    page-break-before: always; /* Start the table on a new printed page */
+    position: relative; /* Change to relative for normal flow on subsequent pages */
+    top: 450px; /* Adjust the value based on your desired top margin */
+  }
+
+  #top-content {
+    page-break-before: always;
+    position: fixed;
+    top: 0;
+    left: 10px;
+    width: 100%;
+    background-color: white; /* Adjust background color if necessary */
+    z-index: 100;
+  }
+  #top-content v-img {
+    width: 70px; /* Adjust the width of the images */
+  }
+
+  #top-content h5 {
+    margin-top: 12px; /* Adjust the margin-top for the h5 elements */
+  }
+
+  /* #table-content {
+    margin-top: 33%;
+  } */
+
+  /* .table {
+    page-break-before: 30;
+    page-break-after: 30;
+    page-break-inside: 30;
+  } */
+  /* .table {
+    page-break-after:30;
+  } */
 }
 </style>

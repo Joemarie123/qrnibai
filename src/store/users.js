@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-// axios.defaults.baseURL = process.env.VUE_APP_API_URL; 
+// axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 const state = () => ({
   users: [],
   auth: {},
+  userCount: 0,
 })
 
 const getters = {
@@ -30,7 +31,7 @@ const mutations = {
     state.auth = payload;
   },
 
-  
+
 
 }
 
@@ -39,18 +40,20 @@ const actions = {
   async fetchUsers({commit}){
     let res = await axios.get(`/employees.php`);
     commit('setUsers', res.data.users);
+    this.userCount = res.data.length;
+    console.log("usersCount =>",  this.userCount)
   },
 
   async login({commit}, payload){
     console.log("env=",)
    // let res = await axios.post('http://10.0.1.23:82/HRQR1/login.php', payload);
- 
+
     let res = await axios.post(`/login.php`,payload);
 
     console.log("Res Data=",res.data)
     localStorage.setItem('user', JSON.stringify(res.data.user));
     commit("setAuth", res.data.user);
-   
+
     if(res.data.auth == "passed"){
 
     if(res.data.user.admin == 1){
@@ -59,12 +62,12 @@ const actions = {
       return 2
     }
   }else{
-  
+
     return 0
-  
+
   }
 
-   
+
   }
 
 }

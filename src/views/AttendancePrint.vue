@@ -2,18 +2,16 @@
   <div id="btn-group" class="mx-auto w-75 mt-2">
     <v-btn class="bg-green" @click="print"> Print </v-btn>
   </div>
-  <div>
+  <div class="wholePage">
     <v-container
       class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
       rounded
       max-width="90%"
       width="100%"
     >
+    <v-container id="top-content">
       <v-row>
         <v-col cols="4">
-          <!-- <v-avatar class="d-flex child-flex">
-          <v-img src="/phil.png" alt="altText"></v-img>
-        </v-avatar> -->
           <v-img :width="70" src="/phil.png" class="center1"></v-img>
         </v-col>
 
@@ -34,19 +32,20 @@
         <h4>ATTENDANCE SHEET</h4>
         <h5 class="text-left">Office: Diria ang Office Name</h5>
       </v-col>
-      <v-container>
+      </v-container>
+      <v-container id="table-content">
         <v-table>
           <v-data-table
             :headers="headers"
-            :items-per-page="40"
+            :items-per-page="this.employees.length"
             :items="employees"
             class="table"
             density="compact"
           >
-            <template v-slot:item="{ item }">
-              <tr>
+            <template v-slot:item="{ item, index }">
+              <tr :class="addPageBreak(index)">
                 <td :style="{ textAlign: 'center' }" class="cell-border">
-                  <!-- {{ incrementID(item) }} -->
+                 {{index + 1}}
                 </td>
                 <td :style="{ textAlign: 'left' }" class="cell-border">
                   {{ item.columns.fullname }}
@@ -70,7 +69,7 @@
 
       <!-- <div class="page-break"></div> -->
       <div id="bottom-content">
-        <v-table>
+        <v-table class="secondtable" density="compact">
           <tr>
             <td colspan="10" style="font-weight: bold;">SUMMARY OF EMPLOYEES COUNT PER EMPLOYMENT STATUS</td>
           </tr>
@@ -106,9 +105,7 @@
             <td colspan="5" class="text-right" style="font-weight: bold;">GRAND TOTAL</td>
             <td colspan="5" class="" style="font-weight: bold;">35</td>
           </tr>
-
-        </v-table>
-        <div class="mt-6">
+          <div class="mt-6">
         <p>Approved by:</p>
         <p
           style="
@@ -122,6 +119,8 @@
         </p>
         <p>City Accountant</p>
       </div>
+        </v-table>
+
       </div>
 
     </v-container>
@@ -133,7 +132,7 @@ export default {
   data() {
     return {
       employees: [],
-      initialID: 1,
+      itemsPerPage: 24,
       headers: [
         {
           align: "start",
@@ -232,6 +231,10 @@ export default {
     print() {
       if (window) window.print();
     },
+    addPageBreak(index) {
+      // Add a class to the row to trigger a page break
+      return index !== 0 && index % this.itemsPerPage === 0 ? "page-break" : "";
+    },
     // printData() {
     //   const printableContent = this.$refs.printableTable.$el.outerHTML;
     //   const printWindow = window.open("", "", "width=600,height=600");
@@ -247,34 +250,29 @@ export default {
 };
 </script>
 <style scoped>
-table,
-th,
+
 td {
   border: 1px solid black;
+  padding: 2px;
+  overflow: hidden;
 }
-th, td {
-  padding: 3px;
+.table {
+  table-layout: dense;
+  border: 1px solid black;
+}
+.page-break {
+  page-break-after: always;
 }
 #bottom-content {
   /* position: fixed; */
   bottom: 0;
-
+  font-size: 16px;
   right: 0;
   text-align: center;
   width: 30%;
-}
-/* .cell-border {
-  border: 1px solid #ccc;
-} */
-.top {
-  font-size: 14px;
 
 }
-.table {
-  font-size: 14px;
-  table-layout: dense;
-  border: 1px solid black;
-}
+
 .center1 {
   margin: 0;
   position: absolute;
@@ -287,6 +285,7 @@ th, td {
   top: 10%;
   right: 20%;
 }
+
 .image {
   display: block;
   margin-left: auto;
@@ -309,20 +308,50 @@ th, td {
   }
 }
 @media print {
-  .center1 {
+  .center1, center {
     margin: 0;
     position: absolute;
     top: 5%;
     left: 20%;
   }
-  .center {
-    margin: 0;
-    position: absolute;
-    top: 5%;
-    right: 20%;
-  }
+
   #btn-group {
     display: none;
+  }
+  /* .page-break{
+    page-break-after: always;
+  } */
+  .wholePage {
+    font-size: 20px !important;
+  }
+  .table {
+    border: none; /* Example: Remove borders for print */
+  }
+
+  #table-content {
+    page-break-before: always; /* Start the table on a new printed page */
+    position: relative; /* Change to relative for normal flow on subsequent pages */
+    top: 390px; /* Adjust the value based on your desired top margin */
+  }
+
+  #top-content {
+    page-break-before: always;
+    position: fixed;
+    top: 0;
+    left: 10px;
+    width: 100%;
+    background-color: white; /* Adjust background color if necessary */
+    z-index: 100;
+  }
+  #top-content v-img {
+    width: 70px; /* Adjust the width of the images */
+  }
+
+  #top-content h5 {
+    margin-top: 12px; /* Adjust the margin-top for the h5 elements */
+  }
+  #bottom-content {
+    margin-top: 30%;
   }
 }
 </style>
