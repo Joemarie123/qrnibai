@@ -36,7 +36,7 @@ const mutations = {
 const actions = {
 
     async registerScan({commit}, payload){
-      let res = await axios.post(`http://10.0.1.23:82/HRQR/ScanInsert.php`,payload);
+      let res = await axios.post(`http://10.0.1.23:82/ScanInsert.php`,payload);
       commit('setScans', res.data.user);
     },
   

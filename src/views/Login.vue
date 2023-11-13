@@ -1,7 +1,7 @@
 <template>
  
     <v-app>
-    <v-container >
+    <v-container  >
      
        
       <v-row  justify="center" >
@@ -176,5 +176,14 @@ console.log("password=",this.password)
     text-align: center;
   }
  
+/* 
+  .bgCover {
+  background-image: url("@/assets/bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+} */
+
+
   </style>
   

@@ -14,46 +14,46 @@
     <v-row class="mt-n15 mt-md-1 ">
  
       <v-col cols="12" sm="3" md="2">
-  <v-btn class="ml-md-1 mt-n2"  rounded-lg color="green" @click="openaddemployeedialog()" variant="text">ADD EMPLOYEES</v-btn>
+  <v-btn class=" ml-md-1 mt-1 mt-lg-n1 mt-sm-1"  rounded color="green" @click="openaddemployeedialog()" >ADD EMPLOYEES</v-btn>
   </v-col>
   
-  <v-col class="mt-n4 mr-md-6" cols="12" sm="6"  md="6">
-  <input v-model="search" class="textbox"  placeholder="Search Employee">
-</v-col>
+  <v-col class="mt-lg-n1 mt-sm-2 mr-md-6 " cols="12" sm="6"  md="6">
+  <input v-model="search" class="textbox "  placeholder="Search Employee">
+  </v-col>
 
 <v-dialog  v-model="add_employees_dialog" persistent  origin='center' max-width="1000" >
 
 <v-card>
 <v-container>
 <v-row >   
-  <v-col class="mt-1" cols="12" sm="6"  md="6">
+  <v-col class="mt-1 ml-n3 mx-2" cols="12" sm="6"  md="6">
   <input v-model="searchaddemployee" class="textbox"  placeholder="Search Employee">
 </v-col>
-  <v-data-table
+  <v-data-table 
+
          :headers="headers_add_employees" 
-         :items="AddEmployees" 
-         
+         :items="sortedItems_addemployees" 
          :search="searchaddemployee"
-         :items-per-page="5" 
-           class="my_class td"
+         :items-per-page="4" 
+        class="my_class td mx-1"
          :single-select="false">
          <template v-slot:item="{ item }">
             <tr >
               <td><v-checkbox v-model="item.selected" @input="selectRow(item)"></v-checkbox></td>
               <!-- <td>{{ item.fullname }}</td>
               <td>{{ item.designation }}</td> -->
-              <td :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
-              <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.fullname}}</td>
+              <td class="mobile-hide"  :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
+              <td  :style="{ textAlign: 'left' }">{{ item.columns.fullname}}</td>
               <td :style="{ textAlign: 'left' }">{{ item.columns.designation }}</td>
             </tr>
           </template>
           <template #bottom></template>
         </v-data-table>
         <v-col class="d-flex justify-end">
-        <v-card-actions class="d-flex justify-end">
-          <v-btn @click="saveAllData()" color="green">ADD</v-btn>
-          <v-btn @click="cancelDialog" color="error">CANCEL</v-btn>
-        </v-card-actions>
+      <!--   <v-card-actions class="d-flex justify-end"> -->
+          <v-btn variant="outlined"  @click="saveAllData()" class="mx-2" color="green">ADD</v-btn>
+          <v-btn variant="outlined" @click="cancelDialog" color="error">CANCEL</v-btn>
+     <!--    </v-card-actions> -->
       </v-col>
       
       <!--  <tbody>
@@ -101,7 +101,7 @@
     <v-data-table
       :search="search"
       item-key="ID"
-      :items="employees"
+      :items="sortedItems"
       :headers="headers"
       :items-per-page="30"
       class="my_class td btn-hover color-1 elevation-1"
@@ -163,6 +163,8 @@
   
   data() {
   return {
+
+
     add_employees_dialog:false,
     dialogforadded:false,
     deletecontrono:'',
@@ -241,24 +243,25 @@
 
       headers_add_employees: [
       { key: "Checkbox", title: "Check Box", sortable: false, },
+
     {
-        align: "start",
         key: "Controlno",
         sortable: false,
         title: "Control No",
         align: ' d-none d-sm-table-cell',
       },
+
         { key: "fullname", title: "Full Name", sortable: false },
         { key: "designation", title: "Position",  sortable: false, },
 
       ],
-      items: [
+     /*  items: [
         { Controlno: '09223' , fullname: 'John Doe', designation: 'Manager', selected: false },
         { Controlno: '09223' , fullname: 'Jane Smith', designation: 'Developer', selected: false },
         { Controlno: '09223' , fullname: 'Jane Smith', designation: 'Developer', selected: false },
         { Controlno: '09223' , fullname: 'Jane Smith', designation: 'Developer', selected: false },
         // Add more sample data here
-      ],
+      ], */
   
   };
   },
@@ -267,6 +270,22 @@
     ...mapGetters('employees', {Pangalan: ['getEmployees']} ),
     ...mapGetters('employees', {AddEmployeesbai: ['getAdd_Employees']} ),
   
+
+    sortedItems() {
+      // Sort the items array based on fullname
+      return this.Pangalan.slice().sort((a, b) => {
+        // Use localeCompare to sort strings alphabetically
+        return a.fullname.localeCompare(b.fullname);
+      });
+    },
+
+    sortedItems_addemployees() {
+      // Sort the items array based on fullname
+      return this.AddEmployeesbai.slice().sort((a, b) => {
+        // Use localeCompare to sort strings alphabetically
+        return a.fullname.localeCompare(b.fullname);
+      });
+    },
  /*    ...mapGetters('users', {fetechEmployees: ['getUsers']} ), */
    /*  ...mapGetters("office", { Offices: "getOffices" }), */
   
@@ -330,7 +349,7 @@
   ...mapActions('employees', ['fetchAdd_employees']),
   ...mapActions('office', ['fetchOffices']),
 
-
+/*   ...mapGetters('users', {empleyado: ['getEmpleyados']} ), */
 
 
   cancelDialog() {
@@ -494,7 +513,7 @@
       formData.append('controlno', controlno);
 
       try {
-        const response = await fetch('http://10.0.1.23:82/HRQR/removeemployee.php', {
+        const response = await fetch('https://database.tagumcity.gov.ph/HRQR/removeemployee.php', {
           method: 'POST',
           body: formData,
         });
@@ -572,6 +591,16 @@
   </script>
   
   <style scoped >
+
+.mobile-hide {
+  display: table-cell; /* Default display for table cells */
+}
+
+@media (max-width: 767px) {
+  .mobile-hide {
+    display: none; /* Hide on screens narrower than 768 pixels */
+  }
+}
      .textbox {
       padding: 10px;
       border: 1px solid #226218;
@@ -751,7 +780,7 @@
   border: 1px solid #168904;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 500px;
+  width: 300px;
   height: 40px;
   }
   

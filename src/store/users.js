@@ -43,7 +43,7 @@ const actions = {
 
   async login({commit}, payload){
     console.log("env=",)
-   // let res = await axios.post('http://10.0.1.23:82/HRQR1/login.php', payload);
+   // let res = await axios.post('https://database.tagumcity.gov.ph/HRQR1/login.php', payload);
  
     let res = await axios.post(`/login.php`,payload);
 

@@ -272,7 +272,9 @@ computed: {
         // Use localeCompare to sort strings alphabetically
         return a.fullname.localeCompare(b.fullname);
       });
-    }
+    },
+
+  
 }, 
 
 created() {
@@ -302,8 +304,8 @@ methods: {
 //         console.log('FormData:', data);
 
 
-//       //  const response = await this.$axios.post('http://10.0.1.23:82/HRQR/adminassigntooffice.php', formData);
-//         const response = await axios.post('http://10.0.1.23:82/HRQR/adminassigntooffice.php', data);
+//       //  const response = await this.$axios.post('https://database.tagumcity.gov.ph/HRQR/adminassigntooffice.php', formData);
+//         const response = await axios.post('https://database.tagumcity.gov.ph/HRQR/adminassigntooffice.php', data);
 
 //         // Handle the response here, e.g., show a success message or update your component's state
 //         console.log('API Response:', response.data.user);
@@ -320,7 +322,7 @@ methods: {
       data.append('office_id', this.officeaydebai);
     
   try {
-    const response = await axios.post('http://10.0.1.23:82/HRQR/adminassigntooffice.php', data);
+    const response = await axios.post('https://database.tagumcity.gov.ph/HRQR/adminassigntooffice.php', data);
       console.log("Response=",response.data)
       this.selectedoffice = "";
       this.dialogshowoffice = false;
@@ -345,9 +347,6 @@ methods: {
     this.successMessage = '';
   }
 },
-
-
-
 
 
 assignToOffice(controlno) {

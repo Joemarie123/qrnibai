@@ -204,7 +204,7 @@
       headers: [
          
           { key: "officename", title: "Office Name", sortable: false },
-          { key: "officenumber", title: "Office Number", sortable: false },
+          { key: "officenumber", title: "Employees Count", sortable: false },
           { key: "actions", title: "Actions" , align:"center" },
         
         

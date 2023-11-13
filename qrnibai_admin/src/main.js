@@ -10,7 +10,9 @@ import { createApp } from 'vue'
 import router from './router';
 import store from './store';
 
-axios.defaults.baseURL='http://10.0.1.23:82/HRQR';
+/* axios.defaults.baseURL='https://database.tagumcity.gov.ph/HRQR'; */
+axios.defaults.baseURL='https://database.tagumcity.gov.ph/HRQR';
+
 // Plugins
 import { registerPlugins } from '@/plugins'
 

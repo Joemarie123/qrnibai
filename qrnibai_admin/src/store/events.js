@@ -53,7 +53,7 @@ const actions = {
 
   async fetchEvents({commit}){
 
-  //  let res = await axios.get(`http://10.0.1.23:82/HRQR/eventlist.php`);
+  //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
     let res = await axios.get(`/eventlist.php`);
    /*  console.log("data from db=", res.data.event_details[0]); */
     commit('setEvents', res.data.events);
@@ -61,13 +61,13 @@ const actions = {
 
   async fetchEventsHistory({commit}){
 
-    //  let res = await axios.get(`http://10.0.1.23:82/HRQR/eventlist.php`);
+    //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
       let res = await axios.get(`/eventlist.php`);
       commit('setEventsHistory', res.data.events);
     },
 
   async registerEvents({commit}, payload){
-   // let res = await axios.post(`http://10.0.1.23:82/HRQR/event.php`, payload);
+   // let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/event.php`, payload);
     let res = await axios.post(`/event.php`,payload);
     localStorage.setItem('event', JSON.stringify(res.data.events[0]));
     commit('setEvents', res.data.events);
@@ -75,7 +75,7 @@ const actions = {
 
   async fetchPangalan({ commit }, payload) {
     try {
-      ///  let res = await axios.post(`http://10.0.1.23:82/HRQR/eventdetails.php`, payload);
+      ///  let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/eventdetails.php`, payload);
         let res = await axios.post(`/eventdetails.php`,payload);
 
         console.log("data from db=", res.data.event_details[0])

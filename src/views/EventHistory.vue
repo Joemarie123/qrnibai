@@ -25,7 +25,7 @@
   </v-col>
   
   <v-col class="mt-n4" cols="12" sm="6"  md="6">
-    <input v-model="search" class="textbox ml-n16"  placeholder="Search Event">
+    <input v-model="search" class="textbox ml-n1 ml-md-n8 ml-lg-n16"  placeholder="Search Event">
   </v-col>
   
       <v-col cols="12">
@@ -36,7 +36,7 @@
         :search="search"
          item-key="ID"
        :headers="headers"
-       :items="events"
+       :items="sortedItems"
       :items-per-page="10"
        class="elevation-1 my_classo_officehomeevents"
     
@@ -101,9 +101,15 @@
       },
   
       computed: {
-      ...mapGetters("events", { events: "getEventsHistory" }),
+      ...mapGetters("events", { events: ['getEventsHistory'] }),
   
-  
+      sortedItems() {
+      // Sort the items array based on fullname
+      return this.events.slice().sort((a, b) => {
+        // Use localeCompare to sort strings alphabetically
+        return a.Event_name.localeCompare(b.Event_name);
+      });
+    },
     },
   
   

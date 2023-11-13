@@ -311,7 +311,7 @@ src="/qr.png"
 
               </v-col>
               <v-col cols="12" class="mt-n4 d-flex justify-end">
-                <v-btn v-if="!passremark" class="custom-btn rounded-lg card" @click="saveAllData()">
+                <v-btn  class="custom-btn rounded-lg card" @click="saveAllData()">
 
                   <p class="colorfortext ">Submit Remarks</p>
                   <v-icon class="colorfortext mx-1">mdi-content-save-all</v-icon>
@@ -646,7 +646,7 @@ export default {
 
     // FOR QR CODE CREATE SCAN START
 
-    creatScan_htmlfive() {
+   /*  creatScan_htmlfive() {
 
       const config = { fps: 10, qrbox: 250 };
       const html5QrcodeScanner = new Html5QrcodeScanner(
@@ -655,24 +655,24 @@ export default {
       );
       html5QrcodeScanner.render(this.onScanSuccess);
 
-    },
+    }, */
 
-    //   creatScan_htmlfive() {
-    //     const html5QrCode = new Html5Qrcode("qr-code-full-region");
-    // const qrCodeSuccessCallback = () => {
-    //   /* handle success */
-    // };
-    // const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+      creatScan_htmlfive() {
+        const html5QrCode = new Html5Qrcode("qr-code-full-region");
+    const qrCodeSuccessCallback = () => {
+      /* handle success */
+    };
+    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
-    // // If you want to prefer back camera
-    // html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); 
+    // If you want to prefer back camera
+    html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); 
 
-    // // If you want to prefer front camera
-    // // html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
+    // If you want to prefer front camera
+    // html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
 
-    // html5QrCode.render(this.onScanSuccess);
+    html5QrCode.render(this.onScanSuccess);
 
-    //   },
+      },
 
     // FOR QR CODE CREATE SCAN END
 
@@ -903,6 +903,7 @@ export default {
     },
 
     clickmetosave() {
+     
       let data = new FormData();
       data.append('Controlno', this.controlno);
       data.append('event_id', this.eventayde);
@@ -920,6 +921,7 @@ export default {
         .catch(e => {
           console.error('Error during registration:', e.message);
         });
+        console.log("Kini daw ni ",res.data)
     },
 
 

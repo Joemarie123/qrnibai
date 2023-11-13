@@ -27,6 +27,7 @@
   class="ml-10 mt-n5">
  
     <v-row>
+      
   <v-col cols="12"  sm="3" md="3" class="ml-n8 mt-md-n2 ml-md-n4 mt-sm-n2 ml-sm-n4">
 <p class="classfortitle ml-5">Date:</p>
 </v-col>
