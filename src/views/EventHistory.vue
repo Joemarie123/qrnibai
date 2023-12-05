@@ -36,7 +36,7 @@
         :search="search"
          item-key="ID"
        :headers="headers"
-       :items="sortedItems"
+       :items="events"
       :items-per-page="10"
        class="elevation-1 my_classo_officehomeevents"
     
@@ -103,13 +103,13 @@
       computed: {
       ...mapGetters("events", { events: ['getEventsHistory'] }),
   
-      sortedItems() {
-      // Sort the items array based on fullname
-      return this.events.slice().sort((a, b) => {
-        // Use localeCompare to sort strings alphabetically
-        return a.Event_name.localeCompare(b.Event_name);
-      });
-    },
+    //   sortedItems() {
+    //   // Sort the items array based on fullname
+    //   return this.events.slice().sort((a, b) => {
+    //     // Use localeCompare to sort strings alphabetically
+    //     return a.Event_name.localeCompare(b.Event_name);
+    //   });
+    // },
     },
   
   

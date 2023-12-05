@@ -68,7 +68,18 @@ const routes = [
 
   },
 
-  
+  {
+    path: '/AuthorityToClaim',
+    name: ' AuthorityToClaim',
+    component: () => import('@/views/AuthorityToClaim.vue'),
+  },
+ 
+  {
+    path: '/PayrollPrint',
+    name: ' PayrollPrint',
+    component: () => import('@/views/PayrollPrint.vue'),
+  },
+ 
     //AppBar
     {
       path: '/OfficeBar',
@@ -81,15 +92,17 @@ const routes = [
       component: () => import('@/components/toolbar/HrBar.vue')
     },
 
-  
-
-
-
 
   {
-    path: '/EventView2/:id',
+    path: '/EventView2',
     name: 'EventView2',
     component: () => import('@/views/EventView2.vue')
+  },
+
+  {
+    path: '/AttendancePrint',
+    name: 'AttendancePrint',
+    component: () => import('@/views/AttendancePrint.vue')
   },
 
 

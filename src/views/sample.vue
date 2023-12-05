@@ -1,50 +1,54 @@
 <template>
   <div>
+    <h1>Office List</h1>
+  <!--   <label for="filterId">Filter by ID:</label>
+    <input type="text" v-model="filterId" id="filterId" /> -->
+    
+      <div v-for="office in filteredOffices" :key="office.id">{{ office.office }}</div>
    
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      class="elevation-1"
-    >
-      <template v-slot:item.name="{ item }">
-        <span>{{ item.name }}</span>
-      </template>
-      <template v-slot:item.remarks="{ item }">
-        <span :style="{ color: item.remarks == 'late' ? 'red' : 'black' }">{{ item.remarks }}</span>
-      </template>
-    </v-data-table>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
-      headers: [
-        { title: 'Name', value: 'name' },
-        { title: 'Address', value: 'address' },
-        { title: 'Remarks', value: 'remarks' }
-      ],
-      items: [
-        { name: 'John Doe', address: '123 Main St, City', remarks: 'Lorem ipsum' },
-        { name: 'Jane Smith', address: '456 Elm St, Town', remarks: 'Late' },
-        { name: 'Bob Johnson', address: '789 Oak St, Village', remarks: 'Consectetur adipiscing elit' }
-        // Add more items as needed
-      ],
-      applyRedColor: false
+      sample_id:1,
+     /*  offices: [], */
+      filterId: '', // Add a data property to store the filter ID
     };
   },
-  computed(){
-  
+  computed: {
+    ...mapGetters("office", { Offices: "getOffices" }),
+
+    filteredOffices() {
+      // Use computed property to filter offices based on the filterId
+      return this.Offices.filter(office => String(office.id).includes(this.sample_id));
+    },
   },
+
+  created() {
+    this.fetchOffices()
+  },
+
   methods: {
-    
-  }
+ ...mapActions("office", ["fetchOffices"]),
+
+  },
+
+  // mounted() {
+  //   // Make the API request when the component is mounted
+  //   axios.get('https://database.tagumcity.gov.ph/HRQR/OfficeList.php')
+  //     .then(response => {
+  //       // Assuming the response data is an array of offices
+  //       this.offices = response.data.users;
+  //       console.log(this.offices); // Log the data to the console
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // },
 };
 </script>
-
-<style scoped>
-.elevation-1 {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-</style>

@@ -5,7 +5,7 @@
 
 <v-main>
 <div class="mt-16 container123">
-  <v-container >
+  <v-container>
 
   </v-container>
 
@@ -31,15 +31,15 @@
        </v-dialog>
 
     <v-row>
-      <v-col class="d-flex justify-end ml-n3 " cols="12">
+      <v-col :class="{'d-flex justify-end': !isMobile, 'd-flex justify-start': isMobile}"  cols="12">
       <v-btn color="success" @click="CLickni_Events()"  rounded-lg variant="outlined"> + Create Account</v-btn>
     </v-col>
 
-      <v-col cols="3">
-    <h3 class="ml-8 mt-n2" :style="{ color: 'green' }">User Account List</h3>
+      <v-col cols="12" lg="3" xl="3">
+    <h3 class="ml-1 ml-lg-8 mt-n2" :style="{ color: 'green' }">User Account List</h3>
   </v-col>
 
-  <v-col class="ml-n16  mt-n4" cols="6">
+  <v-col class="ml-lg-n16  mt-n4" cols="6">
     <input v-model="search" class="textbox"  placeholder="Search Employee">
  <!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
   </v-col>
@@ -98,6 +98,7 @@ export default {
 
 data() {
   return {
+    isMobile: false,
     loading:false,
     rows: [],
     ID: "",
@@ -121,7 +122,7 @@ data() {
           key: "office_id",
           sortable: false,
           title: "Office ID",
-         
+          align: ' d-none',
          
         },
         { key: "lastname", title: "Last Name", sortable: false },
@@ -153,12 +154,28 @@ computed: {
     this.fetchAccountUsers();
   },
 
+  beforeDestroy() {
+    // Remove the resize event listener to prevent memory leaks
+    window.removeEventListener('resize', this.handleResize);
+  },
+
+  mounted() {
+    // Check if the initial width is less than or equal to your mobile breakpoint
+    this.isMobile = window.innerWidth <= 600; // Adjust the value based on your mobile breakpoint
+
+    // Add a listener to update the isMobile property when the window is resized
+    window.addEventListener('resize', this.handleResize);
+  },
+
 
 methods: {
 
     ...mapActions('account', ['fetchAccountUsers']),
 
-
+    handleResize() {
+      // Update isMobile based on the current window width
+      this.isMobile = window.innerWidth <= 600; // Adjust the value based on your mobile breakpoint
+    },
     
     CLickni_Events()
     {
@@ -276,7 +293,7 @@ background-color: #f2f2f2;
   border: 1px solid #168904;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 500px;
+  width: 250px;
   height: 40px;
 }
 </style>

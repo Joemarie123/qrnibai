@@ -36,7 +36,7 @@ const actions = {
 
     async fetchOffices({commit}){
         let res = await axios.get(`/OfficeList.php`);
-        commit('setOffices', res.data.users);
+        commit('setOffices',  res.data.users);
       },
   
   }

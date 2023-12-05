@@ -27,7 +27,7 @@
          </v-card> -->
     
        </v-dialog>
-       <v-dialog v-if="loading" v-model="dialogVisible" persistent max-width="300">
+     <!--   <v-dialog v-if="loading" v-model="dialogVisible" persistent max-width="300">
     <v-card >
       <v-row >
         <v-col cols="10" class="mt-5">
@@ -44,7 +44,7 @@
       </v-card-actions>
   
     </v-card>
-  </v-dialog>
+  </v-dialog> -->
 
   <v-dialog  v-model="dialogforassignsuccessfully" persistent max-width="300">
     <v-card>
@@ -59,7 +59,7 @@
         </v-col>
       </v-row>
       <v-card-actions class="d-flex justify-center mt-n7">  
-        <v-btn color="green" text @click="dialogforassignsuccessfully = false">OK</v-btn>
+        <v-btn color="green" text @click="dialogoksuccessfullassing()">OK</v-btn>
       </v-card-actions>
   
     </v-card>
@@ -67,11 +67,11 @@
   <v-row class="mt-n15 mt-md-1 ">
 
     <v-col cols="12" sm="3" md="2">
-  <v-btn class="ml-md-1 mt-n2"  rounded-lg color="green" @click="sendPostRequest()" variant="text">UPDATE EMPLOYEES</v-btn>
+  <v-btn class="ml-md-1 mt-6 mt-lg-6"  rounded-lg color="green" @click="sendPostRequest()" variant="text">UPDATE EMPLOYEES</v-btn>
   </v-col>
 
   
-  <v-col class="mt-n4 mr-md-6" cols="12" sm="6"  md="6">
+  <v-col class="mt-n5 mt-sm-4  mt-md-4 mt-lg-4 mr-md-6" cols="12" sm="6"  md="6">
   <input v-model="search" class="textbox"  placeholder="Search Employee">
 </v-col>
   
@@ -294,6 +294,15 @@ methods: {
 ...mapActions('users', ['fetchEmpleyados']), 
 ...mapActions('office', ['fetchOffices']),
 
+
+
+dialogoksuccessfullassing(){
+  this.fetchEmpleyados()
+  this.fetchOffices()
+  this.fetchOpis()
+  this.dialogforassignsuccessfully = false
+},
+
 // async sendRequestAssignOffice() {
 //       try {
 //         const data = new FormData
@@ -353,6 +362,7 @@ assignToOffice(controlno) {
   console.log("Control NO",controlno)
     this.selectedControlNo = controlno;
     this.dialogshowoffice = true;
+    
   },
 
 
@@ -650,7 +660,7 @@ padding: 10px;
 border: 1px solid #168904;
 border-radius: 10px;
 margin-bottom: 10px;
-width: 500px;
+width: 250px;
 height: 40px;
 }
 

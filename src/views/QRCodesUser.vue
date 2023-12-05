@@ -142,7 +142,7 @@
                   <v-container>
                     <v-row>
 
-                      <v-col cols="12" md="6" sm="12">
+                      <v-col cols="12" md="4" sm="12">
                         <!--   {{ RealDate }} {{ RealTime }} -->
                         <v-col cols="12">
                           <!--     <p style="font-size:15px"> <b>Event ID:</b> {{ Event.ID }} </p> -->
@@ -154,27 +154,48 @@
                         <v-col cols="12" class="mt-n6">
                           <p style="font-size:15px"><b>Event Venue:</b> {{ Event.Event_venue }} </p>
                         </v-col>
-                      </v-col>
-                      <!-- <p>Designation: {{ designation }}</p> -->
-                      <v-col cols="12" md="6" sm="12" class="mt-n9 mt-md-1">
-                        <v-col cols="12">
-                          <p v-if="selectedOffice" style="font-size:15px"> <b>Office:</b> {{ selectedOffice }} </p>
-                        </v-col>
                         <v-col cols="12" class="mt-n6">
                           <!--    <p style="font-size:15px"> <b>Time From:</b> {{ Event.Event_from }} </p> -->
                           <p style="font-size:15px"> <b>Time From:</b> {{ formattedTime_From(Event.Event_from) }} </p>
                         </v-col>
                         <v-col cols="12" class="mt-n6">
                           <p style="font-size:15px"><b>Time To:</b> {{ formattedTime_To(Event.Event_to) }} </p>
-                          <p>{{ RealTime }}</p>
-
+                        
                         </v-col>
-
-                        <!-- <p>Designation: {{ designation }}</p>
-  <p>Control No: {{ controlno }}</p> -->
-                        <!-- <p>TIME {{ time }}</p> -->
-
                       </v-col>
+                      <!-- <p>Designation: {{ designation }}</p> -->
+                      <v-col cols="12" md="3" sm="12" class="mt-n9 mt-md-1">
+                        <v-col cols="12">
+                          <p v-if="selectedOffice" style="font-size:15px"> <b>Office:</b> {{ selectedOffice }} </p>
+                        </v-col>
+                 
+                       
+                      </v-col>
+                  
+                        
+
+                      <v-col cols="12" md="4" sm="12" class="mt-n9 mt-md-1 ml card">
+                        <v-card elevation="10" >
+                        <v-col cols="12">
+                          <p style="font-size:15px"> <b>DNP</b> <span class="mdi mdi-circle ml-7"></span> Did not Participate</p>
+<!--<p style="font-size:15px"> <b>DNP</b> <span class="mdi mdi-circle ml-7"></span> Did not Participate</p> -->
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <!--    <p style="font-size:15px"> <b>Time From:</b> {{ Event.Event_from }} </p> -->
+                          <p style="font-size:15px"> <b>OB</b> <span class="mdi mdi-circle ml-10"></span> On Field Business</p> 
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <p style="font-size:15px"> <b>OF</b> <span class="mdi mdi-circle ml-10"></span> On Field</p> 
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <p style="font-size:15px"> <b>OL</b> <span class="mdi mdi-circle ml-10"></span> On Leave</p> 
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <p style="font-size:15px"> <b>FWL</b> <span class="mdi mdi-circle ml-7"></span> Flexible Work Schedule</p> 
+                        </v-col>
+                      </v-card>
+                      </v-col>
+
 
                     </v-row>
                   </v-container>
@@ -388,6 +409,7 @@ export default {
       time: "", // Add this variable
       formattedTime: "",
       status: "",
+      office_id:'',
       userData: {
 
         office_id: '',
@@ -646,7 +668,7 @@ export default {
 
     // FOR QR CODE CREATE SCAN START
 
-   /*  creatScan_htmlfive() {
+     creatScan_htmlfive() {
 
       const config = { fps: 10, qrbox: 250 };
       const html5QrcodeScanner = new Html5QrcodeScanner(
@@ -655,7 +677,7 @@ export default {
       );
       html5QrcodeScanner.render(this.onScanSuccess);
 
-    }, */
+    }, 
 
       creatScan_htmlfive() {
         const html5QrCode = new Html5Qrcode("qr-code-full-region");
@@ -676,34 +698,34 @@ export default {
 
     // FOR QR CODE CREATE SCAN END
 
-    creatScan(status) {
-      const config = {
-        fps: 10,
-        qrbox: { width: 250, height: 250 },
-        rememberLastUsedCamera: true,
-        aspectRatio: 1.7777778,
-        supportedScanTypes: [
+    // creatScan(status) {
+    //   const config = {
+    //     fps: 10,
+    //     qrbox: { width: 250, height: 250 },
+    //     rememberLastUsedCamera: true,
+    //     aspectRatio: 1.7777778,
+    //     supportedScanTypes: [
 
-          Html5QrcodeScanType.SCAN_TYPE_CAMERA
-        ],
-        showTorchButtonIfSupported: true,
-        resetCameraActionStartButton: true
-      };
-      const html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-code-full-region",
-        config
-      );
-      if (status == 1) {
+    //       Html5QrcodeScanType.SCAN_TYPE_CAMERA
+    //     ],
+    //     showTorchButtonIfSupported: true,
+    //     resetCameraActionStartButton: true
+    //   };
+    //   const html5QrcodeScanner = new Html5QrcodeScanner(
+    //     "qr-code-full-region",
+    //     config
+    //   );
+    //   if (status == 1) {
 
-        html5QrcodeScanner.render(this.onScanSuccess);
-      } else {
+    //     html5QrcodeScanner.render(this.onScanSuccess);
+    //   } else {
 
-        html5QrcodeScanner.stop().then(() => {
-          html5QrcodeScanner.clear();
-          this.showDialog = false;
-        });
-      }
-    },
+    //     html5QrcodeScanner.stop().then(() => {
+    //       html5QrcodeScanner.clear();
+    //       this.showDialog = false;
+    //     });
+    //   }
+    // },
 
     onScanSuccess(decodedResult) {
       const obj = { decodedResult: decodedResult };
@@ -797,7 +819,8 @@ export default {
           this.controlno = controlno;
           this.fullname = employeeWithMatchingControlno.fullname;
           this.status = employeeWithMatchingControlno.status;
-          this.office=employeeWithMatchingControlno.office;
+          this.office = employeeWithMatchingControlno.office;
+          this.office_id = employeeWithMatchingControlno.office_id;
 
           const scanTime = new Date();
           this.time = scanTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
@@ -808,7 +831,7 @@ export default {
           this.employees.unshift(editedemployee)
           console.log("Control No =", controlno);
           console.log("office=", this.office);
-          console.log("Office ID =", office_id);
+          console.log("Office ID =", this.office_id);
           console.log("Full Name =", fullname);
           console.log("Designation =", designation);
           console.log("Status=", status);
@@ -907,7 +930,7 @@ export default {
       let data = new FormData();
       data.append('Controlno', this.controlno);
       data.append('event_id', this.eventayde);
-      data.append('office', this.office);
+      data.append('office_id', this.office_id);
       data.append('fullname', this.fullname);
       data.append('status', this.status);
       data.append('designation', this.designation);
@@ -921,7 +944,7 @@ export default {
         .catch(e => {
           console.error('Error during registration:', e.message);
         });
-        console.log("Kini daw ni ",res.data)
+     /*    console.log("Kini daw ni ",res.data) */
     },
 
 

@@ -3,13 +3,14 @@ import axios from 'axios';
 const state = () => ({
   events: [],
   pangalans: [],
+  eventattendance:[],
   eventhistory:[],
   event: {},
 })
 
 const getters = {
   getEvents(state) {
-    console.log("Get Events",state.events);
+    // console.log("Get Events",state.events);
     return state.events;
   },
   getEvent(state){
@@ -17,24 +18,30 @@ const getters = {
   },
 
   getEventsHistory(state) {
-    console.log("Get Events History",state.eventhistory);
+    // console.log("Get Events History",state.eventhistory);
     return state.eventhistory;
   },
 
   getName(state) {
-    console.log("get Employees =", state.pangalans)
+    // console.log("get Employees =", state.pangalans)
     return state.pangalans;
 },
+
+getEventAttendance(state) {
+  // console.log("get Event Attendance =", state.eventattendance)
+  return state.eventattendance;
+},
+
 }
 
 const mutations = {
   setEvents(state, payload){
-    console.log("Set events",payload);
+    // console.log("Set events",payload);
     state.events = payload;
   },
 
   setEventsHistory(state, payload){
-    console.log("Set events history",payload);
+    // console.log("Set events history",payload);
     state.eventhistory = payload;
   },
 
@@ -47,6 +54,13 @@ const mutations = {
   setName(state, payload) {
     state.pangalans = payload;
 },
+
+setEventAttendance(state, payload) {
+  state.eventattendance = payload;
+},
+
+
+
 }
 
 const actions = {
@@ -78,14 +92,33 @@ const actions = {
       ///  let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/eventdetails.php`, payload);
         let res = await axios.post(`/eventdetails.php`,payload);
 
-        console.log("data from db=", res.data.event_details[0])
+        // console.log("data from db=", res.data.event_details[0])
+        // console.log("Event Attendance=", res.data.event_attendance)
         commit('setName', res.data.event_details[0]);
+        commit('setEventAttendance', res.data.event_attendance); 
     }
     catch (error) {
         console.error('Error fetching students:', error);
     }
+
 },
 
+
+async Admin_fetchPangalan({ commit }, payload) {
+  try {
+    ///  let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/eventdetails.php`, payload);
+      let res = await axios.post(`/admineventdetails.php`,payload);
+
+      // console.log("data from db=", res.data.event_details[0])
+       console.log("Event Attendance=", res.data.event_attendance)
+      commit('setName', res.data.event_details[0]);
+      commit('setEventAttendance', res.data.event_attendance); 
+  }
+  catch (error) {
+      console.error('Error fetching students:', error);
+  }
+
+},
 
 }
 

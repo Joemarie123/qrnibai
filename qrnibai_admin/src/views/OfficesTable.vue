@@ -9,9 +9,9 @@
     
       <v-btn @click="createevents = true" class="my-10" color="green" height="100">
         <v-icon size="90">mdi-calendar-plus</v-icon>
-        <span class="mt-11">ADD OFFICE</span></v-btn
+        <p class="mt-11 classeventdetails " >ADD OFFICE</p></v-btn
       >
-        <v-dialog v-model="createevents"  max-width="600px">
+        <v-dialog v-model="createevents"  max-width="510px">
           <v-card>
        
               <v-container>
@@ -19,14 +19,14 @@
   
              <button @click="createevents = false" class="close-button"><strong>X</strong></button>                 
             <v-col cols="12"  sm="12" md="12" class="my-5 ml-7 mt-2" >
-            <p class="classeventdetails" :style="{ color: '#70b354' }"><strong>Event Details</strong></p>
+            <p class="classeventdetails" :style="{ color: '#70b354' }"><strong>ADD Offices</strong></p>
   
   </v-col>
   
   <v-col  cols="10" sm="10" md="10"
-      class="ml-10 mt-n5">
+      class="ml-10 mt-n1">
      
-        <v-row>
+     <!--    <v-row>
       <v-col cols="12"  sm="3" md="3" class="ml-n8 mt-md-n2 ml-md-n4 mt-sm-n2 ml-sm-n4">
     <p class="classfortitle ml-5">Date:</p>
     </v-col>
@@ -34,22 +34,22 @@
     <v-col cols="12" sm="9" md="9" class="mt-n3 mt-md-n0 mt-sm-n0" > 
      <v-text-field height="10" variant="outlined" density="compact" type="date" label="Event Name"></v-text-field>
     </v-col>
-  </v-row>
+  </v-row> -->
   
      </v-col>
   
-     <v-col  cols="10" sm="10" md="10"   class="ml-10 mt-n8"
+     <v-col  cols="10" sm="10" md="10"   class="ml-10 mt-n5"
   >
-  <v-row>
+<!--   <v-row>
   
-      <v-col cols="12" md="3" sm="3" class="ml-n8 mt-n1 mt-md-2 ml-md-n4 mt-sm-2 ml-sm-n4" >
-    <p class="classfortitle ml-5">Activity:</p>
+      <v-col cols="12" md="4" sm="4" class="ml-n8 mt-n1 mt-md-2 ml-md-n4 mt-sm-2 ml-sm-n4" >
+    <p class="classfortitle ml-5">Department:</p>
     </v-col>
   
-    <v-col cols="12" md="9" sm="9" class="mt-n4 mt-md-1 mt-sm-1">
-     <v-text-field height="10" variant="outlined" density="compact"  label="Event Name"></v-text-field>
+    <v-col cols="12" md="8" sm="9" class="mt-n4 mt-md-1 mt-sm-1">
+     <v-text-field height="10" variant="outlined" density="compact"  label="Office Name"></v-text-field>
     </v-col>
-  </v-row>
+  </v-row> -->
   
   
      </v-col>
@@ -57,35 +57,42 @@
   
      <v-col  cols="10" sm="10" md="10" class="ml-10 mt-n8"
   >
+<!--   <v-row> -->
+<!--   
+  <v-col cols="12" md="4" sm="4" class="ml-n8 mt-n1 mt-md-2 ml-md-n4 mt-sm-2 ml-sm-n4">
+  <p class="classfortitle ml-5">Division:</p>
+  </v-col>
+  
+  <v-col cols="12" md="8" sm="8" class="mt-n4 mt-md-1 mt-sm-1">
+  <v-text-field height="10" variant="outlined" density="compact" label="Venue"></v-text-field>
+  </v-col> -->
+<!--   </v-row> -->
+
+ <!--  <v-row>
+  
+  <v-col cols="12" md="4" sm="4" class="ml-n8 mt-n1 mt-md-n6 ml-md-n4 mt-sm-2 ml-sm-n4">
+  <p class="classfortitle ml-5">Section:</p>
+  </v-col>
+  
+  <v-col cols="12" md="8" sm="8" class="mt-n6 mt-md-n7 mt-sm-1">
+  <v-text-field height="10" variant="outlined" density="compact" label="Section"></v-text-field>
+  </v-col>
+  </v-row> -->
+
   <v-row>
   
-  <v-col cols="12" md="3" sm="3" class="ml-n8 mt-n1 mt-md-2 ml-md-n4 mt-sm-2 ml-sm-n4">
-  <p class="classfortitle ml-5">Venue:</p>
+  <v-col cols="12" md="4" sm="4" class="ml-n8 mt-n1 mt-md-n6 ml-md-n4 mt-sm-2 ml-sm-n4">
+  <p class="classfortitle ml-5">Office Name:</p>
   </v-col>
   
-  <v-col cols="12" md="9" sm="9" class="mt-n4 mt-md-1 mt-sm-1">
-  <v-text-field height="10" variant="outlined" density="compact" label="Venue"></v-text-field>
+  <v-col cols="12" md="8" sm="8" class="mt-n6 mt-md-n7 mt-sm-1">
+  <v-text-field v-model="officename" height="10" variant="outlined" density="compact" label="Office Name"></v-text-field>
   </v-col>
   </v-row>
+  
      </v-col>
   
-    <v-row  class="ml-10 mt-n7">
-  
-      <v-col cols="12" md="3" sm="3" class="ml-n8 mt-n2 mt-md-2 ml-md-n4 mt-sm-2 ml-sm-n4 ">
-  <p class="classfortitle ml-5">Time:</p>
-  </v-col>
-  
-     <v-col cols="11"  sm="4" md="4"  class="mt-n3 mt-md-1 ml-md-n4 mt-sm-1 ml-sm-n4"
-     >
-     <v-text-field height="10"    variant="outlined"  density="compact" type="time"  label="Time Started"></v-text-field>
-     </v-col>
-  
-  
-     <v-col cols="11" sm="4" md="4"  class="mt-n6 mt-md-1 ml-md-n2 mt-sm-1 ml-md-n2" >
-      <v-text-field height="10"     variant="outlined" density="compact" type="time"  label="Time Ended"></v-text-field>
-     </v-col>
-  
-    </v-row>
+    
   
   
   </v-row>  
@@ -96,7 +103,7 @@
   
       <v-btn color="green" class="pa-2 ml-5 mt-n1"
           outlined dark
-          @click="dialog_Create_Events = false">
+          @click="saveoffice()">
         Submit
       </v-btn>
   
@@ -111,7 +118,7 @@
         </v-dialog>
   
   
-      <h2 class="mx-2" :style="{ color: 'green' }">EVENTS</h2>
+      <h2 class="mx-2" :style="{ color: 'green' }">Office List</h2>
     </v-container>
   
     <v-container>
@@ -147,29 +154,48 @@
           </table> -->
           <v-data-table
       :headers="headers"
-      :items="tableData"
+      :items="Offices"
       :items-per-page="5"
       class="elevation-1"
     
     >
     <template v-slot:item.actions="{ item }">
   
+
 <button>
-<v-icon left color="success"   @click="handleRowClick(item)" class="white--text mx-2">mdi-plus-outline</v-icon>
+<v-icon left color="success"   @click="handleRowClick(item)" class="white--text mx-2">mdi-update
+
+</v-icon>
+ <span  style="color: rgb(10, 189, 90);">Edit</span>
 </button>
-  
-<button>
-<v-icon left color="success"   @click="handleRowClick(item)" class="white--text mx-2">mdi-update</v-icon>
-</button>
-  
+<!--   
 <button>
 <v-icon left color="red"   @click="handleRowClick(item)" class="white--text mx-2">mdi-delete</v-icon>
-</button>
+</button> -->
   
   </template>
   
   
   </v-data-table>
+  <v-dialog v-model="dialogVisible" persistent max-width="280">
+    <v-card >
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Successfully Saved</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+            <v-img src="/save.png" ></v-img>
+            </v-avatar>
+        </v-col>
+      </v-row>
+      <v-card-actions class="d-flex justify-center mt-n7">  
+        <v-btn color="green" text @click="dialogVisible = false">OK</v-btn>
+      </v-card-actions>
+  
+    </v-card>
+  </v-dialog>
+
         </v-col>
       </v-row>
     </v-container>
@@ -181,6 +207,7 @@
   
   
   <script>
+  import { mapActions, mapGetters, mapState } from "vuex";
   import NavBar from "@/components/NavBar.vue";
   
   export default {
@@ -191,9 +218,9 @@
     
   data() {
     return {
-  
+      officename:'',
       createevents:false,
-  
+  dialogVisible:false,
       items: [
         { title: "My Account", icon: "mdi-account",  },
         { title: "Settings", icon: "mdi-clock" },
@@ -203,53 +230,12 @@
   
       headers: [
          
-          { key: "officename", title: "Office Name", sortable: false },
-          { key: "officenumber", title: "Employees Count", sortable: false },
-          { key: "actions", title: "Actions" , align:"center" },
+          { key: "office", title: "Office Name", sortable: false },
+          { key: "employees", title: "Employees Count", sortable: false },
+       /*    { key: "actions", title: "Actions" , align:"center" }, */
         
         
         ],
-  
-  
-      tableData: [
-        {
-         
-            officename: "RMSID OFFICE",
-        
-            officenumber: 50,
-        },
-        {
-         
-            officename: "Human Resource Office",
-         
-            officenumber: 75,
-        },
-        {
-         
-            officename: "Civil Service Event",
-         
-            officenumber: 90,
-        },
-        {
-         
-            officename: "Tagum October Fest",
-          
-            officenumber: 90,
-        },
-        {
-        
-            officename: "Beer of the Month",
-         
-            officenumber: 90,
-        },
-        {
-         
-            officename: "Nutrition Month",
-          
-            officenumber: 90,
-        },
-        // Add more sample data here...
-      ],
   
       tableData_HomeEvents: [
           { id: 1, eventName: 'Araw Nang Tagum', eventDates: '2023-07-20', attendance: '50',venue:'Tagum City Hall'  ,Department:'City Mayor' ,Division:'City Mayor' ,Section_unit:'Section Durian' ,Project:'Project Night Fall' },
@@ -262,7 +248,39 @@
         ]
     };
   },
+
+  computed: {
+    ...mapGetters("office", { Offices: "getOffices" }),
+
+    filteredOffices() {
+      // Use computed property to filter offices based on the filterId
+      return this.Offices.filter(office => String(office.id).includes(this.sample_id));
+    },
+  },
+
+  created() {
+    this.fetchOffices()
+  },
+
   methods: {
+    ...mapActions("office", ["fetchOffices"]),
+    ...mapActions("office", ["AddnewOffice"]),
+
+    saveoffice()
+    {
+      let data = new FormData();
+      data.append('office', this.officename);
+   
+      this.AddnewOffice(data).then(() => {
+        /*   this.navigateTo('/walup'); */
+        }).catch(e => console.log(e.message));
+
+        this.officename = '';
+          this.dialogVisible = true;
+        this.createevents = false
+        this.fetchOffices()
+    },
+
     editEvent(id) {
       // Handle edit event logic
       console.log("Edit Event:", id);
@@ -292,8 +310,10 @@
   </script>
   
   <style scoped>
+
+
   .container123 {
-    max-width: 1000px;
+    max-width: 1400px;
     padding-left: 20px;
     padding-right: 20px;
     margin: auto;
@@ -303,12 +323,12 @@
   }
     .classfortitle{
     /*  color: #70b354; */
-      font-size: 20px;
+      font-size: 16px;
     }
   
     .classeventdetails{
   
-      font-size: 28px;
+      font-size: 20px;
     }
   
   
@@ -326,7 +346,7 @@
   
   
   table {
-  width: 70%;
+  width: 100%;
   border-collapse: collapse;
   }
   

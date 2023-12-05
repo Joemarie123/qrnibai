@@ -353,14 +353,16 @@
 
 
   cancelDialog() {
+    this.selectedItems = []
       this.add_employees_dialog = false;
     },
 
     openaddemployeedialog()
     {
+      this.selectedItems = []
       this.add_employees_dialog = true
       this.search = ""
-      this.selectedItems = []
+      
     },
 
     kinidaw()
@@ -390,6 +392,7 @@
 
      closeandupdate()
     {
+      this.selectedItems = []
       this.add_employees_dialog = false,
       this.dialogforadded = false
       this.kinidaw()
@@ -418,7 +421,7 @@
 
     let res = await axios.post(`/addtooffice.php`, this.saveEmployees);
       console.log("radsf",res.data)
-      this.selectedItems = []; 
+    /*   this.selectedItems = [];  */
       this.passremark=true;
 
       let data = new FormData;
@@ -431,15 +434,7 @@
   this.eventayde = localStorage.getItem("ID");
 
   data.append('office_id',adminrecords.office_id)
- 
- /*  this.fetchPangalan(data).then(res=>{
-    this.employees=this.Pangalan
-    this.searchByOffice();
-    console.log("employees=",this.employees)
-  }) */
-
-    
-
+  this.saveEmployees = [];
     },
 
     

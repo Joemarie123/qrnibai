@@ -192,7 +192,7 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" sm="6" md="6" lg="6">
+                <!-- <v-col cols="12" sm="6" md="6" lg="6">
                   <v-text-field
                   readonly
                     label="Office ID"
@@ -202,7 +202,7 @@
                     class="mb-n6"
                   ></v-text-field>
                 </v-col>
-
+ -->
 
               </v-row>
 

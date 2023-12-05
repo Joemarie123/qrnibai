@@ -17,7 +17,7 @@
           <v-container>
         <v-row>
 
-         <button @click="createevents = false" class="close-button "><strong>X</strong></button>                 
+  <button @click="createevents = false" class="close-button "><strong>X</strong></button>                 
         <v-col cols="12"  sm="12" md="12" class="my-5 ml-7 mt-2" >
         <p class="classeventdetails" :style="{ color: '#70b354' }"><strong>Event Details</strong></p>
 
@@ -174,15 +174,19 @@
 <v-container>
 
   <v-row>
-    <v-col class="d-flex justify-end ml-n3 " cols="12">
-    <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
+ <!--  <v-col class="d-flex justify-end ml-n3 " cols="12">
+  <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
+  </v-col>
+ -->
+  <v-col :class="{'d-flex justify-end': !isMobile, 'd-flex justify-start': isMobile}" cols="12">
+    <v-btn color="success" rounded-lg variant="outlined" @click="createevents = true">+ Create Events</v-btn>
   </v-col>
 
-    <v-col cols="2">
-  <h3 class="ml-8 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
+    <v-col cols="12" md="2"  lg="2" xl="2">
+  <h3 class="ml-1 ml-lg-5 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
 </v-col>
 
-<v-col class="mt-n4" cols="6">
+<v-col class="mt-n4" cols="12" lg="2" xl="2">
   <input v-model="search" class="textbox"  placeholder="Search Event">
 <!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
 </v-col>
@@ -207,7 +211,7 @@
 </button>
 
 <button >
-<v-icon color="primary"  large >mdi-printer</v-icon>
+<v-icon color="primary" @click="handleRowPrintClick(item)"  large >mdi-printer</v-icon>
 </button>
 
 
@@ -241,6 +245,7 @@ components: {
 data() {
 return {
 
+  isMobile: false,
   hours_from: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
   minutes_from: [
   '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',
@@ -299,16 +304,16 @@ return {
         key: "ID",
         sortable: false,
         title: "ID",
-       
+        align: " d-none"
        
       },
       { key: "Event_name", title: "Event Name", sortable: false },
       { key: "Event_date", title: "Event Dates", sortable: false },
       { key: "Event_from", title: "Event From", sortable: false },
-      { key: "Event_to", title: "Event To", sortable: false },
+      { key: "Event_to", title: "Event To", sortable: false , formatter: this.formattedTime_To },
       { key: "Event_venue", title: "Event Venue", sortable: false },
       { key: "AttendanceCount", title: "Attendance", sortable: false },
-      { key: "actions", title: "Actions" , align:"center" },
+      { key: "actions", title: "Actions" , align:" d-none d-sm-table-cell" },
   
     ],
 
@@ -323,7 +328,7 @@ return {
 */
 computed: {
   ...mapGetters("events", { events: "getEvents" }),
-
+  ...mapGetters("events", { events: ['getEventsHistory'] }),
 /*    sortedItems() {
       // Sort the items array based on date and time
       return this.items.slice().sort((a, b) => {
@@ -397,14 +402,23 @@ computed: {
 
 created() {
   this.fetchEvents();
+  this.fetchEventsHistory();
 },
-
+beforeDestroy() {
+    // Remove the resize event listener to prevent memory leaks
+    window.removeEventListener('resize', this.handleResize);
+  },
 
 methods: {
 
 ...mapActions('events', ['registerEvents']),
 ...mapActions('events', ['fetchEvents']),
+...mapActions('events', ['fetchEventsHistory']),
 
+handleResize() {
+      // Update isMobile based on the current window width
+      this.isMobile = window.innerWidth <= 600; // Adjust the value based on your mobile breakpoint
+    },
 
 handleRowClick(item) {
     // console.log("users=", item);
@@ -416,7 +430,15 @@ handleRowClick(item) {
     this.$router.push({ name: "EventView2", params: { id: item.columns.ID }});
   },
 
+  handleRowPrintClick(item){
+       // console.log("users=", item);
+       console.log("users=", item.columns.ID);
+      //   console.log("EventName", row.item.raw.Event_name);
+      localStorage.setItem('ID', item.columns.ID);
+      this.$router.push({ name: "EventDetails", params: { id: item.columns.ID }});
 
+
+  },
 
 
 register() {
@@ -460,6 +482,7 @@ register() {
   closedialogsuccessfullsave()
 
   {
+    this.fetchEvents()
     this.Dialog_Successfully_Saved = false
     this.createevents = false
 
@@ -493,6 +516,13 @@ navigateTo(path) {
 
 },
 
+mounted()
+{
+  this.isMobile = window.innerWidth <= 600; // Adjust the value based on your mobile breakpoint
+
+// Add a listener to update the isMobile property when the window is resized
+window.addEventListener('resize', this.handleResize);
+}
 /* mounted() {
 try {
     const userData = localStorage.getItem('user');
@@ -586,7 +616,7 @@ padding: 10px;
 border: 1px solid #168904;
 border-radius: 10px;
 margin-bottom: 10px;
-width: 500px;
+width: 300px;
 height: 40px;
 }
 </style>

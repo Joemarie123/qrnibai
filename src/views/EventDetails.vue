@@ -1,5 +1,16 @@
 <template>
   <div id="btn-group" class="mx-auto w-75 mt-2">
+    <v-btn
+          color="orange"
+            class="text-none primary mx-4"
+            min-width="92"
+            rounded
+            variant="outlined"
+            @click="$router.push('/EventHistory').catch((err) => {})"
+          >
+            <v-icon> mdi-arrow-left </v-icon>
+            Back
+          </v-btn>
     <v-btn class="bg-green" @click="print"> Print </v-btn>
   </div>
   <div class="wholePage">
@@ -25,21 +36,29 @@
           </v-col>
         </v-row>
         <v-container>
+          <v-row>
+            <v-col>
+              <p v-for="office in filteredOffices" :key="office.id" class="text-center">Office: {{ office.office }}</p>
+            </v-col>
+          </v-row>
           <v-row no-gutters style="text-align: justify">
             <v-col class="top mt-6">
-              <p>Department:</p>
-              <p>Division:</p>
-              <p>Section/Unit:</p>
-              <p>Project:</p>
-            </v-col>
-            <v-col class="top mt-6">
+            
               <p>Activity: {{ Event.Event_name }}</p>
-              <p>Date: {{ Event.Event_date }}</p>
-              <p>Venue: {{ Event.Event_venue }}</p>
+              <p>Date:  {{  formattedDate_bai (Event.Event_date) }}</p>
+             
+             <!--  <p v-for="office in filteredOffices" :key="office.id">Division: {{ office.Division }}</p>
+              <p v-for="office in filteredOffices" :key="office.id">Section/Unit: {{ office.Section }}</p> -->
+            <!--   <p>Project:</p> -->
+            </v-col>
+            <v-col class="top mt-6 ">
+             
+              <p class="d-flex align-center justify-center">Time: {{ formattedTime_To (Event.Event_from) }}</p>
+              <p class="d-flex align-center justify-center">Time: {{ Event.Event_venue }}</p>
             </v-col>
           </v-row>
         </v-container>
-        <v-col cols="12">
+        <v-col cols="12" class="mt-4">
           <h4>ATTENDANCE SHEET</h4>
         </v-col>
       </v-container>
@@ -115,6 +134,7 @@ import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
+      officeId:'',
       employees: [],
       itemsPerPage: 24,
 
@@ -137,10 +157,20 @@ export default {
     };
   },
 
+  
   computed: {
+
+    
     ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
     ...mapGetters("users", { fetechEmployees: ["getUsers"] }),
     ...mapGetters("office", { Offices: "getOffices" }),
+
+    filteredOffices() {
+      // Use computed property to filter offices based on the filterId
+      return this.Offices.filter(office => String(office.id).includes(this.officeId));
+    },
+
+
     ...mapState({
       employeeremarks: (state) => state.remarks,
     }),
@@ -166,11 +196,12 @@ export default {
 
   created() {
     this.fetchOffices().then((req) => {
-      this.fetchData();
-      this.searchByOffice();
+      /* this.fetchData(); */
+      /* this.searchByOffice(); */
     });
     let data = new FormData();
     const adminrecords = JSON.parse(localStorage.getItem("user"));
+    this.officeId = adminrecords.office_id; // Set the officeId property
     console.log("ID=", adminrecords.office_id);
 
     console.log("EventName=", this.$route.params.Event_name);
@@ -181,7 +212,7 @@ export default {
     data.append("office_id", adminrecords.office_id);
     this.fetchPangalan(data).then((res) => {
       this.employees = this.Pangalan;
-      this.searchByOffice();
+      /* this.searchByOffice(); */
       console.log("employees=", this.employees);
     });
   },
@@ -192,6 +223,28 @@ export default {
     ...mapActions("scaninsert", ["registerScan"]),
     ...mapActions("office", ["fetchOffices"]),
     ...mapActions("scaninsert", ["saveallremarks"]),
+
+    formattedDate_bai(date) {
+      const eventDate = new Date(date);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return eventDate.toLocaleDateString(undefined, options);
+    },
+
+
+    formattedTime_To(time) {
+      const eventTime = new Date(`2000-01-01T${time}`);
+      let hours = eventTime.getHours();
+      const minutes = eventTime.getMinutes();
+      const period = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12 || 12; // Convert 0 to 12 for 12-hour clock
+
+      // Format minutes to have leading zero if less than 10
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+      return `${hours}:${formattedMinutes} ${period}`;
+    },
+
     print() {
       if (window) window.print();
     },
@@ -288,7 +341,7 @@ td {
   #table-content {
     page-break-before: always; /* Start the table on a new printed page */
     position: relative; /* Change to relative for normal flow on subsequent pages */
-    top: 450px; /* Adjust the value based on your desired top margin */
+    top: 430px; /* Adjust the value based on your desired top margin */
   }
 
   #top-content {
