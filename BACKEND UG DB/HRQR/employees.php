@@ -23,6 +23,7 @@ try {
 
     $result['users']=$conn->query("SELECT  CONCAT(firstname, ' ', middlename, ' ', lastname) as fullname, tblemployees.* FROM tblemployees")
             ->fetchAll(PDO::FETCH_OBJ);
+            $conn=null;
     echo json_encode($result);
 } catch (PDOException $e){
     var_dump($e);

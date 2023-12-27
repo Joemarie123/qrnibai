@@ -7,10 +7,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':Event_ID' => $_POST['event_id']
         
     ];
-    $dataArguments = [
-        ':Event_ID' => $_POST['event_id'],
-        ':office_id' => $_POST['office_id']
-    ];
+    // $dataArguments = [
+    //     ':Event_ID' => $_POST['event_id'],
+    //     ':office_id' => $_POST['office_id']
+    // ];
     // $queryString = "";
 
     // if ($event_ID) {
@@ -33,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $results['event_details'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt2 = $conn->prepare("select CONCAT(firstname, ' ', middlename, ' ', lastname) as fullname,vwemployee.*, eventhistory.Time as timescanned,eventhistory.Remarks from vwemployee left   join (select controlno, time , remarks from tbleventhistory where event_id=:Event_ID) as eventhistory on vwemployee.controlno=eventhistory.Controlno where vwemployee.office_id=:office_id");
-        $stmt2->execute($dataArguments);
+        $stmt2 = $conn->prepare("select CONCAT(firstname, ' ', middlename, ' ', lastname) as fullname,vwemployee.*, eventhistory.Time as timescanned,eventhistory.Remarks from vwemployee left   join (select controlno, time , remarks from tbleventhistory where event_id=:Event_ID) as eventhistory on vwemployee.controlno=eventhistory.Controlno ");
+        $stmt2->execute($dataArguments2);
 
         $results['event_attendance'] = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         

@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $results['event_ID'] = $event_ID ? $event_ID : $conn->lastInsertId();
 
         
-
+        $conn=null;
         echo json_encode($results);
     } catch (PDOException $e) {
         var_dump($e);

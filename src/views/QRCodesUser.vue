@@ -22,7 +22,7 @@
             <v-row class="mt-n15 mt-md-1 ">
               <!--   <v-col class="d-flex justify-end ml-n3 " cols="12">
     <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
-  </v-col>        
+  </v-col>
 -->
 
               <!--  <v-col cols="12">
@@ -119,7 +119,7 @@
               <!-- <div class="mt-2">
       <table class="TableHead">
         <tr>
-          <th>ID</th>     
+          <th>ID</th>
           <th>TIME</th>
         </tr>
 
@@ -160,7 +160,7 @@
                         </v-col>
                         <v-col cols="12" class="mt-n6">
                           <p style="font-size:15px"><b>Time To:</b> {{ formattedTime_To(Event.Event_to) }} </p>
-                        
+
                         </v-col>
                       </v-col>
                       <!-- <p>Designation: {{ designation }}</p> -->
@@ -168,11 +168,11 @@
                         <v-col cols="12">
                           <p v-if="selectedOffice" style="font-size:15px"> <b>Office:</b> {{ selectedOffice }} </p>
                         </v-col>
-                 
-                       
+
+
                       </v-col>
-                  
-                        
+
+
 
                       <v-col cols="12" md="4" sm="12" class="mt-n9 mt-md-1 ml card">
                         <v-card elevation="10" >
@@ -182,16 +182,16 @@
                         </v-col>
                         <v-col cols="12" class="mt-n6">
                           <!--    <p style="font-size:15px"> <b>Time From:</b> {{ Event.Event_from }} </p> -->
-                          <p style="font-size:15px"> <b>OB</b> <span class="mdi mdi-circle ml-10"></span> On Field Business</p> 
+                          <p style="font-size:15px"> <b>OB</b> <span class="mdi mdi-circle ml-10"></span> On Field Business</p>
                         </v-col>
                         <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>OF</b> <span class="mdi mdi-circle ml-10"></span> On Field</p> 
+                          <p style="font-size:15px"> <b>OF</b> <span class="mdi mdi-circle ml-10"></span> On Field</p>
                         </v-col>
                         <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>OL</b> <span class="mdi mdi-circle ml-10"></span> On Leave</p> 
+                          <p style="font-size:15px"> <b>OL</b> <span class="mdi mdi-circle ml-10"></span> On Leave</p>
                         </v-col>
                         <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>FWL</b> <span class="mdi mdi-circle ml-7"></span> Flexible Work Schedule</p> 
+                          <p style="font-size:15px"> <b>FWL</b> <span class="mdi mdi-circle ml-7"></span> Flexible Work Schedule</p>
                         </v-col>
                       </v-card>
                       </v-col>
@@ -208,7 +208,7 @@
   <v-container>
   <v-row >
     <v-col class="d-flex justify-center " cols="12" >
-   
+
  <v-btn color="success" height="90" width="300">
  <p class="mx-5" style="font-size:20px">SCAN QR</p>
  <v-img
@@ -218,9 +218,9 @@ cover
 src="/qr.png"
 ></v-img>
 </v-btn>
-  
 
- 
+
+
   </v-col>
 
   </v-row>
@@ -312,13 +312,13 @@ src="/qr.png"
                 <!-- <div>
 <p v-if="passremark">passremark is true</p>
     <p v-else>passremark is false</p>
-    
+
 </div> -->
 
                 <!--  <tbody>
         <tr v-for="(item, index) in selectedItems" :key="index">
           <td>{{ item.value.office_id }}</td>
-       
+
           <td>{{ item.value.office }}</td>
           <td>{{ item.value.fullname }}</td>
           <td>{{ item.value.Controlno }}</td>
@@ -475,7 +475,7 @@ export default {
       // Check if there is data in the "remarks" field of any employee
       // return this.employees.some(employee => !!employee.remarks);
       console.log("item=", item)
-      const original=this.Pangalan.filter((item)=>item.Controlno === item.Controlno) 
+      const original=this.Pangalan.filter((item)=>item.Controlno === item.Controlno)
       if(original.remarks){
         return true;
       }else{
@@ -580,7 +580,7 @@ export default {
       }
       /*   else if (dynamicDateTime == RealDateTime) {
           this.showDialog = true;
-    
+
         } */
 
       else {
@@ -677,7 +677,7 @@ export default {
       );
       html5QrcodeScanner.render(this.onScanSuccess);
 
-    }, 
+    },
 
       creatScan_htmlfive() {
         const html5QrCode = new Html5Qrcode("qr-code-full-region");
@@ -687,7 +687,7 @@ export default {
     const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
     // If you want to prefer back camera
-    html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess); 
+    html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess);
 
     // If you want to prefer front camera
     // html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
@@ -790,7 +790,7 @@ export default {
         // ){
         //   console.log("Control No = ",this.id(obj.decodedResult));
         //   const index=this.employees.findIndex((item) => item.Controlno === this.id(obj.decodedResult))
-        //   const editedemployee=this.employees.splice(index,1)[0]; 
+        //   const editedemployee=this.employees.splice(index,1)[0];
         //   editedemployee.timescanned=formattedTime;
         //   this.employees.unshift(editedemployee)
         //   console.log("Name:",this.name(obj.decodedResult));
@@ -837,9 +837,9 @@ export default {
           console.log("Status=", status);
           console.log("Time Scanned =", editedemployee.timescanned);
 
-          // START CODE FOR ADD TO DATA BASE 
+          // START CODE FOR ADD TO DATA BASE
           this.clickmetosave()
-          // END CODE FOR ADD TO DATA BASE 
+          // END CODE FOR ADD TO DATA BASE
 
           // START CODE FOR HIDE REMARKS
 
@@ -877,7 +877,7 @@ export default {
         data.append('designation', this.item.value.designation);
         data.append('time', this.item.value.timescanned);
         data.append('remarks', this.item.value.Remarks);
-      
+
       this.registerScan(data)
           .then(() => {
             console.log('Registration All successful');
@@ -885,7 +885,7 @@ export default {
           .catch(e => {
             console.error('Error during registration:', e.message);
           });
-    
+
       },
      */
     async saveAllData() {
@@ -926,7 +926,7 @@ export default {
     },
 
     clickmetosave() {
-     
+
       let data = new FormData();
       data.append('Controlno', this.controlno);
       data.append('event_id', this.eventayde);
@@ -980,7 +980,7 @@ export default {
     },
     saveremarks(item) {
       console.log("remarks=", item);
-      
+
       console.log("selecteditems=", item.index);
 
       const existingItemIndex = this.selectedItems.findIndex(

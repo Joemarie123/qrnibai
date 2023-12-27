@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $queryString = "UPDATE tbloffice SET office=:office WHERE tbloffice.id=:office_id";
         $dataArguments[':office_id'] = $office_id;
     } else 
-        $queryString = "INSERT INTO tlboffice(office) VALUES (:office)";
+        $queryString = "INSERT INTO tbloffice(office) VALUES (:office)";
     
 
     try {
@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         
         $results['office'] = $conn->query("SELECT * FROM tbloffice WHERE tbloffice.id={$results['office_id']}")->fetchAll(PDO::FETCH_OBJ);
         
+        $conn=null;
         echo json_encode($results);
     } catch (PDOException $e){
         var_dump($e);

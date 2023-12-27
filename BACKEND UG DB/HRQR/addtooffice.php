@@ -24,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         } else {
             die("No data received from Vue.js.");
         }
+        $conn=null;
         echo "done!";
+        
     } catch (PDOException $e){
         var_dump($e);
     }

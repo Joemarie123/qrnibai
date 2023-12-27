@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         
         $stmt->execute($dataArguments);
         $results['employees']=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $conn=null;
         echo json_encode($results);
     } catch (PDOException $e){
         var_dump($e);

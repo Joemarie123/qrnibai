@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $stmt = $conn->prepare($queryString);
         $stmt->execute($dataArguments);
+        $conn=null;
         echo "OK";
     } catch (PDOException $e){
         var_dump($e);

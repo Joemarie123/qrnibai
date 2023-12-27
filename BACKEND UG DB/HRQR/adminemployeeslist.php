@@ -21,7 +21,7 @@ try {
     
 
 
-    $result['events']=$conn->query("SELECT tblevents.*, SUM(case when tbleventhistory.time is not null then 1 else 0 END) as AttendanceCount FROM tblevents left join tbleventhistory on tblevents.id=tbleventhistory.event_id where event_date<=CURRENT_DATE() GROUP by tblevents.ID,tblevents.Event_name,tblevents.Event_date,tblevents.Event_from,tblevents.Event_to,tblevents.Event_venue order by event_date desc")
+    $result['users']=$conn->query("SELECT  CONCAT(tblemployees.firstname, ' ', tblemployees.middlename, ' ', tblemployees.lastname) as fullname, tblemployees.controlno,tblemployees.designation, tblemployees.status,office FROM tblemployees left join vwoffice on tblemployees.controlno=vwoffice.controlno")
             ->fetchAll(PDO::FETCH_OBJ);
             $conn=null;
     echo json_encode($result);

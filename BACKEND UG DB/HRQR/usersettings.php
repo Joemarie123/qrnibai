@@ -49,6 +49,7 @@ try {
 
     $results['user']=$conn->query("SELECT * FROM login where id={$_POST['userid']}")
             ->fetchAll(PDO::FETCH_OBJ);
+            $conn=null;
     echo json_encode($results);
 } catch (PDOException $e){
     var_dump($e);

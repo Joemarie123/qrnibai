@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $dataArguments = [
         ':Controlno' => $_POST['Controlno'],
         ':Event_id' => $_POST['event_id'],
-        ':office' => $_POST['office'],
+        ':office' => $_POST['office_id'],
         ':fullname' => $_POST['fullname'],
         ':status' => $_POST['status'],
         ':designation' => $_POST['designation'],
@@ -29,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
         
         $results['user'] = $conn->query("SELECT * FROM tbleventhistory WHERE tbleventhistory.event_id={$_POST['event_id']}")->fetchAll(PDO::FETCH_OBJ);
-        $stmt->close();
+        
+        $conn=null;
         echo json_encode($results);
     } catch (PDOException $e){
         var_dump($e);

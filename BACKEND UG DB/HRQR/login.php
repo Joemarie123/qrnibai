@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $results['auth']='none';
     
    
-    
+    $conn=null;
     echo json_encode($results);
 } catch (PDOException $e){
     var_dump($e);
