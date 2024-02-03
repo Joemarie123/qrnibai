@@ -8,21 +8,7 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue')
   },
-  
-/*   {
-    path: '/QrCodes',
-    name: 'QrCodes',
-    component: () => import('@/views/QrCodes.vue')
-  },
 
-  {
-    path: '/sample',
-    name: 'sample',
-    component: () => import('@/views/sample.vue')
-  },
-
-
-   */
 
   {
     path: '/Home',
@@ -37,7 +23,7 @@ const routes = [
     component: () => import('@/components/NavBar.vue')
   },
 
-  
+
   {
     path: '/DisplayEmployees',
     name: 'DisplayEmployees',
@@ -63,7 +49,7 @@ const routes = [
     path: '/CreateAccount',
     name: 'CreateAccount',
     component: () => import('@/views/CreateAccount.vue'),
- 
+
 
 
   },
@@ -73,13 +59,13 @@ const routes = [
     name: ' AuthorityToClaim',
     component: () => import('@/views/AuthorityToClaim.vue'),
   },
- 
+
   {
     path: '/PayrollPrint',
     name: ' PayrollPrint',
     component: () => import('@/views/PayrollPrint.vue'),
   },
- 
+
     //AppBar
     {
       path: '/OfficeBar',
@@ -112,7 +98,7 @@ const routes = [
     component: () => import('@/views/HomeEvents.vue')
   },
 
- 
+
   {
     path: '/UserList',
     name: 'UserList',
@@ -133,8 +119,8 @@ const routes = [
     name: 'OfficesTable',
     component: () => import('@/views/OfficesTable.vue')
   },
-  
-  
+
+
   {
     path: '/EventDetails',
     name: 'EventDetails',

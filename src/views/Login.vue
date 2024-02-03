@@ -1,16 +1,16 @@
 <template>
- 
+
     <v-app>
     <v-container  >
-     
-       
+
+
       <v-row  justify="center" >
-        
+
         <v-col cols="12" >
-             
-       
-         <!--  <v-card 
-          
+
+
+         <!--  <v-card
+
           :class="`elevation-6`"
           class=" login-form " > -->
 <div class=" login-form">
@@ -21,28 +21,37 @@
           <div class="text-center mt-3">
             <img class="logo" src="/public/Tagum.png" width="115">
           </div>
-       
+
 
             <v-card-title class="my-4 mt-n1 login-title">
-               
-                <b>HR SYSTEM QRCODES</b></v-card-title>
+<v-row>
+<v-col col="12">
+  <b>Attendance Reporting an
+                  </b>
+</v-col>
+<v-col col="12" class="mt-n6">
+  <b>Monitoring System</b>
+</v-col>
+</v-row>
+
+                </v-card-title>
             <v-card-text>
-             
+
               <form @submit.prevent="login">
 
               <!--   <p><b>User Name</b></p> -->
               <v-text-field
                 class="mx-5 mt-n1"
                 prepend-inner-icon="mdi-account"
-               density="compact" 
+               density="compact"
                variant="underlined"
               v-model="usernamenako"
-             label="User Name"   
+             label="User Name"
                 >
 
                 </v-text-field>
-                
-               
+
+
                 <v-text-field
                 class="mx-5 mt-n2"
                 prepend-inner-icon="mdi-key"
@@ -52,21 +61,21 @@
                   outlined
                   variant="underlined"
                   type="password"
-                 
+
                 ></v-text-field>
                 <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p>
-          
+
                 <v-row>
                     <v-col class="mx-4 d-flex justify-center" cols="11">
                 <v-btn  class="" rounded  type="submit" block rounded-lg  color="success" @click="Login_Events()"  >
                   Login
                 </v-btn>
-               
+
             </v-col>
-            
+
             </v-row>
           </form>
-             
+
             </v-card-text>
           </div>
        <!--    </v-card> -->
@@ -75,7 +84,7 @@
     </v-container>
 </v-app>
   </template>
-  
+
   <script>
   import { mapActions } from 'vuex';
   export default {
@@ -104,7 +113,7 @@
 
   {
 
-  
+
 
 console.log("username=",this.usernamenako)
 console.log("password=",this.password)
@@ -120,7 +129,7 @@ console.log("password=",this.password)
                         header: "Error",
                         subHeader: "Email or Password is incorrect.",
                         message: "Please double check your credentials."
-                        
+
                     });
                 } else {
                   if(e == 1){
@@ -129,28 +138,28 @@ console.log("password=",this.password)
                   /*   this.$router.push('/HomeEvents') */
                   }
                     // this.navigateTo('/TestingForm');
-                  
+
                   else
                   {
                    /*   console.log("LOGIN DETAILS") */
                     this.$router.push('/OfficeHomeEvents')
                   }
-                  
+
                   // this.navigateTo('/sample');
                 }
             }).catch(e => console.log("Error =>", e));
-            
-           
+
+
   },
-      
-      
+
+
     },
 
-  
+
 
   };
   </script>
-  
+
   <style scoped>
   .underline-on-hover {
   text-decoration: underline;
@@ -169,14 +178,14 @@ console.log("password=",this.password)
   width: 400px;
   transform: translate(-50%,-50%);
   border-radius: 20px;
-  
+
   }
 
   .login-title {
     text-align: center;
   }
- 
-/* 
+
+/*
   .bgCover {
   background-image: url("@/assets/bg.jpg");
   background-size: cover;
@@ -186,4 +195,3 @@ console.log("password=",this.password)
 
 
   </style>
-  

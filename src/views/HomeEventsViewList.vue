@@ -1,11 +1,11 @@
 <template>
 
-  
+
 
 
     <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
     <v-layout>
-      <v-app-bar  
+      <v-app-bar
       >
         <template v-slot:image>
 
@@ -21,23 +21,23 @@
 
         <v-spacer></v-spacer>
 
-      
+
         <v-avatar class="mx-2 my-2" :size="50">
   <v-img src="/img5.png" ></v-img>
 </v-avatar>
 
-      
-      </v-app-bar>      
+
+      </v-app-bar>
     </v-layout>
-    
+
   </v-card>
 
 <div class="container123">
   <h1 class="my-10" :style="{ color: '#70B354' }" >Event Details</h1>
- 
-  
+
+
   <v-row>
- 
+
  <v-col cols="7"  sm="6" md="6">
     <div v-for="items in selected_event" :key="items.id" height="200px">
 
@@ -50,8 +50,8 @@
 
 <v-col cols="7" sm="6" md="6" >
   <v-btn class="my-10 mt-n5 btn" color="green" height="100" width="250">
-          <div class="text--center  "> 
-    <p class="mt-n3 ifmobile">1542/5000</p> 
+          <div class="text--center  ">
+    <p class="mt-n3 ifmobile">1542/5000</p>
       <p class="mt-3 ml-4 ">No. of Attendees </p>
        </div>
   </v-btn>
@@ -78,12 +78,12 @@
         <td class="center">{{ row.timescanned }}</td>
         <td class="center">{{ row.remarks }}</td>
         <td class="center">{{ row.office }}</td>
-       
+
       </tr>
     </tbody>
   </table>
 
-  
+
 </div>
 </template>
 

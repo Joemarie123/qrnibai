@@ -8,14 +8,14 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue')
   },
-  
+
   {
     path: '/QrCodes',
     name: 'QrCodes',
     component: () => import('@/views/QrCodes.vue')
   },
 
-/*  
+/*
   {
     path: '/sample',
     name: 'sample',
@@ -31,7 +31,7 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
 
-  
+
   {
     path: '/EmployeeManagement',
     name: 'EmployeeManagement',
@@ -69,6 +69,16 @@ const routes = [
     component: () => import('@/views/EventDetails.vue')
   },
 
+  {
+    path: '/QrCodesNi',
+    name: 'QrCodesNi',
+    component: () => import('@/components/QrCodesNi.vue')
+  },
+
+
+
+
+
 
   {
     path: '/EventHistory',
@@ -87,7 +97,7 @@ const routes = [
 
 
 
-  
+
     //AppBar
     {
       path: '/OfficeBar',
@@ -100,7 +110,7 @@ const routes = [
       component: () => import('@/components/toolbar/HrBar.vue')
     },
 
-  
+
 
 
   {

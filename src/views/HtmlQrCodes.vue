@@ -1,6 +1,6 @@
 <template>
   <v-app>
- 
+
 
     <v-card>
       <!--   <h1>363 nani?</h1> -->
@@ -13,10 +13,10 @@
 
       <div class="text-center">
         <h4 class="mt-1">DATE: {{ currentDate }} - TIME: {{ currentTime }}</h4>
-      
+
       </div>
 
-      
+
     </v-card>
 
     <div class="mt-2">
@@ -47,7 +47,7 @@
         </table>
       </div>
 
-     
+
   </v-app>
 </template>
 
@@ -57,7 +57,7 @@ import {Html5Qrcode} from "html5-qrcode";
 export default {
   data() {
     return {
-   
+
       selectedTime: getCurrentTime(),
       timeThreshold: "",
       dataTable: [],
@@ -71,35 +71,14 @@ export default {
       lastScannedTime: "",
       timeThreshold: "",
 
-     
+
 
 
     };
   },
 
   methods: {
-    timeExceedsThreshold(time) {
-      if (!this.timeThreshold) {
-        return false;
-      }
-      return time > this.timeThreshold;
-    },
 
-    isTimeHigh(currentTime, threshold) {
-      if (!currentTime || !threshold) return false; // Handle empty time or threshold case
-
-      const timeParts = currentTime.split(":");
-      const thresholdParts = threshold.split(":");
-      const hour = parseInt(timeParts[0], 10);
-      const minute = parseInt(timeParts[1], 10);
-      const thresholdHour = parseInt(thresholdParts[0], 10);
-      const thresholdMinute = parseInt(thresholdParts[1], 10);
-
-      return (
-        hour > thresholdHour ||
-        (hour === thresholdHour && minute > thresholdMinute)
-      );
-    },
 
     creatScan() {
       const html5QrCode = new Html5Qrcode("reader");
@@ -111,7 +90,7 @@ const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 // If you want to prefer front camera
 html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
 
-html5QrcodeScanner.render(this.onScanSuccess);
+/* html5QrcodeScanner.render(this.onScanSuccess); */
     },
 
     onScanSuccess(decodedResult) {
@@ -163,7 +142,7 @@ html5QrcodeScanner.render(this.onScanSuccess);
         }, 1500);
       }
 
-      
+
     },
 
     /*   formatTime(decodedresult) {

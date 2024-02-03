@@ -668,7 +668,7 @@ export default {
 
     // FOR QR CODE CREATE SCAN START
 
-     creatScan_htmlfive() {
+    /*  creatScan_htmlfive() {
 
       const config = { fps: 10, qrbox: 250 };
       const html5QrcodeScanner = new Html5QrcodeScanner(
@@ -677,7 +677,7 @@ export default {
       );
       html5QrcodeScanner.render(this.onScanSuccess);
 
-    },
+    }, */
 
       creatScan_htmlfive() {
         const html5QrCode = new Html5Qrcode("qr-code-full-region");
