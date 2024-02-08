@@ -47,18 +47,6 @@
               </p>
             </v-col>
           </v-row>
-          <!-- <v-row no-gutters style="text-align: justify">
-            <v-col class="top mt-6">
-
-              <p>Activity: {{ Event.Event_name }}</p>
-              <p>Date:  {{  formattedDate_bai (Event.Event_date) }}</p>
-            </v-col>
-            <v-col class="top mt-6 ">
-
-              <p class="d-flex align-center justify-center">Time: {{ formattedTime_To (Event.Event_from) }}</p>
-              <p class="d-flex align-center justify-center">Time: {{ Event.Event_venue }}</p>
-            </v-col>
-          </v-row> -->
         </v-container>
         <v-col cols="12" class="mt-4">
           <h4>NON-ATTENDANCE TO FLAG RAISING CEREMONY</h4>
@@ -102,7 +90,6 @@
           </v-data-table>
         </v-table>
       </v-container>
-      <!-- <div class="page-break"></div> -->
 
       <div id="bottom-content">
         <p class="" style="text-align: left">Noted:</p>
@@ -116,36 +103,11 @@
           concerns, refer to CHRMO). <br />
         </p>
         <p></p>
-
-        <!-- <v-row no-gutters style="text-align: justify">
-          <v-col cols="3" class="font-italic">
-            <p><span class="mdi mdi-circle"></span> Did not Participate</p>
-            <p><span class="mdi mdi-circle"></span> On Field Business</p>
-            <p><span class="mdi mdi-circle"></span> On Field</p>
-            <p><span class="mdi mdi-circle"></span> On Leave</p>
-            <p><span class="mdi mdi-circle"></span> Flexible Work Schedule</p>
-            <p><span class="mdi mdi-circle"></span> Late</p>
-          </v-col>
-          <v-col cols="5" class="">
-            <p>DNP</p>
-            <p>OB</p>
-            <p>OF</p>
-            <p>OL</p>
-            <p>FWL</p>
-            <p>L (For those who comes late for the Activity)</p>
-          </v-col>
-          <v-col>
-            <p>Monitoring In-Charge:</p>
-            <p>Contact No:</p>
-          </v-col>
-        </v-row> -->
       </div>
-    </v-container>
 
-    <v-row>
-      <v-col>
-        <v-container>
-          <div>
+      <v-row>
+        <v-col cols="3">
+          <v-container>
             <table class="table-status">
               <tr>
                 <th colspan="3">Actual No. of Employees</th>
@@ -186,44 +148,42 @@
                 <th></th>
               </tr>
             </table>
-          </div>
-        </v-container>
-      </v-col>
-      <v-col>
-        <v-container>
-          <div>
-            <table class="table-status">
-              <tr>
-                <th colspan="3">Actual No. of Employees</th>
+          </v-container>
+        </v-col>
+        <v-col cols="4">
+          <v-container>
+            <table>
+              <tr class="table-status">
+                <th colspan="3">Non-Attendance</th>
               </tr>
               <tr colspan="4">
                 <th></th>
-                <th>STATUS</th>
+                <th>REMARKS</th>
                 <th>NO</th>
               </tr>
               <tr>
                 <th>1</th>
-                <th>Permanent</th>
+                <th>Late</th>
                 <th></th>
               </tr>
               <tr>
                 <th>2</th>
-                <th>Coterminous</th>
+                <th>On-Leave</th>
                 <th></th>
               </tr>
               <tr>
                 <th>3</th>
-                <th>Casual</th>
+                <th>OB</th>
                 <th></th>
               </tr>
               <tr>
                 <th>4</th>
-                <th>Job Order</th>
+                <th>Others: absent,awol</th>
                 <th></th>
               </tr>
               <tr>
                 <th>5</th>
-                <th>Hon. Based</th>
+                <th>DNP</th>
                 <th></th>
               </tr>
               <tr>
@@ -232,10 +192,71 @@
                 <th></th>
               </tr>
             </table>
+          </v-container>
+        </v-col>
+        <v-col cols="5">
+          <v-container>
+            <table class="table-status">
+              <tr>
+                <th colspan="3">SUMMARY</th>
+              </tr>
+              <tr colspan="4">
+                <th></th>
+                <th>PARTICULARS</th>
+                <th>NO</th>
+              </tr>
+              <tr>
+                <th colspan="2">Total No. of Actual Employees in the Office</th>
+                <th></th>
+              </tr>
+              <tr>
+                <th>Less:</th>
+                <th>
+                  Non required to attend due to nature of work such as CEO-field
+                  workers, CSU on duty, TMU on duty, other field works, etc.
+                  (approved list should be provided to CHRMO)
+                </th>
+                <th></th>
+              </tr>
+              <tr>
+                <th colspan="2">Total No. of Employee REQUIRED TO ATTEND</th>
+                <th></th>
+              </tr>
+              <tr>
+                <th>Less:</th>
+                <th>Total No. of Non-Attendance</th>
+                <th></th>
+              </tr>
+              <tr>
+                <th colspan="2">ATTENDANCE DURING FLAG CEREMONY</th>
+                <th></th>
+              </tr>
+            </table>
+          </v-container>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <div id="bottom-content">
+            <p class="" style="text-align: left">Prepared by:</p>
+            <p></p><br />
+            <p class="text-justify" style="font-weight: bold;">Admin Name</p>
+            <p class="text-justify">Book Binder II</p>
+            <p></p>
           </div>
-        </v-container>
-      </v-col>
-    </v-row>
+        </v-col>
+        <v-col>
+          <div id="bottom-content">
+            <p class="" style="text-align: left">Validated by:</p>
+            <p></p><br />
+            <p class="text-justify" style="font-weight: bold;">Admin Name</p>
+            <p class="text-justify">HRMO II</p>
+            <p></p>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 <script>
@@ -371,22 +392,18 @@ export default {
   },
 };
 </script>
+
 <style scoped>
-.table-status {
-  font-weight: 10px;
-}
 table,
 td,
 th {
   border: 1px solid #ddd;
   text-align: left;
 }
-
 table {
   border-collapse: collapse;
-  width: 30%;
+  width: 100%;
 }
-
 td {
   border: 1px solid #000;
   padding: 2px;
@@ -395,25 +412,6 @@ td {
 .table {
   table-layout: dense;
   border: 1px solid black;
-}
-#bottom-content {
-  /* position: fixed; */
-  bottom: 0;
-  left: 5;
-  right: 0;
-  margin: auto;
-  font-size: 16px;
-  text-align: center;
-  width: 90%; /* Adjust the width as needed */
-}
-
-/* .top {
-  font-size: 14px;
-  table-layout: dense;
-} */
-
-.page-break {
-  page-break-after: always;
 }
 .center1 {
   margin: 0;
@@ -427,82 +425,13 @@ td {
   top: 10%;
   right: 20%;
 }
+.table-status {
+  font-weight: normal;
+}
 
-#head {
-  background-color: #70b354;
-  color: white;
-  text-align: center;
-}
-#pic {
-  align-content: center;
-  align-items: center;
-}
-@media screen and (max-width: 600px) {
-  #pic {
-    size: 50 !important;
-  }
-}
 @media print {
-  .center1,
-  center {
-    margin: 0;
-    position: absolute;
-    top: 5%;
-    left: 20%;
-  }
   #btn-group {
     display: none;
   }
-  .wholePage {
-    font-size: 20px !important;
-  }
-  .table {
-    border: none; /* Example: Remove borders for print */
-  }
-  #bottom-content {
-    position: fixed;
-    bottom: 0;
-    left: 5%;
-    width: 100%;
-    background-color: white; /* Adjust background color if necessary */
-    page-break-after: always;
-    z-index: 100;
-  }
-
-  #table-content {
-    page-break-before: always; /* Start the table on a new printed page */
-    position: relative; /* Change to relative for normal flow on subsequent pages */
-    top: 430px; /* Adjust the value based on your desired top margin */
-  }
-
-  #top-content {
-    page-break-before: always;
-    position: fixed;
-    top: 0;
-    left: 10px;
-    width: 100%;
-    background-color: white; /* Adjust background color if necessary */
-    z-index: 100;
-  }
-  #top-content v-img {
-    width: 70px; /* Adjust the width of the images */
-  }
-
-  #top-content h5 {
-    margin-top: 12px; /* Adjust the margin-top for the h5 elements */
-  }
-
-  /* #table-content {
-    margin-top: 33%;
-  } */
-
-  /* .table {
-    page-break-before: 30;
-    page-break-after: 30;
-    page-break-inside: 30;
-  } */
-  /* .table {
-    page-break-after:30;
-  } */
 }
 </style>
