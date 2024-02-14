@@ -5,6 +5,7 @@ import accountModule from './account';
 import scaninsertModule from './scaninsert';
 import officeModule from './office';
 import employeesModule from './employees';
+import createPersistedState from "vuex-persistedstate";
 
 
 const store = createStore({
@@ -12,13 +13,15 @@ const store = createStore({
 
     users: usersModule,
     events: eventsModule,
-    account: accountModule, 
+    account: accountModule,
     scaninsert: scaninsertModule,
     office: officeModule,
     employees: employeesModule,
-    
-  }
+
+  },
+
+  plugins: [createPersistedState()],
 });
 
 
-export default store;
+export default store

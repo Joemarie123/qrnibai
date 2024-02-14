@@ -1,6 +1,8 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 
+
+
 const routes = [
 
   {
@@ -60,7 +62,8 @@ const routes = [
   {
     path: '/OfficeHomeEvents',
     name: 'OfficeHomeEvents',
-    component: () => import('@/views/OfficeHomeEvents.vue')
+    component: () => import('@/views/OfficeHomeEvents.vue'),
+    meta: { requiresAuth: true }, // Add meta field for authentication check
   },
 
   {
@@ -155,10 +158,22 @@ const routes = [
 
 ]
 
+
+
 const router = createRouter({
-  history: createWebHistory('arms/'),
+  history: createWebHistory('Guest/arms/'),
 
   routes,
 })
 
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = window.localStorage.getItem('user') !== null;
+
+  // If the user is not authenticated and is trying to access a protected route, redirect to login
+  if (!isAuthenticated && to.path !== '/' ) {
+    next('/');
+  } else {
+    next();
+  }
+});
 export default router
