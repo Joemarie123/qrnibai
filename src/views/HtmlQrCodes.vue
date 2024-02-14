@@ -19,7 +19,7 @@
 
     </v-card>
 
-    <div class="mt-2">
+  <!--   <div class="mt-2">
         <table class="TableHead">
           <tr>
             <th>ID</th>
@@ -45,7 +45,7 @@
             </td>
           </tr>
         </table>
-      </div>
+      </div> -->
 
 
   </v-app>

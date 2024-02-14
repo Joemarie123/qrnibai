@@ -681,9 +681,7 @@ export default {
 
       creatScan_htmlfive() {
         const html5QrCode = new Html5Qrcode("qr-code-full-region");
-    const qrCodeSuccessCallback = () => {
-      /* handle success */
-    };
+  
     const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
     // If you want to prefer back camera
