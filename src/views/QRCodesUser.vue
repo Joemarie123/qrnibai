@@ -416,7 +416,7 @@ export default {
 
       },
       selectedRemarks: "",
-      remarks: ['Absent', 'Late'],
+
 
 
       createevents: false,
@@ -431,7 +431,7 @@ export default {
 
       headers: [
         {
-          align: "start",
+
           key: "Controlno",
           sortable: false,
           title: "ID",
@@ -681,7 +681,7 @@ export default {
 
       creatScan_htmlfive() {
         const html5QrCode = new Html5Qrcode("qr-code-full-region");
-  
+
     const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
     // If you want to prefer back camera
@@ -743,8 +743,7 @@ export default {
       // } else if (hour === 0) {
       //   hour = 13;
       // }
-      if (
-        this.message.find((item) => item.name === this.name(obj.decodedResult))
+      if (this.message.find((item) => item.id == this.id(obj.decodedResult))
       ) {
         this.showMessage = true;
         this.mensahenibai = "Already Scanned";

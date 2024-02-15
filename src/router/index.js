@@ -161,7 +161,7 @@ const routes = [
 
 
 const router = createRouter({
-  history: createWebHistory('Guest/arms/'),
+  history: createWebHistory('arms/Guest/'),
 
   routes,
 })
