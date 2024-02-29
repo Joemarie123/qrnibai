@@ -29,7 +29,7 @@ const mutations = {
     state.auth = payload;
   },
 
-  
+
 
 }
 
@@ -44,6 +44,22 @@ const actions = {
   async registerAccountUsers({commit}, payload){
     let res = await axios.post(`/new_user.php`,payload);
     commit('setUsers', res.data.user);
+    console.log("Add user",res.data)
+
+    if(res.data == "duplicate")
+    {
+        return 1
+    }
+    else if(res.data == "done")
+    {
+      return 2
+    }
+
+    else{
+
+      return 0
+    }
+
   },
 
 

@@ -53,10 +53,10 @@ const mutations = {
 
 const actions = {
 
-  async fetchEvents({commit}){
+  async fetchEvents({commit}, payload){
 
   //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
-    let res = await axios.get(`/Dashboard.php`);
+    let res = await axios.post(`/Dashboard.php`,payload);
    /*  console.log("data from db=", res.data.event_details[0]); */
     commit('setEvents', res.data.events);
   },
@@ -67,7 +67,7 @@ const actions = {
       let res = await axios.get(`/eventlist.php`);
       commit('setEventsHistory', res.data.events);
     },
-  
+
 
   async registerEvents({commit}, payload){
    // let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/event.php`, payload);

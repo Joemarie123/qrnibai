@@ -7,7 +7,7 @@ const state = () => ({
 
 const getters = {
   getOffices(state) {
-    // console.log("Get Offices",state);
+   console.log("Get Offices",state);
     return state.offices;
   },
 
@@ -20,7 +20,7 @@ const getters = {
 const mutations = {
 
   setOffices(state, payload){
-    // console.log("Set Offices",payload);
+    console.log("Set Offices",payload);
     state.offices = payload;
   },
 
@@ -29,7 +29,7 @@ const mutations = {
     state.office = payload;
   },
 
-  
+
 
 }
 
@@ -37,14 +37,16 @@ const actions = {
 
     async fetchOffices({commit}){
         let res = await axios.get(`/OfficeList.php`);
+      console.log("Get OFFICE",res.data.office)
         commit('setOffices', res.data.office);
-      },
-  
 
+      },
 
       async AddnewOffice({commit}, payload){
         let res = await axios.post(`/addoffice.php`,payload);
+     /*    console.log("Get OFFICE",res.data.office) */
         commit('setOffices', res.data.office);
+
       },
 
   }

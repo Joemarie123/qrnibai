@@ -1,87 +1,42 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col cols="12" md="4">
-          <v-text-field v-model="txruserId" label="User ID" outlined></v-text-field>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-text-field v-model="username" label="Username" outlined></v-text-field>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-text-field v-model="oldPassword" label="Old Password" outlined></v-text-field>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-text-field v-model="newPassword" label="New Password" outlined v-if="showNewPassword"></v-text-field>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-text-field v-model="confirmPassword" label="Confirm Password" outlined v-if="showNewPassword"></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row class="mt-4">
-        <v-col cols="12" md="4">
-          <v-btn @click="submitPassword" color="primary">Submit</v-btn>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-btn @click="updatePassword" color="primary" v-if="showNewPassword">Update</v-btn>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-btn @click="closeForm" color="primary">Close</v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+  <v-data-table
+    :headers="headers"
+    :items="data"
+    :items-per-page="5"
+    class="elevation-1"
+  >
+    <template v-slot:item="{ item }">
+      <tr>
+        <td>{{ item.fullname }}</td>
+        <td>
+          <v-btn @click="handleActionClick(item)">Action Button</v-btn>
+        </td>
+      </tr>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
-      txruserId: "",
-      username: "",
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-      showNewPassword: false
+      headers: [
+        { title: 'Full name', key: 'fullname' },
+        { title: 'Actions', key: 'actions' },
+      ],
+      data: [
+        { fullname: 'John Doe', actions: 'action' },
+        { fullname: 'Jane Doe', actions: 'action' },
+        // Add more sample data as needed
+      ],
     };
   },
   methods: {
-    submitPassword() {
-      // Create a new FormData object and append userId, username, and oldPassword to it
-      const data = new FormData();
-      data.append('userid', this.txruserId);
-      data.append('username', this.username);
-      data.append('oldpassword', this.oldPassword);
-
-
-      // Send a POST request to the API endpoint using FormData
-      axios.post('https://database.tagumcity.gov.ph/HRQR/usersettings.php', data)
-      .then(res => {
-        // If the old password is correct, show the new password and confirm password fields
-        if (res.data.auth == "success") {
-          this.showNewPassword = true;
-        } else {
-          // Handle incorrect old password case here
-          console.log('Incorrect old password');
-        }
-      })
-      .catch(error => {
-        // Handle API request error here
-        console.error('Error occurred while validating old password:', error);
-      });
+    handleActionClick(item) {
+      // Handle button click for the specific item
+      console.log('Action clicked for:', item.fullname);
     },
-    updatePassword() {
-      // Add your logic for updating password here
-      console.log("Updated Password");
-    },
-    closeForm() {
-      // Add your logic for closing the form here
-      console.log("Form Closed");
-    }
-  }
+  },
 };
 </script>
 

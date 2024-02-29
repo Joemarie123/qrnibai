@@ -4,13 +4,41 @@
       <NavBar />
 
       <v-main>
-        <div class="mt-16 container123">
+        <div class="mt-n8 mt-lg-16  container123">
           <v-container>
 
             <!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
     <v-icon size="90">mdi-calendar-plus</v-icon>
     <span class="mt-11">Create Events</span></v-btn
   > -->
+
+              <v-dialog persistent v-model="displayAttendanceCount" max-width="700px">
+
+                <v-container>
+                  <v-row>
+
+                    <v-card>
+                      <v-row>
+                          <v-col cols="8" lg="10">
+                      <v-text-field class="mx-2 mt-2" v-model="SearchattendanceCount" label="Search"></v-text-field>
+                    </v-col>
+
+                    <v-col cols="2" class="mt-4">
+                     <v-btn color="orange" @click="displayAttendanceCount = false">Close</v-btn>
+                    </v-col>
+                    </v-row>
+
+                        <v-data-table :search="SearchattendanceCount" :headers="headers_AttendanceCount" :items="attendancecountlist" >
+
+                        </v-data-table>
+
+                    </v-card>
+                  </v-row>
+                </v-container>
+
+
+              </v-dialog>
+
 
           </v-container>
 
@@ -21,11 +49,12 @@
     <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
   </v-col>
 -->
-              <v-col cols="2">
-                <v-btn class="mt-3 ml-1" @click="callmebaby()" rounded-lg color="success" variant="outlined">EVENT
-                  DETAILS</v-btn>
+              <v-col cols="12" lg="2">
+                <v-btn class="mt-3 ml-1 " @click="OpenDialog_EventDetails()" rounded-lg color="success"  variant="outlined">EMPLOYEES COUNT</v-btn>
               </v-col>
-              <v-col cols="8">
+
+
+              <v-col cols="12" lg="8">
                 <v-select class="mt-4 ml-n2" density="compact" label="Select Office" v-model="selectedOffices"
                   :items="modifiedOfficesList" color="success" variant="underlined"></v-select>
             <!--     <p> ID: {{ selectedOfficeID }}</p> -->
@@ -33,11 +62,12 @@
                 <!--  <v-btn color="green" @click="clicknibai()">Click Me</v-btn> -->
               </v-col>
 
-              <v-col cols="4" class="mt-n4 ml-4">
+              <v-col cols="12" lg="4" md="6" class="mt-n4 ml-n4  ml-lg-4">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
                       <v-col cols="12">
+                     <!--    <p style="font-size:15px"> <b>Event Name:</b> {{ Pangalan.Even }} </p> -->
                         <p style="font-size:15px"> <b>Event Name:</b> {{ Pangalan.Event_name }} </p>
                       </v-col>
                       <v-col cols="12" class="mt-n5">
@@ -57,7 +87,7 @@
                 </v-card>
               </v-col>
 
-              <v-col cols="4" class="mt-n4 ml-n4">
+              <v-col cols="12" lg="4" md="6" class="mt-n4 ml-n4">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
@@ -66,11 +96,11 @@
                         <p style="font-size:15px"> <b>Did not Participate:</b> {{ dnpCount }} </p>
                       </v-col>
                       <v-col cols="5" class="">
-                       
+
                         <p style="font-size:15px"><b>On Field: </b>{{ ofcount }} </p>
                       </v-col>
                       <v-col cols="7" class="mt-n5">
-                       
+
                         <p style="font-size:15px"><b>On Field Business: </b> {{ obcount }} </p>
                       </v-col>
 
@@ -92,7 +122,7 @@
               </v-col>
 
 
-              <v-col cols="2" class="ml-n4 mt-n4">
+              <v-col cols="12" lg="2" md="6" class="ml-n4 mt-n4">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
@@ -112,9 +142,6 @@
                         <p v-else style="font-size:22px"><b>{{ getOfficeIdCountWithTimescanned(selectedOfficeID) }}/{{
                           getOfficeIdCount(selectedOfficeID) }}</b></p>
 
-
-
-
                       </v-col>
                       <v-col class="d-flex justify-end mt-n5" cols="12">
                         <p>No. of Attendees </p>
@@ -126,15 +153,15 @@
               </v-col>
 
 
-              <v-col cols="2" class="ml-n4 mt-n4">
+              <v-col cols="12" lg="2" md="6" class="ml-n4 mt-n4">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
                       <!-- <v-col> -->
-                      <v-col class="d-flex justify-start mt-n2" cols="12">
+                      <v-col class="d-flex justify-start mt-n2" cols="12" lg="12">
                           <v-btn density="compact" class="sizeprint" @click="handleRowClick"  color="success">Attendance Print</v-btn>
                       </v-col>
-                 
+
                       <v-col class="d-flex justify-start mt-n5" cols="12">
                         <v-btn density="compact" class="sizeprint"  @click="handleRowClick1" color="success">Authority Print</v-btn>
                       </v-col>
@@ -143,7 +170,7 @@
                         <v-btn density="compact" class="sizeprint"  @click="handleRowClick2"  color="success">Payroll Print</v-btn>
                       </v-col>
 
-                   
+
                     </v-row>
                   </v-container>
                 </v-card>
@@ -156,11 +183,11 @@
   <input v-model="searchOfficeId" class="textbox"  placeholder="Search Event">
 </v-col> -->
 
-              <v-col cols="12">
+              <v-col cols="12" class="ml-n4 ml-lg-n1">
 
-                <v-card class='rounded-lg mt-n4'>
-                  <v-data-table :search="selectedOfficeID" :items="sortedItems" item-key="ID" :headers="headers"
-                    :items-per-page="5" class="elevation-1">
+                <v-card class='rounded-lg mt-n4 '>
+                  <v-data-table  :search="selectedOfficeID" :items="eventAttendanceList" item-key="ID" :headers="headers"
+                    :items-per-page="5" class="elevation-1 ">
                     <template v-slot:item.actions="{ item }">
 
                       <button>
@@ -202,6 +229,8 @@ export default {
 
   data() {
     return {
+      displayAttendanceCount:false,
+
       selectedOffices: 'All', // Set a default value of "All"
       searchOfficeId: "",
       dnpCount: 0,
@@ -213,6 +242,7 @@ export default {
       ID: "",
       Event_name: '',
       search: "",
+      SearchattendanceCount:"",
       eventname: '',
       eventdate: '',
       eventfrom: '',
@@ -232,6 +262,31 @@ export default {
         { title: "Create Account", icon: "mdi-account", route: "/CreateAccount", },
         // { title: "Click Me 2" },
       ],
+
+      headers_EventDetails: [
+        {
+          align: "start",
+          key: "office_id",
+          sortable: false,
+          title: "Office ID",
+          align: " d-none"
+        },
+        { key: "fullname", title: "Full Name", sortable: false },
+
+        /*   { key: "office", title: "Office", sortable: false }, */
+
+
+      ],
+
+      headers_AttendanceCount: [
+      { key: "office", title: "Office Name", sortable: false },
+        { key: "employees", title: "Employees Count", sortable: false , align:"center" },
+
+        /*   { key: "office", title: "Office", sortable: false }, */
+
+
+      ],
+
 
       headers: [
         {
@@ -255,16 +310,16 @@ export default {
 
   computed: {
 
- 
+
 
     shouldCallMethods() {
       return !this.selectedOfficeID;
     },
-    ...mapGetters('events', { Pangalan: ['getName'] }),
-    ...mapGetters('events', { eventAttendanceList: ['getEventAttendance'] }),
-    ...mapGetters("office", { OfficeList: "getOffices" }),
 
-    
+    ...mapGetters('events', { attendancecountlist: ['getattendancecount']}),
+    ...mapGetters('events', { Pangalan: ['getName'] }),
+    ...mapGetters('events', { eventAttendanceList: ['getEventAttendance']}),
+    ...mapGetters("office", { OfficeList: "getOffices" }),
 
     sortedItems() {
       // Sort the items array based on fullname
@@ -274,7 +329,7 @@ export default {
       });
     },
 
-   
+
     getPangalanArrayLength() {
       // Access the Pangalan array and get its length
       return this.Pangalan.length;
@@ -289,31 +344,44 @@ export default {
      }, */
 
     modifiedOfficesList() {
-      // Add "All" option to the beginning of the array
-      return [...this.officeslista, 'All'];
+
+      return ['All', ...this.officeslista ];
     },
-    /*  filteredAttendance() {
-       return this.eventAttendanceList.filter(
-         (entry) => entry.office_id === this.searchOfficeId
-       );
-     }, */
+
   },
 
   created() {
 
-    /*  this.$watch('selectedOffices', this.handleSelectedOfficesChange); */
 
+    /*  this.$watch('selectedOffices', this.handleSelectedOfficesChange); */
     let data = new FormData;
-    // console.log("ID=", this.$route.params.id)
-    // console.log("EventName=", this.$route.params.Event_name)
     data.append('event_id', localStorage.getItem('ID'))
-    /*   data.append('office_id', this.selectedOfficeID); */
     this.Admin_fetchPangalan(data);
 
-    
+
+
+    let data2 = new FormData;
+    data2.append('event_id', localStorage.getItem('ID'))
+    this.fetchAttendanceCount(data2);
+    console.log("Count Per OFFICE", this.attendancecountlist)
+
+
     this.fetchOffices()
 
+
+
     this.clicknibai();
+
+   /*  setInterval(() => {
+
+    this.countDNP_All();
+      this.countOB_All();
+      this.countOF_All();
+      this.countFWS_All();
+      this.countOL_All();
+      this.countLate_All();
+  }, 30000); */
+
 
     setTimeout(() => {
       this.fetchofficeslist()
@@ -396,9 +464,15 @@ export default {
     selectedOffices: 'updateSelectedInfo', // Call updateSelectedInfo whenever selectedFullName changes
   },
   methods: {
-
+  ...mapActions("events", ["fetchAttendanceCount"]),
     ...mapActions("office", ["fetchOffices"]),
     ...mapActions('events', ['Admin_fetchPangalan']),
+
+    OpenDialog_EventDetails()
+    {
+      this.displayAttendanceCount = true
+
+    },
 
 
     handleRowClick() {
@@ -483,7 +557,7 @@ export default {
     countDNP() {
       // console.log('searchOfficeId:', this.selectedOfficeID);
       // console.log('eventAttendanceList:', this.eventAttendanceList);
-      
+
       if (this.selectedOffices !== "All") {
         console.log("countdnp")
         const filteredArray = this.eventAttendanceList.filter(
@@ -586,7 +660,7 @@ export default {
       // console.log('filteredArray:', filteredArray);
 
       this.latecount = filteredArray.reduce(
-        (count, entry) => (entry.remarks == "Late" ? count + 1 : count),
+        (count, entry) => (entry.remarks == "LATE" ? count + 1 : count),
         0
       );
       }
@@ -675,7 +749,7 @@ export default {
       // console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
-      const LateEntries = this.eventAttendanceList.filter(entry => entry.remarks == "Late");
+      const LateEntries = this.eventAttendanceList.filter(entry => entry.remarks == "LATE");
 
       // console.log('LateEntries:', LateEntries);
 
@@ -727,7 +801,7 @@ export default {
         /*   this.selectedFirstName = selectedFirstName.fullName; */
 
 
-      } 
+      }
       else {
         console.log("updateselected")
         this.selectedOfficeID = '';

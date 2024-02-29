@@ -1,68 +1,34 @@
 <template>
-  <div>
-    <label for="selectedOffices">Select Offices:</label>
-    <v-select v-model="selectedOffices" :items="officeOptions" @change="handleOfficeChange" />
-
-    <!-- Your other content here -->
-
-  </div>
+  <v-data-table
+    :items="items"
+    :headers="headers"
+    @click:row="onRowClick"
+  ></v-data-table>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      selectedOffices: null,
-      officeOptions: [
-        { text: 'All', value: 'All' },
-        { text: 'DNP', value: 'DNP' },
-        { text: 'OB', value: 'OB' },
-        { text: 'OF', value: 'OF' },
-        { text: 'FWS', value: 'FWS' },
-        { text: 'OL', value: 'OL' },
-        { text: 'Late', value: 'Late' },
+      items: [
+        { id: 1, name: 'Item 1', description: 'Description 1' },
+        { id: 2, name: 'Item 2', description: 'Description 2' },
+        // Add more items as needed
       ],
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Name', key: 'name' },
+        { title: 'Description', key: 'description' },
+        // Add more headers as needed
+      ]
     };
   },
   methods: {
-    handleOfficeChange() {
-      if (this.selectedOffices === 'All') {
-        this.countDNP_All();
-        this.countOB_All();
-        this.countOF_All();
-        this.countFWS_All();
-        this.countOL_All();
-        this.countLate_All();
-      }
-    },
-    countDNP_All() {
-      // Your logic for countDNP_All
-      console.log('countDNP_All');
-    },
-    countOB_All() {
-      // Your logic for countOB_All
-      console.log('countOB_All');
-    },
-    countOF_All() {
-      // Your logic for countOF_All
-      console.log('countOF_All');
-    },
-    countFWS_All() {
-      // Your logic for countFWS_All
-      console.log('countFWS_All');
-    },
-    countOL_All() {
-      // Your logic for countOL_All
-      console.log('countOL_All');
-    },
-    countLate_All() {
-      // Your logic for countLate_All
-      console.log('countLate_All');
-    },
-  },
+    onRowClick(item,row) {
+      console.log('Clicked on item with ID:', item);
+      console.log('Clicked on item with ROW ID:', row.item.columns.id);
+
+    }
+  }
 };
 </script>
-
-<style>
-/* Your styles here */
-</style>

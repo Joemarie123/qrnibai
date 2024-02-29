@@ -2,21 +2,21 @@
     <v-card  height="1000" flat color="#F9FAFC" >
   <v-layout>
   <NavBarUser/>
-  
+
   <v-main>
   <div class="container123">
   <v-container >
 
   </v-container>
-  
+
   <v-container>
-  
+
     <v-row class="mt-n15 mt-md-1 ">
- 
+
       <v-col cols="12" sm="3" md="2">
   <v-btn class=" ml-md-1 mt-1 mt-lg-n1 mt-sm-1"  rounded color="green" @click="openaddemployeedialog()" >ADD EMPLOYEES</v-btn>
   </v-col>
-  
+
   <v-col class="mt-lg-n1 mt-sm-2 mr-md-6 " cols="12" sm="6"  md="6">
   <input v-model="search" class="textbox "  placeholder="Search Employee">
   </v-col>
@@ -25,16 +25,16 @@
 
 <v-card>
 <v-container>
-<v-row >   
+<v-row >
   <v-col class="mt-1 ml-n3 mx-2" cols="12" sm="6"  md="6">
   <input v-model="searchaddemployee" class="textbox"  placeholder="Search Employee">
 </v-col>
-  <v-data-table 
+  <v-data-table
 
-         :headers="headers_add_employees" 
-         :items="sortedItems_addemployees" 
+         :headers="headers_add_employees"
+         :items="sortedItems_addemployees"
          :search="searchaddemployee"
-         :items-per-page="4" 
+         :items-per-page="4"
         class="my_class td mx-1"
          :single-select="false">
          <template v-slot:item="{ item }">
@@ -55,11 +55,11 @@
           <v-btn variant="outlined" @click="cancelDialog" color="error">CANCEL</v-btn>
      <!--    </v-card-actions> -->
       </v-col>
-      
+
       <!--  <tbody>
         <tr v-for="(item, index) in selectedItems" :key="index">
           <td>{{ item.value.office_id }}</td>
-       
+
           <td>{{ item.value.office }}</td>
           <td>{{ item.value.fullname }}</td>
           <td>{{ item.value.Controlno }}</td>
@@ -69,7 +69,7 @@
           <td >{{ item.value.Remarks }}</td>
         </tr>
       </tbody>  -->
-</v-row >   
+</v-row >
 </v-container>
 </v-card>
 
@@ -85,19 +85,19 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="closeandupdate()">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
 
   </v-dialog>
-  
+
       <v-col cols="12">
-  
+
         <v-card class="rounded-lg mt-n4">
-       
+
     <v-data-table
       :search="search"
       item-key="ID"
@@ -108,7 +108,7 @@
       tile
       height="470"
     >
-    
+
 <template #bottom></template>
       <template v-slot:item.actions="{ item }">
         <v-dialog v-model="dialogVisible" max-width="400">
@@ -133,34 +133,34 @@
 
   </v-card>
       </v-col>
-      
+
     </v-row>
   </v-container>
   </div>
- 
+
   </v-main>
   </v-layout>
   </v-card>
   </template>
-  
-  
+
+
   <script>
 
   import NavBarUser from "@/components/NavBarUser.vue";
   import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
   import axios from 'axios';
-  
+
   import { mapActions, mapGetters } from 'vuex';
-  
-  
-  
+
+
+
   export default {
-  
+
   components: {
     NavBarUser,
     HtmlQrCodes,
   },
-  
+
   data() {
   return {
 
@@ -207,16 +207,16 @@
       formattedTime:"",
       status:"",
       userData: {
-   
+
         office_id: '',
-  
+
       },
       selectedRemarks: "",
       remarks: ['Absent','Late'],
-    
-     
+
+
     createevents:false,
-  
+
     items: [ /* Your data goes here */ ],
     selectedItems: [],
     // items: [
@@ -224,10 +224,10 @@
     //   { title: "Settings", icon: "mdi-clock" },
     //   { title: "Create Account", icon: "mdi-account", route: "/CreateAccount", },
     // ],
-  
+
     headers: [
     {
-        align: "start",
+
         key: "Controlno",
         sortable: false,
         title: "ID",
@@ -236,8 +236,8 @@
         { key: "fullname", title: "Full Name", class: 'header-id', sortable: true },
         { key: "designation", title: "Position", align: ' d-none d-sm-table-cell', sortable: false, },
         { key: "actions", title: "Actions", sortable: false, },
-      
-      
+
+
       ],
 
 
@@ -262,14 +262,14 @@
         { Controlno: '09223' , fullname: 'Jane Smith', designation: 'Developer', selected: false },
         // Add more sample data here
       ], */
-  
+
   };
   },
-  
+
   computed: {
     ...mapGetters('employees', {Pangalan: ['getEmployees']} ),
     ...mapGetters('employees', {AddEmployeesbai: ['getAdd_Employees']} ),
-  
+
 
     sortedItems() {
       // Sort the items array based on fullname
@@ -288,13 +288,13 @@
     },
  /*    ...mapGetters('users', {fetechEmployees: ['getUsers']} ), */
    /*  ...mapGetters("office", { Offices: "getOffices" }), */
-  
-    
+
+
    /*  filteredUsers() {
-    
+
       return this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
     },
-  
+
     filteredItems() {
       if (!this.userData.office_id) {
         return this.Offices;
@@ -303,16 +303,16 @@
       return this.Offices.filter((item) => item.id === id);
     },
     */
-  
-  }, 
-  
+
+  },
+
   created() {
-    
+
 /*     this.fetchOffices().then(req=>{
-  
+
   this.fetchData();
   this.searchByOffice();
- 
+
 })
  */
     let data = new FormData;
@@ -322,7 +322,7 @@
 
     data.append('office_id',adminrecords.office_id)
 
-    
+
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
       this.fetchAdd_employees();
@@ -335,15 +335,15 @@
        /*  this.searchByOffice(); */
     })
 
-  
+
 
 
   },
-  
-  
+
+
   methods: {
 /*  ...mapActions('events', ['fetchPangalan']),
-  ...mapActions('users', ['fetchUsers']), 
+  ...mapActions('users', ['fetchUsers']),
   ...mapActions('office', ['fetchOffices']), */
   ...mapActions('employees', ['fetchemployees']),
   ...mapActions('employees', ['fetchAdd_employees']),
@@ -362,7 +362,7 @@
       this.selectedItems = []
       this.add_employees_dialog = true
       this.search = ""
-      
+
     },
 
     kinidaw()
@@ -374,7 +374,7 @@
 
     data.append('office_id',adminrecords.office_id)
 
-    
+
 
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
@@ -427,17 +427,17 @@
       let data = new FormData;
   const adminrecords=JSON.parse(localStorage.getItem('user'))
   console.log("ID=",adminrecords.office_id)
-  
+
   console.log("EventName=",this.$route.params.Event_name)
   data.append('event_id', localStorage.getItem('ID'))
-  
+
   this.eventayde = localStorage.getItem("ID");
 
   data.append('office_id',adminrecords.office_id)
   this.saveEmployees = [];
     },
 
-    
+
 
     selectRow(item) {
       if (item.selected) {
@@ -460,12 +460,12 @@
  /*    searchByOffice() {
   console.log("offices=",this.Offices)
     const id = parseInt(this.userData.office_id);
-    const selectedItem = this.Offices.find(item => 
-      
+    const selectedItem = this.Offices.find(item =>
+
       item.id == id
     );
 
-    
+
     console.log("id=" + id + " selecteditem=" + selectedItem);
     this.selectedOffice = selectedItem ? selectedItem.office : "";
   },
@@ -483,7 +483,7 @@
     const id = parseInt(this.userData.office_id);
     return this.Offices.filter((item) => item.id === id);
   },
- 
+
 
 
     fetchData() {
@@ -496,7 +496,7 @@
     this.deletecontrono=item.raw.Controlno;
       this.selectedItem = item;
       this.dialogVisible = true;
-      
+
     },
     cancelAction() {
       this.dialogVisible = false;
@@ -513,16 +513,16 @@
           body: formData,
         });
         console.log('Response:', response);
-   
+
         if (response.ok) {
           this.kinidaw()
           // Employee removed successfully, update the local data
           const index = this.Pangalan.findIndex((e) => e.controlno === controlno);
           if (index !== -1) {
             this.Pangalan.splice(index, 1);
-           
+
           }
-         
+
         } else {
           // Handle error here if needed
           console.error('Error:', response.statusText);
@@ -534,7 +534,7 @@
         console.error('Error:', error);
         this.dialogVisible = false;
       }
-      
+
       this.search = ""
     },
 
@@ -553,38 +553,38 @@
     await this.fetchUsers();
   }, */
      //// END CODE FOR DELETE
- 
+
   },
-  
-  
+
+
   async mounted() {
 
   },
-  
+
   beforeUnmount() {
     clearInterval(this.timer); // Clear the timer on component unmount to prevent memory leaks
-  
+
     if (this.html5QrcodeScanner) {
       this.html5QrcodeScanner.stop();
     }
   },
   };
-  
+
   function getCurrentTime() {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
   const ampm = hours >= 12 ? "PM" : "AM";
-  
+
   let formattedHours = hours % 12;
   formattedHours = formattedHours === 0 ? 12 : formattedHours; // Convert 0 to 12
   formattedHours = formattedHours.toString().padStart(2, "0");
   const formattedMinutes = minutes.toString().padStart(2, "0");
-  
+
   return `${formattedHours}:${formattedMinutes} ${ampm}`;
   }
   </script>
-  
+
   <style scoped >
 
 .mobile-hide {
@@ -604,10 +604,10 @@
       height: 35px;
     }
   .dialogcssbai {
-  
+
   width: 300px;
   height: 200px;
-  background: pink; 
+  background: pink;
   padding: 24px;
   }
   /* .scanner-dialog {
@@ -623,25 +623,25 @@
   align-items: center;
   z-index: 9999;
   } */
-  
+
   #qr-code-full-region {
-  
+
   background-color: #f3f0f0;
   }
-  
+
   @media screen and (max-width: 600px) {
   #select-element {
-  border: 1px solid #1f7b09; 
+  border: 1px solid #1f7b09;
   border-radius: 5px;
   padding: 1px;
   font-size: 10px;
-  width: 48px; 
+  width: 48px;
   height: 20px;
   margin-left: 5px;
   }
-  
+
   }
-  
+
   .elementobai{
   border: 1px solid #1f7b09; /* You can change the color code to your preferred color */
   border-radius: 5px;
@@ -653,7 +653,7 @@
   margin-left: -40px;
   }
   /* } */
-  
+
   .items-per-page-text {
   /* Add your custom styles for the "Items per page" text here */
   font-weight: bold;
@@ -664,62 +664,62 @@
   color: #9e3636;
   font-weight: bold;
   }
-  
-   
+
+
   /* @media screen and (max-width: 600px) {
   .v-data-table th,
   .v-data-table td {
     font-size: 10px;
   }
   } */
-  
+
   .image {
     border: 1px solid #0a7a0e;
   }
   .my-input.v-input .v-input__slot {
   border-radius: 100px;
   }
-  
+
   .v-data-table > .v-data-table__wrapper > table {
     border-spacing: 0 0.10rem;
   }
-  
-  
+
+
   .container123 {
   max-width: 1170px;
   padding-left: 20px;
   padding-right: 20px;
   margin: auto;
-  } 
-  
-  
-  
+  }
+
+
+
   @media screen and (max-width: 600px) {
   .container123 {
-  
+
   padding-left: 0px;
   padding-right: 0px;
   margin: auto;
-  
-  } 
-  
+
+  }
+
   .card {
     display: none; /* Hide the card on screens with a max-width of 768px (adjust as needed) */
   }
-  
-  
-  
+
+
+
   }
-  
+
   .mobile-button {
   display: none; /* Initially hide the button */
-  
+
   /* Use a media query to show the button on mobile devices */
   @media (max-width: 600px) {
     display: block;
   }
   }
-  
+
   .my-header-style {
   background: #666fff;
   }
@@ -727,12 +727,12 @@
   /*  color: #70b354; */
     font-size: 15px;
   }
-  
+
   .classeventdetails{
-  
+
     font-size: 20px;
   }
-  
+
   .head {
   background-color: #70b354;
   color: white;
@@ -741,26 +741,26 @@
   padding: 20px;
   font-size: 20px;
   }
-  
-  
-  
+
+
+
   table {
   width: 100%;
   border-collapse: collapse;
   }
-  
+
   th,
   td {
   padding: 3px;
   border-bottom: 1px solid #ddd;
   text-align: center;
   }
-  
+
   th {
   background-color: #f2f2f2;
   }
-  
-  
+
+
   .close-button {
   position: absolute;
   top: 5px;
@@ -778,19 +778,19 @@
   width: 300px;
   height: 40px;
   }
-  
-  
-  
+
+
+
   .card.purple {
   background: linear-gradient(150deg, #f731db, #edebef 100%);
   }
-  
+
   .card.green {
   background: linear-gradient(150deg, #eff2eedc, #f2f0f7 100%);
   }
-  
-  
-  
+
+
+
   .alreadyscan {
   position: absolute;
   top: 50%;
@@ -802,8 +802,8 @@
   border-radius: 5px;
   z-index: 9999;
   }
-  
-  
+
+
   .success-message {
   position: absolute;
   top: 50%;
@@ -815,7 +815,7 @@
   border-radius: 5px;
   z-index: 9999;
   }
-  
+
   .v-btn {
   text-transform:none !important;
 }

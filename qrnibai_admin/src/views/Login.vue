@@ -26,7 +26,7 @@
           <v-card-title class="my-4 mt-n1 login-title">
             <v-row>
 <v-col col="12">
-  <b>Attendance Reporting an
+  <b>Attendance Reporting and
                   </b>
 </v-col>
 <v-col col="12" class="mt-n6">
@@ -63,7 +63,7 @@
                 type="password"
 
               ></v-text-field>
-              <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p>
+             <!--  <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p> -->
 
               <v-row>
                   <v-col class="mx-4 d-flex justify-center" cols="11">
@@ -117,8 +117,9 @@ console.log("password=",this.password)
   let data= new FormData;
           data.append('username',this.usernamenako);
           data.append('password',this.password);
-          this.Loginbai(data).then(e=>{
-console.log("value of e=",e)
+          this.Loginbai(data).then(e=>
+          {
+            console.log("value of e=",e)
               if (e == 0) {
                 this.alertMessage='Email or Password is incorrect.'
                 this.hideAlertAfterDelay();
@@ -126,7 +127,6 @@ console.log("value of e=",e)
                       header: "Error",
                       subHeader: "Email or Password is incorrect.",
                       message: "Please double check your credentials."
-
                   });
               } else {
                 if(e == 1){

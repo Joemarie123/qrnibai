@@ -70,6 +70,7 @@
                   <v-dialog max-width="600px" v-model="showDialog" v-if="showDialog">
                     <v-card class="custom-btn colorfortext">
                       <p class="d-flex justify-center mt-2">Tagum City Employees QR Code</p>
+                      <v-switch class="d-flex justify-center mt-n3" v-model="flashEnabled" label="Flash/Torch" @update:menu="toggleFlash"></v-switch>
                       <div id="qr-code-full-region" class="my-3 mx-3 ">
                         <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
                       </div>
@@ -162,6 +163,83 @@
                           <p style="font-size:15px"><b>Time To:</b> {{ formattedTime_To(Event.Event_to) }} </p>
 
                         </v-col>
+                        <v-col cols="12" class="mt-n6">
+                        <v-btn class="custom-btn colorfortext" @click="clickinvalidqr()">INVALID QRCODES</v-btn>
+
+                        </v-col>
+
+                        <v-dialog v-model="Dialog_InvalidQR">
+                          <v-dialog v-model="Dialog_Present_Successfully" persistent max-width="280">
+    <v-card >
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Successfully Saved</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+            <v-img src="/save.png" ></v-img>
+            </v-avatar>
+        </v-col>
+      </v-row>
+      <v-card-actions class="d-flex justify-center mt-n7">
+        <v-btn color="green" text @click="Close_Dialog_Present_Successfully()">OK</v-btn>
+      </v-card-actions>
+
+    </v-card>
+  </v-dialog>
+                          <v-card class="image1" >
+      <v-row >
+        <v-col cols="9" >
+          <v-text-field class="pa-2" append-inner-icon="mdi-magnify" v-model="search_invalidqr" variant="solo" density="compact" label="Search">
+
+</v-text-field>
+</v-col>
+
+<v-col cols="1" class="mt-3 ml-n3">
+          <v-btn variant="outlined" @click="clicktoclose_invalidQRDialog()" >Close</v-btn>
+        </v-col>
+
+
+<v-col cols="12" class="mt-n6">
+          <v-data-table :search="search_invalidqr" :item-key="(item, index) => index" :items="invalidQR" :headers="header_invalid_QR_Codes" :items-per-page="30"
+                    class="px-2  custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n4" tile height="470">
+                    <template #bottom></template>
+
+                    <template v-slot:item.actions="{ item }">
+          <v-btn color="success" size="x-small"  @click="Click_Present(item)" >
+              Present
+                </v-btn>
+                  </template>
+
+                 <!--    <template v-slot:item="{ item }">
+
+                      <tr>
+                        <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
+                        <td :style="{ textAlign: 'left' }">{{ item.columns.fullname }}</td>
+                        <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.designation }}</td>
+                        <td :style="{color: item.columns.remarks == 'LATE'?'red':'black'}">{{ item.columns.timescanned }} </td>
+                       <v-select></v-select>
+
+                      </tr>
+
+                    </template> -->
+
+
+
+                  </v-data-table>
+
+                </v-col>
+
+      </v-row>
+
+     <!--  <v-card-actions class="d-flex justify-center mt-n7">
+        <v-btn color="green" text @click="Dialog_InvalidQR = false">OK</v-btn>
+      </v-card-actions> -->
+
+    </v-card>
+
+
+                        </v-dialog>
                       </v-col>
                       <!-- <p>Designation: {{ designation }}</p> -->
                       <v-col cols="12" md="3" sm="12" class="mt-n9 mt-md-1">
@@ -236,18 +314,13 @@ src="/qr.png"
 
               <v-col cols="12">
 
-                <v-card class='rounded-lg mt-n4  '>
-                  <v-data-table :search="search" :item-key="(item, index) => index" :items="employees" :headers="headers" :items-per-page="30"
-                    class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1" tile height="470">
-                    <template #bottom></template>
-                    <!-- <template v-slot:item.remarks="{ item }">
-  <div id="app" class="mt-n1">
-    <select v-if="!item.columns.time" v-model="item.columns.selectedRemarks" id="select-element">
-  <option v-for="remark in remarks">{{ remark }}</option>
-</select>
-</div>
-</template> -->
+                <v-card class='rounded-lg mt-n4'>
+<v-text-field append-inner-icon="mdi-magnify" v-model="search" variant="solo" density="compact" label="Search">
 
+</v-text-field>
+                  <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
+                    class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n4" tile height="470">
+                    <template #bottom></template>
                     <template v-slot:item="{ item }">
 
                       <tr>
@@ -258,20 +331,6 @@ src="/qr.png"
                         <!-- <td v-if="item.columns.remarks !== ''" class="card" :style="{ textAlign: 'left' }">{{ item.columns.remarks }}</td> -->
 
                         <td >
-
-                          <!--  <div class="select-container">
-<select   v-if="!item.columns.timescanned" @change="saveremarks(item)" v-model="item.raw.Remarks" class="elementobai mt-n2 card " id="select-element">
-  <option value="DNP">DNP</option>
-  <option value="OB">OB</option>
-  <option value="OF">OF</option>
-  <option value="OL">OL</option>
-  <option value="FWS">FWS</option>
-  <option value="Late">Late</option>
-  <option value="PM Shift">PM Shift</option>
-  <option value=""></option>
-</select>
-</div>  -->
-
 
    <v-select :disabled="item.columns.timescanned || Pangalan.filter((item)=>item.Controlno == item.Controlno).remarks"  :items="optionsbai" variant="underlined"
     density="compact" @update:menu="saveremarks(item)" v-model="item.columns.remarks"
@@ -356,6 +415,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
 import NavBarUser from "@/components/NavBarUser.vue";
 import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
+import { Html5QrcodeSupportedFormats } from "@/store/enums.js";
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 
@@ -367,15 +427,24 @@ export default {
     HtmlQrCodes,
   },
 
+
+
   data() {
     return {
+      flashEnabled: false,
+      timeout:false,
       //RealDate: new Date().toISOString().substr(0, 10), // Real date value
       //RealTime: new Date().toTimeString().substr(0, 5), // Real time value
-      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'Late', 'PM Shift', '',],
+      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'LATE', 'PM Shift', '',],
       notExceedDialog: false,
       // selectedRemark: "",
+      statictime:'3:00 PM',
+      staticRemarks:'INVALID QRCODES',
+
+      Dialog_Present_Successfully:false,
       passremark: false,
       dialogVisible: false,
+      Dialog_InvalidQR:false,
       showModal: false,
       showDialog: false,
       selectedOffice: "",
@@ -384,6 +453,7 @@ export default {
       currentTime: "",
       currentDate: "",
       ID: "",
+      search_invalidqr:"",
       Event_name: '',
       search: "",
       eventname: '',
@@ -396,6 +466,7 @@ export default {
       tempmessage: [],
       dataTable: [],
       message: [],
+      invalidQR:[],
       messagealreadyscan: [],
       transferredTimes: [],
       mensahenibai: false,
@@ -444,10 +515,43 @@ export default {
 
       ],
 
+      sample_data:[
+
+ { Controlno: 1, fullname: "John Doe" },
+        { Controlno: 2, fullname: "Jane Smith" },
+        { Controlno: 3, fullname: "Jane Soho" },
+        { Controlno: 4, fullname: "James Harden" },
+        { Controlno: 5, fullname: "Mader pader"},
+      ],
+
+      header_invalid_QR_Codes: [
+
+      {
+
+key: "Controlno",
+sortable: false,
+title: "ID",
+align: ' d-none d-sm-table-cell',
+},
+{ key: "fullname", title: "Full Name", class: 'header-id', sortable: false },
+{ key: "actions", title: "Actions", sortable: false, },
+
+
+      ]
+
     };
   },
 
   computed: {
+
+    sortedItems_employees() {
+      // Sort the items array based on fullname
+      return this.Pangalan.slice().sort((a, b) => {
+        // Use localeCompare to sort strings alphabetically
+        return a.fullname.localeCompare(b.fullname);
+      });
+    },
+
     ...mapGetters('events', { Pangalan: ['getName'], Event: ['getEvent'] }),
     ...mapGetters('users', { fetechEmployees: ['getUsers'] }),
     ...mapGetters("office", { Offices: "getOffices" }),
@@ -513,6 +617,18 @@ export default {
       this.searchByOffice();
       console.log("employees=", this.employees)
 
+      this.employees.forEach(employee=>{
+        if(employee.timescanned){
+          this.message.push({
+            "name": employee.fullname,
+          "id": employee.Controlno,
+          "time": employee.timescanned,
+          "Remarks": this.remarks})
+        }
+      }
+      )
+
+
     })
 
     // this.fetchUsers().then(rew=>{
@@ -528,10 +644,112 @@ export default {
 
   methods: {
     ...mapActions('events', ['fetchPangalan']),
+
     ...mapActions('users', ['fetchUsers']),
     ...mapActions('scaninsert', ['registerScan']),
     ...mapActions('office', ['fetchOffices']),
     ...mapActions('scaninsert', ['saveallremarks']),
+
+    toggleFlash() {
+      if (this.flashEnabled) {
+        this.html5QrCode.showTorchButtonIfSupported();
+      } else {
+        this.html5QrCode.toggleTorch();
+      }
+
+
+    },
+
+
+    Click_Present(item)
+    {
+
+  console.log('Action clicked for ID:', item.columns.Controlno);
+  console.log('Action clicked for ID:', item);
+
+
+        const currentTime = new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+     /*    this.message.unshift({
+          time: currentTime,
+        }); */
+
+  let data = new FormData();
+      data.append('Controlno', item.columns.Controlno);
+      data.append('event_id', this.eventayde);
+      data.append('office_id', item.value.office_id);
+      data.append('fullname', item.columns.fullname);
+      data.append('status', item.value.status);
+      data.append('designation', item.value.designation);
+      data.append('time', currentTime);
+      data.append('remarks', this.staticRemarks);
+
+      this.registerScan(data)
+        .then(() => {
+          console.log('Registration successful');
+        })
+        .catch(e => {
+          console.error('Error during registration:', e.message);
+        });
+
+
+        this.fetchOffices();
+        this.searchByOffice();
+
+     /*        CODE TO REFRESH START */
+        let data2 = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+    data2.append('event_id', localStorage.getItem('ID'))
+    data2.append('office_id', adminrecords.office_id)
+    this.fetchPangalan(data2).then(res => {
+      this.employees = this.Pangalan
+
+      
+      this.searchByOffice();
+      console.log("employees=", this.employees)
+      this.invalidQR = this.Pangalan.filter(employee => !employee.timescanned)
+
+
+      this.employees.forEach(employee=>{
+        if(employee.timescanned){
+          this.message.push({
+            "name": employee.fullname,
+          "id": employee.Controlno,
+          "time": employee.timescanned,
+          "Remarks": this.remarks})
+        }
+      }
+      )
+    })
+     /*  CODE TO REFRESH END */
+
+        this.Dialog_Present_Successfully = true;
+
+    },
+
+    Close_Dialog_Present_Successfully()
+    {
+
+      this.Dialog_Present_Successfully = false;
+      this.fetchOffices();
+    },
+
+
+    clicktoclose_invalidQRDialog()
+    {
+      this.fetchOffices();
+      this.Dialog_InvalidQR = false;
+    },
+
+        clickinvalidqr()
+        {
+          this.invalidQR = this.Pangalan.filter(employee => !employee.timescanned)
+          this.Dialog_InvalidQR = true;
+        },
+
 
 
     formattedTime_From(time) {
@@ -668,31 +886,31 @@ export default {
 
     // FOR QR CODE CREATE SCAN START
 
-    /*  creatScan_htmlfive() {
+     creatScan_htmlfive() {
 
-      const config = { fps: 10, qrbox: 250 };
+      const config = { fps: 10, qrbox: 250 ,showTorchButtonIfSupported:true};
       const html5QrcodeScanner = new Html5QrcodeScanner(
         "qr-code-full-region",
         config
       );
       html5QrcodeScanner.render(this.onScanSuccess);
 
-    }, */
+    },
 
-      creatScan_htmlfive() {
-        const html5QrCode = new Html5Qrcode("qr-code-full-region");
+//       creatScan_htmlfive() {
+//         const html5QrCode = new Html5Qrcode("qr-code-full-region" ,  { formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE ]});
 
-    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+//     const config = { fps: 10, qrbox:   { width: 120, height: 120 }, showZoomSliderIfSupported:true ,showTorchButtonIfSupported:true };
 
-    // If you want to prefer back camera
-    html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess);
+//     // If you want to prefer back camera
+//     html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess);
 
-    // If you want to prefer front camera
-    // html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
+//     // If you want to prefer front camera
+//     // html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
 
-    html5QrCode.render(this.onScanSuccess);
+// /*     html5QrCode.render(this.onScanSuccess); */
 
-      },
+//       },
 
     // FOR QR CODE CREATE SCAN END
 
@@ -726,7 +944,15 @@ export default {
     // },
 
     onScanSuccess(decodedResult) {
+      if(this.timeout == true){
+        return;
+      }
+      console.log("mesaeg=",this.message)
+
       const obj = { decodedResult: decodedResult };
+      const duplicate=this.message.find((item) => item.id == this.id(obj.decodedResult))?this.message.find((item) => item.id == this.id(obj.decodedResult)):''
+      console.log("scan=",obj);
+
       /*      const currentTime = new Date().toLocaleTimeString(); */
       const timeValue = this.selectedTime;
 
@@ -735,6 +961,15 @@ export default {
       const minute = parseInt(selectedMinute, 10);
       let ampm = timeValue.split(' ')[1];
       console.log("time=", ampm);
+  //     const userid=this.id(obj.decodedResult)
+  //  const sample = this.Pangalan.find((item) => item.Controlno == this.id(obj.decodedResult))?true:false
+  //     console.log("Sample",sample)
+  //     console.log("id=",userid)
+  //     console.log("nem=",this.Pangalan)
+
+
+
+
       // if (hour >= 13) {
       //   ampm = "PM";
       //   if (hour > 13) {
@@ -743,7 +978,7 @@ export default {
       // } else if (hour === 0) {
       //   hour = 13;
       // }
-      if (this.message.find((item) => item.id == this.id(obj.decodedResult))
+      if (duplicate.length !==0
       ) {
         this.showMessage = true;
         this.mensahenibai = "Already Scanned";
@@ -751,7 +986,24 @@ export default {
           this.showMessage = false;
         }, 1500);
 
-      } else {
+      }
+      else if(this.Pangalan.find((item) => item.Controlno == this.id(obj.decodedResult))?false:true){
+        this.showMessage = true;
+        this.mensahenibai = "NOT ON LIST";
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 1500);
+     /*    console.log("DILE NI MAO") */
+      }
+
+      else {
+        this.timeout=true
+        this.showMessage = true;
+        this.mensahenibai = "Successfully Scanned";
+        setTimeout(() => {
+          this.showMessage = false;
+          this.timeout=false
+        }, 1500);
         const currentTime = new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
@@ -766,6 +1018,7 @@ export default {
         console.log("condition=", isLate)
 
         const remarksBAI = isLate ? 'LATE' : '';
+
         this.message.unshift({
           name: this.name(obj.decodedResult),
           id: this.id(obj.decodedResult),
@@ -773,11 +1026,7 @@ export default {
           Remarks: remarksBAI
         });
 
-        this.showMessage = true;
-        this.mensahenibai = "Successfully Scanned";
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 1500);
+
 
         const formattedHour = hour.toString().padStart(2, "0");
         const formattedMinute = minute.toString().padStart(2, "0");
@@ -858,7 +1107,7 @@ export default {
         this.fetchOffices();
         this.searchByOffice();
       }
-
+console.log("end")
 
       // location.reload();
     },
@@ -1035,6 +1284,8 @@ export default {
 
   async mounted() {
 
+
+
     this.selected = 'BMW'
     setInterval(() => {
       this.selectedTime = getCurrentTime();
@@ -1144,7 +1395,9 @@ z-index: 9999;
 .image {
   border: 1px solid #0a7a0e;
 }
-
+.image1 {
+  border: 2px solid #0a7a0e;
+}
 .my-input.v-input .v-input__slot {
   border-radius: 100px;
 }

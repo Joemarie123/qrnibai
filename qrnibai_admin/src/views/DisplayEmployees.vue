@@ -2,7 +2,7 @@
   <v-card  height="1000" flat color="#F9FAFC" >
 <v-layout>
   <NavBar/>
-<v-main>
+<v-main class="mt-n5">
 <div class="container123">
   <v-container >
 
@@ -10,22 +10,22 @@
 <v-container>
 
   <v-dialog v-model="loading" persistent  max-width="350">
-        
+
         <!--  <v-card>
            <v-card-text> -->
-              
-           <p style="color:rgb(255, 255, 255);"> Please Wait....</p> 
-           
+
+           <p style="color:rgb(255, 255, 255);"> Please Wait....</p>
+
              <v-progress-circular
          :size="100"
          :width="10"
-       
+
          color="green"
          indeterminate
        ></v-progress-circular>
          <!--   </v-card-text>
          </v-card> -->
-    
+
        </v-dialog>
      <!--   <v-dialog v-if="loading" v-model="dialogVisible" persistent max-width="300">
     <v-card >
@@ -39,10 +39,10 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogVisible = false">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog> -->
 
@@ -58,45 +58,43 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogoksuccessfullassing()">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
   <v-row class="mt-n15 mt-md-1 ">
 
-    <v-col cols="12" sm="3" md="2">
+    <v-col cols="12" sm="4" md="4" lg="3" xl="2" >
   <v-btn class="ml-md-1 mt-6 mt-lg-6"  rounded-lg color="green" @click="sendPostRequest()" variant="text">UPDATE EMPLOYEES</v-btn>
   </v-col>
 
-  
-  <v-col class="mt-n5 mt-sm-4  mt-md-4 mt-lg-4 mr-md-6" cols="12" sm="6"  md="6">
+  <v-col class="ml-lg-n12 mt-n5 mt-sm-4  mt-md-4 mt-lg-4 mr-md-6" cols="12" sm="6"  md="6">
   <input v-model="search" class="textbox"  placeholder="Search Employee">
 </v-col>
-  
+
     <v-col cols="12">
 
       <v-card class="rounded-lg mt-n4">
-     
+
   <v-data-table
     :search="search"
     item-key="ID"
     :items="sortedItems"
     :headers="headers"
-    :items-per-page="10"
+    :items-per-page="15"
     class="my_class td btn-hover color-1 elevation-1"
     tile
-    height="470"
+    density="compact"
   >
-  
-      
+
 <template #bottom></template>
     <template v-slot:item.actions="{ item }">
 
 
-      <v-btn color="success" @click="assignToOffice(item.columns.controlno)" variant="outlined">
-        <v-row>
+      <v-btn   class="mt-n2"     density="compact" color="success" @click="assignToOffice(item.columns.controlno)" variant="outlined">
+        <v-row >
           <p>Assign to Office</p>
         <!--   <v-icon right class="white--text mx-1">mdi-delete</v-icon> -->
         </v-row>
@@ -109,23 +107,23 @@
   <v-dialog  v-model="dialogshowoffice" persistent=""  max-width="300">
   <v-card >
     <v-row >
-      <button @click="dialogshowoffice = false" class="close-button "><strong>X</strong></button>                 
+      <button @click="dialogshowoffice = false" class="close-button "><strong>X</strong></button>
       <v-col cols="12" class="mt-5">
      <!--    <h1 v-if="selectedControlNo">Control Number: {{ selectedControlNo }}</h1> -->
        <!-- <v-combobox label="Select Office" v-model="selectedoffice" :items="Opisdaw" class="mx-4" >
-        
+
        </v-combobox> -->
-       
+
        <v-combobox
         prepend-inner-icon="mdi-account"
         class="mx-2 mt-4"
-        density="compact" 
+        density="compact"
         variant="solo"
           v-model="selectedoffice"
           :items="Opisdaw"
           label="Select a Full Name"
-         
-         
+
+
         ></v-combobox>
      <!--   <v-text-field label="office ID" v-model="officeaydebai">
 
@@ -133,17 +131,17 @@
       </v-col>
 
     </v-row>
-    <v-card-actions class="d-flex justify-center mt-n7">  
+    <v-card-actions class="d-flex justify-center mt-n7">
       <v-btn color="green"  @click="sendRequestAssignOffice()">Assign</v-btn>
     </v-card-actions>
 
 
-    
+
   </v-card>
 </v-dialog>
 </v-card>
     </v-col>
-    
+
   </v-row>
 </v-container>
 </div>
@@ -223,13 +221,13 @@ return {
     formattedTime:"",
     status:"",
     userData: {
- 
+
       office_id: '',
 
     },
     selectedRemarks: "",
-    remarks: ['Absent','Late'],
-  
+   /*  remarks: ['Absent','Late'], */
+
     loading: false, // Initial loading state
   createevents:false,
   selectedControlNo: '',
@@ -253,8 +251,8 @@ return {
       { key: "designation", title: "Position", align: ' d-none d-sm-table-cell', sortable: false, },
       { key: "office", title: "Office", class: 'header-id', sortable: false },
       { key: "actions", title: "Actions", sortable: false, },
-    
-    
+
+
     ],
 
 
@@ -274,24 +272,24 @@ computed: {
       });
     },
 
-  
-}, 
+
+},
 
 created() {
-  
+
       this.fetchEmpleyados()
       this.fetchOffices()
 
-      setTimeout(() => { 
+      setTimeout(() => {
       this.fetchOpis()
-    }, 1000); 
+    }, 1000);
 
 },
 
 
 
 methods: {
-...mapActions('users', ['fetchEmpleyados']), 
+...mapActions('users', ['fetchEmpleyados']),
 ...mapActions('office', ['fetchOffices']),
 
 
@@ -309,7 +307,7 @@ dialogoksuccessfullassing(){
 //         data.append('Controlno', this.selectedControlNo);
 //       /*   console.log("Control NO afg",this.selectedControlNo) */
 //         data.append('Office_ID', this.officeaydebai);
-     
+
 //         console.log('FormData:', data);
 
 
@@ -329,7 +327,7 @@ dialogoksuccessfullassing(){
       const data = new FormData
       data.append('controlno', this.selectedControlNo);
       data.append('office_id', this.officeaydebai);
-    
+
   try {
     const response = await axios.post('https://database.tagumcity.gov.ph/HRQR/adminassigntooffice.php', data);
       console.log("Response=",response.data)
@@ -338,16 +336,16 @@ dialogoksuccessfullassing(){
       this.dialogforassignsuccessfully = true;
     if (response.data.error) {
     /*  this.dialogupdated = true */
-    
-     this.errorMessage = response.data.user; 
-   
-      this.successMessage = ''; 
+
+     this.errorMessage = response.data.user;
+
+      this.successMessage = '';
 
 /*    this.dialogerror = true; */
     } else {
      /*  this.dialogupdated = true;  */
-       this.errorMessage = response.data.user; 
-       this.errorMessage = ''; 
+       this.errorMessage = response.data.user;
+       this.errorMessage = '';
     /*   this.dialogerror = true; */
     }
   } catch (error) {
@@ -362,7 +360,7 @@ assignToOffice(controlno) {
   console.log("Control NO",controlno)
     this.selectedControlNo = controlno;
     this.dialogshowoffice = true;
-    
+
   },
 
 
@@ -376,7 +374,7 @@ if ( Array.isArray(this.userlist)) {
 
   office: user.office,
     id: user.id,
-    }; 
+    };
   });
 
   this.Opisdaw = this.namesData.map(nameData => nameData.office).sort();;
@@ -394,10 +392,10 @@ async sendPostRequest() {
     try {
       const response = await axios.post('/updateemployees.php');
       console.log('API Response:', response.data);
-     
+
       this.dialogVisible = true
- 
-  
+
+
     } catch (error) {
       console.error('Error occurred:', error);
       // Handle errors here
@@ -424,14 +422,14 @@ cancelDialog() {
     if (selectedNameData) {
       this.officeaydebai = selectedNameData.id;
     /*   this.selectedFirstName = selectedFirstName.fullName; */
-  
-   
- 
+
+
+
     } else {
       this.officeaydebai = '';
-  
 
-    
+
+
     }
   },
 
@@ -446,7 +444,7 @@ openConfirmationDialog(item) {
   this.deletecontrono=item.raw.Controlno;
     this.selectedItem = item;
     this.dialogVisible = true;
-    
+
   },
 
 },
@@ -456,7 +454,7 @@ watch: {
 },
 
 async mounted() {
-    
+
     this.fetchOpis()
 },
 
@@ -496,7 +494,7 @@ return `${formattedHours}:${formattedMinutes} ${ampm}`;
 
 width: 300px;
 height: 200px;
-background: pink; 
+background: pink;
 padding: 24px;
 }
 
@@ -507,11 +505,11 @@ background-color: #f3f0f0;
 
 @media screen and (max-width: 600px) {
 #select-element {
-border: 1px solid #1f7b09; 
+border: 1px solid #1f7b09;
 border-radius: 5px;
 padding: 1px;
 font-size: 10px;
-width: 48px; 
+width: 48px;
 height: 20px;
 margin-left: 5px;
 }
@@ -541,7 +539,7 @@ color: #9e3636;
 font-weight: bold;
 }
 
- 
+
 /* @media screen and (max-width: 600px) {
 .v-data-table th,
 .v-data-table td {
@@ -562,11 +560,11 @@ border-radius: 100px;
 
 
 .container123 {
-max-width: 1170px;
+  max-width: 1670px;
 padding-left: 20px;
 padding-right: 20px;
 margin: auto;
-} 
+}
 
 
 
@@ -577,7 +575,7 @@ padding-left: 0px;
 padding-right: 0px;
 margin: auto;
 
-} 
+}
 
 .card {
   display: none; /* Hide the card on screens with a max-width of 768px (adjust as needed) */
@@ -660,8 +658,8 @@ padding: 10px;
 border: 1px solid #168904;
 border-radius: 10px;
 margin-bottom: 10px;
-width: 250px;
-height: 40px;
+width: 340px;
+height: 35px;
 }
 
 

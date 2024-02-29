@@ -26,7 +26,7 @@
             <v-card-title class="my-4 mt-n1 login-title">
 <v-row>
 <v-col col="12">
-  <b>Attendance Reporting an
+  <b>Attendance Reporting and
                   </b>
 </v-col>
 <v-col col="12" class="mt-n6">

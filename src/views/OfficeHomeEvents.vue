@@ -18,7 +18,7 @@
 <v-container>
 
   <v-row>
- 
+
 
  <v-col cols="12" sm="3" md="4">
   <h3 class="ml-md-8 mt-n2" :style="{ color: 'green' }">CURRENT/UPCOMING EVENTS</h3>
@@ -31,7 +31,7 @@
     <v-col cols="12">
 
       <v-card class='rounded-lg mt-n4'>
-        
+
       <v-data-table
       :search="search"
        item-key="ID"
@@ -39,7 +39,7 @@
      :items="events"
     :items-per-page="10"
      class="elevation-1 my_classo_officehomeevents"
-  
+
 >
 <template v-slot:item.actions="{ item }">
 
@@ -67,7 +67,7 @@
 </v-card>
 </template>
 
-      
+
     <script>
     import NavBarUser from "@/components/NavBarUser.vue";
     import { mapActions, mapGetters } from 'vuex';
@@ -80,8 +80,8 @@
     data() {
       return {
         search: "",
-        
-    
+
+
 
     headers: [
         {
@@ -90,14 +90,14 @@
           sortable: false,
           title: "ID",
            align: ' d-none',
-         
+
         },
         { key: "Event_name", title: "Event Name", sortable: false },
         { key: "Event_date", title: "Event Dates" , sortable: false },
         { key: "Event_venue", title: "Event Venue",  align: ' d-none d-sm-table-cell' , sortable: false },
         { key: "AttendanceCount", title: "Attendance", align: ' d-none d-sm-table-cell' ,  sortable: false },
         { key: "actions", title: "Actions" , align:"center" },
-    
+
       ],
       };
     },
@@ -110,7 +110,22 @@
 
 
   created() {
-    this.fetchEvents();
+
+    let data = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+    console.log("ID=", adminrecords.office_id)
+
+    console.log("EventName=", this.$route.params.Event_name)
+    data.append('office_id', adminrecords.office_id)
+
+    this.eventayde = localStorage.getItem("ID");
+    this.fetchEvents(data).then(res =>
+
+    {
+
+    });
+
+
   },
 
 
@@ -154,12 +169,12 @@
     },
   };
   </script>
-    
+
     <style scoped>
     .my-input.v-input .v-input__slot {
       border-radius: 100px;
     }
-    
+
     .v-data-table > .v-data-table__wrapper > table {
         border-spacing: 0 0.10rem;
     }
@@ -172,18 +187,18 @@
 
     @media screen and (max-width: 600px) {
   .container123 {
- 
+
   padding-left: 0px;
   padding-right: 0px;
   margin: auto;
 
-} 
+}
 
 .card {
     display: none; /* Hide the card on screens with a max-width of 768px (adjust as needed) */
   }
 
-  
+
 
 }
     .my-header-style {
@@ -193,12 +208,12 @@
       /*  color: #70b354; */
         font-size: 15px;
       }
-    
+
       .classeventdetails{
-    
+
         font-size: 20px;
       }
-    
+
     .head {
     background-color: #70b354;
     color: white;
@@ -207,24 +222,24 @@
     padding: 20px;
     font-size: 20px;
     }
-    
+
     table {
     width: 100%;
     border-collapse: collapse;
     }
-    
+
     th,
     td {
     padding: 3px;
     border-bottom: 1px solid #ddd;
     text-align: center;
     }
-    
+
     th {
     background-color: #f2f2f2;
     }
-    
-    
+
+
     .close-button {
       position: absolute;
       top: 5px;

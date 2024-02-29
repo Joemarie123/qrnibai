@@ -127,12 +127,29 @@ const routes = [
     component: () => import('@/views/EventDetails.vue')
   },
 
+  {
+    path: '/ReportsHRAdmin',
+    name: 'ReportsHRAdmin',
+    component: () => import('@/views/ReportsHRAdmin.vue')
+  },
+
 
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory('arms/Main/'),
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = window.localStorage.getItem('user') !== null;
+
+  // If the user is not authenticated and is trying to access a protected route, redirect to login
+  if (!isAuthenticated && to.path !== '/' ) {
+    next('/');
+  } else {
+    next();
+  }
+});
 
 export default router
