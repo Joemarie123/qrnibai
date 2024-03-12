@@ -20,8 +20,8 @@
     <v-row>
 
 
-   <v-col cols="12" sm="4" md="2">
-    <h3 class="ml-md-8 mt-n2" :style="{ color: 'green' }">EVENTS HISTORY</h3>
+   <v-col cols="12" sm="4" md="3" lg="3" xl="2">
+    <h3 class="ml-md-1 mt-n2 colorfortext" >EVENTS HISTORY</h3>
   </v-col>
 
   <v-col class="mt-n4" cols="12" sm="6"  md="6">
@@ -37,9 +37,9 @@
         :search="search"
          item-key="ID"
        :headers="headers"
-       :items="events"
+       :items="formattedData"
       :items-per-page="15"
-       class="elevation-1 my_classo_officehomeevents"
+       class="my_class elevation-1 my_classo_officehomeevents"
 
   >
   <template v-slot:item.actions="{ item }">
@@ -49,7 +49,13 @@
   </button>
    -->
   <button >
-  <v-icon class=" mt-n2" color="primary" @click="handleRowEventHistoryClick(item)"  large >mdi-printer</v-icon>
+  <v-icon class=" mt-n2" color="primary" @click="handleRowEventHistoryClick(item)"  large >mdi-printer
+
+  </v-icon>
+  <v-tooltip
+        activator="parent"
+        location="top"
+      >Print</v-tooltip>
   </button>
 
 
@@ -104,7 +110,15 @@
       computed: {
       ...mapGetters("events", { events: "getEventsHistory" }),
 
+      formattedData() {
+      return this.events.map(item => {
+        return {
+          ...item,
 
+          Event_date: this.formatDate(item.Event_date),
+        };
+      });
+    },
     },
 
 
@@ -115,6 +129,14 @@
       methods: {
         ...mapActions('events', ['fetchEventsHistory']),
 
+        formatDate(date) {
+      if (!date) {
+        return null;
+      }
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString('en-US', options);
+    },
 
         handleRowEventHistoryClick(item) {
         // console.log("users=", item);
@@ -166,7 +188,7 @@
           border-spacing: 0 0.10rem;
       }
       .container123 {
-        max-width: 1670px;
+      /*   max-width: 1670px; */
         padding-left: 20px;
         padding-right: 20px;
         margin: auto;

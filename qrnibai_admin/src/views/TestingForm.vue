@@ -1,34 +1,52 @@
+
 <template>
-  <v-data-table
-    :items="items"
-    :headers="headers"
-    @click:row="onRowClick"
-  ></v-data-table>
+  <div>
+    <p>Current Date and Time (GMT+8): {{ formattedDateTime }}</p>
+  </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      items: [
-        { id: 1, name: 'Item 1', description: 'Description 1' },
-        { id: 2, name: 'Item 2', description: 'Description 2' },
-        // Add more items as needed
-      ],
-      headers: [
-        { title: 'ID', key: 'id' },
-        { title: 'Name', key: 'name' },
-        { title: 'Description', key: 'description' },
-        // Add more headers as needed
-      ]
+      formattedDateTime: '',
     };
   },
+  mounted() {
+    this.getCurrentDateTime();
+  },
   methods: {
-    onRowClick(item,row) {
-      console.log('Clicked on item with ID:', item);
-      console.log('Clicked on item with ROW ID:', row.item.columns.id);
+    async getCurrentDateTime() {
+      try {
+        const response = await axios.get('https://worldtimeapi.org/api/ip');
+        const { datetime, utc_offset } = response.data;
 
-    }
-  }
+        // Parse the received datetime string
+        const serverDateTime = new Date(datetime);
+
+        // Adjust to GMT+8
+        const localDateTime = new Date(serverDateTime.getTime() + utc_offset * 1000);
+
+        // Format the date and time
+        this.formattedDateTime = this.formatDateTime(localDateTime);
+      } catch (error) {
+        console.error('Error fetching current date and time:', error);
+      }
+    },
+    formatDateTime(dateTime) {
+      const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZone: 'Asia/Shanghai', // GMT+8
+      };
+      return dateTime.toLocaleString('en-US', options);
+    },
+  },
 };
 </script>

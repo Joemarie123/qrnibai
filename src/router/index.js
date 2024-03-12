@@ -154,6 +154,13 @@ const routes = [
     component: () => import('@/views/sample.vue')
   },
 
+  {
+    path: '/EditRemarks',
+    name: 'EditRemarks',
+    component: () => import('@/views/EditRemarks.vue')
+  },
+
+
 
 
 ]

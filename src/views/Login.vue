@@ -63,7 +63,7 @@
                   type="password"
 
                 ></v-text-field>
-                <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p>
+               <!--  <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p> -->
 
                 <v-row>
                     <v-col class="mx-4 d-flex justify-center" cols="11">

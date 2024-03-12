@@ -5,7 +5,7 @@
 
       <NavBar/>
 
-      <v-main  class="mt-16">
+      <v-main  class="">
 
         <v-sheet
 
@@ -87,7 +87,7 @@
 
 
               <v-row>
-                <v-col cols="3" >
+                <v-col cols="12" lg="3" >
         <div class="ml-n16">
           <v-btn
           color="orange"
@@ -104,7 +104,7 @@
       </v-col>
 
 
-                <v-col cols="7">
+                <v-col cols="12" lg="7">
               <span class="text-h4 ">CREATE OFFICE ADMIN ACCOUNT</span>
             </v-col>
 
@@ -115,7 +115,7 @@
             <v-container>
               <v-row >
 
-                <v-col cols="6" offset="4">
+                <v-col cols="12" lg="6" offset="4">
               <!--     <v-combobox
                      class="ml-1 rounded-xl"
                      label="Search Full Name"

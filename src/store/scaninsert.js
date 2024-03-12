@@ -4,12 +4,13 @@ const state = () => ({
   scans: [],
 
   scan: {},
-  remarks:[]
+  remarks:[],
+  server_datetime:{},
 })
 
 const getters = {
   getScans(state) {
-    console.log("Get Users",state);
+    //console.log("Get Users",state);
     return state.scans;
   },
 
@@ -17,12 +18,17 @@ const getters = {
     return state.scan;
   },
 
+  getServerDateTime(state)
+  {
+    return state.server_datetime;
+
+  },
 }
 
 const mutations = {
 
   setScans(state, payload){
-    console.log("Set Scans",payload);
+    //console.log("Set Scans",payload);
     state.scans = payload;
   },
 
@@ -31,7 +37,11 @@ const mutations = {
     state.scan = payload;
   },
 
-  
+  setServerDateTime(state,payload){
+    console.log("Set Server Date Time:",payload);
+         state.server_datetime = payload;
+  },
+
 
 }
 
@@ -39,18 +49,23 @@ const actions = {
 
     async registerScan({commit}, payload){
       let res = await axios.post(`/ScanInsert.php`,payload);
-      console.log("radsf",res.data)
+      //console.log("radsf",res.data)
       commit('setScans', res.data.user);
     },
-  
+
     async saveallremarks(){
-      // console.log("payload=",)
+      // //console.log("payload=",)
       let res = await axios.post(`/saveremarks.php`, this.remarks );
-      console.log("radsf",res.data)
-    
+      //console.log("radsf",res.data)
+
     },
 
+    async fetchServerDateTime({commit}){
+      let res = await axios.get(`/getdatetime.php`);
+       console.log("Get Server Date Time",res.data)
+      commit('setServerDateTime', res.data);
 
+    },
   }
 
 

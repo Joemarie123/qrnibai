@@ -4,7 +4,7 @@
 <NavBarUser/>
 
 <v-main>
-<div class="mt-16 container123">
+<div class=" container123">
 <v-container >
 
 <!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
@@ -20,11 +20,11 @@
   <v-row>
 
 
- <v-col cols="12" sm="3" md="4">
-  <h3 class="ml-md-8 mt-n2" :style="{ color: 'green' }">CURRENT/UPCOMING EVENTS</h3>
+ <v-col cols="12" sm="4" md="5" lg="4" xl="3">
+  <h3 class="colorfortext mt-n2" :style="{ color: 'green' }">CURRENT/UPCOMING EVENTS</h3>
 </v-col>
 
-<v-col class="mt-n4" cols="12" sm="6"  md="6">
+<v-col class="mt-n4 ml-n0 ml-md-n16 ml-lg-n16 ml-xl-n16" cols="12"  sm="6"  md="6">
   <input v-model="search" class="textbox"  placeholder="Search Event">
 </v-col>
 
@@ -37,19 +37,19 @@
        item-key="ID"
      :headers="headers"
      :items="events"
-    :items-per-page="10"
-     class="elevation-1 my_classo_officehomeevents"
+    :items-per-page="15"
+     class="my_class elevation-1 my_classo_officehomeevents"
 
 >
 <template v-slot:item.actions="{ item }">
 
 <button>
 <v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2 mt-n2">mdi-qrcode-scan</v-icon>
+<v-tooltip
+        activator="parent"
+        location="top"
+      >SCAN QR</v-tooltip>
 </button>
-
-<!-- <button >
-<v-icon class=" mt-n2" color="primary"  large >mdi-printer</v-icon>
-</button> -->
 
 
 </template>
@@ -96,7 +96,7 @@
         { key: "Event_date", title: "Event Dates" , sortable: false },
         { key: "Event_venue", title: "Event Venue",  align: ' d-none d-sm-table-cell' , sortable: false },
         { key: "AttendanceCount", title: "Attendance", align: ' d-none d-sm-table-cell' ,  sortable: false },
-        { key: "actions", title: "Actions" , align:"center" },
+        { key: "actions", title: "Actions" , align:"center"  },
 
       ],
       };
@@ -113,9 +113,9 @@
 
     let data = new FormData;
     const adminrecords = JSON.parse(localStorage.getItem('user'))
-    console.log("ID=", adminrecords.office_id)
+   // console.log("office_id Ni=", adminrecords.office_id)
 
-    console.log("EventName=", this.$route.params.Event_name)
+    //console.log("EventName=", this.$route.params.Event_name)
     data.append('office_id', adminrecords.office_id)
 
     this.eventayde = localStorage.getItem("ID");
@@ -125,7 +125,7 @@
 
     });
 
-
+   /*  console.log("Fetch Events",this.fetchEvents()) */
   },
 
 
@@ -135,9 +135,9 @@
 
 
       handleRowClick(item) {
-      // console.log("users=", item);
-      console.log("users=", item.columns.ID);
-    //   console.log("EventName", row.item.raw.Event_name);
+      // //console.log("users=", item);
+      //console.log("users=", item.columns.ID);
+    //   //console.log("EventName", row.item.raw.Event_name);
     localStorage.setItem('ID', item.columns.ID);
     this.$router.push({ name: "QRCodesUser", params: { id: item.columns.ID }});
     },
@@ -147,21 +147,21 @@
 
       editEvent(id) {
         // Handle edit event logic
-        console.log("Edit Event:", id);
+        //console.log("Edit Event:", id);
       },
       deleteEvent(id) {
         // Handle delete event logic
-        console.log("Delete Event:", id);
+        //console.log("Delete Event:", id);
       },
 
       redirecttoEventDetails (item) {
-      console.log("item=",item.id)
+      //console.log("item=",item.id)
     this.$router.push({ name: 'EventDetails', state: { id: item.id } })
     },
 
 
     redirecttoEventView (item) {
-      console.log("item=",item.id)
+      //console.log("item=",item.id)
     this.$router.push({ name: 'EventView', state: { id: item.id } })
     },
 
@@ -171,6 +171,10 @@
   </script>
 
     <style scoped>
+    .colorfortext{
+      color: rgba(4, 51, 40, 0.895)!important;
+           /*  color: aliceblue!important; */
+    }
     .my-input.v-input .v-input__slot {
       border-radius: 100px;
     }
@@ -179,7 +183,7 @@
         border-spacing: 0 0.10rem;
     }
     .container123 {
-      max-width: 1170px;
+      /* max-width: 1670px; */
       padding-left: 20px;
       padding-right: 20px;
       margin: auto;
@@ -254,6 +258,7 @@
       border: 1px solid #226218;
       border-radius: 10px;
       margin-bottom: 10px;
-      height: 35px;
+      height: 30px;
+      width: 300px;
     }
     </style>

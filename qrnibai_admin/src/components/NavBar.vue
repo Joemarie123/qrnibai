@@ -167,7 +167,7 @@
                 { icon: 'mdi-home', colorClass: 'icon-color' , text: 'HOME', route: '/HomeEvents' },
                 {  icon: 'mdi-history'  , text: 'Event History', route: '/EventHistory' },
                 {  icon: 'mdi-account-multiple'  , text: 'Employees List', route: '/DisplayEmployees' },
-                {  icon: 'mdi-newspaper'  , text: 'Reports', route: '/ReportsHRAdmin' },
+        //        {  icon: 'mdi-newspaper'  , text: 'Reports', route: '/ReportsHRAdmin' },
                /*  { icon: 'mdi-account-star', text: 'Settings', route: '/Settings' },
                 { icon: 'mdi-account-check', text: 'Create Account', route: '/CreateAccount' },
                 { icon: 'mdi-monitor', text: 'Offices', route: '/OfficesTable' }, */

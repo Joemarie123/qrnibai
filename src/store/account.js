@@ -7,7 +7,7 @@ const state = () => ({
 
 const getters = {
   getUsers(state) {
-    console.log("Get Users",state);
+    //console.log("Get Users",state);
     return state.account;
   },
 
@@ -20,7 +20,7 @@ const getters = {
 const mutations = {
 
   setUsers(state, payload){
-    console.log("Set Users",payload);
+    //console.log("Set Users",payload);
     state.account = payload;
   },
 
@@ -29,7 +29,7 @@ const mutations = {
     state.auth = payload;
   },
 
-  
+
 
 }
 

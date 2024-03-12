@@ -21,9 +21,9 @@ Read QR CODES
 
 
 <v-dialog v-model="dialog" max-width="880px">
-  
+
 <v-card>
-    
+
     <div class="text-center ">
 
 <v-alert class="px-n7" dense dark color="blue darken-3">
@@ -44,8 +44,8 @@ QR CODES READER -  JULY 1, 2023<strong>
 <qrcode-stream @init="onInit"  @decode="onDecode" ></qrcode-stream>
 
 <p>
- {{ error }}  
-  
+ {{ error }}
+
 </p>
 
 
@@ -69,7 +69,7 @@ QR CODES READER -  JULY 1, 2023<strong>
       <p>No results found for {{ search }}</p>
     </div>
 
-</v-card>   
+</v-card>
 </v-col>
 
 </v-row>
@@ -97,12 +97,12 @@ import { QrcodeStream } from 'vue3-qrcode-reader'
 
 export default{
     name: "qrcodesbai",
-    data(){ 
-      
+    data(){
+
         return{
           itemsPerPage: 5,
             dialog:false,
-            QRValue:null, 
+            QRValue:null,
             error:'',
             decodedString:'',
 
@@ -129,52 +129,52 @@ export default{
 
 
       result: {},
-             
+
             persons: [
 
             {
-         
-              id: '123', 
+
+              id: '123',
           FullName: 'None',
            office: 'None',
-          Civil_Status:'None', 
-          
+          Civil_Status:'None',
+
           },
 
 
           {
-          id: 'DDN48242F4DE', 
-         
+          id: 'DDN48242F4DE',
+
           FullName: 'Joemarie Rendon',
           office: 'CMO - IT',
-          Civil_Status:'Married', 
-          
+          Civil_Status:'Married',
+
           },
 
 
           {
-          id: 'DDN26DF58AD3', 
-         
+          id: 'DDN26DF58AD3',
+
           FullName: 'Milanie Rendon',
           office: 'CMO - Youth',
-          Civil_Status:'Married', 
-          
+          Civil_Status:'Married',
+
           },
 
           {
-          id: 'DDN89B4787F3', 
-         
+          id: 'DDN89B4787F3',
+
           FullName: 'Rebecca Waga',
           office: 'Human Resource',
-          Civil_Status:'Married', 
-          
+          Civil_Status:'Married',
+
           }
 
 
 
       ],
 
-    
+
 
         }
 
@@ -190,7 +190,7 @@ export default{
 
     methods: {
 
-     
+
 
   async onInit (promise) {
     // show loading indicator
@@ -238,7 +238,7 @@ export default{
 
   computed: {
 
-    fetchData() {
+   /*  fetchData() {
       const searchLower = this.search.toLowerCase();
       const foundData = this.persons.find(
         (item) =>
@@ -254,19 +254,19 @@ export default{
       }
       this.searched = true;
     },
-
+ */
   }
 
    /*   computed: {
         filteredCustomers() {
     	 var self = this;
        return this.persons.filter((cust) => {
-         return cust.id.toLowerCase().indexOf(self.search.toLowerCase()) >= 0 ||                                       
+         return cust.id.toLowerCase().indexOf(self.search.toLowerCase()) >= 0 ||
            cust.FullName.toLowerCase().indexOf(self.search.toLowerCase()) >= 0;
-           
+
        });
-       
-       
+
+
     },
 
 },  */

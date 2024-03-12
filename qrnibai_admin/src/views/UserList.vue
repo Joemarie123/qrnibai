@@ -17,7 +17,7 @@
 
 <button @click="Edit_PoUp = false" class="close-button "><strong>X</strong></button>
 <v-col cols="12"  sm="12" md="12" class="my-5 ml-7 mt-2" >
-<p class="classeventdetails" :style="{ color: '#70b354' }"><strong>Edit User Account</strong></p>
+<p class="classeventdetails colorfortext" ><strong>Edit User Account</strong></p>
 
 </v-col>
  <!--  {{ Edit_Office_ID }} -->
@@ -247,7 +247,7 @@ Submit
     </v-col>
 
       <v-col cols="12" lg="3" xl="2">
-    <h3 class="ml-1 ml-lg-8 mt-n2" :style="{ color: 'green' }">User Account List</h3>
+    <h3 class="ml-1 ml-lg-2 mt-n2 colorfortext" >User Account List</h3>
   </v-col>
 
   <v-col class="ml-lg-n16  mt-n4" cols="6">
@@ -265,32 +265,46 @@ Submit
        :headers="headers"
        :items="accountlist"
       :items-per-page="15"
-       class="elevation-1"
+       class="my_class elevation-1"
        density="compact"
   >
-
+<template #bottom></template>
   <template v-slot:item.actions="{ item }">
 
     <v-row>
-      <v-col cols="2" class="mt-n3 ">
+      <v-col cols="1" class="mt-n3">
 
 <!-- <v-btn variant="text" color="green" > -->
 
 <v-icon left color="success" size="x-small"  @click="edit_User_Employee(item)" class="white--text ">mdi-lead-pencil</v-icon>
 <!-- </v-btn> -->
+<v-tooltip
+        activator="parent"
+        location="top"
+      >Edit Account</v-tooltip>
 </v-col>
 
-<v-col cols="3" class="mt-n3 ">
+<v-col cols="1" class="mt-n3 ">
 <!-- <v-btn variant="text" color="red" class="mt-n3 "> -->
 
 <v-icon left color="red" size="x-small"  @click="Show_Dialog_Deleted(item)" class="white--text">mdi-delete</v-icon>
 <!-- </v-btn> -->
+<v-tooltip
+        activator="parent"
+        location="top"
+      >Delete Password</v-tooltip>
 </v-col>
 
-<v-col cols="3" class="mt-n3 ">
+<v-col cols="1" class="mt-n3 ">
+
 <!-- <v-btn variant="text" color="red" class="mt-n3 "> -->
 <v-icon left color="blue darken-3" size="x-small"  @click="Show_Dialog_Reset(item)" class="white--text">mdi-tooltip-edit</v-icon>
 <!-- </v-btn> -->
+<v-tooltip
+        activator="parent"
+        location="top"
+      >Reset Password</v-tooltip>
+
 </v-col>
 
 <v-dialog v-model="Dialog_Successfully_Deleted" max-width="400">
@@ -868,7 +882,7 @@ try {
     border-spacing: 0 0.10rem;
 }
 .container123 {
-  max-width: 1670px;
+/*   max-width: 1670px; */
   padding-left: 20px;
   padding-right: 20px;
   margin: auto;

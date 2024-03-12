@@ -4,22 +4,21 @@
   <NavBar/>
 
   <v-main>
-  <div class="mt-16 container123">
-    <v-container >
-
-      <v-btn @click="createevents = true" class="my-10" color="green" height="100">
-        <v-icon size="90">mdi-calendar-plus</v-icon>
-        <p class="mt-11 classeventdetails " >ADD OFFICE</p></v-btn
-      >
+  <div class="mt-10 container123">
+    <v-container class="d-flex justify-start">
+      <v-row >
+      <h2 class="mx-2 mt-2 colorfortext" >OFFICE LIST</h2>
+      <v-btn class="ml-5 ma-2" color="success" rounded-lg variant="outlined" @click="createevents = true">+ ADD OFFICE</v-btn>
+    </v-row>
         <v-dialog v-model="createevents"  max-width="510px">
           <v-card>
 
               <v-container>
-            <v-row>
+            <v-row >
 
              <button @click="createevents = false" class="close-button"><strong>X</strong></button>
             <v-col cols="12"  sm="12" md="12" class="my-5 ml-7 mt-2" >
-            <p class="classeventdetails" :style="{ color: '#70b354' }"><strong>ADD Offices</strong></p>
+            <p class="classeventdetails colorfortext" ><strong>ADD Offices</strong></p>
 
   </v-col>
 
@@ -86,7 +85,7 @@
   </v-col>
 
   <v-col cols="12" md="8" sm="8" class="mt-n6 mt-md-n7 mt-sm-1">
-  <v-text-field v-model="officename" height="10" variant="outlined" density="compact" label="Office Name"></v-text-field>
+  <v-textarea v-model="officename" height="10" variant="outlined" density="compact" label="Office Name"></v-textarea>
   </v-col>
   </v-row>
 
@@ -101,7 +100,7 @@
 
   <v-col cols="12" sm="12" md="11" class="d-flex justify-end my-5 mt-n4 ml-n5 ">
 
-      <v-btn color="green" class="pa-2 ml-5 mt-n1"
+      <v-btn  class="pa-2 ml-5 mt-n1 colorforbutton"
           outlined dark
           @click="saveoffice()">
         Submit
@@ -118,11 +117,11 @@
         </v-dialog>
 
 
-      <h2 class="mx-2" :style="{ color: 'green' }">Office List</h2>
+
     </v-container>
 
     <v-container>
-      <v-row>
+      <v-row class="mt-n8">
         <v-col>
           <!-- <table>
             <thead>
@@ -155,10 +154,11 @@
           <v-data-table
       :headers="headers"
       :items="Offices"
-      :items-per-page="5"
-      class="elevation-1"
+      :items-per-page="15"
+      class="my_class elevation-1"
 
     >
+<!--     <template #bottom ></template> -->
     <template v-slot:item.actions="{ item }">
 
 
@@ -314,7 +314,7 @@
 
 
   .container123 {
-    max-width: 1400px;
+  /*   max-width: 1400px; */
     padding-left: 20px;
     padding-right: 20px;
     margin: auto;

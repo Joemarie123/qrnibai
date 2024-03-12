@@ -43,16 +43,16 @@
           </v-row>
           <v-row no-gutters style="text-align: justify">
             <v-col class="top mt-6">
-            
+
               <p>Activity: {{ Event.Event_name }}</p>
               <p>Date:  {{  formattedDate_bai (Event.Event_date) }}</p>
-             
+
              <!--  <p v-for="office in filteredOffices" :key="office.id">Division: {{ office.Division }}</p>
               <p v-for="office in filteredOffices" :key="office.id">Section/Unit: {{ office.Section }}</p> -->
             <!--   <p>Project:</p> -->
             </v-col>
             <v-col class="top mt-6 ">
-             
+
               <p class="d-flex align-center justify-center">Time: {{ formattedTime_To (Event.Event_from) }}</p>
               <p class="d-flex align-center justify-center">Time: {{ Event.Event_venue }}</p>
             </v-col>
@@ -157,10 +157,10 @@ export default {
     };
   },
 
-  
+
   computed: {
 
-    
+
     ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
     ...mapGetters("users", { fetechEmployees: ["getUsers"] }),
     ...mapGetters("office", { Offices: "getOffices" }),
@@ -202,9 +202,9 @@ export default {
     let data = new FormData();
     const adminrecords = JSON.parse(localStorage.getItem("user"));
     this.officeId = adminrecords.office_id; // Set the officeId property
-    console.log("ID=", adminrecords.office_id);
+    //console.log("ID=", adminrecords.office_id);
 
-    console.log("EventName=", this.$route.params.Event_name);
+    //console.log("EventName=", this.$route.params.Event_name);
     data.append("event_id", localStorage.getItem("ID"));
 
     this.eventayde = localStorage.getItem("ID");
@@ -213,7 +213,7 @@ export default {
     this.fetchPangalan(data).then((res) => {
       this.employees = this.Pangalan;
       /* this.searchByOffice(); */
-      console.log("employees=", this.employees);
+      //console.log("employees=", this.employees);
     });
   },
 

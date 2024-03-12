@@ -1,7 +1,7 @@
 <template>
      <nav>
         <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" class="drawer"    color="#E9EEF4" dark app>
-    
+
   <div class="text-center mt-5">
          <!--   <h1 class="teal--text text-lg-h5 font-weight-bold ">HR QR SYSTEM</h1> -->
            <v-divider color="white" class="mt-4"></v-divider>
@@ -11,22 +11,22 @@
             <h1 class="black--text">{{ userData.firstname }} {{ userData.lastname }}</h1>
             <h6 class="grey--text ">{{ userData.designation }}</h6>
             <v-btn class="mt-3"  rounded color="success" variant="outlined">ADMIN</v-btn>
-              
+
         </div>
-        
+
         <v-divider class="mx-10 mt-3" ></v-divider>
 
 
   <v-list class="mt-6">
       <v-list-subheader>REPORTS</v-list-subheader>
-    
-      
+
+
       <v-list-item
-      
+
         v-for="(item, i) in items"
         :key="i"
         :value="item"
-     
+
         rounded="shaped"
         :to="item.route"
       >
@@ -41,15 +41,15 @@
         <template v-slot:activator="{ props }">
           <v-list-item
           rounded="shaped"
-        
+
             v-bind="props"
             prepend-icon="mdi-cog-outline"
             title="Settings"
           ></v-list-item>
         </template>
 
-          
-     <v-list-item 
+
+     <v-list-item
      v-for="(setting, i) in settings"
          rounded="shaped"
         :key="i"
@@ -62,8 +62,8 @@
         </template>
       <!--   <v-icon>{{ child.icon }}</v-icon> -->
         <v-list-item-title   class="ml-3"  v-text="setting.text" ></v-list-item-title>
-        </v-list-item> 
-        
+        </v-list-item>
+
       </v-list-group>
 
       <v-list-group  value="useraccount">
@@ -76,8 +76,8 @@
           ></v-list-item>
         </template>
 
-          
-     <v-list-item 
+
+     <v-list-item
      v-for="(account, i) in accounts"
          rounded="shaped"
         :key="i"
@@ -90,8 +90,8 @@
         </template>
       <!--   <v-icon>{{ child.icon }}</v-icon> -->
         <v-list-item-title class="ml-3"  v-text="account.text" ></v-list-item-title>
-        </v-list-item> 
-        
+        </v-list-item>
+
       </v-list-group>
 
 
@@ -106,7 +106,7 @@
         <v-spacer></v-spacer>
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-        
+
           </template>
           <v-list flat>
             <v-list-item v-for="link in links" :key="link.text" :to="link.route" custom-active-class="border">
@@ -116,29 +116,29 @@
         </v-menu>
         <v-btn text  variant="outlined" color="success"   @click="$router.push('/').catch((err) => {})">
           <span>LOG OUT</span>
-         
+
         </v-btn>
       </v-app-bar>
-      
+
     </nav>
   </template>
-  
+
   <script>
   export default {
     props: {
       source: String,
     },
-  
+
     data() {
       return {
 
 
       userData: {
-    
+
         designation: '',
         firstname: '',
         lastname: '',
-       
+
       },
 
         borderColor: 'green',
@@ -147,7 +147,7 @@
         fab: false,
 
         settings: [
-        {  icon: 'mdi-account-multiple-outline', text: 'Office', route: '/OfficesTable' }, 
+        {  icon: 'mdi-account-multiple-outline', text: 'Office', route: '/OfficesTable' },
       ],
 
         accounts: [
@@ -160,7 +160,7 @@
                /*  { icon: 'mdi-account-star', text: 'Settings', route: '/Settings' },
                 { icon: 'mdi-account-check', text: 'Create Account', route: '/CreateAccount' },
                 { icon: 'mdi-monitor', text: 'Offices', route: '/OfficesTable' }, */
-            
+
              /*    {
                        icon: 'mdi-chevron-up',
                        'icon-alt': 'mdi-chevron-down',
@@ -173,7 +173,7 @@
                          { icon: 'mdi-book-open-variant', text: 'Registered Online', route: '/RegisteredOnline' },
                        ],
                      }, */
-            
+
                 /*      {
                        icon: 'mdi-chevron-up',
                        'icon-alt': 'mdi-chevron-down',
@@ -212,7 +212,7 @@
             ],
       };
     },
-  
+
     mounted() {
     this.fetchData();
   },
@@ -237,20 +237,22 @@
     },
   };
   </script>
-  
-  <style scoped>
 
+  <style scoped>
+.colorforbutton{
+  background-color: rgba(4, 51, 40, 0.895)!important;
+  color: aliceblue!important;
+}
 .image {
     border: 2px solid #4caf4f;
 }
   .border {
     border-left: 4px solid #0ba518;
   }
-  
+
   .icon-color {
   color: #FF0000;
   }
 
 
   </style>
-  

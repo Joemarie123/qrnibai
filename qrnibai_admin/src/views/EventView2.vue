@@ -4,7 +4,7 @@
       <NavBar />
 
       <v-main>
-        <div class="mt-n8 mt-lg-16  container123">
+        <div class="container123">
           <v-container>
 
             <!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
@@ -24,12 +24,12 @@
                     </v-col>
 
                     <v-col cols="2" class="mt-4">
-                     <v-btn color="orange" @click="displayAttendanceCount = false">Close</v-btn>
+                     <v-btn variant="" color="red" @click="displayAttendanceCount = false">Close</v-btn>
                     </v-col>
                     </v-row>
 
-                        <v-data-table :search="SearchattendanceCount" :headers="headers_AttendanceCount" :items="attendancecountlist" >
-
+                        <v-data-table  :items-per-page="15" class="my_class pa-3" :search="SearchattendanceCount" :headers="headers_AttendanceCount" :items="attendancecountlist" >
+                          <template #bottom></template>
                         </v-data-table>
 
                     </v-card>
@@ -44,25 +44,25 @@
 
           <v-container>
 
-            <v-row>
+            <v-row >
               <!--   <v-col class="d-flex justify-end ml-n3 " cols="12">
     <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
   </v-col>
 -->
-              <v-col cols="12" lg="2">
+              <v-col cols="12" md="3" lg="3" xl="2">
                 <v-btn class="mt-3 ml-1 " @click="OpenDialog_EventDetails()" rounded-lg color="success"  variant="outlined">EMPLOYEES COUNT</v-btn>
               </v-col>
 
 
               <v-col cols="12" lg="8">
-                <v-select class="mt-4 ml-n2" density="compact" label="Select Office" v-model="selectedOffices"
+                <v-select class="mt-4 ml-n10" density="compact" label="Select Office" v-model="selectedOffices"
                   :items="modifiedOfficesList" color="success" variant="underlined"></v-select>
             <!--     <p> ID: {{ selectedOfficeID }}</p> -->
 
                 <!--  <v-btn color="green" @click="clicknibai()">Click Me</v-btn> -->
               </v-col>
 
-              <v-col cols="12" lg="4" md="6" class="mt-n4 ml-n4  ml-lg-4">
+              <v-col cols="12" lg="4" md="6" class="mt-n8 ml-n4  ml-lg-0">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
@@ -87,7 +87,7 @@
                 </v-card>
               </v-col>
 
-              <v-col cols="12" lg="4" md="6" class="mt-n4 ml-n4">
+              <v-col cols="12" lg="4" md="6" class="mt-n8 ml-n4">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
@@ -122,7 +122,7 @@
               </v-col>
 
 
-              <v-col cols="12" lg="2" md="6" class="ml-n4 mt-n4">
+              <v-col cols="12" lg="2" md="6" class="ml-n4 mt-n8">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
@@ -153,7 +153,7 @@
               </v-col>
 
 
-              <v-col cols="12" lg="2" md="6" class="ml-n4 mt-n4">
+              <v-col cols="12" lg="2" md="6" class="ml-n4 mt-n8">
                 <v-card class="image rounded-lg">
                   <v-container>
                     <v-row>
@@ -186,8 +186,9 @@
               <v-col cols="12" class="ml-n4 ml-lg-n1">
 
                 <v-card class='rounded-lg mt-n4 '>
-                  <v-data-table  :search="selectedOfficeID" :items="eventAttendanceList" item-key="ID" :headers="headers"
-                    :items-per-page="5" class="elevation-1 ">
+                  <v-data-table   :search="selectedOfficeID" :items="eventAttendanceList" item-key="ID" :headers="headers"
+                    :items-per-page="15" class="my_class  elevation-1 ">
+                 <!--   <template #bottom></template> -->
                     <template v-slot:item.actions="{ item }">
 
                       <button>
@@ -309,6 +310,18 @@ export default {
   },
 
   computed: {
+
+    Display_Formatted_Time()
+    {
+
+      return this.eventAttendanceList.map(item => {
+        return {
+          ...item,
+          formattedTime: this.formatTime(item.timescanned),
+        };
+      });
+
+    },
 
 
 
@@ -467,6 +480,19 @@ export default {
   ...mapActions("events", ["fetchAttendanceCount"]),
     ...mapActions("office", ["fetchOffices"]),
     ...mapActions('events', ['Admin_fetchPangalan']),
+
+    formatTime(time) {
+      if (!time) {
+        return null; // Return null for empty time
+      }
+
+      const [hours, minutes] = time.split(':');
+      const period = parseInt(hours) >= 12 ? 'PM' : 'AM';
+      const formattedHours = (parseInt(hours) % 12) || 12;
+
+      return `${formattedHours}:${minutes} ${period}`;
+    },
+
 
     OpenDialog_EventDetails()
     {
@@ -893,7 +919,7 @@ export default {
 }
 
 .container123 {
-  max-width: 1170px;
+ /*  max-width: 1170px; */
   padding-left: 20px;
   padding-right: 20px;
   margin: auto;

@@ -32,15 +32,15 @@
               <v-row>
 
 
-                <v-col class="mt-2 ml-3 my-3 card" cols="12" md="7">
+                <v-col class="mt-sm-5 mt-lg-2 ml-3 my-3 card" cols="12" sm="6" md="5" lg="7">
                   <input v-model="search" class="textbox textboxbai" placeholder="Search Full Name">
                   <!--   <v-text-field  density="compact"    append-inner-icon="mdi-magnify" variant="outlined"  label="Search Event"></v-text-field> -->
                 </v-col>
 
-                <v-col class="d-flex justify-center mt-md-5 mt-9 my-3" cols="12" md="4">
+                <v-col class="d-flex justify-center mt-md-5 mt-9 my-3" cols="12" sm="5" md="5" lg="4">
 
                   <div class="text-center">
-                    <p class=" "><b>DATE:</b> {{ currentDate }} - <b> TIME:</b>  {{ ServerDateTime.time }}</p>
+                    <p class=" "><b>DATE:</b> {{ currentDate }} - <b> TIME:</b> {{ currentTime }}</p>
                   </div>
 
                 </v-col>
@@ -62,10 +62,10 @@
 
                 <div>
 
-                  <v-btn class="custom-btn colorfortext mt-2 mt-md-0 rounded-lg cardbaibai" block
+             <!--      <v-btn class="custom-btn colorfortext mt-2 mt-md-0 rounded-lg cardbaibai" block
                     @click="checkDateTime()">Scan QR Code
                     <v-icon class="colorfortext mx-4">mdi-qrcode-scan</v-icon>
-                  </v-btn>
+                  </v-btn> -->
 
                   <v-dialog max-width="600px" v-model="showDialog" v-if="showDialog">
                     <v-card class="custom-btn colorfortext">
@@ -164,7 +164,7 @@
 
                         </v-col>
                         <v-col cols="12" class="mt-n6">
-                        <v-btn class="custom-btn colorfortext" @click="clickinvalidqr()">INVALID QRCODES</v-btn>
+                      <!--   <v-btn class="custom-btn colorfortext" @click="clickinvalidqr()">INVALID QRCODES</v-btn> -->
 
                         </v-col>
 
@@ -269,7 +269,7 @@
                           <p style="font-size:15px"> <b>FWL</b> <span class="mdi mdi-circle ml-7"></span> Flexible Work Schedule</p>
                         </v-col>
                         <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>NR</b> <span class="mdi mdi-circle ml-7"></span> NOT REQUIRED</p>
+                          <p style="font-size:15px"> <b>NR</b> <span class="mdi mdi-circle ml-10"></span> NOT REQUIRED</p>
                         </v-col>
                       </v-card>
                       </v-col>
@@ -315,16 +315,16 @@ src="/qr.png"
               <v-col cols="12">
 
                 <v-card class='rounded-lg mt-n4'>
-<v-text-field append-inner-icon="mdi-magnify" v-model="search" variant="solo" density="compact" label="Search">
+<!-- <v-text-field append-inner-icon="mdi-magnify" v-model="search" variant="solo" density="compact" label="Search">
 
-</v-text-field>
+</v-text-field> -->
                   <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
-                    class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n4" tile height="470">
+                    class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n0" tile height="470">
                     <template #bottom></template>
                     <template v-slot:item="{ item }">
 
                       <tr>
-                        <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
+                       <!--  <td class="card carddebe" :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td> -->
                         <td :style="{ textAlign: 'left' }">{{ item.columns.fullname }}</td>
                         <td class="card" :style="{ textAlign: 'left' }">{{ item.columns.designation }}</td>
                         <td :style="{color: item.columns.remarks == 'LATE'?'red':'black'}">{{ item.columns.timescanned }} </td>
@@ -416,7 +416,6 @@ import { Html5Qrcode } from "html5-qrcode";
 import NavBarUser from "@/components/NavBarUser.vue";
 import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
 import { Html5QrcodeSupportedFormats } from "@/store/enums.js";
-import moment from 'moment';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 
@@ -482,7 +481,6 @@ export default {
       formattedTime: "",
       status: "",
       office_id:'',
-      ServerKiniDatetime:'',
       userData: {
 
         office_id: '',
@@ -508,7 +506,7 @@ export default {
           key: "Controlno",
           sortable: false,
           title: "ID",
-          align: ' d-none d-sm-table-cell',
+          align: ' d-none',
         },
         { key: "fullname", title: "Full Name", class: 'header-id', sortable: false },
         { key: "designation", title: "Position", align: ' d-none d-sm-table-cell', sortable: false, },
@@ -546,12 +544,7 @@ align: ' d-none d-sm-table-cell',
 
   computed: {
 
-    formattedTimeServer() {
-      return this.formatTimeServer(this.ServerDateTime.time);
-    },
-
     sortedItems_employees() {
-
       // Sort the items array based on fullname
       return this.Pangalan.slice().sort((a, b) => {
         // Use localeCompare to sort strings alphabetically
@@ -559,12 +552,9 @@ align: ' d-none d-sm-table-cell',
       });
     },
 
-
     ...mapGetters('events', { Pangalan: ['getName'], Event: ['getEvent'] }),
     ...mapGetters('users', { fetechEmployees: ['getUsers'] }),
     ...mapGetters("office", { Offices: "getOffices" }),
-    ...mapGetters("scaninsert", { ServerDateTime: "getServerDateTime" }),
-
     ...mapState({
       employeeremarks: state => state.remarks,
 
@@ -600,11 +590,7 @@ align: ' d-none d-sm-table-cell',
 
   created() {
 
-
-
     setInterval(() => {
-      this.fetchServerDateTime()
-
       this.RealDate = new Date().toISOString().substr(0, 10) // Real date value
         this.RealTime = new Date().toTimeString().substr(0, 5);
     }, 1000);
@@ -657,17 +643,13 @@ align: ' d-none d-sm-table-cell',
 
 
   methods: {
-    ...mapActions('scaninsert', ['fetchServerDateTime']),
     ...mapActions('events', ['fetchPangalan']),
+
     ...mapActions('users', ['fetchUsers']),
     ...mapActions('scaninsert', ['registerScan']),
     ...mapActions('office', ['fetchOffices']),
     ...mapActions('scaninsert', ['saveallremarks']),
 
-
-    formatTimeServer(timeString) {
-      return moment(timeString, 'hh:mm:ss A').format('h:mm A');
-    },
 
     toggleFlash() {
       if (this.flashEnabled) {
@@ -687,10 +669,10 @@ align: ' d-none d-sm-table-cell',
   //console.log('Action clicked for ID:', item);
 
 
-       /*  const currentTime = new Date().toLocaleTimeString([], {
+        const currentTime = new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
-        }); */
+        });
 
      /*    this.message.unshift({
           time: currentTime,
@@ -703,7 +685,7 @@ align: ' d-none d-sm-table-cell',
       data.append('fullname', item.columns.fullname);
       data.append('status', item.value.status);
       data.append('designation', item.value.designation);
-      data.append('time', this.formattedTimeServer);
+      data.append('time', currentTime);
       data.append('remarks', this.staticRemarks);
 
       this.registerScan(data)
@@ -766,23 +748,19 @@ align: ' d-none d-sm-table-cell',
         clickinvalidqr()
         {
 
-          const dynamicDateTime = this.Event.Event_date + this.Event.Event_from;
-      const RealDateTime = this.ServerDateTime.datetime;
-      console.log("Real Time", RealDateTime)
-      console.log("Event Date Time", dynamicDateTime)
-      if (dynamicDateTime > RealDateTime) {
-        this.notExceedDialog = true; // Show not exceed dialog if date and time do not exceed static values
-
-      }
-      else {
-
-        let data2 = new FormData;
+          let data2 = new FormData;
     const adminrecords = JSON.parse(localStorage.getItem('user'))
     data2.append('event_id', localStorage.getItem('ID'))
     data2.append('office_id', adminrecords.office_id)
     this.fetchPangalan(data2).then(res => {
       this.employees = this.Pangalan
+
+
+   /*    this.searchByOffice(); */
+      //console.log("employees=", this.employees)
       this.invalidQR = this.Pangalan.filter(employee => !employee.timescanned)
+
+
       this.employees.forEach(employee=>{
         if(employee.timescanned){
           this.message.push({
@@ -794,17 +772,7 @@ align: ' d-none d-sm-table-cell',
       }
       )
     })
-     this.Dialog_InvalidQR = true;
-
-
-      }
-
-      ////////////////////////////////////////////////
-
-
-
-
-
+          this.Dialog_InvalidQR = true;
         },
 
 
@@ -845,14 +813,19 @@ align: ' d-none d-sm-table-cell',
 
 
     checkDateTime() {
-      const dynamicDateTime = this.Event.Event_date + this.Event.Event_from;
-      const RealDateTime = this.ServerDateTime.datetime;
+      const dynamicDateTime = new Date(this.Event.Event_date + "T" + this.Event.Event_from);
+      const RealDateTime = new Date();
       console.log("Real Time", RealDateTime)
-      console.log("Event Date Time", dynamicDateTime)
+      console.log("Dynamic Date Time", dynamicDateTime)
       if (dynamicDateTime > RealDateTime) {
         this.notExceedDialog = true; // Show not exceed dialog if date and time do not exceed static values
 
       }
+      /*   else if (dynamicDateTime == RealDateTime) {
+          this.showDialog = true;
+
+        } */
+
       else {
         this.showDialog = true;
 
@@ -1049,7 +1022,7 @@ align: ' d-none d-sm-table-cell',
       }
 
       else {
-
+        this.timeout=true
         this.showMessage = true;
         this.mensahenibai = "Successfully Scanned";
         setTimeout(() => {
@@ -1074,12 +1047,11 @@ align: ' d-none d-sm-table-cell',
         this.message.unshift({
           name: this.name(obj.decodedResult),
           id: this.id(obj.decodedResult),
-          time: this.formattedTimeServer,
-          Remarks: remarksBAI,
-
+          time: currentTime,
+          Remarks: remarksBAI
         });
 
-        console.log("Server Current TIme",this.formattedTimeServer)
+
 
         const formattedHour = hour.toString().padStart(2, "0");
         const formattedMinute = minute.toString().padStart(2, "0");
@@ -1159,7 +1131,6 @@ align: ' d-none d-sm-table-cell',
         }
         this.fetchOffices();
         this.searchByOffice();
-        this.timeout=true
       }
 //console.log("end")
 
@@ -1234,9 +1205,9 @@ align: ' d-none d-sm-table-cell',
       data.append('fullname', this.fullname);
       data.append('status', this.status);
       data.append('designation', this.designation);
-      data.append('time', this.formattedTimeServer);
+      data.append('time', this.time);
       data.append('remarks', this.selectedRemarks);
-    console.log("CLICK ME TO SAVE DATE TIME", this.formattedTimeServer)
+
       this.registerScan(data)
         .then(() => {
           //console.log('Registration successful');
@@ -1485,7 +1456,7 @@ z-index: 9999;
     border: 1px solid #168904;
     border-radius: 10px;
     margin-bottom: 10px;
-    width: 100px;
+    width: 4px;
     height: 40px;
   }
 
@@ -1516,7 +1487,21 @@ z-index: 9999;
     /* Hide the card on screens with a max-width of 768px (adjust as needed) */
   }
 
+}
 
+@media screen and (max-width: 959px) {
+ /*  .container123 {
+
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: auto;
+
+  } */
+
+  .carddebe {
+    display: none;
+    /* Hide the card on screens with a max-width of 768px (adjust as needed) */
+  }
 
 }
 
@@ -1588,7 +1573,7 @@ th {
   border: 1px solid #168904;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 500px;
+  width: 400px;
   height: 40px;
 }
 

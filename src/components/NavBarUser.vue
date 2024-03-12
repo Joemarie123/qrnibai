@@ -49,7 +49,7 @@
            </v-list-item>
          </v-list>
        </v-menu>
-       <v-btn text  variant="outlined" color="success"   @click="$router.push('/').catch((err) => {})">
+       <v-btn   variant="outlined" class="colorforbutton"   @click="$router.push('/').catch((err) => {})">
          <span>LOG OUT</span>
 
        </v-btn>
@@ -185,6 +185,10 @@
  </script>
 
  <style scoped>
+.colorforbutton{
+  background-color: rgba(4, 51, 40, 0.895)!important;
+  color: aliceblue!important;
+}
 
 @media screen and (max-width: 600px) {
     .fontsizebai{

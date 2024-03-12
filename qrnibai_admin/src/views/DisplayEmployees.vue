@@ -67,7 +67,7 @@
   <v-row class="mt-n15 mt-md-1 ">
 
     <v-col cols="12" sm="4" md="4" lg="3" xl="2" >
-  <v-btn class="ml-md-1 mt-6 mt-lg-6"  rounded-lg color="green" @click="sendPostRequest()" variant="text">UPDATE EMPLOYEES</v-btn>
+  <v-btn class="ml-md-1 mt-6 mt-lg-4 colorforbutton"  rounded-lg  @click="sendPostRequest()" variant="text">UPDATE EMPLOYEES</v-btn>
   </v-col>
 
   <v-col class="ml-lg-n12 mt-n5 mt-sm-4  mt-md-4 mt-lg-4 mr-md-6" cols="12" sm="6"  md="6">
@@ -121,7 +121,7 @@
         variant="solo"
           v-model="selectedoffice"
           :items="Opisdaw"
-          label="Select a Full Name"
+          label="Select Office Name"
 
 
         ></v-combobox>
@@ -247,7 +247,7 @@ return {
       title: "Control N#",
       align: ' d-none',
     },
-      { key: "fullname", title: "Full Name", class: 'header-id', sortable: false },
+      { key: "fullname", title: " Full Name", class: 'header-id', sortable: false },
       { key: "designation", title: "Position", align: ' d-none d-sm-table-cell', sortable: false, },
       { key: "office", title: "Office", class: 'header-id', sortable: false },
       { key: "actions", title: "Actions", sortable: false, },

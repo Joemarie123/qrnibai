@@ -4,7 +4,7 @@
 <NavBar/>
 
 <v-main>
-<div class=" container123">
+<div class="container123">
 <v-container >
 
 <!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
@@ -400,8 +400,8 @@
     <v-btn color="success" rounded-lg variant="outlined" @click="createevents = true">+ Create Events</v-btn>
   </v-col>
 
-    <v-col cols="12" md="2"  lg="2" xl="2">
-  <h3 class="ml-1 ml-lg-5 mt-n2" :style="{ color: 'green' }">EVENTS LIST</h3>
+    <v-col cols="12" md="2"  lg="3" xl="2">
+  <h3 class="ml-1 ml-lg-1 mt-n2 colorfortext" >EVENTS LIST</h3>
 <!--   <p><strong>User ID:</strong> {{ }}</p> -->
 </v-col>
 
@@ -419,10 +419,12 @@
       :search="search"
        item-key="ID"
      :headers="headers"
-     :items="events"
-    :items-per-page="15"
-     class=" td btn-hover color-1 elevation-1 elevation-1"
+     :items="formattedData"
+    :items-per-page="10"
+     class="my_class td btn-hover color-1 elevation-1"
      @click:row="clickme"
+     :hide-default-header="true"
+    :hide-default-footer="true"
 
 >
 <template #bottom></template>
@@ -436,13 +438,21 @@
 
 <v-icon size="x-small" left color="success"   @click="edit_event_Employee(item)" class="white--text ">mdi-lead-pencil</v-icon>
 <!-- </v-btn> -->
+<v-tooltip
+        activator="parent"
+        location="top"
+      >Edit Event</v-tooltip>
 </v-col>
 
-<v-col cols="3" class="mt-n3">
+<v-col cols="3" class="ml-2 mt-n3">
 <!-- <v-btn variant="text" color="red" class="mt-2 "> -->
 
 <v-icon size="x-small" left color="red"   @click="Show_Dialog_Successfully_Deleted(item)" class="white--text">mdi-delete</v-icon>
 <!-- </v-btn> -->
+<v-tooltip
+        activator="parent"
+        location="top"
+      >Delete Event</v-tooltip>
 </v-col>
 
 
@@ -450,11 +460,19 @@
 <!-- <button> -->
 <v-icon left size="x-small" color="success" v-if="!isMobile"   @click="handleRowClick(item)" class="white--text ">mdi-eye</v-icon>
 <!-- </button> -->
+<v-tooltip
+        activator="parent"
+        location="top"
+      >Show Information</v-tooltip>
 </v-col>
 <v-col cols="3" class="ml-n2 mt-n3" >
 <!-- <button  > -->
 <v-icon size="x-small" v-if="!isMobile" color="primary" @click="handleRowPrintClick(item)"  large >mdi-printer</v-icon>
 <!-- </button> -->
+<v-tooltip
+        activator="parent"
+        location="top"
+      >Print</v-tooltip>
 </v-col>
 </v-row>
 </template>
@@ -589,9 +607,9 @@ return {
 
       },
       { key: "Event_name", title: "Event Name", sortable: false },
-      { key: "Event_date", title: "Event Dates", sortable: false },
-      { key: "Event_from", title: "Event From", sortable: false , align: ' d-none d-sm-table-cell'  },
-      { key: "Event_to", title: "Event To", sortable: false , formatter: this.formattedTime_To , align: ' d-none d-sm-table-cell' },
+      { key: "Formatted_Event_date", title: "Event Dates", sortable: false },
+      { key: "Formatted_Event_from", title: "Event From", sortable: false , align: ' d-none d-sm-table-cell'  },
+      { key: "Formatted_Event_to", title: "Event To", sortable: false , formatter: this.formattedTime_To , align: ' d-none d-sm-table-cell' },
       { key: "Event_venue", title: "Event Venue", sortable: false , align: ' d-none d-sm-table-cell' },
       { key: "AttendanceCount", title: "Attendance", align:'', sortable: false },
       { key: "actions", title: "Actions" ,align:' d-none d-sm-table-cell' , sortable: false  },
@@ -623,7 +641,16 @@ computed: {
         return a.time.localeCompare(b.time);
       });
     },  */
-
+    formattedData() {
+      return this.events.map(item => {
+        return {
+          ...item,
+          Formatted_Event_from: this.formatTime(item.Event_from),
+          Formatted_Event_to: this.formatTime(item.Event_to),
+          Formatted_Event_date: this.formatDate(item.Event_date),
+        };
+      });
+    },
 
 
   formattedTime_From() {
@@ -731,6 +758,29 @@ methods: {
 ...mapActions('events', ['fetchEvents']),
 ...mapActions('events', ['fetchEventsHistory']),
 
+
+formatDate(date) {
+      if (!date) {
+        return null;
+      }
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString('en-US', options);
+    },
+
+
+formatTime(time) {
+      if (!time) {
+        return null; // Return null for empty time
+      }
+
+      const [hours, minutes] = time.split(':');
+      const period = parseInt(hours) >= 12 ? 'PM' : 'AM';
+      const formattedHours = (parseInt(hours) % 12) || 12;
+
+      return `${formattedHours}:${minutes} ${period}`;
+    },
+
 checkMobile() {
       this.isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
     },
@@ -754,20 +804,20 @@ checkMobile() {
 
   edit_event_Employee(item)
   {
-
-     /*  console.log("EVENT ID",item)
+    console.log("EVENT ID",item)
+     /*
       console.log("EVENT ID",item.columns.ID) */
       this.transfer_EventID = item.columns.ID
-      this.Edit_eventdate = item.columns.Event_date
+      this.Edit_eventdate = item.props.value.Event_date
       this.Edit_eventname = item.columns.Event_name
       this.Edit_eventvue = item.columns.Event_venue
 
-      this.CatchTime_From = item.columns.Event_from
+      this.CatchTime_From = item.props.value.Event_from
   /*     console.log("EVENT Time FROm",item.columns.Event_from) */
 
       this.convertertoTimeFrom()
 
-      this.CatchTime_To = item.columns.Event_to
+      this.CatchTime_To = item.props.value.Event_to
    /*    console.log("EVENT Time To",item.columns.Event_to) */
       this.convertertoTimeTo()
 
@@ -1022,9 +1072,15 @@ try {
 
 <style scoped>
 
+.colorforbutton{
+  background-color: rgba(4, 51, 40, 0.895)!important;
+  color: aliceblue!important;
+}
 
-
-
+.colorfortext{
+      color: rgba(4, 51, 40, 0.895)!important;
+           /*  color: aliceblue!important; */
+    }
 .my-input.v-input .v-input__slot {
 border-radius: 100px;
 }
@@ -1033,7 +1089,7 @@ border-radius: 100px;
   border-spacing: 0 0.10rem;
 }
 .container123 {
-max-width: 1670px;
+/* max-width: 1670px; */
 padding-left: 20px;
 padding-right: 20px;
 margin: auto;

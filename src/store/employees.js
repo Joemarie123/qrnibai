@@ -6,17 +6,17 @@ const state = () => ({
   employees: [],
   add_employees:[],
   employee: {},
- 
+
 })
 
 const getters = {
   getEmployees(state) {
-    console.log("Get Users",state);
+    //console.log("Get Users",state);
     return state.employees;
   },
 
   getAdd_Employees(state) {
-   /*  console.log("Get ADD Employees",state); */
+   /*  //console.log("Get ADD Employees",state); */
     return state.add_employees;
   },
 
@@ -29,7 +29,7 @@ const getters = {
 
 const mutations = {
   setEmployees(state, payload){
-    state.employees = payload;  
+    state.employees = payload;
   },
 
   setAdd_Employees(state, payload){
@@ -40,11 +40,11 @@ const mutations = {
     state.employee = payload;
   },
 
-  
+
 }
 
 const actions = {
-  
+
   /* async removeemployees({ commit }, id) {
     try {
       await axios.delete(`/removeemployee.php/${id}`); // Replace with your API endpoint
@@ -52,19 +52,19 @@ const actions = {
     } catch (error) {
       console.error('Error deleting item:', error);
     }
-  }, 
+  },
    */
 
   async fetchemployees({commit},payload){
     let res = await axios.post(`/officeemployees.php`,payload);
     commit('setEmployees', res.data.employees);
-    console.log("Res Dat DATA",res.data.employees)
+    //console.log("Res Dat DATA",res.data.employees)
   },
 
   async fetchAdd_employees({commit},payload){
     let res = await axios.post(`/outemployees.php`,payload);
     commit('setAdd_Employees', res.data.users);
- /*    console.log("Res Dat DATA ADD Employees",res.data.users) */
+ /*    //console.log("Res Dat DATA ADD Employees",res.data.users) */
   },
 }
 

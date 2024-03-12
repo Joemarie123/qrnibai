@@ -7,12 +7,22 @@
 </script>
 
 <style>
+.colorforbutton{
+  background-color: rgba(4, 51, 40, 0.895)!important;
+  color: aliceblue!important;
+}
+
+.colorfortext{
+      color: rgba(4, 51, 40, 0.895)!important;
+           /*  color: aliceblue!important; */
+    }
 
 .v-data-table thead {
   position: sticky;
   top: 0;
   background-color: #f5f5f5;
   z-index: 1;
+
 }
 
 
@@ -22,7 +32,7 @@
             padding-left: 6px!important;
             padding-right: 7px!important;
             padding-top: 7px!important;
-
+            overflow-x: hidden;
    }
    .my_class th{
              font-size: 15px!important;
@@ -30,8 +40,8 @@
             padding: 1px!important;
             background-color: rgba(4, 51, 40, 0.895)!important;
             color: aliceblue!important;
-         /*    padding-left: 7px!important;
-            padding-right: 7px!important; */
+            padding-left: 7px!important;
+            padding-right: 7px!important;
 
    }
 

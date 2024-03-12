@@ -3,9 +3,9 @@
     <h1>Office List</h1>
   <!--   <label for="filterId">Filter by ID:</label>
     <input type="text" v-model="filterId" id="filterId" /> -->
-    
+
       <div v-for="office in filteredOffices" :key="office.id">{{ office.office }}</div>
-   
+
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
   //     .then(response => {
   //       // Assuming the response data is an array of offices
   //       this.offices = response.data.users;
-  //       console.log(this.offices); // Log the data to the console
+  //       //console.log(this.offices); // Log the data to the console
   //     })
   //     .catch(error => {
   //       console.error('Error fetching data:', error);

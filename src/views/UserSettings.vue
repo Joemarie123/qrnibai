@@ -6,22 +6,22 @@
 
   <v-main>
 
-   
+
     <v-row class="mx-4 ">
         <v-col cols="12" xl="4" lg="4"  md="4" sm="4" class="d-flex justify-center mt-5">
-            <h3 class="ml-md-8 mt-n2" :style="{ color: 'green' }">USER SETTINGS</h3>
-  
+            <h3 class="ml-md-8 mt-n2 colorfortext">USER SETTINGS</h3>
+
     </v-col>
     <v-col>
-        
+
     </v-col>
     </v-row>
 
         <v-row class="mx-4">
             <v-col cols="12" md="5" xl="4" lg="4" sm="7">
-                <v-card> 
+                <v-card>
                   <v-row>
-                    
+
                     <v-col cols="4" class="ml-3 mt-4">
                   <p><b>UserName:</b></p>
                 </v-col>
@@ -31,33 +31,33 @@
                     readonly
                     class=""
                 prepend-inner-icon="mdi-account"
-               density="compact" 
+               density="compact"
                variant="underlined"
               v-model="userData.username">
                 </v-text-field>
               </v-col>
 
               <v-col cols="3" class="mt-2 ml-n4 ">
-                <v-btn rounded class="rounded-lg"  color="success" @click="dialog_username = true">
+                <v-btn rounded class="rounded-lg colorforbutton"   @click="dialog_username = true">
                   <v-row>
                     <!-- <v-icon right class="white--text ">mdi-account-edit</v-icon> -->
             <p class="mx-1">Change</p>
-          
+
           </v-row>
                 </v-btn>
               </v-col>
-           
+
                     <v-col cols="4" class="ml-3 mt-n6 ">
                   <p><b>Password:</b></p>
                 </v-col>
 
                 <v-col cols="7" class="ml-n8 mt-n12 ml-sm-n12"  >
-                  <v-btn  class="my-4 rounded-lg" rounded  type="submit" block rounded-lg  color="success" @click="dialog_password = true"  >
+                  <v-btn  class="my-4 rounded-lg colorforbutton" rounded  type="submit" block rounded-lg   @click="dialog_password = true"  >
                  Change Password
                 </v-btn>
               </v-col>
               </v-row>
-               
+
               <v-dialog v-model="dialogupdated" persistent max-width="280">
     <v-card >
 
@@ -73,13 +73,13 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogupdated = false">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
-  
+
   <v-dialog v-model="dialogerror" persistent max-width="280">
     <v-card >
       <v-row >
@@ -92,10 +92,10 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogerror = false">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
 
@@ -105,9 +105,9 @@
               <v-container>
 
                 <v-row>
-                  
+
                   <v-col cols="12" sm="12" md="12" >
-                    <button @click="dialog_username = false" class="close-button "><strong>X</strong></button>                 
+                    <button @click="dialog_username = false" class="close-button "><strong>X</strong></button>
           <v-col cols="12"  sm="12" md="12" class="my-1 ml-3 mt-2" >
               <p class="classeventdetails" :style="{ color: '#70b354' }"><strong>EDIT USERNAME</strong></p>
          </v-col>
@@ -119,7 +119,7 @@
                     <v-text-field
                     class="my-n3"
                 prepend-inner-icon="mdi-account"
-               density="compact" 
+               density="compact"
                variant="underlined"
                label="New User Name"
               v-model="newusername">
@@ -133,29 +133,29 @@
                     <v-text-field
                     class=""
                 prepend-inner-icon="mdi-key"
-               density="compact" 
+               density="compact"
                variant="underlined"
                type="password"
                label="Confirm Password"
               v-model="oldPassword">
                 </v-text-field>
                   </v-col>
-                 
+
               <!--     <p v-if="errorMessage">{{ errorMessage }}</p>
     <p v-if="successMessage">{{ successMessage }}</p> -->
                   </v-row>
 
                   <v-row class="mt-n10">
-  
+
                     <v-col cols="12"   >
                   <v-btn  class="my-4 rounded-lg"   type="submit" density="compact"  block rounded-lg  color="success" @click="updateUsername()"  >
                  Update
                 </v-btn>
               </v-col>
-              
-             
+
+
                   </v-row>
-                  
+
 
                 </v-container>
                   </v-card>
@@ -167,9 +167,9 @@
               <v-container>
 
                 <v-row>
-                  
+
                   <v-col cols="12" sm="12" md="12" >
-                    <button @click="dialog_password = false" class="close-button "><strong>X</strong></button>                 
+                    <button @click="dialog_password = false" class="close-button "><strong>X</strong></button>
           <v-col cols="12"  sm="12" md="12" class="my-1 ml-3 mt-2" >
               <p class="classeventdetails" :style="{ color: '#70b354' }"><strong>Change Password</strong></p>
          </v-col>
@@ -186,7 +186,7 @@
                     <v-text-field
                     class=""
                 prepend-inner-icon="mdi-key"
-               density="compact" 
+               density="compact"
                variant="underlined"
                label="Old Password"
                type="password"
@@ -202,7 +202,7 @@
                     <v-text-field
                     class=""
                 prepend-inner-icon="mdi-key"
-               density="compact" 
+               density="compact"
                variant="underlined"
                label="New Password"
                type="password"
@@ -219,7 +219,7 @@
                     <v-text-field
                     class=""
                 prepend-inner-icon="mdi-key"
-               density="compact" 
+               density="compact"
                variant="underlined"
                label="Confirm New Password"
                type="password"
@@ -245,7 +245,7 @@
                  Update
                 </v-btn>
               </v-col>
-              
+
           <!--     <v-col cols="12"  class="mt-n12"  >
                   <v-btn   class="my-4 rounded-lg" density="compact"  rounded   block rounded-lg  color="red"   >
                 Close
@@ -270,15 +270,15 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogpasswordnotmatch = false">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
 
 
-  
+
   <v-dialog v-model="dialogoldpassworddidnotmatch" persistent max-width="370">
     <v-card >
       <v-row >
@@ -291,10 +291,10 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogoldpassworddidnotmatch = false">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
 
@@ -310,10 +310,10 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogforupdateclose()">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
 
@@ -330,27 +330,27 @@
             </v-avatar>
         </v-col>
       </v-row>
-      <v-card-actions class="d-flex justify-center mt-n7">  
+      <v-card-actions class="d-flex justify-center mt-n7">
         <v-btn color="green" text @click="dialogforupdateclose_username()">OK</v-btn>
       </v-card-actions>
-  
+
     </v-card>
   </v-dialog>
 
 
 
              <!--    <p class="mx-5 my-7 mt-n1 d-flex justify-end underline-on-hover"  >Forgot Password?</p> -->
-          
+
             <!--     <v-row>
                     <v-col class="mx-4 my-5 d-flex justify-center" cols="11">
                 <v-btn  class="" rounded  type="submit" block rounded-lg  color="success" @click="Login_Events()"  >
                  SAVE
                 </v-btn>
-             
+
             </v-col>
-            
+
             </v-row> -->
-          
+
             </v-card>
             </v-col>
         </v-row>
@@ -394,18 +394,18 @@ export default {
      dialog_username:false,
     };
 
-  
+
 
   },
 
   components: {
     NavBarUser,
-  
+
   },
 
   mounted() {
    this.fetchData();
-   
+
  },
 
 
@@ -430,7 +430,7 @@ export default {
         } else {
           // Handle incorrect old password case here
           this.dialogpasswordnotmatch = true
-          console.log('Incorrect old password');
+          //console.log('Incorrect old password');
         }
       })
       .catch(error => {
@@ -440,11 +440,11 @@ export default {
     },
     // updatePassword() {
     //   // Add your logic for updating password here
-    //   console.log("Updated Password");
+    //   //console.log("Updated Password");
     // },
     closeForm() {
       // Add your logic for closing the form here
-      console.log("Form Closed");
+      //console.log("Form Closed");
     },
 
     dialogforupdateclose()
@@ -462,7 +462,7 @@ export default {
       this.dialogsuccessfullyupdated_username = false;
     this.newusername = '';
       this.oldPassword = '';
-    
+
     },
 
 
@@ -484,10 +484,10 @@ export default {
   data.append("username", this.userData.username);
   data.append("oldpassword", this.oldPassword_edit);
   data.append("newpassword", this.newPassword_edit);
-  console.log(data);
+  //console.log(data);
   try {
     const response = await axios.post('https://database.tagumcity.gov.ph/HRQR/usersettings.php', data);
-    console.log("Response=", response.data);
+    //console.log("Response=", response.data);
 
     if (response.data.error) {
       this.errorMessage = response.data.user;
@@ -508,7 +508,7 @@ export default {
 
 
     async updateUsername() {
-     
+
       const data = new FormData
       data.append("userid",this.userData.ID)
       data.append("username",this.newusername)
@@ -522,7 +522,7 @@ export default {
      /*  this.successMessage = ''; */
 /*      this.dialogerror = true; */
       this.dialogerror = true;
-      
+
     } else {
      /*  this.dialogupdated = true;  */
       /* this.errorMessage = response.data.user; */
@@ -531,7 +531,7 @@ export default {
     let user=[];
     user=JSON.parse(localStorage.getItem('user'));
     user.username=this.newusername;
-    
+
     localStorage.setItem('user',JSON.stringify(user))
     this.fetchData()
     this.dialogsuccessfullyupdated_username = true
@@ -562,6 +562,15 @@ export default {
 </script>
 
 <style>
+    .colorfortext{
+      color: rgba(4, 51, 40, 0.895)!important;
+           /*  color: aliceblue!important; */
+    }
+
+    .colorforbutton{
+  background-color: rgba(4, 51, 40, 0.895)!important;
+  color: aliceblue!important;
+}
 
 .close-button {
 position: absolute;

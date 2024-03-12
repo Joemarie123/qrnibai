@@ -3,7 +3,7 @@
   <v-layout>
   <NavBarUser/>
 
-  <v-main>
+  <v-main class="mt-n5">
   <div class="container123">
   <v-container >
 
@@ -11,10 +11,10 @@
 
   <v-container>
 
-    <v-row class="mt-n15 mt-md-1 ">
+    <v-row class="mt-md-n2 mt-md-1 ">
 
       <v-col cols="12" sm="3" md="2">
-  <v-btn class=" ml-md-1 mt-1 mt-lg-n1 mt-sm-1"  rounded color="green" @click="openaddemployeedialog()" >ADD EMPLOYEES</v-btn>
+  <v-btn class=" ml-md-1 mt-1 mt-lg-n1 mt-sm-1 colorforbutton" color="success"    rounded  @click="openaddemployeedialog()" >ADD EMPLOYEES</v-btn>
   </v-col>
 
   <v-col class="mt-lg-n1 mt-sm-2 mr-md-6 " cols="12" sm="6"  md="6">
@@ -29,8 +29,9 @@
   <v-col class="mt-1 ml-n3 mx-2" cols="12" sm="6"  md="6">
   <input v-model="searchaddemployee" class="textbox"  placeholder="Search Employee">
 </v-col>
-  <v-data-table
 
+  <v-data-table
+         density="compact"
          :headers="headers_add_employees"
          :items="sortedItems_addemployees"
          :search="searchaddemployee"
@@ -39,10 +40,10 @@
          :single-select="false">
          <template v-slot:item="{ item }">
             <tr >
-              <td><v-checkbox v-model="item.selected" @input="selectRow(item)"></v-checkbox></td>
+              <td><v-checkbox class="mt-3 ml-5"    density="compact" v-model="item.selected" @input="selectRow(item)"></v-checkbox></td>
               <!-- <td>{{ item.fullname }}</td>
               <td>{{ item.designation }}</td> -->
-              <td class="mobile-hide"  :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
+              <td class=  "mobile-hide"  :style="{ textAlign: 'left' }">{{ item.columns.Controlno }}</td>
               <td  :style="{ textAlign: 'left' }">{{ item.columns.fullname}}</td>
               <td :style="{ textAlign: 'left' }">{{ item.columns.designation }}</td>
             </tr>
@@ -103,13 +104,13 @@
       item-key="ID"
       :items="sortedItems"
       :headers="headers"
-      :items-per-page="30"
+      :items-per-page="10"
       class="my_class td btn-hover color-1 elevation-1"
       tile
-      height="470"
+
     >
 
-<template #bottom></template>
+<!-- <template #bottom></template> -->
       <template v-slot:item.actions="{ item }">
         <v-dialog v-model="dialogVisible" max-width="400">
           <v-card>
@@ -317,7 +318,7 @@
  */
     let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
-    console.log("ID=",adminrecords.office_id)
+    //console.log("ID=",adminrecords.office_id)
     this.userData.office_id = adminrecords.office_id
 
     data.append('office_id',adminrecords.office_id)
@@ -326,7 +327,7 @@
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
       this.fetchAdd_employees();
-      console.log("employees=",this.employees)
+      //console.log("employees=",this.employees)
     })
 
     this.fetchAdd_employees(data).then(res=>{
@@ -369,7 +370,7 @@
     {
       let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
-    console.log("ID=",adminrecords.office_id)
+    //console.log("ID=",adminrecords.office_id)
     this.userData.office_id = adminrecords.office_id
 
     data.append('office_id',adminrecords.office_id)
@@ -379,7 +380,7 @@
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
       this.fetchAdd_employees();
-      console.log("employees=",this.employees)
+      //console.log("employees=",this.employees)
     })
 
     this.fetchAdd_employees(data).then(res=>{
@@ -405,30 +406,30 @@
     this.dialogforadded = true;
 
     for (let i = 0; i < this.selectedItems.length; i++) {
-      // console.log("selecteditems=",this.selectedItems[i].value.Controlno)
+      // //console.log("selecteditems=",this.selectedItems[i].value.Controlno)
       this.saveEmployees.push({value:{controlno:this.selectedItems[i].value.Controlno,office_id:this.userData.office_id}});
     }
-    console.log("selecteditems=",this.saveEmployees)
+    //console.log("selecteditems=",this.saveEmployees)
     // const data= this.selectedItems;
     // data.append('data',this.selectedItems);
-    // console.log("Data NI=",data);
+    // //console.log("Data NI=",data);
     // const data = new FormData();
     // data.append('data',JSON.stringify(this.selectedItems));
     // this.employeeremarks=this.selectedItems;
-    // console.log("employeeremarks=",this.employeeremarks);
+    // //console.log("employeeremarks=",this.employeeremarks);
 
     // this.saveallremarks();
 
     let res = await axios.post(`/addtooffice.php`, this.saveEmployees);
-      console.log("radsf",res.data)
+      //console.log("radsf",res.data)
     /*   this.selectedItems = [];  */
       this.passremark=true;
 
       let data = new FormData;
   const adminrecords=JSON.parse(localStorage.getItem('user'))
-  console.log("ID=",adminrecords.office_id)
+  //console.log("ID=",adminrecords.office_id)
 
-  console.log("EventName=",this.$route.params.Event_name)
+  //console.log("EventName=",this.$route.params.Event_name)
   data.append('event_id', localStorage.getItem('ID'))
 
   this.eventayde = localStorage.getItem("ID");
@@ -458,7 +459,7 @@
 
 
  /*    searchByOffice() {
-  console.log("offices=",this.Offices)
+  //console.log("offices=",this.Offices)
     const id = parseInt(this.userData.office_id);
     const selectedItem = this.Offices.find(item =>
 
@@ -466,7 +467,7 @@
     );
 
 
-    console.log("id=" + id + " selecteditem=" + selectedItem);
+    //console.log("id=" + id + " selecteditem=" + selectedItem);
     this.selectedOffice = selectedItem ? selectedItem.office : "";
   },
  */
@@ -503,7 +504,7 @@
     },
     async executeAction() {
       const controlno = this.deletecontrono;
-      console.log('Controlno:', controlno);
+      //console.log('Controlno:', controlno);
       const formData = new FormData();
       formData.append('controlno', controlno);
 
@@ -512,7 +513,7 @@
           method: 'POST',
           body: formData,
         });
-        console.log('Response:', response);
+        //console.log('Response:', response);
 
         if (response.ok) {
           this.kinidaw()
@@ -587,6 +588,10 @@
 
   <style scoped >
 
+.colorforbutton{
+  background-color: rgba(4, 51, 40, 0.895)!important;
+  color: aliceblue!important;
+}
 .mobile-hide {
   display: table-cell; /* Default display for table cells */
 }
@@ -686,7 +691,7 @@
 
 
   .container123 {
-  max-width: 1170px;
+  max-width: 1670px;
   padding-left: 20px;
   padding-right: 20px;
   margin: auto;
@@ -775,8 +780,8 @@
   border: 1px solid #168904;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 300px;
-  height: 40px;
+  width: 340px;
+  height: 33px;
   }
 
 

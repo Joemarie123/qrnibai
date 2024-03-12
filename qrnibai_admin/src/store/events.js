@@ -82,7 +82,7 @@ const actions = {
       commit('setattendancecount', res.data.users);
       console.log("Attendance Count 1", res.data.users)
     },
-    
+
   async fetchEvents({commit}){
 
   //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
@@ -92,6 +92,9 @@ const actions = {
     console.log("Events Listtt", res.data)
   },
 
+
+
+  
   async fetchEventsHistory({commit}){
 
     //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
