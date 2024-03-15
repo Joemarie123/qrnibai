@@ -1681,4 +1681,11 @@ th {
   transform: translateY(-50%);
   pointer-events: none;
   /* Ensure the arrow does not interfere with select interaction */
-}</style>
+}
+
+.colorfortext{
+    color:azure!important;
+
+  }
+
+</style>

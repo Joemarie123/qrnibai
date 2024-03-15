@@ -25,7 +25,7 @@
             <v-col cols="4">
               <v-img :width="70" src="/phil.png" class="center1"></v-img>
             </v-col>
-  
+
             <v-col cols="4">
               <h5 class="mt-12">Republic of the Philippines</h5>
               <h5 class="">Province of Davao del Norte</h5>
@@ -35,7 +35,7 @@
               <v-img :width="70" src="/Tagum.png" class="center"></v-img>
             </v-col>
           </v-row>
-  
+
           <v-col cols="12">
             <h4>PAYROLL FOR MEAL ALLOWANCE</h4>
           </v-col>
@@ -49,8 +49,20 @@
           </v-container>
         </v-container>
         <v-container id="table-content">
-  
-          <v-table>
+          <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
+
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+          <v-table v-if="!isLoading">
             <v-data-table
             :search="Office_AYDE"
               :headers="headers"
@@ -78,7 +90,7 @@
                   </td>
                 </tr>
               </template>
-  
+
               <template #bottom></template>
             </v-data-table>
           </v-table>
@@ -251,6 +263,8 @@
   export default {
     data() {
       return {
+        isLoading: false,
+  loadingProgress: 0,
         employees: [],
         itemsPerPage: 29,
         headers: [
@@ -273,7 +287,7 @@
         ],
       };
     },
-  
+
     computed: {
         ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
       ...mapGetters('events', { eventAttendanceList: ['getEventAttendance'] }),
@@ -281,7 +295,7 @@
       ...mapState({
         employeeremarks: (state) => state.remarks,
       }),
-  
+
 
 
       sortedItems() {
@@ -295,21 +309,21 @@
     Event_Naym() {
       // Retrieve from localStorage
       return localStorage.getItem('Event_Naym');
-     
+
     },
       Name() {
       // Retrieve from localStorage
       return localStorage.getItem('Name');
-     
+
     },
 
     Office_AYDE() {
       // Retrieve from localStorage
       return localStorage.getItem('Office_AYDE');
-     
+
     },
     },
-  
+
     created() {
      /*  this.fetchOffices().then((req) => {
         this.fetchData();
@@ -322,8 +336,11 @@
     /*   data.append('office_id', this.selectedOfficeID); */
     this.Admin_fetchPangalan(data);
 this.Office_IDD=localStorage.getItem('Office_AYDE');
+this.simulateLoading(() => {
+
+}, );
     },
-  
+
     methods: {
         ...mapActions('events', ['Admin_fetchPangalan']),
       ...mapActions("events", ["fetchPangalan"]),
@@ -331,7 +348,40 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
       ...mapActions("scaninsert", ["registerScan"]),
       ...mapActions("office", ["fetchOffices"]),
       ...mapActions("scaninsert", ["saveallremarks"]),
-  
+
+      simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.eventAttendanceList.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
+
+
+
       print() {
         if (window) window.print();
       },
@@ -382,7 +432,7 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
   } */
   /* .top {
     font-size: 14px;
-  
+
   } */
   /* .table {
     font-size: 14px;
@@ -419,7 +469,7 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
     align-content: center;
     align-items: center;
   }
-  
+
   @media screen and (max-width: 600px) {
     #pic {
       size: 50 !important;
@@ -459,7 +509,7 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
     #top-content v-img {
       width: 70px; /* Adjust the width of the images */
     }
-  
+
     #top-content h5 {
       margin-top: 12px; /* Adjust the margin-top for the h5 elements */
     }

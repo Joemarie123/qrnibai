@@ -149,7 +149,12 @@
     created() {
       /* this.fetchEventsHistory().then(re); */
 
-
+      let data = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+   console.log("office_id Ni=", adminrecords.office_id)
+    data.append('office_id', adminrecords.office_id)
+    this.eventayde = localStorage.getItem("ID");
+    this.fetchUserEventsHistory(data)
   this.simulateLoading(() => {
 
   }, );
@@ -201,12 +206,7 @@
         this.loadingProgress = (currentStep / totalSteps) * 100;
 
         ////KINI TAWAGON AFTER SA TUYOK
-  let data = new FormData;
-    const adminrecords = JSON.parse(localStorage.getItem('user'))
-   console.log("office_id Ni=", adminrecords.office_id)
-    data.append('office_id', adminrecords.office_id)
-    this.eventayde = localStorage.getItem("ID");
-    this.fetchUserEventsHistory(data)
+
       //////////////////////////////////
 
         if (currentStep >= totalSteps) {
@@ -401,4 +401,6 @@
 .login-title {
   text-align: center;
 }
+
+
       </style>

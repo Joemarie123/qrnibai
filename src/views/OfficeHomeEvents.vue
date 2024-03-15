@@ -51,7 +51,7 @@
       :search="search"
        item-key="ID"
      :headers="headers"
-     :items="events"
+     :items="homeevents"
     :items-per-page="15"
      class="my_class elevation-1 my_classo_officehomeevents"
 
@@ -119,13 +119,19 @@
     },
 
     computed: {
-    ...mapGetters("events", { events: "getEvents" }),
+    ...mapGetters("events", { homeevents: "getEvents" }),
 
 
   },
 
 
   created() {
+    let data = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+    data.append('office_id', adminrecords.office_id)
+    this.eventayde = localStorage.getItem("ID");
+    this.fetchEvents(data)
+
     this.simulateLoading(() => {
 
 }, );
@@ -150,16 +156,11 @@
         this.loadingProgress = (currentStep / totalSteps) * 100;
 
         ////KINI TAWAGON AFTER SA TUYOK
-        let data = new FormData;
-    const adminrecords = JSON.parse(localStorage.getItem('user'))
-    data.append('office_id', adminrecords.office_id)
-    this.eventayde = localStorage.getItem("ID");
-    this.fetchEvents(data)
 
       //////////////////////////////////
 
         if (currentStep >= totalSteps) {
-          if(this.events.length >0){
+          if(this.homeevents.length >0){
             clearInterval(loadingInterval);
           this.isLoading = false;
           this.loadingProgress = 0;
@@ -299,4 +300,6 @@
       height: 30px;
       width: 300px;
     }
+
+
     </style>

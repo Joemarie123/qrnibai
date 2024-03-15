@@ -185,8 +185,24 @@
 
               <v-col cols="12" class="ml-n4 ml-lg-n1">
 
-                <v-card class='rounded-lg mt-n4 '>
-                  <v-data-table   :search="selectedOfficeID" :items="eventAttendanceList" item-key="ID" :headers="headers"
+                <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
+
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+
+
+
+                <v-card class='rounded-lg mt-2 '>
+                  <v-data-table  v-if="!isLoading"  :search="selectedOfficeID" :items="eventAttendanceList" item-key="ID" :headers="headers"
                     :items-per-page="15" class="my_class  elevation-1 ">
                  <!--   <template #bottom></template> -->
                     <template v-slot:item.actions="{ item }">
@@ -230,6 +246,9 @@ export default {
 
   data() {
     return {
+      isLoading: false,
+  loadingProgress: 0,
+
       displayAttendanceCount:false,
 
       selectedOffices: 'All', // Set a default value of "All"
@@ -408,7 +427,9 @@ export default {
 
     }, 1000);
     this.handleOfficeChange();
+    this.simulateLoading(() => {
 
+}, );
   },
 
 
@@ -480,6 +501,38 @@ export default {
   ...mapActions("events", ["fetchAttendanceCount"]),
     ...mapActions("office", ["fetchOffices"]),
     ...mapActions('events', ['Admin_fetchPangalan']),
+
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.eventAttendanceList.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
+
 
     formatTime(time) {
       if (!time) {

@@ -120,8 +120,5 @@ export default {
   background-color: rgba(4, 51, 40, 0.895) !important;
 }
 
-  .colorfortext{
-    color:azure!important;
-
-  }
+ 
 </style>

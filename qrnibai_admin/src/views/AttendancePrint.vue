@@ -25,7 +25,7 @@
           <v-col cols="4">
             <v-img :width="70" src="/phil.png" class="center1"></v-img>
           </v-col>
-  
+
           <v-col cols="4">
             <h5 class="mt-12">Republic of the Philippines</h5>
             <h5 class="">Province of Davao del Norte</h5>
@@ -48,8 +48,20 @@
         </v-container>
         <v-container id="table-content">
           <v-table>
+            <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
+
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
           <!--   <v-text-field  :search="opisayde" v-model="opisayde"></v-text-field> -->
             <v-data-table
+            v-if="!isLoading"
                :search="Office_AYDE"
               :headers="headers"
               :items-per-page="this.sortedItems.length"
@@ -79,12 +91,12 @@
                   </td>
                 </tr>
               </template>
-  
+
               <template #bottom></template>
             </v-data-table>
           </v-table>
         </v-container>
-  
+
         <!-- <div class="page-break"></div> -->
         <div id="bottom-content">
           <v-table class="secondtable" density="compact">
@@ -138,9 +150,9 @@
           <p>City Accountant</p>
         </div>
           </v-table>
-  
+
         </div>
-  
+
       </v-container>
     </div>
   </template>
@@ -149,6 +161,8 @@
   export default {
     data() {
       return {
+        isLoading: false,
+  loadingProgress: 0,
         employees: [],
         itemsPerPage: 24,
         Office_IDD:'',
@@ -178,7 +192,7 @@
         ],
       };
     },
-  
+
     computed: {
       ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
       ...mapGetters('events', { eventAttendanceList: ['getEventAttendance'] }),
@@ -186,7 +200,7 @@
       ...mapState({
         employeeremarks: (state) => state.remarks,
       }),
-  
+
       sortedItems() {
       // Sort the items array based on fullname
       return this.eventAttendanceList.slice().sort((a, b) => {
@@ -210,13 +224,13 @@
       Name() {
       // Retrieve from localStorage
       return localStorage.getItem('Name');
-     
+
     },
 
     Office_AYDE() {
       // Retrieve from localStorage
       return localStorage.getItem('Office_AYDE');
-     
+
     },
 
 
@@ -227,7 +241,7 @@
           (user) => user.office_id === this.userData.office_id
         );
       },
-  
+
       filteredItems() {
         if (!this.userData.office_id) {
           return this.Offices;
@@ -235,20 +249,20 @@
         const id = parseInt(this.userData.office_id);
         return this.Offices.filter((item) => item.id === id);
       },
-  
+
       passremark() {
         // Check if there is data in the "remarks" field of any employee
         return this.employees.some((employee) => !!employee.remarks);
       },
     },
-  
+
     created() {
       this.fetchOffices().then((req) => {
        /*  this.fetchData(); */
        /*  this.searchByOffice(); */
         // console.log("offices=",this.Offices);
       });
-    
+
       let data = new FormData;
     // console.log("ID=", this.$route.params.id)
     // console.log("EventName=", this.$route.params.Event_name)
@@ -258,16 +272,18 @@
 this.Office_IDD=localStorage.getItem('Office_AYDE');
 
 
-setTimeout(() => { 
+setTimeout(() => {
       this.countRegular()
       this.countCOTERMINOUS()
       this.countCasual()
       this.countContractual()
       this.countHONORARIUM()
 
-      
-    }, 1000 ); 
-    
+
+    }, 1000 );
+    this.simulateLoading(() => {
+
+}, );
     },
 
    /*  watch: {
@@ -277,12 +293,12 @@ setTimeout(() => {
         handler: "countRegular",
         deep: true
       },
-    
+
     ],
 
 
     }, */
-  
+
     methods: {
         ...mapActions('events', ['Admin_fetchPangalan']),
       ...mapActions("events", ["fetchPangalan"]),
@@ -295,8 +311,37 @@ setTimeout(() => {
       //   this.initialID++;
       //   return item.id
       // },
+      simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
 
-      
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.eventAttendanceList.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
+
     countRegular_All() {
       // console.log('searchOfficeId:', this.searchOfficeId);
       // console.log('eventAttendanceList:', this.eventAttendanceList);
@@ -307,13 +352,13 @@ setTimeout(() => {
 
     },
 
-      
+
     countRegular() {
 
 
       console.log('searchOfficeId:', this.Office_AYDE);
       // console.log('eventAttendanceList:', this.eventAttendanceList);
-      
+
         if(this.Name == 'All')
         {
           const RegularEntries = this.eventAttendanceList.filter(entry => entry.status == "REGULAR");
@@ -336,7 +381,7 @@ setTimeout(() => {
     countCOTERMINOUS() {
       console.log('searchOfficeId:', this.Office_IDD);
       // console.log('eventAttendanceList:', this.eventAttendanceList);
-    
+
       if(this.Name == 'All')
         {
           const COTERMINOUSEntries = this.eventAttendanceList.filter(entry => entry.status == "CO-TERMINOU");
@@ -442,7 +487,7 @@ setTimeout(() => {
   };
   </script>
   <style scoped>
-  
+
   td {
     border: 1px solid black;
     padding: 2px;
@@ -462,9 +507,9 @@ setTimeout(() => {
     right: 0;
     text-align: center;
     width: 30%;
-  
+
   }
-  
+
   .center1 {
     margin: 0;
     position: absolute;
@@ -477,7 +522,7 @@ setTimeout(() => {
     top: 10%;
     right: 20%;
   }
-  
+
   .image {
     display: block;
     margin-left: auto;
@@ -493,7 +538,7 @@ setTimeout(() => {
     align-content: center;
     align-items: center;
   }
-  
+
   @media screen and (max-width: 600px) {
     #pic {
       size: 50 !important;
@@ -506,7 +551,7 @@ setTimeout(() => {
       top: 5%;
       left: 20%;
     }
-  
+
     #btn-group {
       display: none;
     }
@@ -519,13 +564,13 @@ setTimeout(() => {
     .table {
       border: none; /* Example: Remove borders for print */
     }
-  
+
     #table-content {
       page-break-before: always; /* Start the table on a new printed page */
       position: relative; /* Change to relative for normal flow on subsequent pages */
       top: 390px; /* Adjust the value based on your desired top margin */
     }
-  
+
 
     #top-content {
       page-break-before: always;
@@ -539,7 +584,7 @@ setTimeout(() => {
     #top-content v-img {
       width: 70px; /* Adjust the width of the images */
     }
-  
+
     #top-content h5 {
       margin-top: 12px; /* Adjust the margin-top for the h5 elements */
     }

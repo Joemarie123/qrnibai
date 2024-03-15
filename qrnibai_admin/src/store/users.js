@@ -99,6 +99,9 @@ const actions = {
     console.log("RESET USER", res.data)
   },
 
+
+
+
   async deleteuser_Activate({commit},payload){
 
       let res = await axios.post(`/deleteuser.php`,payload);

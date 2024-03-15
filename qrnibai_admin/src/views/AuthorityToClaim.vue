@@ -25,7 +25,7 @@
             <v-col cols="4">
               <v-img :width="70" src="/phil.png" class="center1"></v-img>
             </v-col>
-  
+
             <v-col cols="4">
               <h5 class="mt-12">Republic of the Philippines</h5>
               <h5 class="">Province of Davao del Norte</h5>
@@ -49,8 +49,22 @@
           </v-col>
         </v-container>
         <v-container id="table-content">
+          <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
+
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
           <v-table>
             <v-data-table
+            v-if="!isLoading"
             :search="Office_AYDE"
               :headers="headers"
               :items-per-page="this.sortedItems.length"
@@ -77,12 +91,12 @@
                   </td>
                 </tr>
               </template>
-  
+
               <template #bottom></template>
             </v-data-table>
           </v-table>
         </v-container>
-  
+
         <div id="bottom-content" class="mt-12">
           <p>Approved by:</p>
           <p
@@ -106,6 +120,8 @@
     data() {
       return {
         employees: [],
+        isLoading: false,
+       loadingProgress: 0,
         itemsPerPage: 29,
         Office_AYDE:'',
         Office_IDD:'',
@@ -129,7 +145,7 @@
         ],
       };
     },
-  
+
     computed: {
         ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
       ...mapGetters('events', { eventAttendanceList: ['getEventAttendance'] }),
@@ -145,11 +161,11 @@
         return a.fullname.localeCompare(b.fullname);
       });
     },
-  
+
       Name() {
       // Retrieve from localStorage
       return localStorage.getItem('Name');
-     
+
     },
 
     Office_AYDE() {
@@ -158,7 +174,7 @@
 
     },
     },
-  
+
     created() {
         this.fetchOffices().then((req) => {
        /*  this.fetchData(); */
@@ -172,8 +188,12 @@
     /*   data.append('office_id', this.selectedOfficeID); */
     this.Admin_fetchPangalan(data);
 this.Office_IDD=localStorage.getItem('Office_AYDE');
+
+this.simulateLoading(() => {
+
+}, );
     },
-  
+
     methods: {
         ...mapActions('events', ['Admin_fetchPangalan']),
       ...mapActions("events", ["fetchPangalan"]),
@@ -181,7 +201,38 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
       ...mapActions("scaninsert", ["registerScan"]),
       ...mapActions("office", ["fetchOffices"]),
       ...mapActions("scaninsert", ["saveallremarks"]),
-  
+
+      simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.eventAttendanceList.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
+
       print() {
         if (window) window.print();
       },
@@ -193,7 +244,7 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
   };
   </script>
   <style scoped>
-  
+
   td {
     border: 1px solid black;
     padding: 2px;
@@ -215,8 +266,8 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
   .page-break {
     page-break-after: always;
   }
-  
-  
+
+
   .center1 {
     margin: 0;
     position: absolute;
@@ -238,7 +289,7 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
     align-content: center;
     align-items: center;
   }
-  
+
   @media screen and (max-width: 600px) {
     #pic {
       size: 50 !important;
@@ -265,7 +316,7 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
       position: relative; /* Change to relative for normal flow on subsequent pages */
       top: 380px; /* Adjust the value based on your desired top margin */
     }
-  
+
     #top-content {
       page-break-before: always;
       position: fixed;
@@ -278,7 +329,7 @@ this.Office_IDD=localStorage.getItem('Office_AYDE');
     #top-content v-img {
       width: 70px; /* Adjust the width of the images */
     }
-  
+
     #top-content h5 {
       margin-top: 12px; /* Adjust the margin-top for the h5 elements */
     }

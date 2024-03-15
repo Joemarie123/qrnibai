@@ -411,8 +411,20 @@
 </v-col>
 
     <v-col cols="12">
+      <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
 
-      <v-card class=' mt-n4'>
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+      <v-card v-if="!isLoading" class=' mt-n4'>
 
       <v-data-table
       density="compact"
@@ -522,6 +534,8 @@ components: {
 
 data() {
 return {
+  isLoading: false,
+  loadingProgress: 0,
   dialogUpdated:false,
   Dialog_Error_Delete:false,
   Dialog_Successfully_Deleted:false,
@@ -667,7 +681,6 @@ computed: {
     },
 
 
-
     Edit_formattedTime_From() {
       let hour = parseInt(this.Edit_selectedHour);
       if (this.Edit_selectedPeriod === 'PM' && hour !== 12) {
@@ -732,8 +745,6 @@ computed: {
   //     }
   //   },
 
-
-
 },
 
 /* beforeDestroy() {
@@ -741,12 +752,11 @@ computed: {
     window.removeEventListener('resize', this.handleResize);
   }, */
 created() {
+  this.fetchEvents();
+      this.fetchEventsHistory();
+  this.simulateLoading(() => {
 
-
-this.fetchEvents();
-
-  this.fetchEventsHistory();
-
+}, );
 
 },
 
@@ -757,6 +767,37 @@ methods: {
 ...mapActions('events', ['registerEvents']),
 ...mapActions('events', ['fetchEvents']),
 ...mapActions('events', ['fetchEventsHistory']),
+
+simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.events.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
 
 
 formatDate(date) {

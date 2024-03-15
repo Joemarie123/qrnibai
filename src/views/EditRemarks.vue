@@ -591,7 +591,26 @@ align: ' d-none d-sm-table-cell',
   },
 
   created() {
+    let data = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+    data.append('event_id', localStorage.getItem('ID'))
+    this.eventayde = localStorage.getItem("ID");
+    data.append('office_id', adminrecords.office_id)
 
+    this.fetchPangalan(data).then(res => {
+      this.employees = this.Pangalan
+      this.searchByOffice();
+      //console.log("employees=", this.employees)
+      this.employees.forEach(employee=>{
+        if(employee.timescanned){
+          this.message.push({
+            "name": employee.fullname,
+          "id": employee.Controlno,
+          "time": employee.timescanned,
+          "Remarks": this.remarks})
+        }
+      }
+      )})
       this.simulateLoading(() => {
 
   }, );
@@ -652,25 +671,7 @@ align: ' d-none d-sm-table-cell',
         this.loadingProgress = (currentStep / totalSteps) * 100;
 
           ////KINI TAWAGON AFTER SA TUYOK
-          let data = new FormData;
-    const adminrecords = JSON.parse(localStorage.getItem('user'))
-    data.append('event_id', localStorage.getItem('ID'))
-    this.eventayde = localStorage.getItem("ID");
-    data.append('office_id', adminrecords.office_id)
-    this.fetchPangalan(data).then(res => {
-      this.employees = this.Pangalan
-      this.searchByOffice();
-      //console.log("employees=", this.employees)
-      this.employees.forEach(employee=>{
-        if(employee.timescanned){
-          this.message.push({
-            "name": employee.fullname,
-          "id": employee.Controlno,
-          "time": employee.timescanned,
-          "Remarks": this.remarks})
-        }
-      }
-      )})
+
 
 
         //////////////////////////////////
@@ -1381,6 +1382,11 @@ function getCurrentTime() {
 </script>
 
 <style scoped >
+
+.colorfortext{
+    color:azure!important;
+
+  }
 .dialogcssbai {
 
   width: 300px;

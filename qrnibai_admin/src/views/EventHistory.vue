@@ -1,135 +1,164 @@
 <template>
-    <v-card  height="1000" flat color="#F9FAFC" >
-  <v-layout>
-  <NavBar/>
+  <v-card height="1000" flat color="#F9FAFC">
+    <v-layout>
+      <NavBar />
 
-  <v-main>
-  <div class="mt-12 container123">
-  <v-container >
+      <v-main>
+        <div class="mt-12 container123">
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="4" md="3" lg="3" xl="2">
+                <h3 class="ml-md-1 mt-n2 colorfortext">EVENTS HISTORY</h3>
+              </v-col>
 
-  <!--   <v-btn @click="createevents = true" class="my-10" color="green" height="100">
-      <v-icon size="90">mdi-calendar-plus</v-icon>
-      <span class="mt-11">Create Events</span></v-btn
-    > -->
+              <v-col class="mt-n4" cols="12" sm="6" md="6">
+                <input v-model="search" class="textbox ml-n1 ml-lg-n16" placeholder="Search Event" />
+              </v-col>
 
+              <v-col cols="12">
+                <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
 
-  </v-container>
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
 
-  <v-container>
-
-    <v-row>
-
-
-   <v-col cols="12" sm="4" md="3" lg="3" xl="2">
-    <h3 class="ml-md-1 mt-n2 colorfortext" >EVENTS HISTORY</h3>
-  </v-col>
-
-  <v-col class="mt-n4" cols="12" sm="6"  md="6">
-    <input v-model="search" class="textbox ml-n1 ml-lg-n16"  placeholder="Search Event">
-  </v-col>
-
-      <v-col cols="12">
-
-        <v-card class='rounded-lg mt-n4'>
-
-        <v-data-table
-        density="compact"
-        :search="search"
-         item-key="ID"
-       :headers="headers"
-       :items="formattedData"
-      :items-per-page="15"
-       class="my_class elevation-1 my_classo_officehomeevents"
-
-  >
-  <template v-slot:item.actions="{ item }">
- <!--
-  <button>
-  <v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2 mt-n2">mdi-qrcode-scan</v-icon>
-  </button>
-   -->
-  <button >
-  <v-icon class=" mt-n2" color="primary" @click="handleRowEventHistoryClick(item)"  large >mdi-printer
-
-  </v-icon>
-  <v-tooltip
-        activator="parent"
-        location="top"
-      >Print</v-tooltip>
-  </button>
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+                <v-card v-if="!isLoading" class="rounded-lg mt-n4">
+                  <!-- Loading indicator -->
 
 
-  </template>
+                  <!-- Data table -->
+                  <v-data-table
 
-  <template #bottom></template>
-  </v-data-table>
+                    density="compact"
+                    :search="search"
+                    item-key="ID"
+                    :headers="headers"
+                    :items="formattedData"
+                    :items-per-page="15"
+                    class="my_class elevation-1 my_classo_officehomeevents"
+                  >
+                    <template v-slot:item.actions="{ item }">
+                      <button>
+                        <v-icon class="mt-n2" color="primary" @click="handleRowEventHistoryClick(item)" large>mdi-printer</v-icon>
+                        <v-tooltip activator="parent" location="top">Print</v-tooltip>
+                      </button>
+                    </template>
+
+                    <template #bottom></template>
+                  </v-data-table>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
+      </v-main>
+    </v-layout>
   </v-card>
+</template>
 
-      </v-col>
-    </v-row>
-  </v-container>
-  </div>
-  </v-main>
-  </v-layout>
-  </v-card>
-  </template>
+<script>
+import NavBar from "@/components/NavBar.vue";
+import { mapActions, mapGetters } from 'vuex';
 
-
-      <script>
-      import NavBar from "@/components/NavBar.vue";
-      import { mapActions, mapGetters } from 'vuex';
-
-    export default {
-
-      components: {
-        NavBar,
-    },
-      data() {
-        return {
-          search: "",
-
+export default {
+  components: {
+    NavBar,
+  },
+  data() {
+    return {
+      search: "",
+      isLoading: false,
+  loadingProgress: 0,
       headers: [
-          {
-            align: "start",
-            key: "ID",
-            sortable: false,
-            title: "ID",
-           align: ' d-none',
-
-          },
-          { key: "Event_name", title: "Event Name", sortable: false },
-          { key: "Event_date", title: "Event Dates" , sortable: false },
-          { key: "Event_venue", title: "Event Venue",  align: ' d-none d-sm-table-cell' , sortable: false },
-          { key: "AttendanceCount", title: "Attendance", align: ' d-none d-sm-table-cell' ,   sortable: false },
-          { key: "actions", title: "Actions" , align:"center" },
-
-        ],
-        };
-      },
-
-      computed: {
-      ...mapGetters("events", { events: "getEventsHistory" }),
-
-      formattedData() {
+        {
+          align: "start",
+          key: "ID",
+          sortable: false,
+          title: "ID",
+          align: ' d-none',
+        },
+        { key: "Event_name", title: "Event Name", sortable: false },
+        { key: "Event_date", title: "Event Dates", sortable: false },
+        { key: "Event_venue", title: "Event Venue", align: ' d-none d-sm-table-cell', sortable: false },
+        { key: "AttendanceCount", title: "Attendance", align: ' d-none d-sm-table-cell', sortable: false },
+        { key: "actions", title: "Actions", align: "center" },
+      ],
+    };
+  },
+  computed: {
+    ...mapGetters("events", { events: "getEventsHistory" }),
+    formattedData() {
       return this.events.map(item => {
         return {
           ...item,
-
           Event_date: this.formatDate(item.Event_date),
         };
       });
     },
+
+  },
+  created() {
+    this.fetchEventsHistory();
+    this.simulateLoading(() => {
+
+}, );
+  },
+  methods: {
+    ...mapActions('events', ['fetchEventsHistory']),
+
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.events.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
     },
 
 
-    created() {
-      this.fetchEventsHistory();
+    fetchEventsHistory() {
+      this.loading = true; // Set loading state before the request
+
+      // Assuming this.fetchEventsHistory is an async action
+      this.$store.dispatch('events/fetchEventsHistory')
+        .then(() => {
+          this.loading = false; // Set loading state after the request is complete
+        })
+        .catch((error) => {
+          console.error('Error fetching events:', error);
+          this.loading = false; // Handle errors and set loading state accordingly
+        });
     },
 
-      methods: {
-        ...mapActions('events', ['fetchEventsHistory']),
-
-        formatDate(date) {
+    formatDate(date) {
       if (!date) {
         return null;
       }
@@ -138,46 +167,34 @@
       return new Date(date).toLocaleDateString('en-US', options);
     },
 
-        handleRowEventHistoryClick(item) {
-        // console.log("users=", item);
-        console.log("users=", item.columns.ID);
-      //   console.log("EventName", row.item.raw.Event_name);
+    handleRowEventHistoryClick(item) {
       localStorage.setItem('ID', item.columns.ID);
-      this.$router.push({ name: "EventDetails", params: { id: item.columns.ID }});
-      },
+      this.$router.push({ name: "EventDetails", params: { id: item.columns.ID } });
+    },
 
-      navigateTo_EventDetails() {
+    navigateTo_EventDetails() {
       this.$router.push('/EventDetails');
     },
 
+    editEvent(id) {
+      console.log("Edit Event:", id);
+    },
+    deleteEvent(id) {
+      console.log("Delete Event:", id);
+    },
 
-        editEvent(id) {
-          // Handle edit event logic
-          console.log("Edit Event:", id);
-        },
-        deleteEvent(id) {
-          // Handle delete event logic
-          console.log("Delete Event:", id);
-        },
+    redirecttoEventDetails(item) {
+      console.log("item=", item.id);
+      this.$router.push({ name: 'EventDetails', state: { id: item.id } });
+    },
 
-        redirecttoEventDetails (item) {
-        console.log("item=",item.id)
-      this.$router.push({ name: 'EventDetails', state: { id: item.id } })
-      },
-
-
-      redirecttoEventView (item) {
-        console.log("item=",item.id)
-      this.$router.push({ name: 'EventView', state: { id: item.id } })
-      },
-
-
-
-
-
-      },
-    };
-    </script>
+    redirecttoEventView(item) {
+      console.log("item=", item.id);
+      this.$router.push({ name: 'EventView', state: { id: item.id } });
+    },
+  },
+};
+</script>
 
       <style scoped>
       .my-input.v-input .v-input__slot {

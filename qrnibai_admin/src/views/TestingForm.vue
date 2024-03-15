@@ -1,52 +1,39 @@
-
 <template>
   <div>
-    <p>Current Date and Time (GMT+8): {{ formattedDateTime }}</p>
+    <v-combobox
+      v-model="selectedMonth"
+      :items="monthNames"
+      label="Select Month"
+    ></v-combobox>
+    <p v-if="selectedMonth !== null">You selected {{ selectedMonth }}</p>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
+    const months = [
+      { text: 'January' , value:'1' },
+      { text: 'February' },
+      { text: 'March' },
+      { text: 'April' },
+      { text: 'May' },
+      { text: 'June' },
+      { text: 'July' },
+      { text: 'August' },
+      { text: 'September' },
+      { text: 'October' },
+      { text: 'November' },
+      { text: 'December' }
+    ];
     return {
-      formattedDateTime: '',
+      selectedMonth: null,
+      monthNames: months.map(month => month.text)
     };
-  },
-  mounted() {
-    this.getCurrentDateTime();
-  },
-  methods: {
-    async getCurrentDateTime() {
-      try {
-        const response = await axios.get('https://worldtimeapi.org/api/ip');
-        const { datetime, utc_offset } = response.data;
-
-        // Parse the received datetime string
-        const serverDateTime = new Date(datetime);
-
-        // Adjust to GMT+8
-        const localDateTime = new Date(serverDateTime.getTime() + utc_offset * 1000);
-
-        // Format the date and time
-        this.formattedDateTime = this.formatDateTime(localDateTime);
-      } catch (error) {
-        console.error('Error fetching current date and time:', error);
-      }
-    },
-    formatDateTime(dateTime) {
-      const options = {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        timeZone: 'Asia/Shanghai', // GMT+8
-      };
-      return dateTime.toLocaleString('en-US', options);
-    },
-  },
+  }
 };
 </script>
+
+<style>
+/* Add your custom styles here */
+</style>

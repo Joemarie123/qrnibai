@@ -332,7 +332,25 @@
 
 })
  */
+ let data = new FormData;
+    const adminrecords=JSON.parse(localStorage.getItem('user'))
+    //console.log("ID=",adminrecords.office_id)
+    this.userData.office_id = adminrecords.office_id
 
+    data.append('office_id',adminrecords.office_id)
+
+
+    this.fetchemployees(data).then(res=>{
+      this.employees=this.Pangalan
+      this.fetchAdd_employees();
+      //console.log("employees=",this.employees)
+    })
+
+    this.fetchAdd_employees(data).then(res=>{
+      this.AddEmployees=this.AddEmployeesbai
+      this.fetchAdd_employees();
+       /*  this.searchByOffice(); */
+    })
  this.simulateLoading(() => {
 
 }, );
@@ -364,25 +382,7 @@ simulateLoading() {
 
            ////KINI TAWAGON AFTER SA TUYOK
 
-    let data = new FormData;
-    const adminrecords=JSON.parse(localStorage.getItem('user'))
-    //console.log("ID=",adminrecords.office_id)
-    this.userData.office_id = adminrecords.office_id
 
-    data.append('office_id',adminrecords.office_id)
-
-
-    this.fetchemployees(data).then(res=>{
-      this.employees=this.Pangalan
-      this.fetchAdd_employees();
-      //console.log("employees=",this.employees)
-    })
-
-    this.fetchAdd_employees(data).then(res=>{
-      this.AddEmployees=this.AddEmployeesbai
-      this.fetchAdd_employees();
-       /*  this.searchByOffice(); */
-    })
 
 
             //////////////////////////////////

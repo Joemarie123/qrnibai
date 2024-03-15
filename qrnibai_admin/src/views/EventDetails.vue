@@ -66,9 +66,20 @@
         </v-col>
       </v-container>
       <v-container id="table-content">
-        <v-table>
+        <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
 
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
 
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+        <v-table v-if="!isLoading">
 
           <v-data-table
             :headers="headers"
@@ -140,6 +151,8 @@ import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
+      isLoading: false,
+  loadingProgress: 0,
       officeId:'',
       employees: [],
       itemsPerPage: 24,
@@ -221,7 +234,9 @@ export default {
     this.fetchOffices()
 
    /*  this.clicknibai(); */
+   this.simulateLoading(() => {
 
+}, );
 
 
   },
@@ -234,6 +249,36 @@ export default {
     ...mapActions("scaninsert", ["saveallremarks"]), */
     ...mapActions('events', ['Admin_fetchPangalan']),
     ...mapActions("office", ["fetchOffices"]),
+
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.eventAttendanceList.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
 
     formattedDate_bai(date) {
       const eventDate = new Date(date);

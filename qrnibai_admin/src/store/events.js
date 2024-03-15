@@ -6,7 +6,7 @@ const state = () => ({
   eventattendance:[],
   eventhistory:[],
   attendancecount:[],
-
+  reports:[],
   event: {},
 })
 
@@ -38,6 +38,10 @@ getEventAttendance(state) {
   return state.eventattendance;
 },
 
+getdisplayreports(state)
+{
+  return state.reports;
+},
 }
 
 const mutations = {
@@ -70,9 +74,27 @@ setattendancecount(state, payload){
   state.attendancecount = payload;
 },
 
+
+setdisplayreports(state, payload){
+  // console.log("Set events history",payload);
+  state.reports = payload;
+},
+
+
 }
 
 const actions = {
+
+  async fetchAdminReports({commit},payload){
+
+    //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
+      let res = await axios.post(`/report.php`,payload);
+     /*  console.log("data from db=", res.data.event_details[0]); */
+      commit('setdisplayreports', res.data.user);
+      console.log("Display Reports", res.data.user)
+    },
+
+
 
   async fetchAttendanceCount({commit},payload){
 
@@ -94,7 +116,7 @@ const actions = {
 
 
 
-  
+
   async fetchEventsHistory({commit}){
 
     //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);

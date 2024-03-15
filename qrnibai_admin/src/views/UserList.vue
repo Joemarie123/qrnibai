@@ -256,8 +256,20 @@ Submit
   </v-col>
 
       <v-col cols="12">
+        <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
 
-        <v-card class='rounded-lg mt-n4'>
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+        <v-card v-if="!isLoading" class='rounded-lg mt-n1'>
 
         <v-data-table
         :search="search"
@@ -422,6 +434,8 @@ export default {
 
 data() {
   return {
+    isLoading: false,
+  loadingProgress: 0,
     Dialog_Successfully_Reset:false,
     Dialog_Deleted:false,
     dialogUpdated:false,
@@ -557,11 +571,9 @@ computed: {
         return a.lastname.localeCompare(b.lastname);
       });
     }
+
+
   },
-
-
-
-
 
 
  created() {
@@ -574,6 +586,9 @@ computed: {
     this.fetchOfficesss()
     this.fetchFullNames()
    }, 3000 );
+   this.simulateLoading(() => {
+
+}, );
   },
 /*
   beforeDestroy() {
@@ -599,6 +614,38 @@ methods: {
     ...mapActions('account', ['registerAccountUsers']),
     ...mapActions('users', ['deleteuser_Activate']),
     ...mapActions('users', ['Reset_user_Activate']),
+
+
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.accountlist.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
 
     Show_Dialog_Reset(item)
     {

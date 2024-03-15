@@ -38,11 +38,6 @@
       </v-list-item>
 
 
-
-
-
-
-
       <v-list-group value="setting">
         <template v-slot:activator="{ props }">
           <v-list-item
@@ -167,7 +162,7 @@
                 { icon: 'mdi-home', colorClass: 'icon-color' , text: 'HOME', route: '/HomeEvents' },
                 {  icon: 'mdi-history'  , text: 'Event History', route: '/EventHistory' },
                 {  icon: 'mdi-account-multiple'  , text: 'Employees List', route: '/DisplayEmployees' },
-        //        {  icon: 'mdi-newspaper'  , text: 'Reports', route: '/ReportsHRAdmin' },
+                 {  icon: 'mdi-newspaper'  , text: 'Reports', route: '/ReportsHRAdmin' },
                /*  { icon: 'mdi-account-star', text: 'Settings', route: '/Settings' },
                 { icon: 'mdi-account-check', text: 'Create Account', route: '/CreateAccount' },
                 { icon: 'mdi-monitor', text: 'Offices', route: '/OfficesTable' }, */
@@ -260,10 +255,10 @@
   <style scoped>
 
 .image {
-    border: 2px solid #4caf4f;
+    border: 2px solid rgba(4, 51, 40, 0.895);
 }
   .border {
-    border-left: 4px solid #0ba518;
+    border-left:  rgba(4, 51, 40, 0.895)!important;
   }
 
   .icon-color {

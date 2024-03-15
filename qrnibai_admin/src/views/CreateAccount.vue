@@ -126,16 +126,10 @@
                     v-model="selectedFullName"
                   ></v-combobox> -->
 
-                <div v-if="isLoading" class="loading-progress-bar my-10 "  >
 
-             <div class="loading-progress " :style="{ width: loadingProgress + '%' }">
-
-             </div>
-
-             <div class="loading-text">Please Wait...</div>
-           </div>
 
                   <v-combobox
+                  v-if="!isLoading"
         prepend-inner-icon="mdi-account"
         class="mx-2"
         density="compact"
@@ -146,7 +140,19 @@
 
 
         ></v-combobox>
+        <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
 
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
          <!--   <h1>
             {{ selectedidoffice }}
            </h1> -->
@@ -399,7 +405,9 @@ created(){
 
    this.fetchOfficesss()
     this.fetchFullNames()
+    this.simulateLoading(() => {
 
+}, );
 },
   methods: {
 
@@ -430,6 +438,35 @@ created(){
     //     }
     //   }, interval);
     // },
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.userlist.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
 
     validateForm() {
                     if (this.selectedpassword !== this.selectedConfirmpassword) {

@@ -75,13 +75,25 @@
 </v-col>
 
     <v-col cols="12">
+      <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
 
-      <v-card class="rounded-lg mt-n4">
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+      <v-card v-if="!isLoading" class="rounded-lg mt-n1">
 
   <v-data-table
     :search="search"
     item-key="ID"
-    :items="sortedItems"
+    :items="empleyado"
     :headers="headers"
     :items-per-page="15"
     class="my_class td btn-hover color-1 elevation-1"
@@ -92,14 +104,12 @@
 <template #bottom></template>
     <template v-slot:item.actions="{ item }">
 
-
-      <v-btn   class="mt-n2"     density="compact" color="success" @click="assignToOffice(item.columns.controlno)" variant="outlined">
+      <v-btn   class="mt-n2" density="compact" color="success" @click="assignToOffice(item.columns.controlno)" variant="outlined">
         <v-row >
           <p>Assign to Office</p>
         <!--   <v-icon right class="white--text mx-1">mdi-delete</v-icon> -->
         </v-row>
       </v-btn>
-
 
     </template>
   </v-data-table>
@@ -155,18 +165,12 @@
 <script>
 
 import NavBar from "@/components/NavBar.vue";
-
 import axios from 'axios';
-
 import { mapActions, mapGetters } from 'vuex';
 
-
-
 export default {
-
 components: {
   NavBar,
-
 },
 
 data() {
@@ -179,6 +183,7 @@ return {
   /* fetchOffices:[], */
   dialogshowoffice:false,
   isLoading: false,
+  loadingProgress: 0,
   add_employees_dialog:false,
   dialogforadded:false,
   deletecontrono:'',
@@ -277,8 +282,17 @@ computed: {
 
 created() {
 
-      this.fetchEmpleyados()
+ /*  this.simulateLoading(() => {
+
+}, ); */
+
       this.fetchOffices()
+      this.fetchEmpleyados()
+
+      this.simulateLoading(() => {
+
+}, );
+
 
       setTimeout(() => {
       this.fetchOpis()
@@ -292,7 +306,36 @@ methods: {
 ...mapActions('users', ['fetchEmpleyados']),
 ...mapActions('office', ['fetchOffices']),
 
+simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
 
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.empleyado.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
 
 dialogoksuccessfullassing(){
   this.fetchEmpleyados()
