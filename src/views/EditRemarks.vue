@@ -15,6 +15,8 @@
     <span class="mt-11">Create Events</span></v-btn
   > -->
 
+
+
           </v-container>
 
           <v-container>
@@ -314,10 +316,26 @@ src="/qr.png"
 
               <v-col cols="12">
 
-                <v-card class='rounded-lg mt-n4'>
+                <div v-if="isLoading" class=" my-10 "  >
+
+<v-progress-circular
+
+:size="70"
+:width="7"
+color="green"
+indeterminate
+></v-progress-circular>
+
+<div class="loading-text">Please Wait...</div>
+</div>
+
+                <v-card v-if="!isLoading" class='rounded-lg mt-n4'>
 <!-- <v-text-field append-inner-icon="mdi-magnify" v-model="search" variant="solo" density="compact" label="Search">
 
 </v-text-field> -->
+
+
+
                   <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
                     class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n0" tile height="470">
                     <template #bottom></template>
@@ -368,25 +386,6 @@ src="/qr.png"
 
                   </v-card>
                 </v-dialog>
-                <!-- <div>
-<p v-if="passremark">passremark is true</p>
-    <p v-else>passremark is false</p>
-
-</div> -->
-
-                <!--  <tbody>
-        <tr v-for="(item, index) in selectedItems" :key="index">
-          <td>{{ item.value.office_id }}</td>
-
-          <td>{{ item.value.office }}</td>
-          <td>{{ item.value.fullname }}</td>
-          <td>{{ item.value.Controlno }}</td>
-          <td>{{ item.value.designation }}</td>
-          <td>{{ item.value.status }}</td>
-          <td>{{ item.value.time }}</td>
-          <td >{{ item.value.Remarks }}</td>
-        </tr>
-      </tbody> -->
 
 
               </v-col>
@@ -431,11 +430,14 @@ export default {
 
   data() {
     return {
+      isLoading: false,
+      loadingProgress: 0,
+
       flashEnabled: false,
       timeout:false,
       //RealDate: new Date().toISOString().substr(0, 10), // Real date value
       //RealTime: new Date().toTimeString().substr(0, 5), // Real time value
-      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'LATE', 'PM Shift', '',],
+      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'LATE', 'PM Shift', 'NR', '',],
       notExceedDialog: false,
       // selectedRemark: "",
       statictime:'3:00 PM',
@@ -590,6 +592,11 @@ align: ' d-none d-sm-table-cell',
 
   created() {
 
+      this.simulateLoading(() => {
+
+  }, );
+
+
     setInterval(() => {
       this.RealDate = new Date().toISOString().substr(0, 10) // Real date value
         this.RealTime = new Date().toTimeString().substr(0, 5);
@@ -601,35 +608,9 @@ align: ' d-none d-sm-table-cell',
     //   this.searchByOffice();
     //   // //console.log("offices=",this.Offices);
     // })
-    let data = new FormData;
-    const adminrecords = JSON.parse(localStorage.getItem('user'))
-    //console.log("ID=", adminrecords.office_id)
-
-    //console.log("EventName=", this.$route.params.Event_name)
-    data.append('event_id', localStorage.getItem('ID'))
-
-    this.eventayde = localStorage.getItem("ID");
-
-    data.append('office_id', adminrecords.office_id)
-    /*  data.append('Event_name', localStorage.getItem('Event_name')) */
-    this.fetchPangalan(data).then(res => {
-      this.employees = this.Pangalan
-      this.searchByOffice();
-      //console.log("employees=", this.employees)
-
-      this.employees.forEach(employee=>{
-        if(employee.timescanned){
-          this.message.push({
-            "name": employee.fullname,
-          "id": employee.Controlno,
-          "time": employee.timescanned,
-          "Remarks": this.remarks})
-        }
-      }
-      )
 
 
-    })
+
 
     // this.fetchUsers().then(rew=>{
     //   this.employees=this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
@@ -657,9 +638,56 @@ align: ' d-none d-sm-table-cell',
       } else {
         this.html5QrCode.toggleTorch();
       }
-
-
     },
+
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+          ////KINI TAWAGON AFTER SA TUYOK
+          let data = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+    data.append('event_id', localStorage.getItem('ID'))
+    this.eventayde = localStorage.getItem("ID");
+    data.append('office_id', adminrecords.office_id)
+    this.fetchPangalan(data).then(res => {
+      this.employees = this.Pangalan
+      this.searchByOffice();
+      //console.log("employees=", this.employees)
+      this.employees.forEach(employee=>{
+        if(employee.timescanned){
+          this.message.push({
+            "name": employee.fullname,
+          "id": employee.Controlno,
+          "time": employee.timescanned,
+          "Remarks": this.remarks})
+        }
+      }
+      )})
+
+
+        //////////////////////////////////
+        if (currentStep >= totalSteps) {
+          if(this.Pangalan.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+         /*  this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
 
 
     Click_Present(item)
@@ -807,7 +835,6 @@ align: ' d-none d-sm-table-cell',
 
       // Format minutes to have leading zero if less than 10
       const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
       return `${hours}:${formattedMinutes} ${period}`;
     },
 
@@ -1666,4 +1693,41 @@ th {
   transform: translateY(-50%);
   pointer-events: none;
   /* Ensure the arrow does not interfere with select interaction */
-}</style>
+}
+
+
+.loading-progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ccc;
+}
+
+.loading-text {
+  position: absolute;
+  font-size: 16px;
+  color: #333;
+}
+
+.loading-progress {
+  height: 100%;
+  background-color: #3498db;
+  transition: width 0.2s ease-in-out;
+}
+.login-form {
+  max-width: 100%;
+  margin: 0 auto;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
+}
+
+.login-title {
+  text-align: center;
+}
+</style>

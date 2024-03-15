@@ -29,11 +29,9 @@
   </v-col>
 
       <v-col cols="12">
-        <div v-if="isLoading" class=" my-10 "  >
 
-            <!--  <div class="loading-progress " :style="{ width: loadingProgress + '%' }">
-
-             </div> -->
+        <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
              <v-progress-circular
 
       :size="70"
@@ -44,8 +42,11 @@
 
              <div class="loading-text">Please Wait...</div>
            </div>
+          </v-row>
 
-        <v-card v-if="!isLoading" class='rounded-lg mt-n5'>
+
+
+        <v-card v-if="!isLoading" class='rounded-lg mt-n1'>
 
         <v-data-table
         :search="search"
@@ -54,7 +55,6 @@
        :items="events"
       :items-per-page="15"
        class="my_class elevation-1 my_classo_officehomeevents"
-
   >
   <template v-slot:item.actions="{ item }">
  <!--
@@ -82,7 +82,7 @@
 
   </template>
 
-  <template #bottom></template>
+<!--   <template #bottom></template> -->
   </v-data-table>
   </v-card>
 
@@ -149,24 +149,26 @@
     created() {
       /* this.fetchEventsHistory().then(re); */
 
-     /*  this.simulateLoading(() => {
-        this.fetchUserEventsHistory()
-  }, ); */
+
   this.simulateLoading(() => {
-  let data = new FormData;
-    const adminrecords = JSON.parse(localStorage.getItem('user'))
-   console.log("office_id Ni=", adminrecords.office_id)
 
-    //console.log("EventName=", this.$route.params.Event_name)
-    data.append('office_id', adminrecords.office_id)
-
-    this.eventayde = localStorage.getItem("ID");
-    this.fetchUserEventsHistory(data).then(res =>
-
-    {
-
-    });
   }, );
+  //     let data = new FormData;
+  //   const adminrecords = JSON.parse(localStorage.getItem('user'))
+  //  console.log("office_id Ni=", adminrecords.office_id)
+
+  //   console.log("EventName=", this.$route.params.Event_name)
+  //   data.append('office_id', adminrecords.office_id)
+
+  //   this.eventayde = localStorage.getItem("ID");
+  //   this.fetchUserEventsHistory(data)
+
+
+
+
+/*   this.simulateLoading(() => { */
+
+
 
 
     },
@@ -198,12 +200,21 @@
         currentStep++;
         this.loadingProgress = (currentStep / totalSteps) * 100;
 
+        ////KINI TAWAGON AFTER SA TUYOK
+  let data = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+   console.log("office_id Ni=", adminrecords.office_id)
+    data.append('office_id', adminrecords.office_id)
+    this.eventayde = localStorage.getItem("ID");
+    this.fetchUserEventsHistory(data)
+      //////////////////////////////////
+
         if (currentStep >= totalSteps) {
-          if(this.simulateLoading){
+          if(this.events.length >0){
             clearInterval(loadingInterval);
           this.isLoading = false;
           this.loadingProgress = 0;
-          this.fetchEventsHistory()
+ /*   this.fetchEventsHistory() */
           }else{
             currentStep=0
           }

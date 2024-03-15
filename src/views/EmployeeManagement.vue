@@ -97,12 +97,26 @@
 
       <v-col cols="12">
 
-        <v-card class="rounded-lg mt-n4">
+        <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
+
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+
+        <v-card v-if="!isLoading" class="rounded-lg mt-n1">
 
     <v-data-table
       :search="search"
       item-key="ID"
-      :items="sortedItems"
+      :items="Pangalan"
       :headers="headers"
       :items-per-page="10"
       class="my_class td btn-hover color-1 elevation-1"
@@ -165,6 +179,8 @@
   data() {
   return {
 
+    isLoading: false,
+    loadingProgress: 0,
 
     add_employees_dialog:false,
     dialogforadded:false,
@@ -316,6 +332,38 @@
 
 })
  */
+
+ this.simulateLoading(() => {
+
+}, );
+
+
+  },
+
+
+  methods: {
+/*  ...mapActions('events', ['fetchPangalan']),
+  ...mapActions('users', ['fetchUsers']),
+  ...mapActions('office', ['fetchOffices']), */
+  ...mapActions('employees', ['fetchemployees']),
+  ...mapActions('employees', ['fetchAdd_employees']),
+  ...mapActions('office', ['fetchOffices']),
+
+/*   ...mapGetters('users', {empleyado: ['getEmpleyados']} ), */
+
+simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+           ////KINI TAWAGON AFTER SA TUYOK
+
     let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
     //console.log("ID=",adminrecords.office_id)
@@ -337,20 +385,20 @@
     })
 
 
+            //////////////////////////////////
+        if (currentStep >= totalSteps) {
+          if(this.Pangalan.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+        /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
 
-
-  },
-
-
-  methods: {
-/*  ...mapActions('events', ['fetchPangalan']),
-  ...mapActions('users', ['fetchUsers']),
-  ...mapActions('office', ['fetchOffices']), */
-  ...mapActions('employees', ['fetchemployees']),
-  ...mapActions('employees', ['fetchAdd_employees']),
-  ...mapActions('office', ['fetchOffices']),
-
-/*   ...mapGetters('users', {empleyado: ['getEmpleyados']} ), */
+        }
+      }, interval);
+    },
 
 
   cancelDialog() {
@@ -780,7 +828,7 @@
   border: 1px solid #168904;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 340px;
+  width: 310px;
   height: 33px;
   }
 
@@ -823,5 +871,40 @@
 
   .v-btn {
   text-transform:none !important;
+}
+
+.loading-progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ccc;
+}
+
+.loading-text {
+  position: absolute;
+  font-size: 16px;
+  color: #333;
+}
+
+.loading-progress {
+  height: 100%;
+  background-color: #3498db;
+  transition: width 0.2s ease-in-out;
+}
+.login-form {
+  max-width: 100%;
+  margin: 0 auto;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
+}
+
+.login-title {
+  text-align: center;
 }
   </style>

@@ -7,7 +7,20 @@
       <v-row  justify="center" >
 
         <v-col cols="12" >
+ <!--          <div v-if="isLoading" class=" my-10 "  >
 
+
+ <v-progress-circular
+
+:size="70"
+:width="7"
+color="green"
+indeterminate
+></v-progress-circular>
+
+ <div class="loading-text">Please Wait...</div>
+</div>
+ -->
 
          <!--  <v-card
 
@@ -90,6 +103,8 @@
   export default {
     data() {
     return{
+      isLoading: false,
+      loadingProgress: 0,
      isHovering:'',
       usernamenako:'',
       password:'',
@@ -102,6 +117,30 @@
     methods: {
       ...mapActions("users", { Loginbai: "login"}),
 
+  /*     simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        if (currentStep >= totalSteps) {
+          if(this.events.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+    this.fetchUserEventsHistory()
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    }, */
 
       hideAlertAfterDelay() {
       setTimeout(() => {
@@ -192,6 +231,22 @@ console.log("password=",this.password)
   background-repeat: no-repeat;
   height: 100%;
 } */
+.loading-progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ccc;
+}
 
+.loading-text {
+  position: absolute;
+  font-size: 16px;
+  color: #333;
+}
+
+.loading-progress {
+  height: 100%;
+  background-color: #3498db;
+  transition: width 0.2s ease-in-out;
+}
 
   </style>

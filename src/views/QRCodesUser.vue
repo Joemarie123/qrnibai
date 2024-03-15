@@ -436,7 +436,7 @@ export default {
       timeout:false,
       //RealDate: new Date().toISOString().substr(0, 10), // Real date value
       //RealTime: new Date().toTimeString().substr(0, 5), // Real time value
-      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'LATE', 'PM Shift', '',],
+      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'LATE', 'PM Shift', 'NR', '',],
       notExceedDialog: false,
       // selectedRemark: "",
       statictime:'3:00 PM',

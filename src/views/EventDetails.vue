@@ -137,7 +137,8 @@ export default {
       officeId:'',
       employees: [],
       itemsPerPage: 24,
-
+      isLoading: false,
+          loadingProgress: 0,
       headers: [
         {
           key: "id",
@@ -195,10 +196,7 @@ export default {
   },
 
   created() {
-    this.fetchOffices().then((req) => {
-      /* this.fetchData(); */
-      /* this.searchByOffice(); */
-    });
+    /* this.fetchOffices() */
     let data = new FormData();
     const adminrecords = JSON.parse(localStorage.getItem("user"));
     this.officeId = adminrecords.office_id; // Set the officeId property
@@ -223,6 +221,32 @@ export default {
     ...mapActions("scaninsert", ["registerScan"]),
     ...mapActions("office", ["fetchOffices"]),
     ...mapActions("scaninsert", ["saveallremarks"]),
+
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        if (currentStep >= totalSteps) {
+          if(this.Pangalan.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+          this.fetchEventsHistory()
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
 
     formattedDate_bai(date) {
       const eventDate = new Date(date);
@@ -373,5 +397,39 @@ td {
   /* .table {
     page-break-after:30;
   } */
+  .loading-progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ccc;
+}
+
+.loading-text {
+  position: absolute;
+  font-size: 16px;
+  color: #333;
+}
+
+.loading-progress {
+  height: 100%;
+  background-color: #3498db;
+  transition: width 0.2s ease-in-out;
+}
+.login-form {
+  max-width: 100%;
+  margin: 0 auto;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(49, 47, 47, 0.15);
+}
+
+.login-title {
+  text-align: center;
+}
 }
 </style>

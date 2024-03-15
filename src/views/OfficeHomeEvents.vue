@@ -30,7 +30,22 @@
 
     <v-col cols="12">
 
-      <v-card class='rounded-lg mt-n4'>
+    <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
+
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
+
+
+      <v-card v-if="!isLoading" class='rounded-lg mt-n1'>
 
       <v-data-table
       :search="search"
@@ -80,7 +95,8 @@
     data() {
       return {
         search: "",
-
+        isLoading: false,
+          loadingProgress: 0,
 
 
     headers: [
@@ -110,20 +126,10 @@
 
 
   created() {
+    this.simulateLoading(() => {
 
-    let data = new FormData;
-    const adminrecords = JSON.parse(localStorage.getItem('user'))
-   // console.log("office_id Ni=", adminrecords.office_id)
+}, );
 
-    //console.log("EventName=", this.$route.params.Event_name)
-    data.append('office_id', adminrecords.office_id)
-
-    this.eventayde = localStorage.getItem("ID");
-    this.fetchEvents(data).then(res =>
-
-    {
-
-    });
 
    /*  console.log("Fetch Events",this.fetchEvents()) */
   },
@@ -132,7 +138,39 @@
     methods: {
       ...mapActions('events', ['fetchEvents']),
 
+      simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
 
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+        let data = new FormData;
+    const adminrecords = JSON.parse(localStorage.getItem('user'))
+    data.append('office_id', adminrecords.office_id)
+    this.eventayde = localStorage.getItem("ID");
+    this.fetchEvents(data)
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.events.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
 
       handleRowClick(item) {
       // //console.log("users=", item);

@@ -3,6 +3,7 @@ import axios from 'axios';
 const state = () => ({
   scans: [],
   scan: {},
+  server_datetime:{},
 })
 
 const getters = {
@@ -15,9 +16,21 @@ const getters = {
     return state.scan;
   },
 
+  getServerDateTime(state)
+  {
+    return state.server_datetime;
+
+  },
+
 }
 
 const mutations = {
+
+  setServerDateTime(state,payload){
+      console.log("Set Server Date Time:",payload);
+           state.server_datetime = payload;
+    },
+
 
   setScans(state, payload){
     console.log("Set Scans",payload);
@@ -29,7 +42,7 @@ const mutations = {
     state.scan = payload;
   },
 
-  
+
 
 }
 
@@ -39,8 +52,13 @@ const actions = {
       let res = await axios.post(`http://10.0.1.23:82/ScanInsert.php`,payload);
       commit('setScans', res.data.user);
     },
-  
-  
+
+    async fetchServerDateTime({commit}){
+      let res = await axios.get(`/getdatetime.php`);
+       console.log("Get Server Date Time",res.data)
+      commit('setServerDateTime', res.data);
+
+    },
   }
 
 

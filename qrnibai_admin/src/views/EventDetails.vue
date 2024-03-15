@@ -13,7 +13,7 @@
           </v-btn>
     <v-btn class="bg-green" @click="print"> Print </v-btn>
   </div>
-  
+
   <div class="wholePage">
     <v-container
       class="d-flex align-center justify-center flex-wrap text-center mx-auto px-4"
@@ -44,16 +44,16 @@
           </v-row>
           <v-row no-gutters style="text-align: justify">
             <v-col class="top mt-6">
-            
+
               <p>Activity: {{ Pangalan.Event_name }}</p>
               <p>Date:  {{ formattedDate_bai(Pangalan.Event_date) }}</p>
-             
+
              <!--  <p v-for="office in filteredOffices" :key="office.id">Division: {{ office.Division }}</p>
               <p v-for="office in filteredOffices" :key="office.id">Section/Unit: {{ office.Section }}</p> -->
             <!--   <p>Project:</p> -->
             </v-col>
             <v-col class="top mt-6 ">
-             
+
               <p class="d-flex align-center justify-center">Time: {{ formattedTime_To (Pangalan.Event_from) }}</p>
               <p class="d-flex align-center justify-center">Time: {{ Pangalan.Event_venue }}</p>
             </v-col>
@@ -68,12 +68,12 @@
       <v-container id="table-content">
         <v-table>
 
-       
+
 
           <v-data-table
             :headers="headers"
             :items-per-page="this.sortedItems.length"
-            :items="sortedItems"
+            :items="eventAttendanceList"
             class="table"
             density="compact"
           >
@@ -163,7 +163,7 @@ export default {
     };
   },
 
-  
+
   computed: {
 
     ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
@@ -222,7 +222,7 @@ export default {
 
    /*  this.clicknibai(); */
 
-    
+
 
   },
 
