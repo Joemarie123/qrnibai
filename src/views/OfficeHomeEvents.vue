@@ -30,7 +30,7 @@
 
     <v-col cols="12">
 
-    <v-row class="d-flex align-center justify-center">
+ <!--    <v-row class="d-flex align-center justify-center">
       <div v-if="isLoading" class=" my-10 "  >
              <v-progress-circular
 
@@ -42,10 +42,10 @@
 
              <div class="loading-text">Please Wait...</div>
            </div>
-          </v-row>
+          </v-row> -->
 
 
-      <v-card v-if="!isLoading" class='rounded-lg mt-n1'>
+      <v-card  class='rounded-lg mt-n1'>
 
       <v-data-table
       :search="search"
@@ -95,8 +95,8 @@
     data() {
       return {
         search: "",
-        isLoading: false,
-          loadingProgress: 0,
+      /*   isLoading: false,
+          loadingProgress: 0, */
 
 
     headers: [
@@ -132,9 +132,9 @@
     this.eventayde = localStorage.getItem("ID");
     this.fetchEvents(data)
 
-    this.simulateLoading(() => {
+/*     this.simulateLoading(() => {
 
-}, );
+}, ); */
 
 
    /*  console.log("Fetch Events",this.fetchEvents()) */
