@@ -205,7 +205,7 @@
 <v-col cols="12" class="mt-n6">
           <v-data-table :search="search_invalidqr" :item-key="(item, index) => index" :items="invalidQR" :headers="header_invalid_QR_Codes" :items-per-page="30"
                     class="px-2  custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n4" tile height="470">
-                    <template #bottom></template>
+                   <!--  <template #bottom></template> -->
 
                     <template v-slot:item.actions="{ item }">
           <v-btn color="success" size="x-small"  @click="Click_Present(item)" >
@@ -336,9 +336,9 @@ indeterminate
 
 
 
-                  <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
+                  <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="20"
                     class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n0" tile height="470">
-                    <template #bottom></template>
+                   <!--  <template #bottom></template> -->
                     <template v-slot:item="{ item }">
 
                       <tr>

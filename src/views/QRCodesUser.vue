@@ -320,7 +320,7 @@ src="/qr.png"
 </v-text-field>
                   <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
                     class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n4" tile height="470">
-                    <template #bottom></template>
+                 <!--    <template #bottom></template> -->
                     <template v-slot:item="{ item }">
 
                       <tr>
@@ -675,8 +675,6 @@ align: ' d-none d-sm-table-cell',
       } else {
         this.html5QrCode.toggleTorch();
       }
-
-
     },
 
 
@@ -800,10 +798,6 @@ align: ' d-none d-sm-table-cell',
       }
 
       ////////////////////////////////////////////////
-
-
-
-
 
         },
 
@@ -1050,8 +1044,7 @@ align: ' d-none d-sm-table-cell',
 
       else {
 
-        this.showMessage = true;
-        this.mensahenibai = "Successfully Scanned";
+
         setTimeout(() => {
           this.showMessage = false;
           this.timeout=false
@@ -1240,11 +1233,16 @@ align: ' d-none d-sm-table-cell',
       this.registerScan(data)
         .then(() => {
           //console.log('Registration successful');
+          this.showMessage = true;
+        this.mensahenibai = "Successfully Scanned";
         })
         .catch(e => {
           console.error('Error during registration:', e.message);
+          this.showMessage = true;
+        this.mensahenibai = "Cannot Save";
         });
      /*    //console.log("Kini daw ni ",res.data) */
+
     },
 
 
