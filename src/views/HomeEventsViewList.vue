@@ -121,7 +121,7 @@ data() {
 
 
 created() {
-  /* ///// console.log("params=",history.state.id)
+  /* //console.log("params=",history.state.id)
       this.selected_event.push(this.tableData_HomeEvents.find(e => e.id == history.state.id)); */
   },
 
@@ -129,7 +129,7 @@ created() {
 methods: {
   handleButtonClick() {
     // Handle button click logic here
-    ///// console.log("Button clicked!");
+    //console.log("Button clicked!");
   },
 },
 };

@@ -12,7 +12,7 @@ const state = () => ({
 
 const getters = {
   getEvents(state) {
-    // /// console.log("Get Events",state.events);
+    // console.log("Get Events",state.events);
     return state.events;
   },
   getEvent(state){
@@ -24,17 +24,17 @@ const getters = {
   },
 
   getEventsHistory(state) {
-    // /// console.log("Get Events History",state.eventhistory);
+    // console.log("Get Events History",state.eventhistory);
     return state.eventhistory;
   },
 
   getName(state) {
-    // /// console.log("get Employees =", state.pangalans)
+    // console.log("get Employees =", state.pangalans)
     return state.pangalans;
 },
 
 getEventAttendance(state) {
-  // /// console.log("get Event Attendance =", state.eventattendance)
+  // console.log("get Event Attendance =", state.eventattendance)
   return state.eventattendance;
 },
 
@@ -46,12 +46,12 @@ getdisplayreports(state)
 
 const mutations = {
   setEvents(state, payload){
-    // /// console.log("Set events",payload);
+    // console.log("Set events",payload);
     state.events = payload;
   },
 
   setEventsHistory(state, payload){
-    // /// console.log("Set events history",payload);
+    // console.log("Set events history",payload);
     state.eventhistory = payload;
   },
 
@@ -70,13 +70,13 @@ setEventAttendance(state, payload) {
 },
 
 setattendancecount(state, payload){
-  // /// console.log("Set events history",payload);
+  // console.log("Set events history",payload);
   state.attendancecount = payload;
 },
 
 
 setdisplayreports(state, payload){
-  // /// console.log("Set events history",payload);
+  // console.log("Set events history",payload);
   state.reports = payload;
 },
 
@@ -89,9 +89,9 @@ const actions = {
 
     //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
       let res = await axios.post(`/report.php`,payload);
-     /*  /// console.log("data from db=", res.data.event_details[0]); */
+     /*  console.log("data from db=", res.data.event_details[0]); */
       commit('setdisplayreports', res.data.user);
-      /// console.log("Display Reports", res.data.user)
+      console.log("Display Reports", res.data.user)
     },
 
 
@@ -100,18 +100,18 @@ const actions = {
 
     //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
       let res = await axios.post(`/attendancecountperoffice.php`,payload);
-     /*  /// console.log("data from db=", res.data.event_details[0]); */
+     /*  console.log("data from db=", res.data.event_details[0]); */
       commit('setattendancecount', res.data.users);
-      /// console.log("Attendance Count 1", res.data.users)
+      console.log("Attendance Count 1", res.data.users)
     },
 
   async fetchEvents({commit}){
 
   //  let res = await axios.get(`https://database.tagumcity.gov.ph/HRQR/eventlist.php`);
     let res = await axios.get(`/admineventlist.php`);
-   /*  /// console.log("data from db=", res.data.event_details[0]); */
+   /*  console.log("data from db=", res.data.event_details[0]); */
     commit('setEvents', res.data.events);
-    /// console.log("Events Listtt", res.data)
+    console.log("Events Listtt", res.data)
   },
 
 
@@ -128,7 +128,7 @@ const actions = {
    // let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/event.php`, payload);
     let res = await axios.post(`/event.php`,payload);
 
-    /// console.log("DELETE Event",res.data)
+    console.log("DELETE Event",res.data)
     if(res.data.events){
       localStorage.setItem('event', JSON.stringify(res.data.events[0]));
     commit('setEvents', res.data.events);
@@ -170,11 +170,11 @@ const actions = {
       ///  let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/eventdetails.php`, payload);
         let res = await axios.post(`/eventdetails.php`,payload);
 
-        // /// console.log("data from db=", res.data.event_details[0])
-        // /// console.log("Event Attendance=", res.data.event_attendance)
+        // console.log("data from db=", res.data.event_details[0])
+        // console.log("Event Attendance=", res.data.event_attendance)
         commit('setName', res.data.event_details[0]);
         commit('setEventAttendance', res.data.event_attendance);
-        /// console.log("Kini daw",res.data.event_attendance)
+        console.log("Kini daw",res.data.event_attendance)
     }
     catch (error) {
         console.error('Error fetching students:', error);
@@ -187,8 +187,8 @@ async Admin_fetchPangalan({ commit }, payload) {
   try {
     ///  let res = await axios.post(`https://database.tagumcity.gov.ph/HRQR/eventdetails.php`, payload);
       let res = await axios.post(`/admineventdetails.php`,payload);
-      // /// console.log("data from db=", res.data.event_details[0])
-       /// console.log("Event Attendance=", res.data.event_attendance)
+      // console.log("data from db=", res.data.event_details[0])
+       console.log("Event Attendance=", res.data.event_attendance)
       commit('setName', res.data.event_details[0]);
       commit('setEventAttendance', res.data.event_attendance);
   }

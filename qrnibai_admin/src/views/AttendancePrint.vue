@@ -260,12 +260,12 @@
       this.fetchOffices().then((req) => {
        /*  this.fetchData(); */
        /*  this.searchByOffice(); */
-        // /// console.log("offices=",this.Offices);
+        // console.log("offices=",this.Offices);
       });
 
       let data = new FormData;
-    // /// console.log("ID=", this.$route.params.id)
-    // /// console.log("EventName=", this.$route.params.Event_name)
+    // console.log("ID=", this.$route.params.id)
+    // console.log("EventName=", this.$route.params.Event_name)
     data.append('event_id', localStorage.getItem('ID'))
     /*   data.append('office_id', this.selectedOfficeID); */
     this.Admin_fetchPangalan(data);
@@ -343,8 +343,8 @@ setTimeout(() => {
 
 
     countRegular_All() {
-      // /// console.log('searchOfficeId:', this.searchOfficeId);
-      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
+      // console.log('searchOfficeId:', this.searchOfficeId);
+      // console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
       const obpEntries = this.eventAttendanceList.filter(entry => entry.status == "REGULAR");
@@ -356,8 +356,8 @@ setTimeout(() => {
     countRegular() {
 
 
-      /// console.log('searchOfficeId:', this.Office_AYDE);
-      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
+      console.log('searchOfficeId:', this.Office_AYDE);
+      // console.log('eventAttendanceList:', this.eventAttendanceList);
 
         if(this.Name == 'All')
         {
@@ -379,8 +379,8 @@ setTimeout(() => {
     },
 
     countCOTERMINOUS() {
-      /// console.log('searchOfficeId:', this.Office_IDD);
-      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
+      console.log('searchOfficeId:', this.Office_IDD);
+      // console.log('eventAttendanceList:', this.eventAttendanceList);
 
       if(this.Name == 'All')
         {
@@ -401,8 +401,8 @@ setTimeout(() => {
     },
 
     countCasual() {
-      /// console.log('searchOfficeId:', this.Office_IDD);
-      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
+      console.log('searchOfficeId:', this.Office_IDD);
+      // console.log('eventAttendanceList:', this.eventAttendanceList);
       if(this.Name == 'All')
         {
           const CASUALEntries = this.eventAttendanceList.filter(entry => entry.status == "CASUAL");
@@ -423,8 +423,8 @@ setTimeout(() => {
 
 
     countContractual() {
-      /// console.log('searchOfficeId:', this.Office_IDD);
-      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
+      console.log('searchOfficeId:', this.Office_IDD);
+      // console.log('eventAttendanceList:', this.eventAttendanceList);
       if(this.Name == 'All')
         {
           const contractualEntries = this.eventAttendanceList.filter(entry => entry.status == "CONTRACTUAL");
@@ -444,8 +444,8 @@ setTimeout(() => {
     },
 
     countHONORARIUM() {
-      /// console.log('searchOfficeId:', this.Office_IDD);
-      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
+      console.log('searchOfficeId:', this.Office_IDD);
+      // console.log('eventAttendanceList:', this.eventAttendanceList);
       if(this.Name == 'All')
         {
           const HonorariumEntries = this.eventAttendanceList.filter(entry => entry.status == "HONORARIUM");

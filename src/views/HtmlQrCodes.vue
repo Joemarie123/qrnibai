@@ -115,7 +115,7 @@ html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
       const formattedMinute = minute.toString().padStart(2, "0");
       const formattedTime = `${formattedHour}:${formattedMinute} ${ampm}`;
 
-      /*  ///// console.log("obj",obj.decodedResult) */
+      /*  //console.log("obj",obj.decodedResult) */
       if (
         this.message.find((item) => item.name === this.name(obj.decodedResult))
       ) {

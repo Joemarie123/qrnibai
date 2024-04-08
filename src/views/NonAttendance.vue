@@ -137,7 +137,7 @@
 }, ); */
 
 
-   /*  /// console.log("Fetch Events",this.fetchEvents()) */
+   /*  console.log("Fetch Events",this.fetchEvents()) */
   },
 
 
@@ -174,9 +174,9 @@
     },
 
       handleRowClick(item) {
-      // ///// console.log("users=", item);
-      ///// console.log("users=", item.columns.ID);
-    //   ///// console.log("EventName", row.item.raw.Event_name);
+      // //console.log("users=", item);
+      //console.log("users=", item.columns.ID);
+    //   //console.log("EventName", row.item.raw.Event_name);
     localStorage.setItem('ID', item.columns.ID);
     this.$router.push({ name: "PrintNonAttendance", params: { id: item.columns.ID }});
     },
@@ -186,21 +186,21 @@
 
       editEvent(id) {
         // Handle edit event logic
-        ///// console.log("Edit Event:", id);
+        //console.log("Edit Event:", id);
       },
       deleteEvent(id) {
         // Handle delete event logic
-        ///// console.log("Delete Event:", id);
+        //console.log("Delete Event:", id);
       },
 
       redirecttoEventDetails (item) {
-      ///// console.log("item=",item.id)
+      //console.log("item=",item.id)
     this.$router.push({ name: 'EventDetails', state: { id: item.id } })
     },
 
 
     redirecttoEventView (item) {
-      ///// console.log("item=",item.id)
+      //console.log("item=",item.id)
     this.$router.push({ name: 'EventView', state: { id: item.id } })
     },
 

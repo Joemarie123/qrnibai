@@ -8,7 +8,7 @@ const state = () => ({
 
 const getters = {
   getScans(state) {
-    /// console.log("Get Users",state);
+    console.log("Get Users",state);
     return state.scans;
   },
 
@@ -27,13 +27,13 @@ const getters = {
 const mutations = {
 
   setServerDateTime(state,payload){
-      /// console.log("Set Server Date Time:",payload);
+      console.log("Set Server Date Time:",payload);
            state.server_datetime = payload;
     },
 
 
   setScans(state, payload){
-    /// console.log("Set Scans",payload);
+    console.log("Set Scans",payload);
     state.scans = payload;
   },
 
@@ -55,7 +55,7 @@ const actions = {
 
     async fetchServerDateTime({commit}){
       let res = await axios.get(`/getdatetime.php`);
-       /// console.log("Get Server Date Time",res.data)
+       console.log("Get Server Date Time",res.data)
       commit('setServerDateTime', res.data);
 
     },

@@ -149,7 +149,7 @@
 
       let data = new FormData;
     const adminrecords = JSON.parse(localStorage.getItem('user'))
-   /// console.log("office_id Ni=", adminrecords.office_id)
+   console.log("office_id Ni=", adminrecords.office_id)
     data.append('office_id', adminrecords.office_id)
     this.eventayde = localStorage.getItem("ID");
     this.fetchUserEventsHistory(data)
@@ -158,9 +158,9 @@
   }, );
   //     let data = new FormData;
   //   const adminrecords = JSON.parse(localStorage.getItem('user'))
-  //  /// console.log("office_id Ni=", adminrecords.office_id)
+  //  console.log("office_id Ni=", adminrecords.office_id)
 
-  //   /// console.log("EventName=", this.$route.params.Event_name)
+  //   console.log("EventName=", this.$route.params.Event_name)
   //   data.append('office_id', adminrecords.office_id)
 
   //   this.eventayde = localStorage.getItem("ID");
@@ -185,9 +185,9 @@
         }, */
 
         handleRowClick(item) {
-      // ///// console.log("users=", item);
-      ///// console.log("users=", item.columns.ID);
-    //   ///// console.log("EventName", row.item.raw.Event_name);
+      // //console.log("users=", item);
+      //console.log("users=", item.columns.ID);
+    //   //console.log("EventName", row.item.raw.Event_name);
     localStorage.setItem('ID', item.columns.ID);
     this.$router.push({ name: "EditRemarks", params: { id: item.columns.ID }});
     },
@@ -223,9 +223,9 @@
 
 
         handleRowEventHistoryClick(item) {
-        // ///// console.log("users=", item);
-        ///// console.log("users=", item.columns.ID);
-      //   ///// console.log("EventName", row.item.raw.Event_name);
+        // //console.log("users=", item);
+        //console.log("users=", item.columns.ID);
+      //   //console.log("EventName", row.item.raw.Event_name);
       localStorage.setItem('ID', item.columns.ID);
       this.$router.push({ name: "EventDetails", params: { id: item.columns.ID }});
       },
@@ -237,21 +237,21 @@
 
         editEvent(id) {
           // Handle edit event logic
-          ///// console.log("Edit Event:", id);
+          //console.log("Edit Event:", id);
         },
         deleteEvent(id) {
           // Handle delete event logic
-          ///// console.log("Delete Event:", id);
+          //console.log("Delete Event:", id);
         },
 
         redirecttoEventDetails (item) {
-        ///// console.log("item=",item.id)
+        //console.log("item=",item.id)
       this.$router.push({ name: 'EventDetails', state: { id: item.id } })
       },
 
 
       redirecttoEventView (item) {
-        ///// console.log("item=",item.id)
+        //console.log("item=",item.id)
       this.$router.push({ name: 'EventView', state: { id: item.id } })
       },
 

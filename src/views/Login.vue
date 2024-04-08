@@ -152,13 +152,13 @@ indeterminate
 
   {
 
-/// console.log("username=",this.usernamenako)
-/// console.log("password=",this.password)
+console.log("username=",this.usernamenako)
+console.log("password=",this.password)
     let data= new FormData;
             data.append('username',this.usernamenako);
             data.append('password',this.password);
             this.Loginbai(data).then(e=>{
-  /// console.log("value of e=",e)
+  console.log("value of e=",e)
                 if (e == 0) {
                   this.alertMessage='Email or Password is incorrect.'
                   this.hideAlertAfterDelay();
@@ -179,13 +179,13 @@ indeterminate
 
                   else
                   {
-                   /*   /// console.log("LOGIN DETAILS") */
+                   /*   console.log("LOGIN DETAILS") */
                     this.$router.push('/OfficeHomeEvents')
                   }
 
                   // this.navigateTo('/sample');
                 }
-            }).catch(e => /// console.log("Error =>", e));
+            }).catch(e => console.log("Error =>", e));
 
 
   },

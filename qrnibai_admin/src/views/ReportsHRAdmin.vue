@@ -92,11 +92,11 @@ export default {
     data.append('remarks', this.selectedOptionAbbreviation)
     this.fetchAdminReports(data);
 
-    /// console.log("month  1",this.selectedMonthValue)
-    /// console.log("year  2",this.selectedYear)
-    /// console.log("remarks  3",this.selectedOptionAbbreviation)
+    console.log("month  1",this.selectedMonthValue)
+    console.log("year  2",this.selectedYear)
+    console.log("remarks  3",this.selectedOptionAbbreviation)
     this.adminbaireports = this.fetchAdminReports(data)
-   /*  /// console.log("RECORD BAI",this.adminbaireports) */
+   /*  console.log("RECORD BAI",this.adminbaireports) */
   },
 
   computed: {
@@ -130,9 +130,9 @@ export default {
     data.append('remarks', this.selectedOptionAbbreviation)
     this.fetchAdminReports(data);
 
-    /// console.log("month  1",this.selectedMonthValue)
-    /// console.log("year  2",this.selectedYear)
-    /// console.log("remarks  3",this.selectedOptionAbbreviation)
+    console.log("month  1",this.selectedMonthValue)
+    console.log("year  2",this.selectedYear)
+    console.log("remarks  3",this.selectedOptionAbbreviation)
 
     },
 
@@ -144,9 +144,9 @@ export default {
     data.append('remarks', this.selectedOptionAbbreviation)
     this.fetchAdminReports(data);
 
-    /// console.log("month  1",this.selectedMonthValue)
-    /// console.log("year  2",this.selectedYear)
-    /// console.log("remarks  3",this.selectedOptionAbbreviation)
+    console.log("month  1",this.selectedMonthValue)
+    console.log("year  2",this.selectedYear)
+    console.log("remarks  3",this.selectedOptionAbbreviation)
     },
 
     changeOption()
@@ -157,9 +157,9 @@ export default {
     data.append('remarks', this.selectedOptionAbbreviation)
     this.fetchAdminReports(data);
 
-    /// console.log("month  1",this.selectedMonthValue)
-    /// console.log("year  2",this.selectedYear)
-    /// console.log("remarks  3",this.selectedOptionAbbreviation)
+    console.log("month  1",this.selectedMonthValue)
+    console.log("year  2",this.selectedYear)
+    console.log("remarks  3",this.selectedOptionAbbreviation)
     },
 
     getAbbreviation(option) {

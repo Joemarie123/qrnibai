@@ -580,7 +580,7 @@ align: ' d-none d-sm-table-cell',
     verifyremark(item) {
       // Check if there is data in the "remarks" field of any employee
       // return this.employees.some(employee => !!employee.remarks);
-      ///// console.log("item=", item)
+      //console.log("item=", item)
       const original=this.Pangalan.filter((item)=>item.Controlno === item.Controlno)
       if(original.remarks){
         return true;
@@ -600,7 +600,7 @@ align: ' d-none d-sm-table-cell',
     this.fetchPangalan(data).then(res => {
       this.employees = this.Pangalan
       this.searchByOffice();
-      ///// console.log("employees=", this.employees)
+      //console.log("employees=", this.employees)
       this.employees.forEach(employee=>{
         if(employee.timescanned){
           this.message.push({
@@ -625,7 +625,7 @@ align: ' d-none d-sm-table-cell',
 
     //   this.fetchData();
     //   this.searchByOffice();
-    //   // ///// console.log("offices=",this.Offices);
+    //   // //console.log("offices=",this.Offices);
     // })
 
 
@@ -694,8 +694,8 @@ align: ' d-none d-sm-table-cell',
     Click_Present(item)
     {
 
-  ///// console.log('Action clicked for ID:', item.columns.Controlno);
-  ///// console.log('Action clicked for ID:', item);
+  //console.log('Action clicked for ID:', item.columns.Controlno);
+  //console.log('Action clicked for ID:', item);
 
 
         const currentTime = new Date().toLocaleTimeString([], {
@@ -719,7 +719,7 @@ align: ' d-none d-sm-table-cell',
 
       this.registerScan(data)
         .then(() => {
-          ///// console.log('Registration successful');
+          //console.log('Registration successful');
         })
         .catch(e => {
           console.error('Error during registration:', e.message);
@@ -739,7 +739,7 @@ align: ' d-none d-sm-table-cell',
 
 
    /*    this.searchByOffice(); */
-      ///// console.log("employees=", this.employees)
+      //console.log("employees=", this.employees)
       this.invalidQR = this.Pangalan.filter(employee => !employee.timescanned)
 
 
@@ -786,7 +786,7 @@ align: ' d-none d-sm-table-cell',
 
 
    /*    this.searchByOffice(); */
-      ///// console.log("employees=", this.employees)
+      //console.log("employees=", this.employees)
       this.invalidQR = this.Pangalan.filter(employee => !employee.timescanned)
 
 
@@ -843,8 +843,8 @@ align: ' d-none d-sm-table-cell',
     checkDateTime() {
       const dynamicDateTime = new Date(this.Event.Event_date + "T" + this.Event.Event_from);
       const RealDateTime = new Date();
-      /// console.log("Real Time", RealDateTime)
-      /// console.log("Dynamic Date Time", dynamicDateTime)
+      console.log("Real Time", RealDateTime)
+      console.log("Dynamic Date Time", dynamicDateTime)
       if (dynamicDateTime > RealDateTime) {
         this.notExceedDialog = true; // Show not exceed dialog if date and time do not exceed static values
 
@@ -882,24 +882,24 @@ align: ' d-none d-sm-table-cell',
     handleSelectClick() {
       // This method will be called when the <select> element is clicked
       // You can add your custom logic here
-      ///// console.log('Select element was clicked!');
+      //console.log('Select element was clicked!');
     },
 
     handleSelectupdated() {
       // This method will be called when the <select> element is clicked
       // You can add your custom logic here
-      ///// console.log('Select element was Updated');
+      //console.log('Select element was Updated');
     },
 
 
     searchByOffice() {
-      ///// console.log("offices=", this.Offices)
+      //console.log("offices=", this.Offices)
       const id = parseInt(this.userData.office_id);
       const selectedItem = this.Offices.find(item =>
 
         item.id == id
       );
-      ///// console.log("id=" + id + " selecteditem=" + selectedItem);
+      //console.log("id=" + id + " selecteditem=" + selectedItem);
       this.selectedOffice = selectedItem ? selectedItem.office : "";
     },
 
@@ -1000,11 +1000,11 @@ align: ' d-none d-sm-table-cell',
       if(this.timeout == true){
         return;
       }
-      ///// console.log("mesaeg=",this.message)
+      //console.log("mesaeg=",this.message)
 
       const obj = { decodedResult: decodedResult };
       const duplicate=this.message.find((item) => item.id == this.id(obj.decodedResult))?this.message.find((item) => item.id == this.id(obj.decodedResult)):''
-      ///// console.log("scan=",obj);
+      //console.log("scan=",obj);
 
       /*      const currentTime = new Date().toLocaleTimeString(); */
       const timeValue = this.selectedTime;
@@ -1013,12 +1013,12 @@ align: ' d-none d-sm-table-cell',
       let hour = parseInt(selectedHour, 10);
       const minute = parseInt(selectedMinute, 10);
       let ampm = timeValue.split(' ')[1];
-      ///// console.log("time=", ampm);
+      //console.log("time=", ampm);
   //     const userid=this.id(obj.decodedResult)
   //  const sample = this.Pangalan.find((item) => item.Controlno == this.id(obj.decodedResult))?true:false
-  //     ///// console.log("Sample",sample)
-  //     ///// console.log("id=",userid)
-  //     ///// console.log("nem=",this.Pangalan)
+  //     //console.log("Sample",sample)
+  //     //console.log("id=",userid)
+  //     //console.log("nem=",this.Pangalan)
 
 
 
@@ -1046,7 +1046,7 @@ align: ' d-none d-sm-table-cell',
         setTimeout(() => {
           this.showMessage = false;
         }, 1500);
-     /*    ///// console.log("DILE NI MAO") */
+     /*    //console.log("DILE NI MAO") */
       }
 
       else {
@@ -1066,9 +1066,9 @@ align: ' d-none d-sm-table-cell',
         const RealDateTime = new Date(this.RealDate + "T" + this.RealTime);
         const isLate = dynamicDateTime < RealDateTime;
 
-        ///// console.log("realtime=", currentTime)
-        ///// console.log("event time=", this.Event.Event_to)
-        ///// console.log("condition=", isLate)
+        //console.log("realtime=", currentTime)
+        //console.log("event time=", this.Event.Event_to)
+        //console.log("condition=", isLate)
 
         const remarksBAI = isLate ? 'LATE' : '';
 
@@ -1087,13 +1087,13 @@ align: ' d-none d-sm-table-cell',
         // if (
         //   this.employees.find((item) => item.Controlno === this.id(obj.decodedResult))
         // ){
-        //   ///// console.log("Control No = ",this.id(obj.decodedResult));
+        //   //console.log("Control No = ",this.id(obj.decodedResult));
         //   const index=this.employees.findIndex((item) => item.Controlno === this.id(obj.decodedResult))
         //   const editedemployee=this.employees.splice(index,1)[0];
         //   editedemployee.timescanned=formattedTime;
         //   this.employees.unshift(editedemployee)
-        //   ///// console.log("Name:",this.name(obj.decodedResult));
-        //   ///// console.log("employees=",this.employees);
+        //   //console.log("Name:",this.name(obj.decodedResult));
+        //   //console.log("employees=",this.employees);
         // }
 
         if (this.employees.find((item) => item.Controlno == this.id(obj.decodedResult))) {
@@ -1102,7 +1102,7 @@ align: ' d-none d-sm-table-cell',
           // Find the employee object with the matching Controlno
           const employeeWithMatchingControlno = this.employees.find((item) => item.Controlno == controlno);
 
-          ///// console.log("appple=",employeeWithMatchingControlno.office)
+          //console.log("appple=",employeeWithMatchingControlno.office)
           /// FOR TIME
           const index = this.employees.findIndex((item) => item.Controlno == this.id(obj.decodedResult))
           const editedemployee = this.employees.splice(index, 1)[0];
@@ -1128,13 +1128,13 @@ align: ' d-none d-sm-table-cell',
           editedemployee.remarks=remarksBAI;
           this.selectedRemarks=remarksBAI;
           this.employees.unshift(editedemployee)
-          ///// console.log("Control No =", controlno);
-          ///// console.log("office=", this.office);
-          ///// console.log("Office ID =", this.office_id);
-          ///// console.log("Full Name =", fullname);
-          ///// console.log("Designation =", designation);
-          ///// console.log("Status=", status);
-          ///// console.log("Time Scanned =", editedemployee.timescanned);
+          //console.log("Control No =", controlno);
+          //console.log("office=", this.office);
+          //console.log("Office ID =", this.office_id);
+          //console.log("Full Name =", fullname);
+          //console.log("Designation =", designation);
+          //console.log("Status=", status);
+          //console.log("Time Scanned =", editedemployee.timescanned);
 
           // START CODE FOR ADD TO DATA BASE
           this.clickmetosave()
@@ -1142,7 +1142,7 @@ align: ' d-none d-sm-table-cell',
 
           // START CODE FOR HIDE REMARKS
 
-          ///// console.log("Employees Data =", this.employees);
+          //console.log("Employees Data =", this.employees);
           const indexnibai = this.employees.findIndex((item) => item.id === parseInt(this.id));
           if (indexnibai !== -1) {
             const updatedItem = this.employees.splice(indexnibai, 1)[0];
@@ -1160,7 +1160,7 @@ align: ' d-none d-sm-table-cell',
         this.fetchOffices();
         this.searchByOffice();
       }
-///// console.log("end")
+//console.log("end")
 
       // location.reload();
     },
@@ -1179,7 +1179,7 @@ align: ' d-none d-sm-table-cell',
 
       this.registerScan(data)
           .then(() => {
-            ///// console.log('Registration All successful');
+            //console.log('Registration All successful');
           })
           .catch(e => {
             console.error('Error during registration:', e.message);
@@ -1190,27 +1190,27 @@ align: ' d-none d-sm-table-cell',
     async saveAllData() {
       this.dialogVisible = true;
 
-      ///// console.log("selecteditems=", Object.values(this.selectedItems))
+      //console.log("selecteditems=", Object.values(this.selectedItems))
       // const data= this.selectedItems;
       // data.append('data',this.selectedItems);
-      // ///// console.log("Data NI=",data);
+      // //console.log("Data NI=",data);
       // const data = new FormData();
       // data.append('data',JSON.stringify(this.selectedItems));
       // this.employeeremarks=this.selectedItems;
-      // ///// console.log("employeeremarks=",this.employeeremarks);
+      // //console.log("employeeremarks=",this.employeeremarks);
 
       // this.saveallremarks();
 
       let res = await axios.post(`/saveremarks.php`, Object.values(this.selectedItems));
-      ///// console.log("radsf", res.data)
+      //console.log("radsf", res.data)
       this.selectedItems = [];
       this.passremark = true;
 
       let data = new FormData;
       const adminrecords = JSON.parse(localStorage.getItem('user'))
-      ///// console.log("ID=", adminrecords.office_id)
+      //console.log("ID=", adminrecords.office_id)
 
-      ///// console.log("EventName=", this.$route.params.Event_name)
+      //console.log("EventName=", this.$route.params.Event_name)
       data.append('event_id', localStorage.getItem('ID'))
 
       this.eventayde = localStorage.getItem("ID");
@@ -1220,7 +1220,7 @@ align: ' d-none d-sm-table-cell',
       this.fetchPangalan(data).then(res => {
         this.employees = this.Pangalan
         this.searchByOffice();
-        ///// console.log("employees=", this.employees)
+        //console.log("employees=", this.employees)
       })
     },
 
@@ -1238,12 +1238,12 @@ align: ' d-none d-sm-table-cell',
 
       this.registerScan(data)
         .then(() => {
-          ///// console.log('Registration successful');
+          //console.log('Registration successful');
         })
         .catch(e => {
           console.error('Error during registration:', e.message);
         });
-     /*    ///// console.log("Kini daw ni ",res.data) */
+     /*    //console.log("Kini daw ni ",res.data) */
     },
 
 
@@ -1278,15 +1278,15 @@ align: ' d-none d-sm-table-cell',
       this.currentTime = `${formattedHours}:${this.padZero(minutes)}:${seconds} ${ampm}`;
     },
     saveremarks(item) {
-      ///// console.log("remarks=", item);
+      //console.log("remarks=", item);
 
-      ///// console.log("selecteditems=", item.index);
+      //console.log("selecteditems=", item.index);
 
       const existingItemIndex = this.selectedItems.findIndex(
         (selectedItem) =>
           selectedItem.value.Controlno === item.value.Controlno
       );
-      ///// console.log("Event ID BAI:", this.Event.ID);
+      //console.log("Event ID BAI:", this.Event.ID);
       if (existingItemIndex !== -1) {
         // If an item with the same Controlno exists, update it
         this.selectedItems[existingItemIndex].value = { ...item.value };
@@ -1298,14 +1298,14 @@ align: ' d-none d-sm-table-cell',
           value: { ...item.value, Remarks: item.raw.Remarks, event_id: this.Event.ID },
           /*  value: { ...item.value, Remarks: item.raw.Remarks, Event_id: this.item.raw.eventayde }, */
         });
-        ///// console.log("Selected Items:", this.selectedItems);
+        //console.log("Selected Items:", this.selectedItems);
       }
 
       // Include userData.office_id
       /*   const officeId = this.userData.office_id; */
-      // ///// console.log("office_id=", officeId);
+      // //console.log("office_id=", officeId);
 
-      ///// console.log("new employees=", this.employees);
+      //console.log("new employees=", this.employees);
 
     },
 
@@ -1320,11 +1320,11 @@ align: ' d-none d-sm-table-cell',
 
     editEvent(id) {
       // Handle edit event logic
-      ///// console.log("Edit Event:", id);
+      //console.log("Edit Event:", id);
     },
     deleteEvent(id) {
       // Handle delete event logic
-      ///// console.log("Delete Event:", id);
+      //console.log("Delete Event:", id);
     },
 
     navigateTo(path) {

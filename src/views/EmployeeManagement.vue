@@ -375,7 +375,7 @@
  */
  let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
-    ///// console.log("ID=",adminrecords.office_id)
+    //console.log("ID=",adminrecords.office_id)
     this.userData.office_id = adminrecords.office_id
 
     data.append('office_id',adminrecords.office_id)
@@ -384,7 +384,7 @@
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
       this.fetchAdd_employees();
-      ///// console.log("employees=",this.employees)
+      //console.log("employees=",this.employees)
     })
 
     this.fetchAdd_employees(data).then(res=>{
@@ -415,7 +415,7 @@ try {
   // const response = await axios.get('http://10.0.1.23:80/PEESOCESPRO/users.php');
   // Handle the specific data format with "users" property
   if ( Array.isArray(this.Pangalan)) {
-    /// console.log("array------------",this.Pangalan);
+    console.log("array------------",this.Pangalan);
     this.officeData = this.Pangalan.map(user => {
 
       return {
@@ -435,7 +435,7 @@ try {
     });
 
     this.OfficeFullname_Array = this.officeData.map(officeData => officeData.fullname).sort();
-    /// console.log("PANGALAN=",this.OfficeFullname_Array);
+    console.log("PANGALAN=",this.OfficeFullname_Array);
 
   } else {
     console.error('Invalid data format:', response.data);
@@ -496,7 +496,7 @@ simulateLoading() {
     {
       let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
-    ///// console.log("ID=",adminrecords.office_id)
+    //console.log("ID=",adminrecords.office_id)
     this.userData.office_id = adminrecords.office_id
 
     data.append('office_id',adminrecords.office_id)
@@ -506,7 +506,7 @@ simulateLoading() {
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
       this.fetchAdd_employees();
-      ///// console.log("employees=",this.employees)
+      //console.log("employees=",this.employees)
     })
 
     this.fetchAdd_employees(data).then(res=>{
@@ -532,30 +532,30 @@ simulateLoading() {
     this.dialogforadded = true;
 
     for (let i = 0; i < this.selectedItems.length; i++) {
-      // ///// console.log("selecteditems=",this.selectedItems[i].value.Controlno)
+      // //console.log("selecteditems=",this.selectedItems[i].value.Controlno)
       this.saveEmployees.push({value:{controlno:this.selectedItems[i].value.Controlno,office_id:this.userData.office_id}});
     }
-    ///// console.log("selecteditems=",this.saveEmployees)
+    //console.log("selecteditems=",this.saveEmployees)
     // const data= this.selectedItems;
     // data.append('data',this.selectedItems);
-    // ///// console.log("Data NI=",data);
+    // //console.log("Data NI=",data);
     // const data = new FormData();
     // data.append('data',JSON.stringify(this.selectedItems));
     // this.employeeremarks=this.selectedItems;
-    // ///// console.log("employeeremarks=",this.employeeremarks);
+    // //console.log("employeeremarks=",this.employeeremarks);
 
     // this.saveallremarks();
 
     let res = await axios.post(`/addtooffice.php`, this.saveEmployees);
-      ///// console.log("radsf",res.data)
+      //console.log("radsf",res.data)
     /*   this.selectedItems = [];  */
       this.passremark=true;
 
       let data = new FormData;
   const adminrecords=JSON.parse(localStorage.getItem('user'))
-  ///// console.log("ID=",adminrecords.office_id)
+  //console.log("ID=",adminrecords.office_id)
 
-  ///// console.log("EventName=",this.$route.params.Event_name)
+  //console.log("EventName=",this.$route.params.Event_name)
   data.append('event_id', localStorage.getItem('ID'))
 
   this.eventayde = localStorage.getItem("ID");
@@ -585,7 +585,7 @@ simulateLoading() {
 
 
  /*    searchByOffice() {
-  ///// console.log("offices=",this.Offices)
+  //console.log("offices=",this.Offices)
     const id = parseInt(this.userData.office_id);
     const selectedItem = this.Offices.find(item =>
 
@@ -593,7 +593,7 @@ simulateLoading() {
     );
 
 
-    ///// console.log("id=" + id + " selecteditem=" + selectedItem);
+    //console.log("id=" + id + " selecteditem=" + selectedItem);
     this.selectedOffice = selectedItem ? selectedItem.office : "";
   },
  */
@@ -630,7 +630,7 @@ simulateLoading() {
     },
     async executeAction() {
       const controlno = this.deletecontrono;
-      ///// console.log('Controlno:', controlno);
+      //console.log('Controlno:', controlno);
       const formData = new FormData();
       formData.append('controlno', controlno);
 
@@ -639,7 +639,7 @@ simulateLoading() {
           method: 'POST',
           body: formData,
         });
-        ///// console.log('Response:', response);
+        //console.log('Response:', response);
 
         if (response.ok) {
           this.kinidaw()

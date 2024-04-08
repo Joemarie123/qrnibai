@@ -44,7 +44,7 @@ export default {
   //     .then(response => {
   //       // Assuming the response data is an array of offices
   //       this.offices = response.data.users;
-  //       ///// console.log(this.offices); // Log the data to the console
+  //       //console.log(this.offices); // Log the data to the console
   //     })
   //     .catch(error => {
   //       console.error('Error fetching data:', error);

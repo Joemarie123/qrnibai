@@ -410,9 +410,9 @@ export default {
     let data = new FormData();
     const adminrecords = JSON.parse(localStorage.getItem("user"));
     this.officeId = adminrecords.office_id; // Set the officeId property
-    /// console.log("ID=", adminrecords.office_id);
+    console.log("ID=", adminrecords.office_id);
 
-    /// console.log("EventName=", this.$route.params.Event_name);
+    console.log("EventName=", this.$route.params.Event_name);
     data.append("event_id", localStorage.getItem("ID"));
 
     this.eventayde = localStorage.getItem("ID");
@@ -421,7 +421,7 @@ export default {
     this.fetchPangalan(data).then((res) => {
       this.employees = this.Pangalan;
       /* this.searchByOffice(); */
-      /// console.log("employees=", this.employees);
+      console.log("employees=", this.employees);
     });
   },
 

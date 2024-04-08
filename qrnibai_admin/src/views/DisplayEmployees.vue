@@ -348,17 +348,17 @@ dialogoksuccessfullassing(){
 //       try {
 //         const data = new FormData
 //         data.append('Controlno', this.selectedControlNo);
-//       /*   /// console.log("Control NO afg",this.selectedControlNo) */
+//       /*   console.log("Control NO afg",this.selectedControlNo) */
 //         data.append('Office_ID', this.officeaydebai);
 
-//         /// console.log('FormData:', data);
+//         console.log('FormData:', data);
 
 
 //       //  const response = await this.$axios.post('https://database.tagumcity.gov.ph/HRQR/adminassigntooffice.php', formData);
 //         const response = await axios.post('https://database.tagumcity.gov.ph/HRQR/adminassigntooffice.php', data);
 
 //         // Handle the response here, e.g., show a success message or update your component's state
-//         /// console.log('API Response:', response.data.user);
+//         console.log('API Response:', response.data.user);
 //       } catch (error) {
 //         // Handle errors, e.g., show an error message to the user
 //         console.error('Error occurred while sending the request:', error);
@@ -373,7 +373,7 @@ dialogoksuccessfullassing(){
 
   try {
     const response = await axios.post('https://database.tagumcity.gov.ph/HRQR/adminassigntooffice.php', data);
-      /// console.log("Response=",response.data)
+      console.log("Response=",response.data)
       this.selectedoffice = "";
       this.dialogshowoffice = false;
       this.dialogforassignsuccessfully = true;
@@ -400,7 +400,7 @@ dialogoksuccessfullassing(){
 
 
 assignToOffice(controlno) {
-  /// console.log("Control NO",controlno)
+  console.log("Control NO",controlno)
     this.selectedControlNo = controlno;
     this.dialogshowoffice = true;
 
@@ -410,7 +410,7 @@ assignToOffice(controlno) {
   async fetchOpis() {
 try {
 if ( Array.isArray(this.userlist)) {
-  /// console.log("array------------");
+  console.log("array------------");
   this.namesData = this.userlist.map(user => {
 
    return {
@@ -421,7 +421,7 @@ if ( Array.isArray(this.userlist)) {
   });
 
   this.Opisdaw = this.namesData.map(nameData => nameData.office).sort();;
-  /// console.log("Opis Daw",this.Opisdaw)
+  console.log("Opis Daw",this.Opisdaw)
 } else {
   console.error('Invalid data format:', response.data);
 }
@@ -434,7 +434,7 @@ async sendPostRequest() {
   this.loading = true;
     try {
       const response = await axios.post('/updateemployees.php');
-      /// console.log('API Response:', response.data);
+      console.log('API Response:', response.data);
 
       this.dialogVisible = true
 
@@ -460,7 +460,7 @@ cancelDialog() {
 
 
   updateSelectedInfo() {
-    /// console.log("selected opffice=",this.selectedoffice)
+    console.log("selected opffice=",this.selectedoffice)
     const selectedNameData = this.namesData.find(nameData => nameData.office == this.selectedoffice);
     if (selectedNameData) {
       this.officeaydebai = selectedNameData.id;

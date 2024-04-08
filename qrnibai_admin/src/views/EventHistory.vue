@@ -177,19 +177,19 @@ export default {
     },
 
     editEvent(id) {
-      /// console.log("Edit Event:", id);
+      console.log("Edit Event:", id);
     },
     deleteEvent(id) {
-      /// console.log("Delete Event:", id);
+      console.log("Delete Event:", id);
     },
 
     redirecttoEventDetails(item) {
-      /// console.log("item=", item.id);
+      console.log("item=", item.id);
       this.$router.push({ name: 'EventDetails', state: { id: item.id } });
     },
 
     redirecttoEventView(item) {
-      /// console.log("item=", item.id);
+      console.log("item=", item.id);
       this.$router.push({ name: 'EventView', state: { id: item.id } });
     },
   },

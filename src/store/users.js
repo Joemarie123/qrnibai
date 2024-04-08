@@ -8,7 +8,7 @@ const state = () => ({
 
 const getters = {
   getUsers(state) {
-    ///// console.log("Get Users",state);
+    //console.log("Get Users",state);
     return state.users;
   },
 
@@ -21,7 +21,7 @@ const getters = {
 const mutations = {
 
   setUsers(state, payload){
-    ///// console.log("Set Users",payload);
+    //console.log("Set Users",payload);
     state.users = payload;
   },
 
@@ -42,12 +42,12 @@ const actions = {
   },
 
   async login({commit}, payload){
-    ///// console.log("env=",)
+    //console.log("env=",)
    // let res = await axios.post('https://database.tagumcity.gov.ph/HRQR1/login.php', payload);
 
     let res = await axios.post(`/login.php`,payload);
 
-    ///// console.log("Res Data=",res.data)
+    //console.log("Res Data=",res.data)
     localStorage.setItem('user', JSON.stringify(res.data.user));
     commit("setAuth", res.data.user);
 
