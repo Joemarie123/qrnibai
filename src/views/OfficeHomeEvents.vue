@@ -235,7 +235,7 @@
   padding-right: 0px;
   margin: auto;
 
-}
+    }
 
 .card {
     display: none; /* Hide the card on screens with a max-width of 768px (adjust as needed) */

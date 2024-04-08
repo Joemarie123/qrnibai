@@ -3,10 +3,10 @@
     <v-layout>
       <NavBarUser />
 
-      <v-main class=" mt-lg-n10">
+      <v-main>
 
 
-        <div class="container123">
+        <div class="container123 mt-lg-n12">
           <v-container>
 
             <!-- <p>{{ userData.office_id }}</p> -->
@@ -19,7 +19,7 @@
 
           <v-container>
 
-            <v-row class="mt-n15 mt-md-1 ">
+            <v-row class="mt-n12 mt-md-1 ">
               <!--   <v-col class="d-flex justify-end ml-n3 " cols="12">
     <v-btn color="success"  rounded-lg variant="outlined" @click="createevents = true"> + Create Events</v-btn>
   </v-col>
@@ -40,7 +40,7 @@
                 <v-col class="d-flex justify-center mt-md-5 mt-9 my-3" cols="12" md="4">
 
                   <div class="text-center">
-                    <p class=" "><b>DATE:</b> {{ currentDate }} - <b> TIME:</b>  {{ ServerDateTime.time }}</p>
+                    <p class=" "><b>DATE:</b> {{ currentDate }} - <b> TIME:</b> {{ ServerDateTime.time }}</p>
                   </div>
 
                 </v-col>
@@ -70,10 +70,18 @@
                   <v-dialog max-width="600px" v-model="showDialog" v-if="showDialog">
                     <v-card class="custom-btn colorfortext">
                       <p class="d-flex justify-center mt-2">Tagum City Employees QR Code</p>
-                <!-- <v-switch class="d-flex justify-center mt-n3" v-model="flashEnabled" label="Flash/Torch" @update:menu="toggleFlash"></v-switch> -->
-                      <div id="qr-code-full-region" class="my-3 mx-3 ">
+
+                     <!--  <div id="qr-code-full-region" class="my-3 mx-3 ">
                         <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
                       </div>
+
+
+ -->                  <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
+                      <video  ref="video" id="qr-video" class="responsive-video">
+
+                      </video>
+
+
                       <v-btn class="custom-btn colorfortext" @click="showDialog = false">Close</v-btn>
                     </v-card>
 
@@ -143,7 +151,7 @@
                   <v-container>
                     <v-row>
 
-                      <v-col cols="12" md="4" sm="12">
+                      <v-col cols="12" md="8" sm="12">
                         <!--   {{ RealDate }} {{ RealTime }} -->
                         <v-col cols="12">
                           <!--     <p style="font-size:15px"> <b>Event ID:</b> {{ Event.ID }} </p> -->
@@ -163,7 +171,35 @@
                           <p style="font-size:15px"><b>Time To:</b> {{ formattedTime_To(Event.Event_to) }} </p>
 
                         </v-col>
+                      </v-col>
+
+
+                      <v-col cols="12" md="4" sm="6" lg="4"  class="mt-n9 mt-md-1 ml card">
+                        <v-card elevation="10" >
+                        <v-col cols="12">
+                          <p style="font-size:15px"> <b>DNP</b> <span class="mdi mdi-circle ml-7"></span> Did not Participate</p>
+<!--<p style="font-size:15px"> <b>DNP</b> <span class="mdi mdi-circle ml-7"></span> Did not Participate</p> -->
+                        </v-col>
                         <v-col cols="12" class="mt-n6">
+                          <!--    <p style="font-size:15px"> <b>Time From:</b> {{ Event.Event_from }} </p> -->
+                          <p style="font-size:15px"> <b>OB</b> <span class="mdi mdi-circle ml-10"></span> On Official Business</p>
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <p style="font-size:15px"> <b>OF</b> <span class="mdi mdi-circle ml-10"></span> On Field</p>
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <p style="font-size:15px"> <b>OL</b> <span class="mdi mdi-circle ml-10"></span> On Leave</p>
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <p style="font-size:15px"> <b>FWL</b> <span class="mdi mdi-circle ml-7"></span> Flexible Work Schedule</p>
+                        </v-col>
+                        <v-col cols="12" class="mt-n6">
+                          <p style="font-size:15px"> <b>NR</b> <span class="mdi mdi-circle ml-7"></span> NOT REQUIRED</p>
+                        </v-col>
+                      </v-card>
+                      </v-col>
+
+                      <v-col cols="12" class="mt-lg-n12 mt-n7">
                         <v-btn class="custom-btn colorfortext" @click="clickinvalidqr()">INVALID QRCODES</v-btn>
 
                         </v-col>
@@ -237,47 +273,22 @@
       </v-card-actions> -->
 
     </v-card>
-
-
                         </v-dialog>
-                      </v-col>
                       <!-- <p>Designation: {{ designation }}</p> -->
-                      <v-col cols="12" md="3" sm="12" lg="3" class="mt-n9 mt-md-1">
+                      <v-col cols="12" md="3" sm="12" lg="5" class="mt-n9 mt-md-1">
                         <v-col cols="12">
                           <p v-if="selectedOffice" style="font-size:15px"> <b>Office:</b> {{ selectedOffice }} </p>
                         </v-col>
 
-                      </v-col>
 
-                      <v-col cols="12" md="4" sm="6" lg="4"  class="mt-n9 mt-md-1 ml card">
-                        <v-card elevation="10" >
-                        <v-col cols="12">
-                          <p style="font-size:15px"> <b>DNP</b> <span class="mdi mdi-circle ml-7"></span> Did not Participate</p>
-<!--<p style="font-size:15px"> <b>DNP</b> <span class="mdi mdi-circle ml-7"></span> Did not Participate</p> -->
-                        </v-col>
-                        <v-col cols="12" class="mt-n6">
-                          <!--    <p style="font-size:15px"> <b>Time From:</b> {{ Event.Event_from }} </p> -->
-                          <p style="font-size:15px"> <b>OB</b> <span class="mdi mdi-circle ml-10"></span> On Official Business</p>
-                        </v-col>
-                        <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>OF</b> <span class="mdi mdi-circle ml-10"></span> On Field</p>
-                        </v-col>
-                        <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>OL</b> <span class="mdi mdi-circle ml-10"></span> On Leave</p>
-                        </v-col>
-                        <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>FWL</b> <span class="mdi mdi-circle ml-7"></span> Flexible Work Schedule</p>
-                        </v-col>
-                        <v-col cols="12" class="mt-n6">
-                          <p style="font-size:15px"> <b>NR</b> <span class="mdi mdi-circle ml-7"></span> NOT REQUIRED</p>
-                        </v-col>
-                      </v-card>
                       </v-col>
 
 
                     </v-row>
                   </v-container>
                 </v-card>
+
+
               </v-col>
 
 
@@ -313,14 +324,22 @@ src="/qr.png"
 </v-col> -->
 
               <v-col cols="12">
-
-                <v-card class='rounded-lg mt-n4'>
-<v-text-field append-inner-icon="mdi-magnify" v-model="search" variant="solo" density="compact" label="Search">
+                <v-text-field class="mt-n4" append-inner-icon="mdi-magnify" v-model="search" variant="solo" density="compact" label="Search">
 
 </v-text-field>
-                  <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
-                    class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n4" tile height="470">
-                    <template #bottom></template>
+                <v-card class='rounded-lg mt-n4  '>
+
+                  <v-data-table :search="search" :item-key="(item, index) => index" :items="employees" :headers="headers" :items-per-page="30"
+                    class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1" tile height="470">
+                    <!-- <template #bottom></template> -->
+                    <!-- <template v-slot:item.remarks="{ item }">
+  <div id="app" class="mt-n1">
+    <select v-if="!item.columns.time" v-model="item.columns.selectedRemarks" id="select-element">
+  <option v-for="remark in remarks">{{ remark }}</option>
+</select>
+</div>
+</template> -->
+
                     <template v-slot:item="{ item }">
 
                       <tr>
@@ -332,7 +351,21 @@ src="/qr.png"
 
                         <td >
 
-   <v-select :disabled="item.columns.timescanned || Pangalan.filter((item)=>item.Controlno == item.Controlno).remarks"  :items="optionsbai" variant="underlined"
+                          <!--  <div class="select-container">
+<select   v-if="!item.columns.timescanned" @change="saveremarks(item)" v-model="item.raw.Remarks" class="elementobai mt-n2 card " id="select-element">
+  <option value="DNP">DNP</option>
+  <option value="OB">OB</option>
+  <option value="OF">OF</option>
+  <option value="OL">OL</option>
+  <option value="FWS">FWS</option>
+  <option value="Late">Late</option>
+  <option value="PM Shift">PM Shift</option>
+  <option value=""></option>
+</select>
+</div>  -->
+
+
+   <v-select :disabled="item.columns.timescanned || Pangalan.filter((item)=>item.Controlno == item.Controlno).remarks"   :items="optionsbai" variant="underlined"
     density="compact" @update:menu="saveremarks(item)" v-model="item.columns.remarks"
     class=" mt-n2 card" id="select-element">
 
@@ -411,41 +444,31 @@ src="/qr.png"
 
 <script>
 import axios from 'axios'; // Import Axios library
-import { Html5QrcodeScanner } from "html5-qrcode";
-import { Html5Qrcode } from "html5-qrcode";
 import NavBarUser from "@/components/NavBarUser.vue";
-import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
-import { Html5QrcodeSupportedFormats } from "@/store/enums.js";
-import moment from 'moment';
 import { mapActions, mapGetters, mapState } from 'vuex';
-
+import QrScanner from 'qr-scanner';
+import moment from 'moment';
 
 
 export default {
 
   components: {
     NavBarUser,
-    HtmlQrCodes,
+
   },
-
-
 
   data() {
     return {
-      flashEnabled: false,
-      timeout:false,
       //RealDate: new Date().toISOString().substr(0, 10), // Real date value
       //RealTime: new Date().toTimeString().substr(0, 5), // Real time value
-      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'LATE', 'PM Shift', 'NR', '',],
-      notExceedDialog: false,
-      // selectedRemark: "",
-      statictime:'3:00 PM',
+      optionsbai: ['DNP', 'OB', 'OF', 'OL', 'FWS', 'Late', 'PM Shift', '',],
       staticRemarks:'INVALID QRCODES',
-
+      notExceedDialog: false,
+      Dialog_InvalidQR:false,
       Dialog_Present_Successfully:false,
+      // selectedRemark: "",
       passremark: false,
       dialogVisible: false,
-      Dialog_InvalidQR:false,
       showModal: false,
       showDialog: false,
       selectedOffice: "",
@@ -454,7 +477,6 @@ export default {
       currentTime: "",
       currentDate: "",
       ID: "",
-      search_invalidqr:"",
       Event_name: '',
       search: "",
       eventname: '',
@@ -467,9 +489,9 @@ export default {
       tempmessage: [],
       dataTable: [],
       message: [],
-      invalidQR:[],
       messagealreadyscan: [],
       transferredTimes: [],
+      invalidQR:[],
       mensahenibai: false,
       lastScannedTime: "",
       showMessage: false,
@@ -482,7 +504,6 @@ export default {
       formattedTime: "",
       status: "",
       office_id:'',
-      ServerKiniDatetime:'',
       userData: {
 
         office_id: '',
@@ -501,6 +522,20 @@ export default {
       //   { title: "Settings", icon: "mdi-clock" },
       //   { title: "Create Account", icon: "mdi-account", route: "/CreateAccount", },
       // ],
+      header_invalid_QR_Codes: [
+
+{
+
+key: "Controlno",
+sortable: false,
+title: "ID",
+align: ' d-none d-sm-table-cell',
+},
+{ key: "fullname", title: "Full Name", class: 'header-id', sortable: false },
+{ key: "actions", title: "Actions", sortable: false, },
+
+
+],
 
       headers: [
         {
@@ -517,53 +552,18 @@ export default {
 
       ],
 
-      sample_data:[
-
- { Controlno: 1, fullname: "John Doe" },
-        { Controlno: 2, fullname: "Jane Smith" },
-        { Controlno: 3, fullname: "Jane Soho" },
-        { Controlno: 4, fullname: "James Harden" },
-        { Controlno: 5, fullname: "Mader pader"},
-      ],
-
-      header_invalid_QR_Codes: [
-
-      {
-
-key: "Controlno",
-sortable: false,
-title: "ID",
-align: ' d-none d-sm-table-cell',
-},
-{ key: "fullname", title: "Full Name", class: 'header-id', sortable: false },
-{ key: "actions", title: "Actions", sortable: false, },
-
-
-      ]
-
     };
   },
 
   computed: {
-
-    formattedTimeServer() {
-      return this.formatTimeServer(this.ServerDateTime.time);
-    },
-
-    sortedItems_employees() {
-
-      // Sort the items array based on fullname
-      return this.Pangalan.slice().sort((a, b) => {
-        // Use localeCompare to sort strings alphabetically
-        return a.fullname.localeCompare(b.fullname);
-      });
-    },
-
-
     ...mapGetters('events', { Pangalan: ['getName'], Event: ['getEvent'] }),
     ...mapGetters('users', { fetechEmployees: ['getUsers'] }),
     ...mapGetters("office", { Offices: "getOffices" }),
     ...mapGetters("scaninsert", { ServerDateTime: "getServerDateTime" }),
+
+    formattedTimeServer() {
+      return this.formatTimeServer(this.ServerDateTime.time);
+    },
 
     ...mapState({
       employeeremarks: state => state.remarks,
@@ -588,7 +588,7 @@ align: ' d-none d-sm-table-cell',
     verifyremark(item) {
       // Check if there is data in the "remarks" field of any employee
       // return this.employees.some(employee => !!employee.remarks);
-      //console.log("item=", item)
+      console.log("item=", item)
       const original=this.Pangalan.filter((item)=>item.Controlno === item.Controlno)
       if(original.remarks){
         return true;
@@ -600,12 +600,9 @@ align: ' d-none d-sm-table-cell',
 
   created() {
 
-
-
     setInterval(() => {
       this.fetchServerDateTime()
-
-      this.RealDate = new Date().toISOString().substr(0, 10) // Real date value
+      this.RealDate = new Date().toISOString().substr(0, 10), // Real date value
         this.RealTime = new Date().toTimeString().substr(0, 5);
     }, 1000);
 
@@ -613,7 +610,7 @@ align: ' d-none d-sm-table-cell',
 
     //   this.fetchData();
     //   this.searchByOffice();
-    //   // //console.log("offices=",this.Offices);
+    //   // console.log("offices=",this.Offices);
     // })
     let data = new FormData;
     const adminrecords = JSON.parse(localStorage.getItem('user'))
@@ -644,7 +641,6 @@ align: ' d-none d-sm-table-cell',
 
 
     })
-
     // this.fetchUsers().then(rew=>{
     //   this.employees=this.fetechEmployees.filter(user => user.office_id === this.userData.office_id);
     // });
@@ -664,19 +660,11 @@ align: ' d-none d-sm-table-cell',
     ...mapActions('office', ['fetchOffices']),
     ...mapActions('scaninsert', ['saveallremarks']),
 
-
-    formatTimeServer(timeString) {
-      return moment(timeString, 'hh:mm:ss A').format('h:mm A');
-    },
-
-    toggleFlash() {
-      if (this.flashEnabled) {
-        this.html5QrCode.showTorchButtonIfSupported();
-      } else {
-        this.html5QrCode.toggleTorch();
-      }
-
-
+    Close_Dialog_Present_Successfully()
+    {
+      this.Dialog_InvalidQR = false
+      this.Dialog_Present_Successfully = false;
+      this.fetchOffices();
     },
 
 
@@ -749,21 +737,14 @@ align: ' d-none d-sm-table-cell',
 
     },
 
-    Close_Dialog_Present_Successfully()
-    {
-      this.Dialog_InvalidQR = false
-      this.Dialog_Present_Successfully = false;
-      this.fetchOffices();
-    },
-
-
     clicktoclose_invalidQRDialog()
     {
       this.fetchOffices();
       this.Dialog_InvalidQR = false;
     },
 
-        clickinvalidqr()
+
+    clickinvalidqr()
         {
 
           const dynamicDateTime = this.Event.Event_date + this.Event.Event_from;
@@ -798,16 +779,12 @@ align: ' d-none d-sm-table-cell',
 
 
       }
-
-      ////////////////////////////////////////////////
-
+    },
 
 
-
-
-        },
-
-
+formatTimeServer(timeString) {
+  return moment(timeString, 'hh:mm:ss A').format('h:mm A');
+},
 
     formattedTime_From(time) {
       const eventTime = new Date(`2000-01-01T${time}`);
@@ -847,8 +824,8 @@ align: ' d-none d-sm-table-cell',
     checkDateTime() {
       const dynamicDateTime = this.Event.Event_date + this.Event.Event_from;
       const RealDateTime = this.ServerDateTime.datetime;
-      console.log("Real Time", RealDateTime)
-      console.log("Event Date Time", dynamicDateTime)
+      console.log("Event Date/Time", RealDateTime)
+      console.log("Server Date/Time", dynamicDateTime)
       if (dynamicDateTime > RealDateTime) {
         this.notExceedDialog = true; // Show not exceed dialog if date and time do not exceed static values
 
@@ -881,24 +858,24 @@ align: ' d-none d-sm-table-cell',
     handleSelectClick() {
       // This method will be called when the <select> element is clicked
       // You can add your custom logic here
-      //console.log('Select element was clicked!');
+      console.log('Select element was clicked!');
     },
 
     handleSelectupdated() {
       // This method will be called when the <select> element is clicked
       // You can add your custom logic here
-      //console.log('Select element was Updated');
+      console.log('Select element was Updated');
     },
 
 
     searchByOffice() {
-      //console.log("offices=", this.Offices)
+      console.log("offices=", this.Offices)
       const id = parseInt(this.userData.office_id);
       const selectedItem = this.Offices.find(item =>
 
         item.id == id
       );
-      //console.log("id=" + id + " selecteditem=" + selectedItem);
+      console.log("id=" + id + " selecteditem=" + selectedItem);
       this.selectedOffice = selectedItem ? selectedItem.office : "";
     },
 
@@ -926,7 +903,7 @@ align: ' d-none d-sm-table-cell',
       );
     },
 
-    stopqrcodenibai() {
+   /*  stopqrcodenibai() {
       const html5QrCode = new Html5Qrcode("qr-code-full-region");
       html5QrCode.stop().then((ignore) => {
         // QR Code scanning is stopped.
@@ -934,35 +911,57 @@ align: ' d-none d-sm-table-cell',
       }).catch((err) => {
         // Stop failed, handle it.
       });
-    },
+    }, */
 
     // FOR QR CODE CREATE SCAN START
 
-   /*   creatScan_htmlfive() {
+    /*  creatScan_htmlfive() {
 
-      const config = { fps: 10, qrbox: 250 ,showTorchButtonIfSupported:true};
+      const config = { fps: 10, qrbox: 250 };
       const html5QrcodeScanner = new Html5QrcodeScanner(
         "qr-code-full-region",
         config
       );
       html5QrcodeScanner.render(this.onScanSuccess);
 
-    },
- */
-      creatScan_htmlfive() {
-        const html5QrCode = new Html5Qrcode("qr-code-full-region" ,  { formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE ]});
+    }, */
 
-    const config = { fps: 10, qrbox:   { width: 120, height: 120 }, showZoomSliderIfSupported:true ,showTorchButtonIfSupported:true };
+   /*    creatScan_htmlfive() {
+        const html5QrCode = new Html5Qrcode("qr-code-full-region");
+
+    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
     // If you want to prefer back camera
     html5QrCode.start({ facingMode: "environment" }, config, this.onScanSuccess);
 
-    // If you want to prefer front camera
-    // html5QrCode.start({ facingMode: "user" }, config, this.onScanSuccess);
+      }, */
 
-/*     html5QrCode.render(this.onScanSuccess); */
 
-      },
+      creatScan_htmlfive(){
+      this.video = this.$refs.video;
+    this.scanner = new QrScanner(this.video, this.onScanSuccess, {
+      highlightCodeOutline: true,
+      highlightScanRegion: true,
+        returnDetailedScanResult:true,
+    });
+
+    this.scanner.start().then(() => {
+    /*   this.updateFlashAvailability(); */
+      QrScanner.listCameras(true).then(cameras => {
+
+        cameras.forEach(camera => {
+          this.cameraOptions.push({"text":camera.label,"value":camera.id})
+
+        });
+           console.log("cameras=",this.cameraOptions);
+
+      });
+    });
+    QrScanner.hasCamera().then(hasCamera => this.camHasCamera = hasCamera);
+    },
+
+
+
 
     // FOR QR CODE CREATE SCAN END
 
@@ -1018,10 +1017,6 @@ align: ' d-none d-sm-table-cell',
   //     //console.log("Sample",sample)
   //     //console.log("id=",userid)
   //     //console.log("nem=",this.Pangalan)
-
-
-
-
       // if (hour >= 13) {
       //   ampm = "PM";
       //   if (hour > 13) {
@@ -1050,8 +1045,7 @@ align: ' d-none d-sm-table-cell',
 
       else {
 
-        this.showMessage = true;
-        this.mensahenibai = "Successfully Scanned";
+
         setTimeout(() => {
           this.showMessage = false;
           this.timeout=false
@@ -1180,7 +1174,7 @@ align: ' d-none d-sm-table-cell',
 
       this.registerScan(data)
           .then(() => {
-            //console.log('Registration All successful');
+            console.log('Registration All successful');
           })
           .catch(e => {
             console.error('Error during registration:', e.message);
@@ -1191,27 +1185,27 @@ align: ' d-none d-sm-table-cell',
     async saveAllData() {
       this.dialogVisible = true;
 
-      //console.log("selecteditems=", Object.values(this.selectedItems))
+      console.log("selecteditems=", Object.values(this.selectedItems))
       // const data= this.selectedItems;
       // data.append('data',this.selectedItems);
-      // //console.log("Data NI=",data);
+      // console.log("Data NI=",data);
       // const data = new FormData();
       // data.append('data',JSON.stringify(this.selectedItems));
       // this.employeeremarks=this.selectedItems;
-      // //console.log("employeeremarks=",this.employeeremarks);
+      // console.log("employeeremarks=",this.employeeremarks);
 
       // this.saveallremarks();
 
       let res = await axios.post(`/saveremarks.php`, Object.values(this.selectedItems));
-      //console.log("radsf", res.data)
+      console.log("radsf", res.data)
       this.selectedItems = [];
       this.passremark = true;
 
       let data = new FormData;
       const adminrecords = JSON.parse(localStorage.getItem('user'))
-      //console.log("ID=", adminrecords.office_id)
+      console.log("ID=", adminrecords.office_id)
 
-      //console.log("EventName=", this.$route.params.Event_name)
+      console.log("EventName=", this.$route.params.Event_name)
       data.append('event_id', localStorage.getItem('ID'))
 
       this.eventayde = localStorage.getItem("ID");
@@ -1221,7 +1215,7 @@ align: ' d-none d-sm-table-cell',
       this.fetchPangalan(data).then(res => {
         this.employees = this.Pangalan
         this.searchByOffice();
-        //console.log("employees=", this.employees)
+        console.log("employees=", this.employees)
       })
     },
 
@@ -1236,15 +1230,19 @@ align: ' d-none d-sm-table-cell',
       data.append('designation', this.designation);
       data.append('time', this.formattedTimeServer);
       data.append('remarks', this.selectedRemarks);
-    console.log("CLICK ME TO SAVE DATE TIME", this.formattedTimeServer)
+      console.log("CLICK ME TO SAVE DATE TIME", this.formattedTimeServer)
       this.registerScan(data)
         .then(() => {
-          //console.log('Registration successful');
+          this.showMessage = true;
+        this.mensahenibai = "Successfully Scanned";
+          console.log('Registration successful');
         })
         .catch(e => {
+          this.showMessage = true;
+        this.mensahenibai = "Successfully Scanned";
           console.error('Error during registration:', e.message);
         });
-     /*    //console.log("Kini daw ni ",res.data) */
+     /*    console.log("Kini daw ni ",res.data) */
     },
 
 
@@ -1257,13 +1255,14 @@ align: ' d-none d-sm-table-cell',
 
 
     name(decodedresult) {
+      console.log("type=",decodedresult)
       const regex = / - ([^-]+) -/;
-      const match = decodedresult.match(regex);
+      const match = decodedresult.data.match(regex);
       return match ? match[1].trim() : "";
     },
     id(decodedresult) {
       const regex = / - (\d+) /;
-      const match = decodedresult.match(regex);
+      const match = decodedresult.data.match(regex);
       return match ? match[1].trim() : "";
     },
 
@@ -1279,15 +1278,15 @@ align: ' d-none d-sm-table-cell',
       this.currentTime = `${formattedHours}:${this.padZero(minutes)}:${seconds} ${ampm}`;
     },
     saveremarks(item) {
-      //console.log("remarks=", item);
+      console.log("remarks=", item);
 
-      //console.log("selecteditems=", item.index);
+      console.log("selecteditems=", item.index);
 
       const existingItemIndex = this.selectedItems.findIndex(
         (selectedItem) =>
           selectedItem.value.Controlno === item.value.Controlno
       );
-      //console.log("Event ID BAI:", this.Event.ID);
+      console.log("Event ID BAI:", this.Event.ID);
       if (existingItemIndex !== -1) {
         // If an item with the same Controlno exists, update it
         this.selectedItems[existingItemIndex].value = { ...item.value };
@@ -1299,14 +1298,14 @@ align: ' d-none d-sm-table-cell',
           value: { ...item.value, Remarks: item.raw.Remarks, event_id: this.Event.ID },
           /*  value: { ...item.value, Remarks: item.raw.Remarks, Event_id: this.item.raw.eventayde }, */
         });
-        //console.log("Selected Items:", this.selectedItems);
+        console.log("Selected Items:", this.selectedItems);
       }
 
       // Include userData.office_id
       /*   const officeId = this.userData.office_id; */
-      // //console.log("office_id=", officeId);
+      // console.log("office_id=", officeId);
 
-      //console.log("new employees=", this.employees);
+      console.log("new employees=", this.employees);
 
     },
 
@@ -1321,11 +1320,11 @@ align: ' d-none d-sm-table-cell',
 
     editEvent(id) {
       // Handle edit event logic
-      //console.log("Edit Event:", id);
+      console.log("Edit Event:", id);
     },
     deleteEvent(id) {
       // Handle delete event logic
-      //console.log("Delete Event:", id);
+      console.log("Delete Event:", id);
     },
 
     navigateTo(path) {
@@ -1338,7 +1337,10 @@ align: ' d-none d-sm-table-cell',
 
   async mounted() {
 
+     // You might need to initialize the scanner in the mounted hook
 
+    // Other initialization or configuration steps might be needed
+    // Check the library documentation for details
 
     this.selected = 'BMW'
     setInterval(() => {

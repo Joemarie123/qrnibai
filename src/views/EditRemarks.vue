@@ -338,7 +338,7 @@ indeterminate
 
                   <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
                     class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n0" tile height="470">
-                    <template #bottom></template>
+                  <!--   <template #bottom></template> -->
                     <template v-slot:item="{ item }">
 
                       <tr>

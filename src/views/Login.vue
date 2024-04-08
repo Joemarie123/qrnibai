@@ -152,8 +152,6 @@ indeterminate
 
   {
 
-
-
 console.log("username=",this.usernamenako)
 console.log("password=",this.password)
     let data= new FormData;
@@ -172,8 +170,9 @@ console.log("password=",this.password)
                     });
                 } else {
                   if(e == 1){
-                    this.alertMessage='Email or Password is incorrect.'
+                    this.alertMessage='LOGIN AS ADMIN'
                     this.hideAlertAfterDelay();
+                    this.$router.push('/OfficeHomeEvents')
                   /*   this.$router.push('/HomeEvents') */
                   }
                     // this.navigateTo('/TestingForm');

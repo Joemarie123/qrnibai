@@ -1,39 +1,46 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col>
-          <v-card>
-            <v-card-text>
-              Formatted Time: {{ formattedTime }}
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+  <div>
+    <qr-scanner ref="scanner" @qr="onScan"></qr-scanner>
+    <div v-if="scannedText">Scanned Text: {{ scannedText }}</div>
+  </div>
 </template>
 
 <script>
-import moment from 'moment';
+import QrScanner from 'qr-scanner';
 
 export default {
+  name: 'QRScannerComponent',
   data() {
     return {
-      ServerDateTime: {
-        time: "09:04:58 AM" // Assuming this is the format
-      }
+      scannedText: null
     };
   },
-  computed: {
-    formattedTime() {
-      return this.formatTime(this.ServerDateTime.time);
-    }
+  mounted() {
+    this.initScanner();
   },
   methods: {
-    formatTime(timeString) {
-      return moment(timeString, 'hh:mm:ss A').format('h:mm A');
+    initScanner() {
+      const scannerElement = this.$refs.scanner.$el; // Accessing the underlying element
+      const scanner = new QrScanner(scannerElement);
+
+      scanner.start();
+
+      scanner.onScan(result => {
+        this.scannedText = this.decodeURIComponentSafe(result);
+      });
+    },
+    // A safe way to decode URI component
+    decodeURIComponentSafe(str) {
+      try {
+        return decodeURIComponent(str);
+      } catch (e) {
+        return str;
+      }
     }
   }
-};
+}
 </script>
+
+<style scoped>
+/* Add your styles here */
+</style>
