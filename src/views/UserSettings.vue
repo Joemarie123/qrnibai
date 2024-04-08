@@ -430,7 +430,7 @@ export default {
         } else {
           // Handle incorrect old password case here
           this.dialogpasswordnotmatch = true
-          //console.log('Incorrect old password');
+          ///// console.log('Incorrect old password');
         }
       })
       .catch(error => {
@@ -440,11 +440,11 @@ export default {
     },
     // updatePassword() {
     //   // Add your logic for updating password here
-    //   //console.log("Updated Password");
+    //   ///// console.log("Updated Password");
     // },
     closeForm() {
       // Add your logic for closing the form here
-      //console.log("Form Closed");
+      ///// console.log("Form Closed");
     },
 
     dialogforupdateclose()
@@ -484,10 +484,10 @@ export default {
   data.append("username", this.userData.username);
   data.append("oldpassword", this.oldPassword_edit);
   data.append("newpassword", this.newPassword_edit);
-  //console.log(data);
+  ///// console.log(data);
   try {
     const response = await axios.post('https://database.tagumcity.gov.ph/HRQR/usersettings.php', data);
-    //console.log("Response=", response.data);
+    ///// console.log("Response=", response.data);
 
     if (response.data.error) {
       this.errorMessage = response.data.user;

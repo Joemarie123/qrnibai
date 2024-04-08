@@ -7,7 +7,7 @@ const state = () => ({
 
 const getters = {
   getUsers(state) {
-    console.log("Get Users",state);
+    /// console.log("Get Users",state);
     return state.account;
   },
 
@@ -20,7 +20,7 @@ const getters = {
 const mutations = {
 
   setUsers(state, payload){
-    console.log("Set Users",payload);
+    /// console.log("Set Users",payload);
     state.account = payload;
   },
 
@@ -44,7 +44,7 @@ const actions = {
   async registerAccountUsers({commit}, payload){
     let res = await axios.post(`/new_user.php`,payload);
     commit('setUsers', res.data.user);
-    console.log("Add user",res.data)
+    /// console.log("Add user",res.data)
 
     if(res.data == "duplicate")
     {

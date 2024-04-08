@@ -395,7 +395,7 @@ export default {
 created(){
   // this.isLoading=true
   this.fetchUsers()
-  // .then((e)=>{this.isLoading=false}).catch((e)=>{console.log(e)})
+  // .then((e)=>{this.isLoading=false}).catch((e)=>{/// console.log(e)})
  /*  setTimeout(() => {
     this.fetchFullNames()
   }, 1000); */
@@ -503,7 +503,7 @@ created(){
 
       this.registerAccountUsers(data).then(e => {
         /*   this.navigateTo('/walup'); */
-        console.log("value of e=",e)
+        /// console.log("value of e=",e)
         if (e == 1){
           this.dialogduplicate = true;
         }else{
@@ -529,7 +529,7 @@ created(){
         }
 
 }
-).catch(e => console.log(e.message));
+).catch(e => /// console.log(e.message));
 
       }
 
@@ -547,7 +547,7 @@ try {
   // const response = await axios.get('http://10.0.1.23:80/PEESOCESPRO/users.php');
   // Handle the specific data format with "users" property
   if ( Array.isArray(this.Officeslist)) {
-    console.log("array------------",this.Officeslist);
+    /// console.log("array------------",this.Officeslist);
     this.officeData = this.Officeslist.map(user => {
 
       return {
@@ -567,7 +567,7 @@ try {
     });
 
     this.officeIDs = this.officeData.map(officeData => officeData.office).sort();
-    console.log("OFFICE LISSSTTT=",this.officeIDs);
+    /// console.log("OFFICE LISSSTTT=",this.officeIDs);
 
   } else {
     console.error('Invalid data format:', response.data);
@@ -582,7 +582,7 @@ try {
   // const response = await axios.get('http://10.0.1.23:80/PEESOCESPRO/users.php');
   // Handle the specific data format with "users" property
   if ( Array.isArray(this.userlist)) {
-    console.log("array------------");
+    /// console.log("array------------");
     this.namesData = this.userlist.map(user => {
 
       return {
@@ -634,7 +634,7 @@ updateSelectedInfo() {
 
     updateSelectedOffice() {
       const selectedNameData = this.officeData.find(officeData => officeData.office == this.selectedOffice);
-console.log("selectedNameDATA ID",this.selectedOffice)
+/// console.log("selectedNameDATA ID",this.selectedOffice)
 
       if (selectedNameData) {
         this.selectedOffice = selectedNameData.office;

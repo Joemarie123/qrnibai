@@ -21,7 +21,7 @@
 
 
  <v-col cols="12" sm="4" md="5" lg="4" xl="3">
-  <h3 class="colorfortext mt-n2" :style="{ color: 'green' }">CURRENT/UPCOMING EVENTS</h3>
+  <h3 class="colorfortext mt-n2" :style="{ color: 'green' }">PRINT NON-ATTENDANCE</h3>
 </v-col>
 
 <v-col class="mt-n4 ml-n0 ml-md-n16 ml-lg-n16 ml-xl-n16" cols="12"  sm="6"  md="6">
@@ -59,11 +59,11 @@
 <template v-slot:item.actions="{ item }">
 
 <button>
-<v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2 mt-n2">mdi-qrcode-scan</v-icon>
+<v-icon left color="success" @click="handleRowClick(item)"  class="white--text mx-2 mt-n2">mdi-printer</v-icon>
 <v-tooltip
         activator="parent"
         location="top"
-      >SCAN QR</v-tooltip>
+      >PRINT NON-ATTENDANCE</v-tooltip>
 </button>
 
 
@@ -119,7 +119,7 @@
     },
 
     computed: {
-    ...mapGetters("events", { homeevents: "getEvents" }),
+    ...mapGetters("events", { homeevents: "getUserEventsHistory" }),
 
 
   },
@@ -130,7 +130,7 @@
     const adminrecords = JSON.parse(localStorage.getItem('user'))
     data.append('office_id', adminrecords.office_id)
     this.eventayde = localStorage.getItem("ID");
-    this.fetchEvents(data)
+    this.fetchUserEventsHistory(data)
 
 /*     this.simulateLoading(() => {
 
@@ -142,7 +142,7 @@
 
 
     methods: {
-      ...mapActions('events', ['fetchEvents']),
+      ...mapActions('events', ['fetchUserEventsHistory']),
 
       simulateLoading() {
       const interval = 20; // Change this to control the speed of loading
@@ -178,7 +178,7 @@
       ///// console.log("users=", item.columns.ID);
     //   ///// console.log("EventName", row.item.raw.Event_name);
     localStorage.setItem('ID', item.columns.ID);
-    this.$router.push({ name: "QRCodesUser", params: { id: item.columns.ID }});
+    this.$router.push({ name: "PrintNonAttendance", params: { id: item.columns.ID }});
     },
 
 

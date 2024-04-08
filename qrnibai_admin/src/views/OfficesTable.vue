@@ -260,7 +260,7 @@
 
   created() {
     this.fetchOffices()
-   /*  console.log("Get OFFICE",this.fetchOffices) */
+   /*  /// console.log("Get OFFICE",this.fetchOffices) */
   },
 
   methods: {
@@ -274,7 +274,7 @@
 
       this.AddnewOffice(data).then(() => {
         /*   this.navigateTo('/walup'); */
-        }).catch(e => console.log(e.message));
+        }).catch(e => /// console.log(e.message));
 
         this.officename = '';
           this.dialogVisible = true;
@@ -284,11 +284,11 @@
 
     editEvent(id) {
       // Handle edit event logic
-      console.log("Edit Event:", id);
+      /// console.log("Edit Event:", id);
     },
     deleteEvent(id) {
       // Handle delete event logic
-      console.log("Delete Event:", id);
+      /// console.log("Delete Event:", id);
     },
 
     navigateTo(path) {
@@ -296,13 +296,13 @@
         },
 
       redirecttoHomeEventsViewList (item) {
-        console.log("item=",item.id)
+        /// console.log("item=",item.id)
       this.$router.push({ name: 'HomeEventsViewList', state: { id: item.id } })
       },
 
 
       redirecttoEventDetails (item) {
-        console.log("item=",item.id)
+        /// console.log("item=",item.id)
       this.$router.push({ name: 'EventDetails', state: { id: item.id } })
       },
 

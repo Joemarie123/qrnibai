@@ -649,10 +649,10 @@ methods: {
 
     Show_Dialog_Reset(item)
     {
-      console.log("ControlNo FOR Reset",item.raw.Controlno)
+      /// console.log("ControlNo FOR Reset",item.raw.Controlno)
         this.Dialog_Successfully_Reset = true
         this.Delete_Me_Reset_ControlNo = item.raw.Controlno
-        console.log("ControlNo FOR Reset",this.Delete_Me_Reset_ControlNo)
+        /// console.log("ControlNo FOR Reset",this.Delete_Me_Reset_ControlNo)
     },
 
     Reset_User()
@@ -667,15 +667,15 @@ methods: {
         this.search = ""
 
       }
-      ).catch(e => console.log(e.message));
+      ).catch(e => /// console.log(e.message));
     },
 
     Show_Dialog_Deleted(item)
     {
-      console.log("ControlNo FOR DELETE",item.raw.Controlno)
+      /// console.log("ControlNo FOR DELETE",item.raw.Controlno)
         this.Dialog_Successfully_Deleted = true
         this.Delete_Me_ControlNo = item.raw.Controlno
-        console.log("ControlNo FOR DELETE",this.Delete_Me_ControlNo)
+        /// console.log("ControlNo FOR DELETE",this.Delete_Me_ControlNo)
     },
 
     Delete_User_Activate()
@@ -689,7 +689,7 @@ methods: {
         this.fetchAccountUsers()
         this.search = ""
       }
-      ).catch(e => console.log(e.message));
+      ).catch(e => /// console.log(e.message));
     },
 
     Edit_account()
@@ -718,10 +718,10 @@ methods: {
            /*  this.accountlist() */
         }
 
-        console.log("value of e=",e)
+        /// console.log("value of e=",e)
 
       }
-      ).catch(e => console.log(e.message));
+      ).catch(e => /// console.log(e.message));
 
     },
 
@@ -730,7 +730,7 @@ methods: {
 
     updateSelectedOffice() {
       const selectedNameData = this.officeData.find(officeData => officeData.office == this.selectedOffice);
-console.log("selectedNameDATA ID",this.selectedOffice)
+/// console.log("selectedNameDATA ID",this.selectedOffice)
 
       if (selectedNameData) {
         /* this.selectedOffice = selectedNameData.office; */
@@ -746,7 +746,7 @@ console.log("selectedNameDATA ID",this.selectedOffice)
 try {
 
   if ( Array.isArray(this.Officeslist)) {
-    console.log("array------------",this.Officeslist);
+    /// console.log("array------------",this.Officeslist);
     this.officeData = this.Officeslist.map(user => {
 
       return {
@@ -762,7 +762,7 @@ try {
 
 
     this.officeIDs = this.officeData.map(officeData => officeData.office).sort();
-    console.log("OFFICE LISSSTTT=",this.officeIDs);
+    /// console.log("OFFICE LISSSTTT=",this.officeIDs);
 
 
   } else {
@@ -796,7 +796,7 @@ try {
     updateSelectedInfo() {
 
 const selectedNameData = this.namesData.find(nameData => nameData.fullname == this.selectedFullName);
-console.log("selectedNameDATA Edit_lastnameKini",this.selectedFullName)
+/// console.log("selectedNameDATA Edit_lastnameKini",this.selectedFullName)
 if (selectedNameData) {
 
 /*   this.Edit_Office_ID = selectedNameData.office; */
@@ -826,9 +826,9 @@ if (selectedNameData) {
 
     edit_User_Employee(item){
       this.Edit_PoUp = true
-      console.log("User Item",item)
+      /// console.log("User Item",item)
       this.Edit_loginID = item.raw.ID
-      console.log("LOGIN ID",this.Edit_loginID)
+      /// console.log("LOGIN ID",this.Edit_loginID)
       this.Edit_ControlNumber = item.raw.Controlno
       this.Edit_Office_ID = item.columns.office_id
       this.Edit_Username = item.columns.username
@@ -841,7 +841,7 @@ if (selectedNameData) {
 
       const selectedId = parseInt(this.Edit_Office_ID);
       const officeObject = this.Officeslist.find(item => item.id == selectedId);
-        console.log("Item ID", this.Officeslist)
+        /// console.log("Item ID", this.Officeslist)
 
       if (officeObject) {
         this.selectedOffice = officeObject.office;
@@ -858,7 +858,7 @@ try {
   // const response = await axios.get('http://10.0.1.23:80/PEESOCESPRO/users.php');
   // Handle the specific data format with "users" property
   if ( Array.isArray(this.userlist)) {
-    console.log("array------------");
+    /// console.log("array------------");
     this.namesData = this.userlist.map(user => {
 
       return {
@@ -886,11 +886,11 @@ try {
 
   editEvent(id) {
     // Handle edit event logic
-    console.log("Edit Event:", id);
+    /// console.log("Edit Event:", id);
   },
   deleteEvent(id) {
     // Handle delete event logic
-    console.log("Delete Event:", id);
+    /// console.log("Delete Event:", id);
   },
 
   navigateTo(path) {
@@ -898,13 +898,13 @@ try {
       },
 
     redirecttoHomeEventsViewList (item) {
-      console.log("item=",item.id)
+      /// console.log("item=",item.id)
     this.$router.push({ name: 'HomeEventsViewList', state: { id: item.id } })
     },
 
 
     redirecttoEventDetails (item) {
-      console.log("item=",item.id)
+      /// console.log("item=",item.id)
     this.$router.push({ name: 'EventDetails', state: { id: item.id } })
     },
 
@@ -912,7 +912,7 @@ try {
 },
 
 /* check() {
-    console.log("this.users=", this.events);
+    /// console.log("this.users=", this.events);
 
   },
  */

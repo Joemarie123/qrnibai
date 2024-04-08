@@ -330,8 +330,8 @@
         this.searchByOffice();
       }); */
       let data = new FormData;
-    // console.log("ID=", this.$route.params.id)
-    // console.log("EventName=", this.$route.params.Event_name)
+    // /// console.log("ID=", this.$route.params.id)
+    // /// console.log("EventName=", this.$route.params.Event_name)
     data.append('event_id', localStorage.getItem('ID'))
     /*   data.append('office_id', this.selectedOfficeID); */
     this.Admin_fetchPangalan(data);

@@ -831,8 +831,8 @@ checkMobile() {
     {
 
       if (this.isMobile) {
-      console.log('Clicked ITEM:', item);
-      console.log("CLICK ROW", row.item.columns.ID)
+      /// console.log('Clicked ITEM:', item);
+      /// console.log("CLICK ROW", row.item.columns.ID)
 
       localStorage.setItem('ID', row.item.columns.ID);
   localStorage.setItem('Event Name', row.item.columns.Event_name);
@@ -845,21 +845,21 @@ checkMobile() {
 
   edit_event_Employee(item)
   {
-    console.log("EVENT ID",item)
+    /// console.log("EVENT ID",item)
      /*
-      console.log("EVENT ID",item.columns.ID) */
+      /// console.log("EVENT ID",item.columns.ID) */
       this.transfer_EventID = item.columns.ID
       this.Edit_eventdate = item.props.value.Event_date
       this.Edit_eventname = item.columns.Event_name
       this.Edit_eventvue = item.columns.Event_venue
 
       this.CatchTime_From = item.props.value.Event_from
-  /*     console.log("EVENT Time FROm",item.columns.Event_from) */
+  /*     /// console.log("EVENT Time FROm",item.columns.Event_from) */
 
       this.convertertoTimeFrom()
 
       this.CatchTime_To = item.props.value.Event_to
-   /*    console.log("EVENT Time To",item.columns.Event_to) */
+   /*    /// console.log("EVENT Time To",item.columns.Event_to) */
       this.convertertoTimeTo()
 
 
@@ -877,7 +877,7 @@ checkMobile() {
   Show_Dialog_Successfully_Deleted(item)
   {
     this.Delete_id_Events = item.columns.ID
-    console.log("ID FOR DELETE",this.Delete_id_Events)
+    /// console.log("ID FOR DELETE",this.Delete_id_Events)
     this.Dialog_Successfully_Deleted = true
   },
 
@@ -965,11 +965,11 @@ handleResize() {
     },
 
 handleRowClick(item) {
-    // console.log("users=", item);
-    console.log("users=", item.columns.ID);
-    console.log("users=", item);
-    console.log("Eve Name", item.columns.Event_name);
-  //   console.log("EventName", row.item.raw.Event_name);
+    // /// console.log("users=", item);
+    /// console.log("users=", item.columns.ID);
+    /// console.log("users=", item);
+    /// console.log("Eve Name", item.columns.Event_name);
+  //   /// console.log("EventName", row.item.raw.Event_name);
   localStorage.setItem('ID', item.columns.ID);
   localStorage.setItem('Event Name', item.columns.Event_name);
    /*  this.$router.push({ name: "EventView2",  params: { id: item.columns.ID }}) */
@@ -978,9 +978,9 @@ handleRowClick(item) {
   },
 
   handleRowPrintClick(item){
-       // console.log("users=", item);
-       console.log("users=", item.columns.ID);
-      //   console.log("EventName", row.item.raw.Event_name);
+       // /// console.log("users=", item);
+       /// console.log("users=", item.columns.ID);
+      //   /// console.log("EventName", row.item.raw.Event_name);
       localStorage.setItem('ID', item.columns.ID);
       this.$router.push({ name: "EventDetails", params: { id: item.columns.ID }});
 
@@ -990,8 +990,8 @@ handleRowClick(item) {
 
 
 register() {
-    console.log("registerEvents",this.formattedTime_From);
-    console.log("registerEvents",this.formattedTime_To);
+    /// console.log("registerEvents",this.formattedTime_From);
+    /// console.log("registerEvents",this.formattedTime_To);
 
     let data = new FormData();
     data.append('event_name', this.eventname);
@@ -1004,7 +1004,7 @@ register() {
     this.registerEvents(data).then(() => {
       this.fetchEvents()
       /*   this.navigateTo('/walup'); */
-      }).catch(e => console.log(e.message));
+      }).catch(e => /// console.log(e.message));
 
       this.eventname = '';
       this.eventdate = '';
@@ -1047,11 +1047,11 @@ register() {
 
 editEvent(id) {
   // Handle edit event logic
-  console.log("Edit Event:", id);
+  /// console.log("Edit Event:", id);
 },
 deleteEvent(id) {
   // Handle delete event logic
-  console.log("Delete Event:", id);
+  /// console.log("Delete Event:", id);
 },
 
 navigateTo(path) {
@@ -1059,13 +1059,13 @@ navigateTo(path) {
     },
 
   redirecttoHomeEventsViewList (item) {
-    console.log("item=",item.id)
+    /// console.log("item=",item.id)
   this.$router.push({ name: 'HomeEventsViewList', state: { id: item.id } })
   },
 
 
   redirecttoEventDetails (item) {
-    console.log("item=",item.id)
+    /// console.log("item=",item.id)
   this.$router.push({ name: 'EventDetails', state: { id: item.id } })
   },
 
@@ -1096,7 +1096,7 @@ try {
     if (userData) {
       this.user = JSON.parse(userData);
     } else {
-      console.log("No user data found in local storage.");
+      /// console.log("No user data found in local storage.");
     }
   } catch (error) {
     console.error("Error parsing user data from local storage:", error);
@@ -1104,7 +1104,7 @@ try {
 }, */
 
 /* check() {
-  console.log("this.users=", this.events);
+  /// console.log("this.users=", this.events);
 },
 */
 

@@ -89,6 +89,7 @@
        items : [
                { icon: 'mdi-home', colorClass: 'icon-color' , text: 'HOME', route: '/OfficeHomeEvents' },
                { icon: 'mdi-account-group', colorClass: 'icon-color' , text: 'Employees Mngmt', route: '/EmployeeManagement' },
+               { icon: 'mdi-printer-3d', colorClass: 'icon-color' , text: 'Non-Attendance', route: '/NonAttendance' },
                { icon: 'mdi-cog-outline', colorClass: 'icon-color' , text: 'User Settings', route: '/UserSettings' },
                { icon: 'mdi-account-check', colorClass: 'icon-color' , text: 'Event History', route: '/EventHistory' },
               /*  { icon: 'mdi-account-star', text: 'Settings', route: '/Settings' },

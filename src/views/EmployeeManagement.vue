@@ -13,14 +13,54 @@
 
     <v-row class="mt-md-n2 mt-md-1 ">
 
-      <v-col cols="12" sm="3" md="2">
+      <v-col cols="12" sm="3" md="3" lg="2">
   <v-btn class=" ml-md-1 mt-1 mt-lg-n1 mt-sm-1 colorforbutton" color="success"    rounded  @click="openaddemployeedialog()" >ADD EMPLOYEES</v-btn>
   </v-col>
 
-  <v-col class="mt-lg-n1 mt-sm-2 mr-md-6 " cols="12" sm="6"  md="6">
+
+  <v-col class="mt-lg-n1 mt-sm-2 mr-md-6 " cols="12" sm="6"  md="3">
   <input v-model="search" class="textbox "  placeholder="Search Employee">
   </v-col>
 
+  <v-col cols="12" sm="3" md="2" >
+  <v-btn class=" ml-md-1 mt-1 mt-lg-n1 mt-sm-1 colorforbutton" color="success"    rounded  @click="setofficedialog = true" >SET OFFICE HEAD</v-btn>
+  </v-col>
+
+  <v-dialog  v-model="setofficedialog" persistent=""  max-width="300">
+  <v-card >
+    <v-row >
+      <button @click="setofficedialog = false" class="close-button "><strong>X</strong></button>
+      <v-col cols="12" class="mt-5">
+     <!--    <h1 v-if="selectedControlNo">Control Number: {{ selectedControlNo }}</h1> -->
+       <!-- <v-combobox label="Select Office" v-model="selectedoffice" :items="Opisdaw" class="mx-4" >
+
+       </v-combobox> -->
+
+       <v-combobox
+        prepend-inner-icon="mdi-account"
+        class="mx-2 mt-4"
+        density="compact"
+        variant="solo"
+          v-model="selectedofficeName"
+          :items="OfficeFullname_Array"
+          label="Select Office Head"
+
+
+        ></v-combobox>
+     <!--   <v-text-field label="office ID" v-model="officeaydebai">
+
+       </v-text-field> -->
+      </v-col>
+
+    </v-row>
+    <v-card-actions class="d-flex justify-center mt-n7">
+      <v-btn color="green"  @click="sendRequestAssignOffice()">Assign</v-btn>
+    </v-card-actions>
+
+
+
+  </v-card>
+</v-dialog>
 <v-dialog  v-model="add_employees_dialog" persistent  origin='center' max-width="1000" >
 
 <v-card>
@@ -178,10 +218,11 @@
 
   data() {
   return {
-
+    selectedofficeName:'',
+    OfficeFullname_Array:[],
     isLoading: false,
     loadingProgress: 0,
-
+    setofficedialog:false,
     add_employees_dialog:false,
     dialogforadded:false,
     deletecontrono:'',
@@ -334,7 +375,7 @@
  */
  let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
-    //console.log("ID=",adminrecords.office_id)
+    ///// console.log("ID=",adminrecords.office_id)
     this.userData.office_id = adminrecords.office_id
 
     data.append('office_id',adminrecords.office_id)
@@ -343,7 +384,7 @@
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
       this.fetchAdd_employees();
-      //console.log("employees=",this.employees)
+      ///// console.log("employees=",this.employees)
     })
 
     this.fetchAdd_employees(data).then(res=>{
@@ -368,6 +409,43 @@
   ...mapActions('office', ['fetchOffices']),
 
 /*   ...mapGetters('users', {empleyado: ['getEmpleyados']} ), */
+
+async fetchOfficesss() {
+try {
+  // const response = await axios.get('http://10.0.1.23:80/PEESOCESPRO/users.php');
+  // Handle the specific data format with "users" property
+  if ( Array.isArray(this.Pangalan)) {
+    /// console.log("array------------",this.Pangalan);
+    this.officeData = this.Pangalan.map(user => {
+
+      return {
+
+        fullname: user.fullname,
+        Controlno: user.Controlno,
+
+       /*  fullname: user.fullname,
+        lastname: user.lastname,
+        firstname: user.firstname,
+        middlename: user.middlename,
+        status: user.status,
+        designation: user.designation,
+        Controlno: user.Controlno, */
+      };
+
+    });
+
+    this.OfficeFullname_Array = this.officeData.map(officeData => officeData.fullname).sort();
+    /// console.log("PANGALAN=",this.OfficeFullname_Array);
+
+  } else {
+    console.error('Invalid data format:', response.data);
+  }
+} catch (error) {
+  console.error('Error fetching data:', error);
+}
+},
+
+
 
 simulateLoading() {
       const interval = 20; // Change this to control the speed of loading
@@ -418,7 +496,7 @@ simulateLoading() {
     {
       let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
-    //console.log("ID=",adminrecords.office_id)
+    ///// console.log("ID=",adminrecords.office_id)
     this.userData.office_id = adminrecords.office_id
 
     data.append('office_id',adminrecords.office_id)
@@ -428,7 +506,7 @@ simulateLoading() {
     this.fetchemployees(data).then(res=>{
       this.employees=this.Pangalan
       this.fetchAdd_employees();
-      //console.log("employees=",this.employees)
+      ///// console.log("employees=",this.employees)
     })
 
     this.fetchAdd_employees(data).then(res=>{
@@ -454,30 +532,30 @@ simulateLoading() {
     this.dialogforadded = true;
 
     for (let i = 0; i < this.selectedItems.length; i++) {
-      // //console.log("selecteditems=",this.selectedItems[i].value.Controlno)
+      // ///// console.log("selecteditems=",this.selectedItems[i].value.Controlno)
       this.saveEmployees.push({value:{controlno:this.selectedItems[i].value.Controlno,office_id:this.userData.office_id}});
     }
-    //console.log("selecteditems=",this.saveEmployees)
+    ///// console.log("selecteditems=",this.saveEmployees)
     // const data= this.selectedItems;
     // data.append('data',this.selectedItems);
-    // //console.log("Data NI=",data);
+    // ///// console.log("Data NI=",data);
     // const data = new FormData();
     // data.append('data',JSON.stringify(this.selectedItems));
     // this.employeeremarks=this.selectedItems;
-    // //console.log("employeeremarks=",this.employeeremarks);
+    // ///// console.log("employeeremarks=",this.employeeremarks);
 
     // this.saveallremarks();
 
     let res = await axios.post(`/addtooffice.php`, this.saveEmployees);
-      //console.log("radsf",res.data)
+      ///// console.log("radsf",res.data)
     /*   this.selectedItems = [];  */
       this.passremark=true;
 
       let data = new FormData;
   const adminrecords=JSON.parse(localStorage.getItem('user'))
-  //console.log("ID=",adminrecords.office_id)
+  ///// console.log("ID=",adminrecords.office_id)
 
-  //console.log("EventName=",this.$route.params.Event_name)
+  ///// console.log("EventName=",this.$route.params.Event_name)
   data.append('event_id', localStorage.getItem('ID'))
 
   this.eventayde = localStorage.getItem("ID");
@@ -507,7 +585,7 @@ simulateLoading() {
 
 
  /*    searchByOffice() {
-  //console.log("offices=",this.Offices)
+  ///// console.log("offices=",this.Offices)
     const id = parseInt(this.userData.office_id);
     const selectedItem = this.Offices.find(item =>
 
@@ -515,7 +593,7 @@ simulateLoading() {
     );
 
 
-    //console.log("id=" + id + " selecteditem=" + selectedItem);
+    ///// console.log("id=" + id + " selecteditem=" + selectedItem);
     this.selectedOffice = selectedItem ? selectedItem.office : "";
   },
  */
@@ -552,7 +630,7 @@ simulateLoading() {
     },
     async executeAction() {
       const controlno = this.deletecontrono;
-      //console.log('Controlno:', controlno);
+      ///// console.log('Controlno:', controlno);
       const formData = new FormData();
       formData.append('controlno', controlno);
 
@@ -561,7 +639,7 @@ simulateLoading() {
           method: 'POST',
           body: formData,
         });
-        //console.log('Response:', response);
+        ///// console.log('Response:', response);
 
         if (response.ok) {
           this.kinidaw()
@@ -607,7 +685,7 @@ simulateLoading() {
 
 
   async mounted() {
-
+    this.fetchOfficesss();
   },
 
   beforeUnmount() {

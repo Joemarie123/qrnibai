@@ -41,6 +41,12 @@ const routes = [
   },
 
   {
+    path: '/PrintNonAttendance',
+    name: 'PrintNonAttendance',
+    component: () => import('@/views/PrintNonAttendance.vue')
+  },
+
+  {
     path: '/NavBar',
     name: 'NavBar',
     component: () => import('@/components/NavBar.vue')
@@ -52,6 +58,11 @@ const routes = [
     component: () => import('@/components/NavBarUser.vue')
   },
 
+  {
+    path: '/NonAttendance',
+    name: 'NonAttendance',
+    component: () => import('@/views/NonAttendance.vue')
+  },
 
   {
     path: '/TestingNavbar',

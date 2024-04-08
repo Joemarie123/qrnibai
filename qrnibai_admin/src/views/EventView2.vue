@@ -395,7 +395,7 @@ export default {
     let data2 = new FormData;
     data2.append('event_id', localStorage.getItem('ID'))
     this.fetchAttendanceCount(data2);
-    console.log("Count Per OFFICE", this.attendancecountlist)
+    /// console.log("Count Per OFFICE", this.attendancecountlist)
 
 
     this.fetchOffices()
@@ -634,208 +634,208 @@ export default {
     },
 
     countDNP() {
-      // console.log('searchOfficeId:', this.selectedOfficeID);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.selectedOfficeID);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
 
       if (this.selectedOffices !== "All") {
-        console.log("countdnp")
+        /// console.log("countdnp")
         const filteredArray = this.eventAttendanceList.filter(
           (entry) => entry.office_id == this.selectedOfficeID
         );
 
-        // console.log('filteredArray:', filteredArray);
+        // /// console.log('filteredArray:', filteredArray);
 
         this.dnpCount = filteredArray.reduce(
           (count, entry) => (entry.remarks == "DNP" ? count + 1 : count),
           0
         );
 
-        // console.log('dnpCount:', this.dnpCount);
+        // /// console.log('dnpCount:', this.dnpCount);
       }
     },
 
     countOB() {
-      // console.log('searchOfficeId:', this.selectedOfficeID);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.selectedOfficeID);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
       if (this.selectedOffices !== "All") {
       const filteredArray = this.eventAttendanceList.filter(
         (entry) => entry.office_id == this.selectedOfficeID
       );
 
-      // console.log('filteredArray:', filteredArray);
+      // /// console.log('filteredArray:', filteredArray);
 
       this.obcount = filteredArray.reduce(
         (count, entry) => (entry.remarks == "OB" ? count + 1 : count),
         0
       );
       }
-      // console.log('obcount:', this.obcount);
+      // /// console.log('obcount:', this.obcount);
     },
 
     countof() {
-      // console.log('searchOfficeId:', this.selectedOfficeID);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.selectedOfficeID);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
       if (this.selectedOffices !== "All") {
       const filteredArray = this.eventAttendanceList.filter(
         (entry) => entry.office_id == this.selectedOfficeID
       );
 
-      // console.log('filteredArray:', filteredArray);
+      // /// console.log('filteredArray:', filteredArray);
 
       this.ofcount = filteredArray.reduce(
         (count, entry) => (entry.remarks == "OF" ? count + 1 : count),
         0
       );
       }
-      // console.log('ofcount:', this.ofcount);
+      // /// console.log('ofcount:', this.ofcount);
     },
 
 
     countfws() {
-      // console.log('searchOfficeId:', this.selectedOfficeID);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.selectedOfficeID);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
       if (this.selectedOffices !== "All") {
       const filteredArray = this.eventAttendanceList.filter(
         (entry) => entry.office_id == this.selectedOfficeID
       );
 
-      // console.log('filteredArray:', filteredArray);
+      // /// console.log('filteredArray:', filteredArray);
 
       this.fwscount = filteredArray.reduce(
         (count, entry) => (entry.remarks == "FWS" ? count + 1 : count),
         0
       );
       }
-      // console.log('ofcount:', this.ofcount);
+      // /// console.log('ofcount:', this.ofcount);
     },
 
     countols() {
-      // console.log('searchOfficeId:', this.selectedOfficeID);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.selectedOfficeID);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
       if (this.selectedOffices !== "All") {
       const filteredArray = this.eventAttendanceList.filter(
         (entry) => entry.office_id == this.selectedOfficeID
       );
 
-      // console.log('filteredArray:', filteredArray);
+      // /// console.log('filteredArray:', filteredArray);
 
       this.olscount = filteredArray.reduce(
         (count, entry) => (entry.remarks == "OL" ? count + 1 : count),
         0
       );
       }
-      // console.log('ofcount:', this.ofcount);
+      // /// console.log('ofcount:', this.ofcount);
     },
 
 
     countlate() {
-      // console.log('searchOfficeId:', this.selectedOfficeID);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.selectedOfficeID);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
       if (this.selectedOffices !== "All") {
       const filteredArray = this.eventAttendanceList.filter(
         (entry) => entry.office_id == this.selectedOfficeID
       );
 
-      // console.log('filteredArray:', filteredArray);
+      // /// console.log('filteredArray:', filteredArray);
 
       this.latecount = filteredArray.reduce(
         (count, entry) => (entry.remarks == "LATE" ? count + 1 : count),
         0
       );
       }
-      // console.log('ofcount:', this.ofcount);
+      // /// console.log('ofcount:', this.ofcount);
     },
 
 
 
     countDNP_All() {
-      // console.log('searchOfficeId:', this.searchOfficeId);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.searchOfficeId);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
       const dnpEntries = this.eventAttendanceList.filter(entry => entry.remarks == "DNP");
 
-      // console.log('dnpEntries:', dnpEntries);
+      // /// console.log('dnpEntries:', dnpEntries);
 
       // Count the total number of "DNP" entries
       this.dnpCount = dnpEntries.length;
 
-      // console.log('dnpCount:', this.dnpCount);
+      // /// console.log('dnpCount:', this.dnpCount);
     },
 
     countOB_All() {
-      // console.log('searchOfficeId:', this.searchOfficeId);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.searchOfficeId);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
       const obpEntries = this.eventAttendanceList.filter(entry => entry.remarks == "OB");
 
-      // console.log('dnpEntries:', obpEntries);
+      // /// console.log('dnpEntries:', obpEntries);
 
       // Count the total number of "DNP" entries
       this.obcount = obpEntries.length;
 
-      // console.log('OBCount:', this.obcount);
+      // /// console.log('OBCount:', this.obcount);
     },
 
     countOF_All() {
-      // console.log('searchOfficeId:', this.searchOfficeId);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.searchOfficeId);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
       const ofEntries = this.eventAttendanceList.filter(entry => entry.remarks == "OF");
 
-      // console.log('ofEntries:', ofEntries);
+      // /// console.log('ofEntries:', ofEntries);
 
       // Count the total number of "DNP" entries
       this.ofcount = ofEntries.length;
 
-      // console.log('OFCount:', this.ofcount);
+      // /// console.log('OFCount:', this.ofcount);
     },
 
     countFWS_All() {
-      // console.log('searchOfficeId:', this.searchOfficeId);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.searchOfficeId);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
       const FWSEntries = this.eventAttendanceList.filter(entry => entry.remarks == "FWS");
 
-      // console.log('FWSEntries:', FWSEntries);
+      // /// console.log('FWSEntries:', FWSEntries);
 
       // Count the total number of "DNP" entries
       this.fwscount = FWSEntries.length;
 
-      // console.log('FWSCount:', this.fwscount);
+      // /// console.log('FWSCount:', this.fwscount);
     },
 
     countOL_All() {
-      // console.log('searchOfficeId:', this.searchOfficeId);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.searchOfficeId);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
       const OLEntries = this.eventAttendanceList.filter(entry => entry.remarks == "OL");
 
-      // console.log('OLEntries:', OLEntries);
+      // /// console.log('OLEntries:', OLEntries);
 
       // Count the total number of "DNP" entries
       this.olscount = OLEntries.length;
 
-      // console.log('olCount:', this.olscount);
+      // /// console.log('olCount:', this.olscount);
     },
 
     countLate_All() {
-      // console.log('searchOfficeId:', this.searchOfficeId);
-      // console.log('eventAttendanceList:', this.eventAttendanceList);
+      // /// console.log('searchOfficeId:', this.searchOfficeId);
+      // /// console.log('eventAttendanceList:', this.eventAttendanceList);
 
       // Filter only "DNP" entries
       const LateEntries = this.eventAttendanceList.filter(entry => entry.remarks == "LATE");
 
-      // console.log('LateEntries:', LateEntries);
+      // /// console.log('LateEntries:', LateEntries);
 
       // Count the total number of "DNP" entries
       this.latecount = LateEntries.length;
 
-      // console.log('lateCount:', this.latecount);
+      // /// console.log('lateCount:', this.latecount);
     },
 
 
@@ -863,8 +863,8 @@ export default {
     clicknibai() {
       this.$watch('selectedOfficeID', (newVal, oldVal) => {
         let data = new FormData;
-        // console.log("ID=", this.$route.params.id)
-        // console.log("EventName=", this.$route.params.Event_name)
+        // /// console.log("ID=", this.$route.params.id)
+        // /// console.log("EventName=", this.$route.params.Event_name)
         data.append('event_id', localStorage.getItem('ID'))
         data.append('office_id', newVal);
         this.Admin_fetchPangalan(data);
@@ -882,7 +882,7 @@ export default {
 
       }
       else {
-        console.log("updateselected")
+        /// console.log("updateselected")
         this.selectedOfficeID = '';
         this.countDNP_All();
         this.countOB_All();
@@ -898,7 +898,7 @@ export default {
         // const response = await axios.get('http://10.0.1.23:80/PEESOCESPRO/users.php');
         // Handle the specific data format with "users" property
         if (Array.isArray(this.OfficeList)) {
-          // console.log("array------------");
+          // /// console.log("array------------");
           this.namesData = this.OfficeList.map(users => {
 
             return {
@@ -928,11 +928,11 @@ export default {
 
     // editEvent(id) {
     //   // Handle edit event logic
-    //   console.log("Edit Event:", id);
+    //   /// console.log("Edit Event:", id);
     // },
     // deleteEvent(id) {
     //   // Handle delete event logic
-    //   console.log("Delete Event:", id);
+    //   /// console.log("Delete Event:", id);
     // },
 
     // navigateTo(path) {
@@ -940,13 +940,13 @@ export default {
     // },
 
     // redirecttoHomeEventsViewList (item) {
-    //   console.log("item=",item.id)
+    //   /// console.log("item=",item.id)
     // this.$router.push({ name: 'HomeEventsViewList', state: { id: item.id } })
     // },
 
 
     // redirecttoEventDetails (item) {
-    //   console.log("item=",item.id)
+    //   /// console.log("item=",item.id)
     // this.$router.push({ name: 'EventDetails', state: { id: item.id } })
     // },
 

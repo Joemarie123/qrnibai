@@ -1,46 +1,26 @@
 <template>
   <div>
-    <qr-scanner ref="scanner" @qr="onScan"></qr-scanner>
-    <div v-if="scannedText">Scanned Text: {{ scannedText }}</div>
+    <h1>{{ officeName }}</h1>
   </div>
 </template>
 
 <script>
-import QrScanner from 'qr-scanner';
-
 export default {
-  name: 'QRScannerComponent',
   data() {
     return {
-      scannedText: null
+      OfficeName: [
+        { id: 1, officename: 'HRMO' },
+        { id: 2, officename: 'I.T' },
+        { id: 3, officename: 'Treasurer Office' }
+      ],
+      targetId: 1 // static value of ID you want to find
     };
   },
-  mounted() {
-    this.initScanner();
-  },
-  methods: {
-    initScanner() {
-      const scannerElement = this.$refs.scanner.$el; // Accessing the underlying element
-      const scanner = new QrScanner(scannerElement);
-
-      scanner.start();
-
-      scanner.onScan(result => {
-        this.scannedText = this.decodeURIComponentSafe(result);
-      });
-    },
-    // A safe way to decode URI component
-    decodeURIComponentSafe(str) {
-      try {
-        return decodeURIComponent(str);
-      } catch (e) {
-        return str;
-      }
+  computed: {
+    officeName() {
+      const office = this.OfficeName.find(office => office.id === this.targetId);
+      return office ? office.officename : 'Office not found';
     }
   }
-}
+};
 </script>
-
-<style scoped>
-/* Add your styles here */
-</style>

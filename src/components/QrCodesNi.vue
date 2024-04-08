@@ -139,7 +139,7 @@
          const formattedTime = `${formattedHour}:${formattedMinute} ${ampm}`;
 
 
-        /*  //console.log("obj",obj.decodedResult) */
+        /*  ///// console.log("obj",obj.decodedResult) */
         if(this.message.find(item => item.name === this.name(obj.decodedResult))){
 
          this.showMessage = true;
