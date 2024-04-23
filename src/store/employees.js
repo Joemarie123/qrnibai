@@ -6,6 +6,8 @@ const state = () => ({
   employees: [],
   add_employees:[],
   employee: {},
+  add_signatory:[],
+ /*  fetch_signatory:[], */
 
 })
 
@@ -16,14 +18,24 @@ const getters = {
   },
 
   getAdd_Employees(state) {
-   /*  //console.log("Get ADD Employees",state); */
+
     return state.add_employees;
   },
 
   getEmployee(state){
     return state.employee;
-  }
+  },
 
+  getAdd_Signatory(state)
+  {
+    return state.add_signatory;
+  },
+
+/*   getFetch_Signatory(state)
+  {
+    return state.fetch_signatory;
+  }
+ */
 
 }
 
@@ -36,9 +48,20 @@ const mutations = {
     state.add_employees = payload;
   },
 
+  setAddSignatory(state, payload)
+  {
+    state.add_signatory = payload;
+  },
+
+/*   setFetchSignatory(state, payload)
+  {
+    state.fetch_signatory = payload;
+  }, */
+
   setEmployee(state, payload){
     state.employee = payload;
   },
+
 
 
 }
@@ -54,6 +77,18 @@ const actions = {
     }
   },
    */
+/*   async Fetchsignatory({commit},payload){
+    let res = await axios.post(`/signatory.php`,payload);
+    commit('setFetchSignatory', res.data.signatory);
+    console.log("Signatory Display",res.data.signatory)
+  },
+ */
+
+  async Addsignatory({commit},payload){
+    let res = await axios.post(`/signatory.php`,payload);
+    commit('setAddSignatory', res.data.signatory);
+    console.log("Signatory",res.data.signatory)
+  },
 
   async fetchemployees({commit},payload){
     let res = await axios.post(`/officeemployees.php`,payload);

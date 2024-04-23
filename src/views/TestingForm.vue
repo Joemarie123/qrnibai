@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h1>{{ officeName }}</h1>
+   <!--  <h2>Signatories</h2>
+    <div v-for="item in signatory" :key="item.ID">
+      <p>ID: {{ item.ID }}</p>
+      <p>Office_id: {{ item.Office_id }}</p> -->
+      <!-- <p>Control Number: {{ foundSignatory.controlno }}</p> -->
+   <!--  </div> -->
   </div>
 </template>
 
@@ -8,19 +13,30 @@
 export default {
   data() {
     return {
-      OfficeName: [
-        { id: 1, officename: 'HRMO' },
-        { id: 2, officename: 'I.T' },
-        { id: 3, officename: 'Treasurer Office' }
-      ],
-      targetId: 1 // static value of ID you want to find
+      controlnoclone:'7',
+      foundSignatory:'',
+      signatory: [
+        {
+          ID: 2,
+          Office_id: 8,
+          controlno: "003041"
+        },
+        {
+          ID: 3,
+          Office_id: 7,
+          controlno: "125454"
+        }
+      ]
+
+
     };
+
   },
-  computed: {
-    officeName() {
-      const office = this.OfficeName.find(office => office.id === this.targetId);
-      return office ? office.officename : 'Office not found';
-    }
+  created() {
+
+    this.foundSignatory = this.signatory.find(item => item.Office_id == this.controlnoclone);
+    console.log("Control Number:", this.foundSignatory.controlno);
+
   }
 };
 </script>

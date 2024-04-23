@@ -11,6 +11,7 @@
 
   <v-container>
 
+
     <v-row class="mt-md-n2 mt-md-1 ">
 
       <v-col cols="12" sm="3" md="3" lg="2">
@@ -18,15 +19,20 @@
   </v-col>
 
 
-  <v-col class="mt-lg-n1 mt-sm-2 mr-md-6 " cols="12" sm="6"  md="3">
+  <v-col class="mt-lg-n1    mt-sm-2 mr-md-6 " cols="12" sm="6"  md="4" lg="3">
   <input v-model="search" class="textbox "  placeholder="Search Employee">
   </v-col>
 
-  <v-col cols="12" sm="3" md="2" >
+  <v-col cols="12" sm="3" md="2" lg="2" >
   <v-btn class=" ml-md-1 mt-1 mt-lg-n1 mt-sm-1 colorforbutton" color="success"    rounded  @click="setofficedialog = true" >SET OFFICE HEAD</v-btn>
   </v-col>
 
-  <v-dialog  v-model="setofficedialog" persistent=""  max-width="300">
+  <v-col cols="12" sm="6" md="4"  lg="4" >
+<p><b>{{foundfullname.fullname }}</b></p>
+
+  </v-col>
+
+  <v-dialog  v-model="setofficedialog" persistent=""  max-width="350">
   <v-card >
     <v-row >
       <button @click="setofficedialog = false" class="close-button "><strong>X</strong></button>
@@ -41,7 +47,7 @@
         class="mx-2 mt-4"
         density="compact"
         variant="solo"
-          v-model="selectedofficeName"
+          v-model="selectedsignatory"
           :items="OfficeFullname_Array"
           label="Select Office Head"
 
@@ -54,7 +60,7 @@
 
     </v-row>
     <v-card-actions class="d-flex justify-center mt-n7">
-      <v-btn color="green"  @click="sendRequestAssignOffice()">Assign</v-btn>
+      <v-btn color="green"  @click="savesignatory()">Assign</v-btn>
     </v-card-actions>
 
 
@@ -193,6 +199,25 @@
   </v-container>
   </div>
 
+  <v-dialog v-model="dialogsuccessfully" persistent max-width="300">
+    <v-card >
+      <v-row >
+        <v-col cols="10" class="mt-5">
+          <v-card-title class="headline">Successfully Updated</v-card-title>
+        </v-col>
+        <v-col cols="3" class="ml-n10">
+          <v-avatar class="my-5 image" size="50" >
+            <v-img src="/save.png" ></v-img>
+            </v-avatar>
+        </v-col>
+      </v-row>
+      <v-card-actions class="d-flex justify-center mt-n7">
+        <v-btn color="green" text @click="dialogsuccessfully = false">OK</v-btn>
+      </v-card-actions>
+
+    </v-card>
+  </v-dialog>
+
   </v-main>
   </v-layout>
   </v-card>
@@ -202,23 +227,24 @@
   <script>
 
   import NavBarUser from "@/components/NavBarUser.vue";
-  import HtmlQrCodes from "@/views/HtmlQrCodes.vue";
+/*   import HtmlQrCodes from "@/views/HtmlQrCodes.vue"; */
   import axios from 'axios';
 
   import { mapActions, mapGetters } from 'vuex';
-
-
 
   export default {
 
   components: {
     NavBarUser,
-    HtmlQrCodes,
+    /* HtmlQrCodes, */
   },
 
   data() {
   return {
-    selectedofficeName:'',
+    controlNumber: '',
+    selectedcontrolno:'',
+    dialogsuccessfully:false,
+    selectedsignatory:'',
     OfficeFullname_Array:[],
     isLoading: false,
     loadingProgress: 0,
@@ -256,6 +282,7 @@
       showMessage: false,
       employees:[],
       AddEmployees:[],
+      ThisFetchSignatory:[],
       saveEmployees:[],
       remarks:"",
       designation:"",
@@ -269,10 +296,11 @@
         office_id: '',
 
       },
+      foundSignatory:'',
       selectedRemarks: "",
       remarks: ['Absent','Late'],
 
-
+      foundfullname:'',
     createevents:false,
 
     items: [ /* Your data goes here */ ],
@@ -327,6 +355,8 @@
   computed: {
     ...mapGetters('employees', {Pangalan: ['getEmployees']} ),
     ...mapGetters('employees', {AddEmployeesbai: ['getAdd_Employees']} ),
+    ...mapGetters('employees', {AddSignatoryhead: ['getAdd_Signatory']} ),
+ /*    ...mapGetters('employees', {fetch_Signatory: ['setFetchSignatory']} ), */
 
 
     sortedItems() {
@@ -373,6 +403,14 @@
 
 })
  */
+
+
+     /*  this.dialogsuccessfully = true;
+      this.setofficedialog = false; */
+
+
+
+
  let data = new FormData;
     const adminrecords=JSON.parse(localStorage.getItem('user'))
     //console.log("ID=",adminrecords.office_id)
@@ -389,6 +427,7 @@
 
     this.fetchAdd_employees(data).then(res=>{
       this.AddEmployees=this.AddEmployeesbai
+     /*  console.log("Display SIgnatory=",this.AddEmployeesbai) */
       this.fetchAdd_employees();
        /*  this.searchByOffice(); */
     })
@@ -397,8 +436,30 @@
 }, );
 
 
+      let data2 = new FormData();
+      data2.append('office_id', this.userData.office_id);
+      data2.append('type', "display");
+      this.Addsignatory(data2).then(()  => {
+        this.foundSignatory = this.AddSignatoryhead.find(item => item.Office_id == this.userData.office_id);
+      console.log("Control Number:", this.foundSignatory.controlno);
+
+      console.log("Pangalan:", this.Pangalan);
+
+        this.foundfullname = this.Pangalan.find(item => item.Controlno == this.foundSignatory.controlno)
+        console.log("Found Head Fullname:", this.foundfullname.fullname);
+
+      }).catch(e => console.log(e.message));
+
+    /*   console.log("kini daw", this.AddEmployeesbai) */
+
+
+
   },
 
+  watch: {
+
+    selectedsignatory: 'updateSelectedSignatory', // Call updateSelectedInfo whenever selectedFullName changes
+  },
 
   methods: {
 /*  ...mapActions('events', ['fetchPangalan']),
@@ -407,8 +468,60 @@
   ...mapActions('employees', ['fetchemployees']),
   ...mapActions('employees', ['fetchAdd_employees']),
   ...mapActions('office', ['fetchOffices']),
+  ...mapActions('employees', ['Addsignatory']),
+/*   ...mapActions('employees', ['Fetchsignatory']), */
 
 /*   ...mapGetters('users', {empleyado: ['getEmpleyados']} ), */
+
+updateSelectedSignatory() {
+      const selectedNameData = this.officeData.find(officeData => officeData.fullname == this.selectedsignatory);
+     /*  console.log("Signatory ControlNo",this.selectedsignatory) */
+
+      if (selectedNameData) {
+    /*     this.selectedOffice = selectedNameData.fullname; */
+      /*   this.selectedFirstName = selectedFirstName.fullName; */
+        this.selectedcontrolno = selectedNameData.Controlno;
+      } else {
+        this.selectedcontrolno = '';
+      }
+      console.log("Signatory ControlNo",this.selectedcontrolno)
+    },
+
+
+
+savesignatory()
+    {
+      let data = new FormData();
+      data.append('office_id', this.userData.office_id);
+      data.append('controlno', this.selectedcontrolno);
+      data.append('type', "insert");
+
+      this.Addsignatory(data).then(() => {
+        /*   this.navigateTo('/walup'); */
+          let data2 = new FormData();
+      data2.append('office_id', this.userData.office_id);
+      data2.append('type', "display");
+      this.Addsignatory(data2).then(()  => {
+        this.foundSignatory = this.AddSignatoryhead.find(item => item.Office_id == this.userData.office_id);
+      console.log("Control Number:", this.foundSignatory.controlno);
+
+      console.log("Pangalan:", this.Pangalan);
+
+        this.foundfullname = this.Pangalan.find(item => item.Controlno == this.foundSignatory.controlno)
+        console.log("Found Head Fullname:", this.foundfullname.fullname);
+
+      }).catch(e => console.log(e.message));
+        }).catch(e => console.log(e.message));
+
+
+
+
+
+      this.dialogsuccessfully = true;
+      this.setofficedialog = false;
+
+    },
+
 
 async fetchOfficesss() {
 try {
@@ -906,7 +1019,7 @@ simulateLoading() {
   border: 1px solid #168904;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 310px;
+  width: 280px;
   height: 33px;
   }
 
