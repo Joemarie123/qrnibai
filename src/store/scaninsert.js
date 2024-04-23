@@ -38,7 +38,7 @@ const mutations = {
   },
 
   setServerDateTime(state,payload){
-    console.log("Set Server Date Time:",payload);
+    //console.log("Set Server Date Time:",payload);
          state.server_datetime = payload;
   },
 
@@ -62,7 +62,7 @@ const actions = {
 
     async fetchServerDateTime({commit}){
       let res = await axios.get(`/getdatetime.php`);
-       console.log("Get Server Date Time",res.data)
+      //  console.log("Get Server Date Time",res.data)
       commit('setServerDateTime', res.data);
 
     },

@@ -59,8 +59,25 @@
         <v-col cols="12" class="mt-4">
           <h4>NON-ATTENDANCE TO {{ uppercaseEventName  }}</h4>
         </v-col>
+        <v-row class="d-flex align-center justify-center">
+      <div v-if="isLoading" class=" my-10 "  >
+             <v-progress-circular
+
+      :size="70"
+      :width="7"
+      color="green"
+      indeterminate
+    ></v-progress-circular>
+
+             <div class="loading-text">Please Wait...</div>
+           </div>
+          </v-row>
       </v-container>
-      <v-container id="table-content">
+
+
+      <v-container v-if="!isLoading" id="table-content">
+
+
         <v-table>
           <v-data-table
             :headers="headers"
@@ -99,7 +116,10 @@
         </v-table>
       </v-container>
 
-      <div id="bottom-content">
+        <div id="bottom-content">
+
+
+      <div >
         <p class="" style="text-align: left">Noted:</p>
         <p class="text-justify font-italic pa-4">
           1. If there is a complete attendance to Flag Ceremony, kindly write
@@ -258,7 +278,7 @@
 
       <v-row>
         <v-col>
-          <div id="bottom-content">
+          <div >
             <p class="" style="text-align: left">Prepared by:</p>
             <p></p><br />
             <p class="text-justify" style="font-weight: bold;">{{ userData.firstname }} {{ userData.lastname }}</p>
@@ -268,16 +288,17 @@
           </div>
         </v-col>
         <v-col>
-          <div id="bottom-content">
+          <div >
             <p class="" style="text-align: left">Validated by:</p>
             <p></p><br />
-            <p class="text-justify" style="font-weight: bold;">Admin Name</p>
+            <p class="text-justify" style="font-weight: bold;">{{ foundfullname.fullname }}</p>
             <p class="text-justify" >Signature Over Printed Name</p>
-            <p class="text-justify">HRMO II</p>
+            <p class="text-justify">{{founddesignation.designation}}</p>
             <p></p>
           </div>
         </v-col>
       </v-row>
+    </div>
     </v-container>
   </div>
 </template>
@@ -286,6 +307,9 @@ import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
+      isLoading: false,
+          loadingProgress: 0,
+
       userData: {
        designation: '',
        firstname: '',
@@ -311,12 +335,12 @@ export default {
       totalCountRemarks:0,
 
       totalNonattendance:0,
-
+      founddesignation:'',
       itemsPerPage: 24,
 
       targetID:8,
-
-
+      foundSignatory:'',
+      foundfullname:'',
       headers: [
         {
           key: "id",
@@ -350,6 +374,8 @@ export default {
     ...mapGetters("events", { Pangalan: ["getName"], Event: ["getEvent"] }),
     ...mapGetters("users", { fetechEmployees: ["getUsers"] }),
     ...mapGetters("office", { Offices: "getOffices" }),
+    ...mapGetters("employees", { AddEmployeesbai: "getAdd_Employees" }),
+    ...mapGetters("employees", {AddSignatoryhead: ['getAdd_Signatory']} ),
 
     officeName() {
       const office = this.Offices.find(office => office.id == this.userData.office_id);
@@ -360,7 +386,7 @@ export default {
     },
 
     filteredItems() {
-      return this.employees.filter(item => item.remarks !== 'INVALID QRCODES' );
+      return this.employees.filter(item => item.remarks !== 'INVALID QRCODES' && item.remarks !== '' && item.remarks !== null  );
     },
 
     uppercaseEventName() {
@@ -421,12 +447,45 @@ export default {
     this.fetchPangalan(data).then((res) => {
       this.employees = this.Pangalan;
       /* this.searchByOffice(); */
+
       console.log("employees=", this.employees);
+
+      this.simulateLoading(() => {
+
+}, );
+
     });
+
+    this.fetchData();
+    let data2 = new FormData();
+      data2.append('office_id', this.userData.office_id);
+      console.log("office_id=>",this.userData.office_id)
+      data2.append('type', "display");
+      this.Addsignatory(data2).then(()  => {
+        console.log("Display Head:", this.AddSignatoryhead);
+        this.foundSignatory = this.AddSignatoryhead.find(item => item.Office_id == this.userData.office_id);
+     /*  console.log("Control Number:", this.foundSignatory.Controlno);
+      console.log("Pangalan:", this.Pangalan);
+   console.log("Display Head:", this.AddEmployeesbai);
+ */
+
+        this.foundfullname = this.Pangalan.find(item => item.Controlno == this.foundSignatory.controlno)
+        console.log("Found Head Fullname:", this.foundfullname.fullname);
+
+        this.founddesignation = this.Pangalan.find(item => item.Controlno == this.foundSignatory.controlno)
+        console.log("Found Head Fullname:", this.founddesignation.designation);
+
+      }).catch(e => console.log(e.message));
+/*     console.log("Display Head:", this.displayhead); */
+
+
   },
 
   mounted() {
-   this.fetchData();
+
+
+
+
   },
 
   methods: {
@@ -435,6 +494,37 @@ export default {
     ...mapActions("scaninsert", ["registerScan"]),
     ...mapActions("office", ["fetchOffices"]),
     ...mapActions("scaninsert", ["saveallremarks"]),
+    ...mapActions("employees", ["Addsignatory"]),
+
+    simulateLoading() {
+      const interval = 20; // Change this to control the speed of loading
+      const totalSteps = 50; // Adjust this based on the total number of steps you want
+      let currentStep = 0;
+
+      this.isLoading = true;
+
+      const loadingInterval = setInterval(() => {
+        currentStep++;
+        this.loadingProgress = (currentStep / totalSteps) * 100;
+
+        ////KINI TAWAGON AFTER SA TUYOK
+
+      //////////////////////////////////
+
+        if (currentStep >= totalSteps) {
+          if(this.employees.length >0){
+            clearInterval(loadingInterval);
+          this.isLoading = false;
+          this.loadingProgress = 0;
+ /*   this.fetchEventsHistory() */
+          }else{
+            currentStep=0
+          }
+
+        }
+      }, interval);
+    },
+
 
     fetchData() {
      const userDataJSON = localStorage.getItem('user');
@@ -516,6 +606,17 @@ export default {
 </script>
 
 <style scoped>
+#bottom-content {
+  /* position: fixed; */
+  bottom: 0;
+  left: 5;
+  right: 0;
+  margin: auto;
+  font-size: 16px;
+  text-align: center;
+  width: 90%; /* Adjust the width as needed */
+}
+
 table,
 td,
 th {
@@ -556,11 +657,22 @@ td {
     display: none;
   }
   .center1{
-    margin-top: -120px;
+    margin-top: -130px;
   }
 
   .center2{
     margin-top: -120px;
   }
+
+  #bottom-content {
+    position: fixed;
+    bottom: 0;
+    left: 1%;
+    width: 100%;
+    background-color: white; /* Adjust background color if necessary */
+    page-break-after: always;
+    z-index: 100;
+  }
+
 }
 </style>

@@ -77,9 +77,9 @@
 
 
  -->                  <div v-if="showMessage" class="alreadyscan">{{ mensahenibai }}</div>
-                      <video  ref="video" id="qr-video" class="responsive-video">
-
-                      </video>
+                     <!--  <video  ref="video" id="qr-video" class="responsive-video">
+                      </video> -->
+                      <StreamBarcodeReader @decode="onScanSuccess" @loaded="loaded"></StreamBarcodeReader>
 
 
                       <v-btn class="custom-btn colorfortext" @click="showDialog = false">Close</v-btn>
@@ -438,14 +438,15 @@ src="/qr.png"
 import axios from 'axios'; // Import Axios library
 import NavBarUser from "@/components/NavBarUser.vue";
 import { mapActions, mapGetters, mapState } from 'vuex';
-import QrScanner from 'qr-scanner';
+// import QrScanner from 'qr-scanner';
 import moment from 'moment';
-
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
 export default {
 
   components: {
     NavBarUser,
+    StreamBarcodeReader,
 
   },
 
@@ -581,7 +582,7 @@ align: ' d-none d-sm-table-cell',
     verifyremark(item) {
       // Check if there is data in the "remarks" field of any employee
       // return this.employees.some(employee => !!employee.remarks);
-      console.log("item=", item)
+    //  console.log("item=", item)
       const original=this.Pangalan.filter((item)=>item.Controlno === item.Controlno)
       if(original.remarks){
         return true;
@@ -754,8 +755,8 @@ align: ' d-none d-sm-table-cell',
 
           const dynamicDateTime = this.Event.Event_date + this.Event.Event_from;
       const RealDateTime = this.ServerDateTime.datetime;
-      console.log("Real Time", RealDateTime)
-      console.log("Event Date Time", dynamicDateTime)
+     // console.log("Real Time", RealDateTime)
+     // console.log("Event Date Time", dynamicDateTime)
       if (dynamicDateTime > RealDateTime) {
         this.notExceedDialog = true; // Show not exceed dialog if date and time do not exceed static values
 
@@ -829,8 +830,8 @@ formatTimeServer(timeString) {
     checkDateTime() {
       const dynamicDateTime = this.Event.Event_date + this.Event.Event_from;
       const RealDateTime = this.ServerDateTime.datetime;
-      console.log("Event Date/Time", RealDateTime)
-      console.log("Server Date/Time", dynamicDateTime)
+     // console.log("Event Date/Time", RealDateTime)
+    //  console.log("Server Date/Time", dynamicDateTime)
       if (dynamicDateTime > RealDateTime) {
         this.notExceedDialog = true; // Show not exceed dialog if date and time do not exceed static values
 
@@ -838,10 +839,10 @@ formatTimeServer(timeString) {
       else {
         this.showDialog = true;
 
-        setTimeout(() => {
+      /*   setTimeout(() => {
           this.creatScan_htmlfive();
-          // this.creatScan(1);
-        }, 500);
+
+        }, 500); */
       }
     },
 
@@ -849,10 +850,9 @@ formatTimeServer(timeString) {
     showScannerDialog() {
       this.showDialog = true;
 
-      setTimeout(() => {
+      /* setTimeout(() => {
         this.creatScan_htmlfive();
-        // this.creatScan(1);
-      }, 500);
+       }, 500); */
     },
 
     closeScannerDialog() {
@@ -863,24 +863,24 @@ formatTimeServer(timeString) {
     handleSelectClick() {
       // This method will be called when the <select> element is clicked
       // You can add your custom logic here
-      console.log('Select element was clicked!');
+    //  console.log('Select element was clicked!');
     },
 
     handleSelectupdated() {
       // This method will be called when the <select> element is clicked
       // You can add your custom logic here
-      console.log('Select element was Updated');
+    //  console.log('Select element was Updated');
     },
 
 
     searchByOffice() {
-      console.log("offices=", this.Offices)
+   //   console.log("offices=", this.Offices)
       const id = parseInt(this.userData.office_id);
       const selectedItem = this.Offices.find(item =>
 
         item.id == id
       );
-      console.log("id=" + id + " selecteditem=" + selectedItem);
+     // console.log("id=" + id + " selecteditem=" + selectedItem);
       this.selectedOffice = selectedItem ? selectedItem.office : "";
     },
 
@@ -942,7 +942,7 @@ formatTimeServer(timeString) {
       }, */
 
 
-      creatScan_htmlfive(){
+  /*     creatScan_htmlfive(){
       this.video = this.$refs.video;
     this.scanner = new QrScanner(this.video, this.onScanSuccess, {
       highlightCodeOutline: true,
@@ -951,7 +951,7 @@ formatTimeServer(timeString) {
     });
 
     this.scanner.start().then(() => {
-    /*   this.updateFlashAvailability(); */
+
       QrScanner.listCameras(true).then(cameras => {
 
         cameras.forEach(camera => {
@@ -963,7 +963,7 @@ formatTimeServer(timeString) {
       });
     });
     QrScanner.hasCamera().then(hasCamera => this.camHasCamera = hasCamera);
-    },
+    }, */
 
 
 
@@ -998,8 +998,11 @@ formatTimeServer(timeString) {
     //     });
     //   }
     // },
-
+loaded(){
+//console.log("loaded")
+},
     onScanSuccess(decodedResult) {
+
       if(this.timeout == true){
         return;
       }
@@ -1007,7 +1010,8 @@ formatTimeServer(timeString) {
 
       const obj = { decodedResult: decodedResult };
       const duplicate=this.message.find((item) => item.id == this.id(obj.decodedResult))?this.message.find((item) => item.id == this.id(obj.decodedResult)):''
-      //console.log("scan=",obj);
+     /*  console.log("scan=",obj.decodedResult);
+      console.log("decoded=",this.id(obj.decodedResult)) */
 
       /*      const currentTime = new Date().toLocaleTimeString(); */
       const timeValue = this.selectedTime;
@@ -1050,7 +1054,7 @@ formatTimeServer(timeString) {
 
       else {
 
-
+     //   console.log("nisukod sa else")
         setTimeout(() => {
           this.showMessage = false;
           this.timeout=false
@@ -1077,8 +1081,8 @@ formatTimeServer(timeString) {
           Remarks: remarksBAI,
 
         });
-
-        console.log("Server Current TIme",this.formattedTimeServer)
+       /*  console.log("decoded=",obj)
+        console.log("Server Current TIme",this.formattedTimeServer) */
 
         const formattedHour = hour.toString().padStart(2, "0");
         const formattedMinute = minute.toString().padStart(2, "0");
@@ -1190,27 +1194,27 @@ formatTimeServer(timeString) {
     async saveAllData() {
       this.dialogVisible = true;
 
-      console.log("selecteditems=", Object.values(this.selectedItems))
+   //   console.log("selecteditems=", Object.values(this.selectedItems))
       // const data= this.selectedItems;
       // data.append('data',this.selectedItems);
       // console.log("Data NI=",data);
       // const data = new FormData();
-      // data.append('data',JSON.stringify(this.selectedItems));
+      // data.append('data',JSON.stringify(this.selectedItems));disabled
       // this.employeeremarks=this.selectedItems;
       // console.log("employeeremarks=",this.employeeremarks);
 
       // this.saveallremarks();
 
       let res = await axios.post(`/saveremarks.php`, Object.values(this.selectedItems));
-      console.log("radsf", res.data)
+    //  console.log("radsf", res.data)
       this.selectedItems = [];
       this.passremark = true;
 
       let data = new FormData;
       const adminrecords = JSON.parse(localStorage.getItem('user'))
-      console.log("ID=", adminrecords.office_id)
+    //  console.log("ID=", adminrecords.office_id)
 
-      console.log("EventName=", this.$route.params.Event_name)
+    //  console.log("EventName=", this.$route.params.Event_name)
       data.append('event_id', localStorage.getItem('ID'))
 
       this.eventayde = localStorage.getItem("ID");
@@ -1220,7 +1224,7 @@ formatTimeServer(timeString) {
       this.fetchPangalan(data).then(res => {
         this.employees = this.Pangalan
         this.searchByOffice();
-        console.log("employees=", this.employees)
+     //   console.log("employees=", this.employees)
       })
     },
 
@@ -1240,12 +1244,12 @@ formatTimeServer(timeString) {
         .then(() => {
           this.showMessage = true;
         this.mensahenibai = "Successfully Scanned";
-          console.log('Registration successful');
+       //   console.log('Registration successful');
         })
         .catch(e => {
           this.showMessage = true;
         this.mensahenibai = "Successfully Scanned";
-          console.error('Error during registration:', e.message);
+     //     console.error('Error during registration:', e.message);
         });
      /*    console.log("Kini daw ni ",res.data) */
     },
@@ -1260,14 +1264,14 @@ formatTimeServer(timeString) {
 
 
     name(decodedresult) {
-      console.log("type=",decodedresult)
+   //   console.log("type=",decodedresult)
       const regex = / - ([^-]+) -/;
-      const match = decodedresult.data.match(regex);
+      const match = decodedresult.match(regex);
       return match ? match[1].trim() : "";
     },
     id(decodedresult) {
       const regex = / - (\d+) /;
-      const match = decodedresult.data.match(regex);
+      const match = decodedresult.match(regex);
       return match ? match[1].trim() : "";
     },
 
@@ -1283,15 +1287,15 @@ formatTimeServer(timeString) {
       this.currentTime = `${formattedHours}:${this.padZero(minutes)}:${seconds} ${ampm}`;
     },
     saveremarks(item) {
-      console.log("remarks=", item);
+     // console.log("remarks=", item);
 
-      console.log("selecteditems=", item.index);
+    //  console.log("selecteditems=", item.index);
 
       const existingItemIndex = this.selectedItems.findIndex(
         (selectedItem) =>
           selectedItem.value.Controlno === item.value.Controlno
       );
-      console.log("Event ID BAI:", this.Event.ID);
+    //  console.log("Event ID BAI:", this.Event.ID);
       if (existingItemIndex !== -1) {
         // If an item with the same Controlno exists, update it
         this.selectedItems[existingItemIndex].value = { ...item.value };
@@ -1303,14 +1307,14 @@ formatTimeServer(timeString) {
           value: { ...item.value, Remarks: item.raw.Remarks, event_id: this.Event.ID },
           /*  value: { ...item.value, Remarks: item.raw.Remarks, Event_id: this.item.raw.eventayde }, */
         });
-        console.log("Selected Items:", this.selectedItems);
+     //   console.log("Selected Items:", this.selectedItems);
       }
 
       // Include userData.office_id
       /*   const officeId = this.userData.office_id; */
       // console.log("office_id=", officeId);
 
-      console.log("new employees=", this.employees);
+   //   console.log("new employees=", this.employees);
 
     },
 
@@ -1325,11 +1329,11 @@ formatTimeServer(timeString) {
 
     editEvent(id) {
       // Handle edit event logic
-      console.log("Edit Event:", id);
+    //  console.log("Edit Event:", id);
     },
     deleteEvent(id) {
       // Handle delete event logic
-      console.log("Delete Event:", id);
+   //   console.log("Delete Event:", id);
     },
 
     navigateTo(path) {

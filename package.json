@@ -23,6 +23,7 @@
     "qrcode.vue": "^3.3.4",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
+    "vue-barcode-reader": "^1.0.3",
     "vue-bootstrap4-table": "^1.1.11",
     "vue-router": "^4.0.0",
     "vue3-easy-data-table": "^1.5.47",
