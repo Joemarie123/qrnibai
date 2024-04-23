@@ -101,7 +101,7 @@
     density="compact"
   >
 
-<template #bottom></template>
+<!-- <template #bottom></template> -->
     <template v-slot:item.actions="{ item }">
 
       <v-btn   class="mt-n2" density="compact" color="success" @click="assignToOffice(item.columns.controlno)" variant="outlined">

@@ -280,7 +280,7 @@ Submit
        class="my_class elevation-1"
        density="compact"
   >
-<template #bottom></template>
+<!-- <template #bottom></template> -->
   <template v-slot:item.actions="{ item }">
 
     <v-row>

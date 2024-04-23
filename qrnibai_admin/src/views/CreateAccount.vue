@@ -634,7 +634,7 @@ updateSelectedInfo() {
 
     updateSelectedOffice() {
       const selectedNameData = this.officeData.find(officeData => officeData.office == this.selectedOffice);
-console.log("selectedNameDATA ID",this.selectedOffice)
+      console.log("selectedNameDATA ID",this.selectedOffice)
 
       if (selectedNameData) {
         this.selectedOffice = selectedNameData.office;

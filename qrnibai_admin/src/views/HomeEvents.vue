@@ -439,7 +439,7 @@
     :hide-default-footer="true"
 
 >
-<template #bottom></template>
+<!-- <template #bottom></template> -->
 <template v-slot:item.actions="{ item }">
 
   <v-row>
