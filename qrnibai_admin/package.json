@@ -25,6 +25,7 @@
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-bootstrap4-table": "^1.1.11",
+    "vue-qrcode": "^2.2.2",
     "vue-router": "^4.0.0",
     "vue3-easy-data-table": "^1.5.47",
     "vue3-qrcode-reader": "^0.0.1",

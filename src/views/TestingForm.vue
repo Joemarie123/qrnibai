@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
 
 <!--     <h2>The decoded value in QR/barcode is</h2> -->
 
@@ -25,6 +26,14 @@
                     </v-card>
 
                   </v-dialog>
+=======
+   <!--  <h2>Signatories</h2>
+    <div v-for="item in signatory" :key="item.ID">
+      <p>ID: {{ item.ID }}</p>
+      <p>Office_id: {{ item.Office_id }}</p> -->
+      <!-- <p>Control Number: {{ foundSignatory.controlno }}</p> -->
+   <!--  </div> -->
+>>>>>>> 7fbfe08e482f308115079023a77d0e6a1c6812e1
   </div>
 </template>
 
@@ -38,6 +47,7 @@ export default {
 
   data() {
     return {
+<<<<<<< HEAD
       showDialog:false,
       decodedText:'',
     }
@@ -59,6 +69,32 @@ export default {
   } catch (error) {
     console.error("Error decoding:", error);
     // Handle the error appropriately
+=======
+      controlnoclone:'7',
+      foundSignatory:'',
+      signatory: [
+        {
+          ID: 2,
+          Office_id: 8,
+          controlno: "003041"
+        },
+        {
+          ID: 3,
+          Office_id: 7,
+          controlno: "125454"
+        }
+      ]
+
+
+    };
+
+  },
+  created() {
+
+    this.foundSignatory = this.signatory.find(item => item.Office_id == this.controlnoclone);
+    console.log("Control Number:", this.foundSignatory.controlno);
+
+>>>>>>> 7fbfe08e482f308115079023a77d0e6a1c6812e1
   }
 }
 
