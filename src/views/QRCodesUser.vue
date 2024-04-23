@@ -327,17 +327,11 @@ src="/qr.png"
                 <v-text-field v-if="isMobile" class="mt-n4" append-inner-icon="mdi-magnify" v-model="search" variant="solo" density="compact" label="Search">
 
 </v-text-field>
-<<<<<<< HEAD
                 <v-card class='rounded-lg mt-n4  '>
 
                   <v-data-table :search="search" :item-key="(item, index) => index" :items="employees" :headers="headers" :items-per-page="30"
                     class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1" tile height="405">
 
-=======
-                  <v-data-table :search="search" :item-key="(item, index) => index" :items="Pangalan" :headers="headers" :items-per-page="30"
-                    class="custom-height-table-mobile my_class td btn-hover color-1 elevation-1 mt-n4" tile height="470">
-                 <!--    <template #bottom></template> -->
->>>>>>> 1bf666ba20b62835da113d26338b4fd7ec47fc1f
                     <template v-slot:item="{ item }">
 
                       <tr>
@@ -672,20 +666,11 @@ align: ' d-none d-sm-table-cell',
       this.isMobile = window.innerWidth <= 600;
     },
 
-<<<<<<< HEAD
     Close_Dialog_Present_Successfully()
     {
       this.Dialog_InvalidQR = false
       this.Dialog_Present_Successfully = false;
       this.fetchOffices();
-=======
-    toggleFlash() {
-      if (this.flashEnabled) {
-        this.html5QrCode.showTorchButtonIfSupported();
-      } else {
-        this.html5QrCode.toggleTorch();
-      }
->>>>>>> 1bf666ba20b62835da113d26338b4fd7ec47fc1f
     },
 
 
@@ -800,14 +785,7 @@ align: ' d-none d-sm-table-cell',
 
 
       }
-<<<<<<< HEAD
     },
-=======
-
-      ////////////////////////////////////////////////
-
-        },
->>>>>>> 1bf666ba20b62835da113d26338b4fd7ec47fc1f
 
 
 formatTimeServer(timeString) {
@@ -1264,37 +1242,16 @@ loaded(){
       console.log("CLICK ME TO SAVE DATE TIME", this.formattedTimeServer)
       this.registerScan(data)
         .then(() => {
-<<<<<<< HEAD
           this.showMessage = true;
         this.mensahenibai = "Successfully Scanned";
-<<<<<<< HEAD
        //   console.log('Registration successful');
-=======
-          console.log('Registration successful');
-=======
-          //console.log('Registration successful');
-          this.showMessage = true;
-        this.mensahenibai = "Successfully Scanned";
->>>>>>> 1bf666ba20b62835da113d26338b4fd7ec47fc1f
->>>>>>> 7fbfe08e482f308115079023a77d0e6a1c6812e1
         })
         .catch(e => {
           this.showMessage = true;
         this.mensahenibai = "Successfully Scanned";
-<<<<<<< HEAD
      //     console.error('Error during registration:', e.message);
-=======
-          console.error('Error during registration:', e.message);
-          this.showMessage = true;
-        this.mensahenibai = "Cannot Save";
->>>>>>> 7fbfe08e482f308115079023a77d0e6a1c6812e1
         });
-<<<<<<< HEAD
      /*    console.log("Kini daw ni ",res.data) */
-=======
-     /*    //console.log("Kini daw ni ",res.data) */
-
->>>>>>> 1bf666ba20b62835da113d26338b4fd7ec47fc1f
     },
 
 
